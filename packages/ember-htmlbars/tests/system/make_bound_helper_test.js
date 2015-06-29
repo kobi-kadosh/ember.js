@@ -39,7 +39,7 @@ QUnit.test('should update bound helpers in a subexpression when properties chang
     view = EmberView.create({
       container: container,
       controller: { prop: 'isThing' },
-      template: compile('<div {{bind-attr data-foo=(x-dasherize prop)}}>{{prop}}</div>')
+      template: compile('<div data-foo="{{x-dasherize prop}}">{{prop}}</div>')
     });
   });
 
