@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\main.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\main.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">82.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">345</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">20.82</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">4.53</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-metal
+*/
+
+// BEGIN IMPORTS
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+var _emberMetalInstrumentation = require(&#039;ember-metal/instrumentation&#039;);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalCache = require(&#039;ember-metal/cache&#039;);
+
+var _emberMetalCache2 = _interopRequireDefault(_emberMetalCache);
+
+var _emberMetalLogger = require(&#039;ember-metal/logger&#039;);
+
+var _emberMetalLogger2 = _interopRequireDefault(_emberMetalLogger);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalEvents = require(&#039;ember-metal/events&#039;);
+
+var _emberMetalObserver_set = require(&#039;ember-metal/observer_set&#039;);
+
+var _emberMetalObserver_set2 = _interopRequireDefault(_emberMetalObserver_set);
+
+var _emberMetalProperty_events = require(&#039;ember-metal/property_events&#039;);
+
+var _emberMetalProperties = require(&#039;ember-metal/properties&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalMap = require(&#039;ember-metal/map&#039;);
+
+var _emberMetalGet_properties = require(&#039;ember-metal/get_properties&#039;);
+
+var _emberMetalGet_properties2 = _interopRequireDefault(_emberMetalGet_properties);
+
+var _emberMetalSet_properties = require(&#039;ember-metal/set_properties&#039;);
+
+var _emberMetalSet_properties2 = _interopRequireDefault(_emberMetalSet_properties);
+
+var _emberMetalWatch_key = require(&#039;ember-metal/watch_key&#039;);
+
+var _emberMetalChains = require(&#039;ember-metal/chains&#039;);
+
+var _emberMetalWatch_path = require(&#039;ember-metal/watch_path&#039;);
+
+var _emberMetalWatching = require(&#039;ember-metal/watching&#039;);
+
+var _emberMetalExpand_properties = require(&#039;ember-metal/expand_properties&#039;);
+
+var _emberMetalExpand_properties2 = _interopRequireDefault(_emberMetalExpand_properties);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalAlias = require(&#039;ember-metal/alias&#039;);
+
+var _emberMetalAlias2 = _interopRequireDefault(_emberMetalAlias);
+
+var _emberMetalComputed_macros = require(&#039;ember-metal/computed_macros&#039;);
+
+var _emberMetalObserver = require(&#039;ember-metal/observer&#039;);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberMetalBinding = require(&#039;ember-metal/binding&#039;);
+
+var _emberMetalRun_loop = require(&#039;ember-metal/run_loop&#039;);
+
+var _emberMetalRun_loop2 = _interopRequireDefault(_emberMetalRun_loop);
+
+var _emberMetalLibraries = require(&#039;ember-metal/libraries&#039;);
+
+var _emberMetalLibraries2 = _interopRequireDefault(_emberMetalLibraries);
+
+var _emberMetalIs_none = require(&#039;ember-metal/is_none&#039;);
+
+var _emberMetalIs_none2 = _interopRequireDefault(_emberMetalIs_none);
+
+var _emberMetalIs_empty = require(&#039;ember-metal/is_empty&#039;);
+
+var _emberMetalIs_empty2 = _interopRequireDefault(_emberMetalIs_empty);
+
+var _emberMetalIs_blank = require(&#039;ember-metal/is_blank&#039;);
+
+var _emberMetalIs_blank2 = _interopRequireDefault(_emberMetalIs_blank);
+
+var _emberMetalIs_present = require(&#039;ember-metal/is_present&#039;);
+
+var _emberMetalIs_present2 = _interopRequireDefault(_emberMetalIs_present);
+
+var _backburner = require(&#039;backburner&#039;);
+
+var _backburner2 = _interopRequireDefault(_backburner);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+var _emberMetalStreamsStream = require(&#039;ember-metal/streams/stream&#039;);
+
+var _emberMetalStreamsStream2 = _interopRequireDefault(_emberMetalStreamsStream);
+
+_emberMetalComputed.computed.empty = _emberMetalComputed_macros.empty;
+_emberMetalComputed.computed.notEmpty = _emberMetalComputed_macros.notEmpty;
+_emberMetalComputed.computed.none = _emberMetalComputed_macros.none;
+_emberMetalComputed.computed.not = _emberMetalComputed_macros.not;
+_emberMetalComputed.computed.bool = _emberMetalComputed_macros.bool;
+_emberMetalComputed.computed.match = _emberMetalComputed_macros.match;
+_emberMetalComputed.computed.equal = _emberMetalComputed_macros.equal;
+_emberMetalComputed.computed.gt = _emberMetalComputed_macros.gt;
+_emberMetalComputed.computed.gte = _emberMetalComputed_macros.gte;
+_emberMetalComputed.computed.lt = _emberMetalComputed_macros.lt;
+_emberMetalComputed.computed.lte = _emberMetalComputed_macros.lte;
+_emberMetalComputed.computed.alias = _emberMetalAlias2[&#039;default&#039;];
+_emberMetalComputed.computed.oneWay = _emberMetalComputed_macros.oneWay;
+_emberMetalComputed.computed.reads = _emberMetalComputed_macros.oneWay;
+_emberMetalComputed.computed.readOnly = _emberMetalComputed_macros.readOnly;
+_emberMetalComputed.computed.defaultTo = _emberMetalComputed_macros.defaultTo;
+_emberMetalComputed.computed.deprecatingAlias = _emberMetalComputed_macros.deprecatingAlias;
+_emberMetalComputed.computed.and = _emberMetalComputed_macros.and;
+_emberMetalComputed.computed.or = _emberMetalComputed_macros.or;
+_emberMetalComputed.computed.any = _emberMetalComputed_macros.any;
+_emberMetalComputed.computed.collect = _emberMetalComputed_macros.collect;
+
+// END IMPORTS
+
+// BEGIN EXPORTS
+var EmberInstrumentation = _emberMetalCore2[&#039;default&#039;].Instrumentation = {};
+EmberInstrumentation.instrument = _emberMetalInstrumentation.instrument;
+EmberInstrumentation.subscribe = _emberMetalInstrumentation.subscribe;
+EmberInstrumentation.unsubscribe = _emberMetalInstrumentation.unsubscribe;
+EmberInstrumentation.reset = _emberMetalInstrumentation.reset;
+
+_emberMetalCore2[&#039;default&#039;].instrument = _emberMetalInstrumentation.instrument;
+_emberMetalCore2[&#039;default&#039;].subscribe = _emberMetalInstrumentation.subscribe;
+
+_emberMetalCore2[&#039;default&#039;]._Cache = _emberMetalCache2[&#039;default&#039;];
+
+_emberMetalCore2[&#039;default&#039;].generateGuid = _emberMetalUtils.generateGuid;
+_emberMetalCore2[&#039;default&#039;].GUID_KEY = _emberMetalUtils.GUID_KEY;
+_emberMetalCore2[&#039;default&#039;].platform = {
+  defineProperty: true,
+  hasPropertyAccessors: true
+};
+
+_emberMetalCore2[&#039;default&#039;].Error = _emberMetalError2[&#039;default&#039;];
+_emberMetalCore2[&#039;default&#039;].guidFor = _emberMetalUtils.guidFor;
+_emberMetalCore2[&#039;default&#039;].META_DESC = _emberMetalUtils.META_DESC;
+_emberMetalCore2[&#039;default&#039;].EMPTY_META = _emberMetalUtils.EMPTY_META;
+_emberMetalCore2[&#039;default&#039;].meta = _emberMetalUtils.meta;
+_emberMetalCore2[&#039;default&#039;].getMeta = _emberMetalUtils.getMeta;
+_emberMetalCore2[&#039;default&#039;].setMeta = _emberMetalUtils.setMeta;
+_emberMetalCore2[&#039;default&#039;].metaPath = _emberMetalUtils.metaPath;
+_emberMetalCore2[&#039;default&#039;].inspect = _emberMetalUtils.inspect;
+_emberMetalCore2[&#039;default&#039;].tryCatchFinally = _emberMetalUtils.deprecatedTryCatchFinally;
+_emberMetalCore2[&#039;default&#039;].makeArray = _emberMetalUtils.makeArray;
+_emberMetalCore2[&#039;default&#039;].canInvoke = _emberMetalUtils.canInvoke;
+_emberMetalCore2[&#039;default&#039;].tryInvoke = _emberMetalUtils.tryInvoke;
+_emberMetalCore2[&#039;default&#039;].wrap = _emberMetalUtils.wrap;
+_emberMetalCore2[&#039;default&#039;].apply = _emberMetalUtils.apply;
+_emberMetalCore2[&#039;default&#039;].applyStr = _emberMetalUtils.applyStr;
+_emberMetalCore2[&#039;default&#039;].uuid = _emberMetalUtils.uuid;
+
+_emberMetalCore2[&#039;default&#039;].Logger = _emberMetalLogger2[&#039;default&#039;];
+
+_emberMetalCore2[&#039;default&#039;].get = _emberMetalProperty_get.get;
+_emberMetalCore2[&#039;default&#039;].getWithDefault = _emberMetalProperty_get.getWithDefault;
+_emberMetalCore2[&#039;default&#039;].normalizeTuple = _emberMetalProperty_get.normalizeTuple;
+_emberMetalCore2[&#039;default&#039;]._getPath = _emberMetalProperty_get._getPath;
+
+_emberMetalCore2[&#039;default&#039;].on = _emberMetalEvents.on;
+_emberMetalCore2[&#039;default&#039;].addListener = _emberMetalEvents.addListener;
+_emberMetalCore2[&#039;default&#039;].removeListener = _emberMetalEvents.removeListener;
+_emberMetalCore2[&#039;default&#039;]._suspendListener = _emberMetalEvents.suspendListener;
+_emberMetalCore2[&#039;default&#039;]._suspendListeners = _emberMetalEvents.suspendListeners;
+_emberMetalCore2[&#039;default&#039;].sendEvent = _emberMetalEvents.sendEvent;
+_emberMetalCore2[&#039;default&#039;].hasListeners = _emberMetalEvents.hasListeners;
+_emberMetalCore2[&#039;default&#039;].watchedEvents = _emberMetalEvents.watchedEvents;
+_emberMetalCore2[&#039;default&#039;].listenersFor = _emberMetalEvents.listenersFor;
+_emberMetalCore2[&#039;default&#039;].accumulateListeners = _emberMetalEvents.accumulateListeners;
+
+_emberMetalCore2[&#039;default&#039;]._ObserverSet = _emberMetalObserver_set2[&#039;default&#039;];
+
+_emberMetalCore2[&#039;default&#039;].propertyWillChange = _emberMetalProperty_events.propertyWillChange;
+_emberMetalCore2[&#039;default&#039;].propertyDidChange = _emberMetalProperty_events.propertyDidChange;
+_emberMetalCore2[&#039;default&#039;].overrideChains = _emberMetalProperty_events.overrideChains;
+_emberMetalCore2[&#039;default&#039;].beginPropertyChanges = _emberMetalProperty_events.beginPropertyChanges;
+_emberMetalCore2[&#039;default&#039;].endPropertyChanges = _emberMetalProperty_events.endPropertyChanges;
+_emberMetalCore2[&#039;default&#039;].changeProperties = _emberMetalProperty_events.changeProperties;
+
+_emberMetalCore2[&#039;default&#039;].defineProperty = _emberMetalProperties.defineProperty;
+
+_emberMetalCore2[&#039;default&#039;].set = _emberMetalProperty_set.set;
+_emberMetalCore2[&#039;default&#039;].trySet = _emberMetalProperty_set.trySet;
+
+_emberMetalCore2[&#039;default&#039;].OrderedSet = _emberMetalMap.OrderedSet;
+_emberMetalCore2[&#039;default&#039;].Map = _emberMetalMap.Map;
+_emberMetalCore2[&#039;default&#039;].MapWithDefault = _emberMetalMap.MapWithDefault;
+
+_emberMetalCore2[&#039;default&#039;].getProperties = _emberMetalGet_properties2[&#039;default&#039;];
+_emberMetalCore2[&#039;default&#039;].setProperties = _emberMetalSet_properties2[&#039;default&#039;];
+
+_emberMetalCore2[&#039;default&#039;].watchKey = _emberMetalWatch_key.watchKey;
+_emberMetalCore2[&#039;default&#039;].unwatchKey = _emberMetalWatch_key.unwatchKey;
+
+_emberMetalCore2[&#039;default&#039;].flushPendingChains = _emberMetalChains.flushPendingChains;
+_emberMetalCore2[&#039;default&#039;].removeChainWatcher = _emberMetalChains.removeChainWatcher;
+_emberMetalCore2[&#039;default&#039;]._ChainNode = _emberMetalChains.ChainNode;
+_emberMetalCore2[&#039;default&#039;].finishChains = _emberMetalChains.finishChains;
+
+_emberMetalCore2[&#039;default&#039;].watchPath = _emberMetalWatch_path.watchPath;
+_emberMetalCore2[&#039;default&#039;].unwatchPath = _emberMetalWatch_path.unwatchPath;
+
+_emberMetalCore2[&#039;default&#039;].watch = _emberMetalWatching.watch;
+_emberMetalCore2[&#039;default&#039;].isWatching = _emberMetalWatching.isWatching;
+_emberMetalCore2[&#039;default&#039;].unwatch = _emberMetalWatching.unwatch;
+_emberMetalCore2[&#039;default&#039;].rewatch = _emberMetalWatching.rewatch;
+_emberMetalCore2[&#039;default&#039;].destroy = _emberMetalWatching.destroy;
+
+_emberMetalCore2[&#039;default&#039;].expandProperties = _emberMetalExpand_properties2[&#039;default&#039;];
+
+_emberMetalCore2[&#039;default&#039;].ComputedProperty = _emberMetalComputed.ComputedProperty;
+_emberMetalCore2[&#039;default&#039;].computed = _emberMetalComputed.computed;
+_emberMetalCore2[&#039;default&#039;].cacheFor = _emberMetalComputed.cacheFor;
+
+_emberMetalCore2[&#039;default&#039;].addObserver = _emberMetalObserver.addObserver;
+_emberMetalCore2[&#039;default&#039;].observersFor = _emberMetalObserver.observersFor;
+_emberMetalCore2[&#039;default&#039;].removeObserver = _emberMetalObserver.removeObserver;
+_emberMetalCore2[&#039;default&#039;].addBeforeObserver = _emberMetalObserver.addBeforeObserver;
+_emberMetalCore2[&#039;default&#039;]._suspendBeforeObserver = _emberMetalObserver._suspendBeforeObserver;
+_emberMetalCore2[&#039;default&#039;]._suspendBeforeObservers = _emberMetalObserver._suspendBeforeObservers;
+_emberMetalCore2[&#039;default&#039;]._suspendObserver = _emberMetalObserver._suspendObserver;
+_emberMetalCore2[&#039;default&#039;]._suspendObservers = _emberMetalObserver._suspendObservers;
+_emberMetalCore2[&#039;default&#039;].beforeObserversFor = _emberMetalObserver.beforeObserversFor;
+_emberMetalCore2[&#039;default&#039;].removeBeforeObserver = _emberMetalObserver.removeBeforeObserver;
+
+_emberMetalCore2[&#039;default&#039;].IS_BINDING = _emberMetalMixin.IS_BINDING;
+_emberMetalCore2[&#039;default&#039;].required = _emberMetalMixin.required;
+_emberMetalCore2[&#039;default&#039;].aliasMethod = _emberMetalMixin.aliasMethod;
+_emberMetalCore2[&#039;default&#039;].observer = _emberMetalMixin.observer;
+_emberMetalCore2[&#039;default&#039;].immediateObserver = _emberMetalMixin.immediateObserver;
+_emberMetalCore2[&#039;default&#039;].beforeObserver = _emberMetalMixin.beforeObserver;
+_emberMetalCore2[&#039;default&#039;].mixin = _emberMetalMixin.mixin;
+_emberMetalCore2[&#039;default&#039;].Mixin = _emberMetalMixin.Mixin;
+
+_emberMetalCore2[&#039;default&#039;].oneWay = _emberMetalBinding.oneWay;
+_emberMetalCore2[&#039;default&#039;].bind = _emberMetalBinding.bind;
+_emberMetalCore2[&#039;default&#039;].Binding = _emberMetalBinding.Binding;
+_emberMetalCore2[&#039;default&#039;].isGlobalPath = _emberMetalBinding.isGlobalPath;
+
+_emberMetalCore2[&#039;default&#039;].run = _emberMetalRun_loop2[&#039;default&#039;];
+
+/**
+@class Backburner
+@for Ember
+@private
+*/
+_emberMetalCore2[&#039;default&#039;].Backburner = _backburner2[&#039;default&#039;];
+// this is the new go forward, once Ember Data updates to using `_Backburner` we
+// can remove the non-underscored version.
+_emberMetalCore2[&#039;default&#039;]._Backburner = _backburner2[&#039;default&#039;];
+
+_emberMetalCore2[&#039;default&#039;].libraries = new _emberMetalLibraries2[&#039;default&#039;]();
+_emberMetalCore2[&#039;default&#039;].libraries.registerCoreLibrary(&#039;Ember&#039;, _emberMetalCore2[&#039;default&#039;].VERSION);
+
+_emberMetalCore2[&#039;default&#039;].isNone = _emberMetalIs_none2[&#039;default&#039;];
+_emberMetalCore2[&#039;default&#039;].isEmpty = _emberMetalIs_empty2[&#039;default&#039;];
+_emberMetalCore2[&#039;default&#039;].isBlank = _emberMetalIs_blank2[&#039;default&#039;];
+_emberMetalCore2[&#039;default&#039;].isPresent = _emberMetalIs_present2[&#039;default&#039;];
+
+_emberMetalCore2[&#039;default&#039;].merge = _emberMetalMerge2[&#039;default&#039;];
+
+if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-metal-stream&#039;)) {
+  _emberMetalCore2[&#039;default&#039;].stream = {
+    Stream: _emberMetalStreamsStream2[&#039;default&#039;],
+
+    isStream: _emberMetalStreamsUtils.isStream,
+    subscribe: _emberMetalStreamsUtils.subscribe,
+    unsubscribe: _emberMetalStreamsUtils.unsubscribe,
+    read: _emberMetalStreamsUtils.read,
+    readHash: _emberMetalStreamsUtils.readHash,
+    readArray: _emberMetalStreamsUtils.readArray,
+    scanArray: _emberMetalStreamsUtils.scanArray,
+    scanHash: _emberMetalStreamsUtils.scanHash,
+    concat: _emberMetalStreamsUtils.concat,
+    chain: _emberMetalStreamsUtils.chain
+  };
+}
+
+_emberMetalCore2[&#039;default&#039;].FEATURES = _emberMetalFeatures.FEATURES;
+_emberMetalCore2[&#039;default&#039;].FEATURES.isEnabled = _emberMetalFeatures2[&#039;default&#039;];
+
+/**
+  A function may be assigned to `Ember.onerror` to be called when Ember
+  internals encounter an error. This is useful for specialized error handling
+  and reporting code.
+
+  ```javascript
+  Ember.onerror = function(error) {
+    Em.$.ajax(&#039;/report-error&#039;, &#039;POST&#039;, {
+      stack: error.stack,
+      otherInformation: &#039;whatever app state you want to provide&#039;
+    });
+  };
+  ```
+
+  Internally, `Ember.onerror` is used as Backburner&#039;s error handler.
+
+  @event onerror
+  @for Ember
+  @param {Exception} error the error object
+  @public
+*/
+_emberMetalCore2[&#039;default&#039;].onerror = null;
+// END EXPORTS
+
+// do this for side-effects of updating Ember.assert, warn, etc when
+// ember-debug is present
+if (_emberMetalCore2[&#039;default&#039;].__loader.registry[&#039;ember-debug&#039;]) {
+  requireModule(&#039;ember-debug&#039;);
+}
+
+_emberMetalCore2[&#039;default&#039;].create = _emberMetalCore2[&#039;default&#039;].deprecateFunc(&#039;Ember.create is deprecated in favor of Object.create&#039;, Object.create);
+_emberMetalCore2[&#039;default&#039;].keys = _emberMetalCore2[&#039;default&#039;].deprecateFunc(&#039;Ember.keys is deprecated in favor of Object.keys&#039;, Object.keys);
+
+exports[&#039;default&#039;] = _emberMetalCore2[&#039;default&#039;];
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

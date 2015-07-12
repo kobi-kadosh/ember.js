@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\hooks\link-render-node.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\hooks\link-render-node.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">64.35</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">133</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">43.55</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.06</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-htmlbars
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports[&#039;default&#039;] = linkRenderNode;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberHtmlbarsUtilsSubscribe = require(&#039;ember-htmlbars/utils/subscribe&#039;);
+
+var _emberHtmlbarsUtilsSubscribe2 = _interopRequireDefault(_emberHtmlbarsUtilsSubscribe);
+
+var _emberRuntimeUtils = require(&#039;ember-runtime/utils&#039;);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+var _emberHtmlbarsSystemLookupHelper = require(&#039;ember-htmlbars/system/lookup-helper&#039;);
+
+function linkRenderNode(renderNode, env, scope, path, params, hash) {
+  if (renderNode.streamUnsubscribers) {
+    return true;
+  }
+
+  var keyword = env.hooks.keywords[path];
+  var helper;
+  if (keyword &amp;&amp; keyword.link) {
+    keyword.link(renderNode.state, params, hash);
+  } else {
+    switch (path) {
+      case &#039;unbound&#039;:
+        return true;
+      case &#039;unless&#039;:
+      case &#039;if&#039;:
+        params[0] = shouldDisplay(params[0]);break;
+      case &#039;each&#039;:
+        params[0] = eachParam(params[0]);break;
+      default:
+        helper = (0, _emberHtmlbarsSystemLookupHelper.findHelper)(path, scope.view, env);
+
+        if (helper &amp;&amp; helper.isHandlebarsCompat &amp;&amp; params[0]) {
+          params[0] = processHandlebarsCompatDepKeys(params[0], helper._dependentKeys);
+        }
+    }
+  }
+
+  if (params &amp;&amp; params.length) {
+    for (var i = 0; i &lt; params.length; i++) {
+      (0, _emberHtmlbarsUtilsSubscribe2[&#039;default&#039;])(renderNode, env, scope, params[i]);
+    }
+  }
+
+  if (hash) {
+    for (var key in hash) {
+      (0, _emberHtmlbarsUtilsSubscribe2[&#039;default&#039;])(renderNode, env, scope, hash[key]);
+    }
+  }
+
+  // The params and hash can be reused; they don&#039;t need to be
+  // recomputed on subsequent re-renders because they are
+  // streams.
+  return true;
+}
+
+function eachParam(list) {
+  var listChange = getKey(list, &#039;[]&#039;);
+
+  var stream = (0, _emberMetalStreamsUtils.chain)(list, function () {
+    (0, _emberMetalStreamsUtils.read)(listChange);
+    return (0, _emberMetalStreamsUtils.read)(list);
+  }, &#039;each&#039;);
+
+  stream.addDependency(listChange);
+  return stream;
+}
+
+function shouldDisplay(predicate) {
+  var length = getKey(predicate, &#039;length&#039;);
+  var isTruthy = getKey(predicate, &#039;isTruthy&#039;);
+
+  var stream = (0, _emberMetalStreamsUtils.chain)(predicate, function () {
+    var predicateVal = (0, _emberMetalStreamsUtils.read)(predicate);
+    var lengthVal = (0, _emberMetalStreamsUtils.read)(length);
+    var isTruthyVal = (0, _emberMetalStreamsUtils.read)(isTruthy);
+
+    if ((0, _emberRuntimeUtils.isArray)(predicateVal)) {
+      return lengthVal &gt; 0;
+    }
+
+    if (typeof isTruthyVal === &#039;boolean&#039;) {
+      return isTruthyVal;
+    }
+
+    return !!predicateVal;
+  }, &#039;ShouldDisplay&#039;);
+
+  (0, _emberMetalStreamsUtils.addDependency)(stream, length);
+  (0, _emberMetalStreamsUtils.addDependency)(stream, isTruthy);
+
+  return stream;
+}
+
+function getKey(obj, key) {
+  if ((0, _emberMetalStreamsUtils.isStream)(obj)) {
+    return obj.getKey(key);
+  } else {
+    return obj &amp;&amp; obj[key];
+  }
+}
+
+function processHandlebarsCompatDepKeys(base, additionalKeys) {
+  if (!(0, _emberMetalStreamsUtils.isStream)(base) || additionalKeys.length === 0) {
+    return base;
+  }
+
+  var depKeyStreams = [];
+
+  var stream = (0, _emberMetalStreamsUtils.chain)(base, function () {
+    (0, _emberMetalStreamsUtils.readArray)(depKeyStreams);
+
+    return (0, _emberMetalStreamsUtils.read)(base);
+  }, &#039;HandlebarsCompatHelper&#039;);
+
+  for (var i = 0, l = additionalKeys.length; i &lt; l; i++) {
+    var depKeyStream = base.get(additionalKeys[i]);
+
+    depKeyStreams.push(depKeyStream);
+    stream.addDependency(depKeyStream);
+  }
+
+  return stream;
+}
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\system\event_dispatcher.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\system\event_dispatcher.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.66</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">275</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">29.83</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.86</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-views
+*/
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalIs_none = require(&#039;ember-metal/is_none&#039;);
+
+var _emberMetalIs_none2 = _interopRequireDefault(_emberMetalIs_none);
+
+var _emberMetalRun_loop = require(&#039;ember-metal/run_loop&#039;);
+
+var _emberMetalRun_loop2 = _interopRequireDefault(_emberMetalRun_loop);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberViewsSystemJquery = require(&#039;ember-views/system/jquery&#039;);
+
+var _emberViewsSystemJquery2 = _interopRequireDefault(_emberViewsSystemJquery);
+
+var _emberViewsSystemAction_manager = require(&#039;ember-views/system/action_manager&#039;);
+
+var _emberViewsSystemAction_manager2 = _interopRequireDefault(_emberViewsSystemAction_manager);
+
+var _emberViewsViewsView = require(&#039;ember-views/views/view&#039;);
+
+var _emberViewsViewsView2 = _interopRequireDefault(_emberViewsViewsView);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+/**
+  `Ember.EventDispatcher` handles delegating browser events to their
+  corresponding `Ember.Views.` For example, when you click on a view,
+  `Ember.EventDispatcher` ensures that that view&#039;s `mouseDown` method gets
+  called.
+
+  @class EventDispatcher
+  @namespace Ember
+  @private
+  @extends Ember.Object
+*/
+exports[&#039;default&#039;] = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+
+  /**
+    The set of events names (and associated handler function names) to be setup
+    and dispatched by the `EventDispatcher`. Custom events can added to this list at setup
+    time, generally via the `Ember.Application.customEvents` hash. Only override this
+    default set to prevent the EventDispatcher from listening on some events all together.
+      This set will be modified by `setup` to also include any events added at that time.
+      @property events
+    @type Object
+    @private
+  */
+  events: {
+    touchstart: &#039;touchStart&#039;,
+    touchmove: &#039;touchMove&#039;,
+    touchend: &#039;touchEnd&#039;,
+    touchcancel: &#039;touchCancel&#039;,
+    keydown: &#039;keyDown&#039;,
+    keyup: &#039;keyUp&#039;,
+    keypress: &#039;keyPress&#039;,
+    mousedown: &#039;mouseDown&#039;,
+    mouseup: &#039;mouseUp&#039;,
+    contextmenu: &#039;contextMenu&#039;,
+    click: &#039;click&#039;,
+    dblclick: &#039;doubleClick&#039;,
+    mousemove: &#039;mouseMove&#039;,
+    focusin: &#039;focusIn&#039;,
+    focusout: &#039;focusOut&#039;,
+    mouseenter: &#039;mouseEnter&#039;,
+    mouseleave: &#039;mouseLeave&#039;,
+    submit: &#039;submit&#039;,
+    input: &#039;input&#039;,
+    change: &#039;change&#039;,
+    dragstart: &#039;dragStart&#039;,
+    drag: &#039;drag&#039;,
+    dragenter: &#039;dragEnter&#039;,
+    dragleave: &#039;dragLeave&#039;,
+    dragover: &#039;dragOver&#039;,
+    drop: &#039;drop&#039;,
+    dragend: &#039;dragEnd&#039;
+  },
+
+  /**
+    The root DOM element to which event listeners should be attached. Event
+    listeners will be attached to the document unless this is overridden.
+      Can be specified as a DOMElement or a selector string.
+      The default body is a string since this may be evaluated before document.body
+    exists in the DOM.
+      @private
+    @property rootElement
+    @type DOMElement
+    @default &#039;body&#039;
+  */
+  rootElement: &#039;body&#039;,
+
+  /**
+    It enables events to be dispatched to the view&#039;s `eventManager.` When present,
+    this object takes precedence over handling of events on the view itself.
+      Note that most Ember applications do not use this feature. If your app also
+    does not use it, consider setting this property to false to gain some performance
+    improvement by allowing the EventDispatcher to skip the search for the
+    `eventManager` on the view tree.
+      ```javascript
+    var EventDispatcher = Em.EventDispatcher.extend({
+      events: {
+          click       : &#039;click&#039;,
+          focusin     : &#039;focusIn&#039;,
+          focusout    : &#039;focusOut&#039;,
+          change      : &#039;change&#039;
+      },
+      canDispatchToEventManager: false
+    });
+    container.register(&#039;event_dispatcher:main&#039;, EventDispatcher);
+    ```
+      @property canDispatchToEventManager
+    @type boolean
+    @default &#039;true&#039;
+    @since 1.7.0
+    @private
+  */
+  canDispatchToEventManager: true,
+
+  /**
+    Sets up event listeners for standard browser events.
+      This will be called after the browser sends a `DOMContentReady` event. By
+    default, it will set up all of the listeners on the document body. If you
+    would like to register the listeners on a different element, set the event
+    dispatcher&#039;s `root` property.
+      @private
+    @method setup
+    @param addedEvents {Object}
+  */
+  setup: function setup(addedEvents, rootElement) {
+    var event;
+    var events = (0, _emberMetalProperty_get.get)(this, &#039;events&#039;);
+
+    (0, _emberMetalMerge2[&#039;default&#039;])(events, addedEvents || {});
+
+    if (!(0, _emberMetalIs_none2[&#039;default&#039;])(rootElement)) {
+      (0, _emberMetalProperty_set.set)(this, &#039;rootElement&#039;, rootElement);
+    }
+
+    rootElement = (0, _emberViewsSystemJquery2[&#039;default&#039;])((0, _emberMetalProperty_get.get)(this, &#039;rootElement&#039;));
+
+    _emberMetalCore2[&#039;default&#039;].assert((0, _emberRuntimeSystemString.fmt)(&#039;You cannot use the same root element (%@) multiple times in an Ember.Application&#039;, [rootElement.selector || rootElement[0].tagName]), !rootElement.is(&#039;.ember-application&#039;));
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;You cannot make a new Ember.Application using a root element that is a descendent of an existing Ember.Application&#039;, !rootElement.closest(&#039;.ember-application&#039;).length);
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;You cannot make a new Ember.Application using a root element that is an ancestor of an existing Ember.Application&#039;, !rootElement.find(&#039;.ember-application&#039;).length);
+
+    rootElement.addClass(&#039;ember-application&#039;);
+
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Unable to add &quot;ember-application&quot; class to rootElement. Make sure you set rootElement to the body or an element in the body.&#039;, rootElement.is(&#039;.ember-application&#039;));
+
+    for (event in events) {
+      if (events.hasOwnProperty(event)) {
+        this.setupHandler(rootElement, event, events[event]);
+      }
+    }
+  },
+
+  /**
+    Registers an event listener on the rootElement. If the given event is
+    triggered, the provided event handler will be triggered on the target view.
+      If the target view does not implement the event handler, or if the handler
+    returns `false`, the parent view will be called. The event will continue to
+    bubble to each successive parent view until it reaches the top.
+      @private
+    @method setupHandler
+    @param {Element} rootElement
+    @param {String} event the browser-originated event to listen to
+    @param {String} eventName the name of the method to call on the view
+  */
+  setupHandler: function setupHandler(rootElement, event, eventName) {
+    var self = this;
+    var viewRegistry = this.container &amp;&amp; this.container.lookup(&#039;-view-registry:main&#039;) || _emberViewsViewsView2[&#039;default&#039;].views;
+
+    rootElement.on(event + &#039;.ember&#039;, &#039;.ember-view&#039;, function (evt, triggeringManager) {
+      var view = viewRegistry[this.id];
+      var result = true;
+
+      var manager = self.canDispatchToEventManager ? self._findNearestEventManager(view, eventName) : null;
+
+      if (manager &amp;&amp; manager !== triggeringManager) {
+        result = self._dispatchEvent(manager, evt, eventName, view);
+      } else if (view) {
+        result = self._bubbleEvent(view, evt, eventName);
+      }
+
+      return result;
+    });
+
+    rootElement.on(event + &#039;.ember&#039;, &#039;[data-ember-action]&#039;, function (evt) {
+      var actionId = (0, _emberViewsSystemJquery2[&#039;default&#039;])(evt.currentTarget).attr(&#039;data-ember-action&#039;);
+      var actions = _emberViewsSystemAction_manager2[&#039;default&#039;].registeredActions[actionId];
+
+      // We have to check for actions here since in some cases, jQuery will trigger
+      // an event on `removeChild` (i.e. focusout) after we&#039;ve already torn down the
+      // action handlers for the view.
+      if (!actions) {
+        return;
+      }
+
+      for (var index = 0, _length = actions.length; index &lt; _length; index++) {
+        var action = actions[index];
+
+        if (action &amp;&amp; action.eventName === eventName) {
+          return action.handler(evt);
+        }
+      }
+    });
+  },
+
+  _findNearestEventManager: function _findNearestEventManager(view, eventName) {
+    var manager = null;
+
+    while (view) {
+      manager = (0, _emberMetalProperty_get.get)(view, &#039;eventManager&#039;);
+      if (manager &amp;&amp; manager[eventName]) {
+        break;
+      }
+
+      view = (0, _emberMetalProperty_get.get)(view, &#039;parentView&#039;);
+    }
+
+    return manager;
+  },
+
+  _dispatchEvent: function _dispatchEvent(object, evt, eventName, view) {
+    var result = true;
+
+    var handler = object[eventName];
+    if (typeof handler === &#039;function&#039;) {
+      result = (0, _emberMetalRun_loop2[&#039;default&#039;])(object, handler, evt, view);
+      // Do not preventDefault in eventManagers.
+      evt.stopPropagation();
+    } else {
+      result = this._bubbleEvent(view, evt, eventName);
+    }
+
+    return result;
+  },
+
+  _bubbleEvent: function _bubbleEvent(view, evt, eventName) {
+    return _emberMetalRun_loop2[&#039;default&#039;].join(view, view.handleEvent, eventName, evt);
+  },
+
+  destroy: function destroy() {
+    var rootElement = (0, _emberMetalProperty_get.get)(this, &#039;rootElement&#039;);
+    (0, _emberViewsSystemJquery2[&#039;default&#039;])(rootElement).off(&#039;.ember&#039;, &#039;**&#039;).removeClass(&#039;ember-application&#039;);
+    return this._super.apply(this, arguments);
+  },
+
+  toString: function toString() {
+    return &#039;(EventDispatcher)&#039;;
+  }
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

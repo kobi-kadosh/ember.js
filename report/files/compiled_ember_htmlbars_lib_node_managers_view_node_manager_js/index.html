@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\node-managers\view-node-manager.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\node-managers\view-node-manager.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">60.34</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">299</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">48.84</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.89</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.createOrUpdateComponent = createOrUpdateComponent;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberViewsSystemBuildComponentTemplate = require(&#039;ember-views/system/build-component-template&#039;);
+
+var _emberViewsSystemBuildComponentTemplate2 = _interopRequireDefault(_emberViewsSystemBuildComponentTemplate);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalSet_properties = require(&#039;ember-metal/set_properties&#039;);
+
+var _emberMetalSet_properties2 = _interopRequireDefault(_emberMetalSet_properties);
+
+var _emberViewsViewsView = require(&#039;ember-views/views/view&#039;);
+
+var _emberViewsViewsView2 = _interopRequireDefault(_emberViewsViewsView);
+
+var _emberViewsCompatAttrsProxy = require(&#039;ember-views/compat/attrs-proxy&#039;);
+
+var _emberHtmlbarsHooksGetCellOrValue = require(&#039;ember-htmlbars/hooks/get-cell-or-value&#039;);
+
+var _emberHtmlbarsHooksGetCellOrValue2 = _interopRequireDefault(_emberHtmlbarsHooksGetCellOrValue);
+
+var _emberHtmlbarsSystemInstrumentationSupport = require(&#039;ember-htmlbars/system/instrumentation-support&#039;);
+
+var _emberHtmlbarsNodeManagersComponentNodeManager = require(&#039;ember-htmlbars/node-managers/component-node-manager&#039;);
+
+// In theory this should come through the env, but it should
+// be safe to import this until we make the hook system public
+// and it gets actively used in addons or other downstream
+// libraries.
+
+var _emberHtmlbarsHooksGetValue = require(&#039;ember-htmlbars/hooks/get-value&#039;);
+
+var _emberHtmlbarsHooksGetValue2 = _interopRequireDefault(_emberHtmlbarsHooksGetValue);
+
+function ViewNodeManager(component, scope, renderNode, block, expectElement) {
+  this.component = component;
+  this.scope = scope;
+  this.renderNode = renderNode;
+  this.block = block;
+  this.expectElement = expectElement;
+}
+
+exports[&#039;default&#039;] = ViewNodeManager;
+
+ViewNodeManager.create = function (renderNode, env, attrs, found, parentView, path, contentScope, contentTemplate) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;HTMLBars error: Could not find component named &quot;&#039; + path + &#039;&quot; (no component or template with that name was found)&#039;, function () {
+    if (path) {
+      return found.component || found.layout;
+    } else {
+      return found.component || found.layout || contentTemplate;
+    }
+  });
+
+  var component;
+  var componentInfo = { layout: found.layout };
+
+  if (found.component) {
+    var options = { parentView: parentView };
+
+    if (attrs &amp;&amp; attrs.id) {
+      options.elementId = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.id);
+    }
+    if (attrs &amp;&amp; attrs.tagName) {
+      options.tagName = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.tagName);
+    }
+    if (attrs &amp;&amp; attrs._defaultTagName) {
+      options._defaultTagName = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs._defaultTagName);
+    }
+    if (attrs &amp;&amp; attrs.viewName) {
+      options.viewName = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.viewName);
+    }
+
+    if (found.component.create &amp;&amp; contentScope &amp;&amp; contentScope.self) {
+      options._context = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(contentScope.self);
+    }
+
+    if (found.self) {
+      options._context = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(found.self);
+    }
+
+    component = componentInfo.component = createOrUpdateComponent(found.component, options, found.createOptions, renderNode, env, attrs);
+
+    var layout = (0, _emberMetalProperty_get.get)(component, &#039;layout&#039;);
+    if (layout) {
+      componentInfo.layout = layout;
+      if (!contentTemplate) {
+        var template = getTemplate(component);
+
+        if (template) {
+          _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Using deprecated `template` property on a &#039; + (component.isView ? &#039;View&#039; : &#039;Component&#039;) + &#039;.&#039;);
+          contentTemplate = template.raw;
+        }
+      }
+    } else {
+      componentInfo.layout = getTemplate(component) || componentInfo.layout;
+    }
+
+    renderNode.emberView = component;
+  }
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;BUG: ViewNodeManager.create can take a scope or a self, but not both&#039;, !(contentScope &amp;&amp; found.self));
+
+  var results = (0, _emberViewsSystemBuildComponentTemplate2[&#039;default&#039;])(componentInfo, attrs, {
+    templates: { &#039;default&#039;: contentTemplate },
+    scope: contentScope,
+    self: found.self
+  });
+
+  return new ViewNodeManager(component, contentScope, renderNode, results.block, results.createdElement);
+};
+
+ViewNodeManager.prototype.render = function (env, attrs, visitor) {
+  var component = this.component;
+
+  return (0, _emberHtmlbarsSystemInstrumentationSupport.instrument)(component, function () {
+
+    var newEnv = env;
+    if (component) {
+      newEnv = env.childWithView(component);
+    }
+
+    if (component) {
+      var snapshot = takeSnapshot(attrs);
+      env.renderer.setAttrs(this.component, snapshot);
+      env.renderer.willRender(component);
+      env.renderedViews.push(component.elementId);
+    }
+
+    if (this.block) {
+      this.block(newEnv, [], undefined, this.renderNode, this.scope, visitor);
+    }
+
+    if (component) {
+      var element = this.expectElement &amp;&amp; this.renderNode.firstNode;
+      (0, _emberHtmlbarsNodeManagersComponentNodeManager.handleLegacyRender)(component, element);
+
+      env.renderer.didCreateElement(component, element); // 2.0TODO: Remove legacy hooks.
+      env.renderer.willInsertElement(component, element);
+      env.lifecycleHooks.push({ type: &#039;didInsertElement&#039;, view: component });
+    }
+  }, this);
+};
+
+ViewNodeManager.prototype.rerender = function (env, attrs, visitor) {
+  var component = this.component;
+
+  return (0, _emberHtmlbarsSystemInstrumentationSupport.instrument)(component, function () {
+    var newEnv = env;
+    if (component) {
+      newEnv = env.childWithView(component);
+
+      var snapshot = takeSnapshot(attrs);
+
+      // Notify component that it has become dirty and is about to change.
+      env.renderer.willUpdate(component, snapshot);
+
+      if (component._renderNode.shouldReceiveAttrs) {
+        env.renderer.updateAttrs(component, snapshot);
+        (0, _emberMetalSet_properties2[&#039;default&#039;])(component, mergeBindings({}, shadowedAttrs(component, snapshot)));
+        component._renderNode.shouldReceiveAttrs = false;
+      }
+
+      env.renderer.willRender(component);
+
+      env.renderedViews.push(component.elementId);
+    }
+    if (this.block) {
+      this.block(newEnv, [], undefined, this.renderNode, this.scope, visitor);
+    }
+
+    return newEnv;
+  }, this);
+};
+
+ViewNodeManager.prototype.destroy = function () {
+  if (this.component) {
+    this.component.destroy();
+    this.component = null;
+  }
+};
+
+function getTemplate(componentOrView) {
+  return componentOrView.isComponent ? (0, _emberMetalProperty_get.get)(componentOrView, &#039;_template&#039;) : (0, _emberMetalProperty_get.get)(componentOrView, &#039;template&#039;);
+}
+
+function createOrUpdateComponent(component, options, createOptions, renderNode, env) {
+  var attrs = arguments[5] === undefined ? {} : arguments[5];
+
+  var snapshot = takeSnapshot(attrs);
+  var props = (0, _emberMetalMerge2[&#039;default&#039;])({}, options);
+  var defaultController = _emberViewsViewsView2[&#039;default&#039;].proto().controller;
+  var hasSuppliedController = &#039;controller&#039; in attrs || &#039;controller&#039; in props;
+
+  props.attrs = snapshot;
+  if (component.create) {
+    var proto = component.proto();
+
+    if (createOptions) {
+      (0, _emberMetalMerge2[&#039;default&#039;])(props, createOptions);
+    }
+
+    mergeBindings(props, shadowedAttrs(proto, snapshot));
+    props.container = options.parentView ? options.parentView.container : env.container;
+    props.renderer = options.parentView ? options.parentView.renderer : props.container &amp;&amp; props.container.lookup(&#039;renderer:-dom&#039;);
+    props._viewRegistry = options.parentView ? options.parentView._viewRegistry : props.container &amp;&amp; props.container.lookup(&#039;-view-registry:main&#039;);
+
+    if (proto.controller !== defaultController || hasSuppliedController) {
+      delete props._context;
+    }
+
+    component = component.create(props);
+  } else {
+    mergeBindings(props, shadowedAttrs(component, snapshot));
+    (0, _emberMetalSet_properties2[&#039;default&#039;])(component, props);
+  }
+
+  if (options.parentView) {
+    options.parentView.appendChild(component);
+
+    if (options.viewName) {
+      (0, _emberMetalProperty_set.set)(options.parentView, options.viewName, component);
+    }
+  }
+
+  component._renderNode = renderNode;
+
+  renderNode.emberView = component;
+  return component;
+}
+
+function shadowedAttrs(target, attrs) {
+  var shadowed = {};
+
+  // For backwards compatibility, set the component property
+  // if it has an attr with that name. Undefined attributes
+  // are handled on demand via the `unknownProperty` hook.
+  for (var attr in attrs) {
+    if (attr in target) {
+      // TODO: Should we issue a deprecation here?
+      //Ember.deprecate(deprecation(attr));
+      shadowed[attr] = attrs[attr];
+    }
+  }
+
+  return shadowed;
+}
+
+function takeSnapshot(attrs) {
+  var hash = {};
+
+  for (var prop in attrs) {
+    hash[prop] = (0, _emberHtmlbarsHooksGetCellOrValue2[&#039;default&#039;])(attrs[prop]);
+  }
+
+  return hash;
+}
+
+function mergeBindings(target, attrs) {
+  for (var prop in attrs) {
+    if (!attrs.hasOwnProperty(prop)) {
+      continue;
+    }
+    // when `attrs` is an actual value being set in the
+    // attrs hash (`{{foo-bar attrs=&quot;blah&quot;}}`) we cannot
+    // set `&quot;blah&quot;` to the root of the target because
+    // that would replace all attrs with `attrs.attrs`
+    if (prop === &#039;attrs&#039;) {
+      _emberMetalCore2[&#039;default&#039;].warn(&#039;Invoking a component with a hash attribute named `attrs` is not supported. Please refactor usage of &#039; + target + &#039; to avoid passing `attrs` as a hash parameter.&#039;);
+      continue;
+    }
+    var value = attrs[prop];
+
+    if (value &amp;&amp; value[_emberViewsCompatAttrsProxy.MUTABLE_CELL]) {
+      target[prop] = value.value;
+    } else {
+      target[prop] = value;
+    }
+  }
+
+  return target;
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

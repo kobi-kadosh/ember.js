@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-routing-htmlbars\lib\keywords\action.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-routing-htmlbars\lib\keywords\action.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.47</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">195</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">15.71</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.25</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-htmlbars
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _htmlbarsRuntimeHooks = require(&#039;htmlbars-runtime/hooks&#039;);
+
+var _emberRoutingHtmlbarsKeywordsClosureAction = require(&#039;ember-routing-htmlbars/keywords/closure-action&#039;);
+
+var _emberRoutingHtmlbarsKeywordsClosureAction2 = _interopRequireDefault(_emberRoutingHtmlbarsKeywordsClosureAction);
+
+/**
+  The `{{action}}` helper provides a useful shortcut for registering an HTML
+  element within a template for a single DOM event and forwarding that
+  interaction to the template&#039;s controller or specified `target` option.
+
+  If the controller does not implement the specified action, the event is sent
+  to the current route, and it bubbles up the route hierarchy from there.
+
+  For more advanced event handling see [Ember.Component](/api/classes/Ember.Component.html)
+
+
+  ### Use
+  Given the following application Handlebars template on the page
+
+  ```handlebars
+  &lt;div {{action &#039;anActionName&#039;}}&gt;
+    click me
+  &lt;/div&gt;
+  ```
+
+  And application code
+
+  ```javascript
+  App.ApplicationController = Ember.Controller.extend({
+    actions: {
+      anActionName: function() {
+      }
+    }
+  });
+  ```
+
+  Will result in the following rendered HTML
+
+  ```html
+  &lt;div class=&quot;ember-view&quot;&gt;
+    &lt;div data-ember-action=&quot;1&quot;&gt;
+      click me
+    &lt;/div&gt;
+  &lt;/div&gt;
+  ```
+
+  Clicking &quot;click me&quot; will trigger the `anActionName` action of the
+  `App.ApplicationController`. In this case, no additional parameters will be passed.
+
+  If you provide additional parameters to the helper:
+
+  ```handlebars
+  &lt;button {{action &#039;edit&#039; post}}&gt;Edit&lt;/button&gt;
+  ```
+
+  Those parameters will be passed along as arguments to the JavaScript
+  function implementing the action.
+
+  ### Event Propagation
+
+  Events triggered through the action helper will automatically have
+  `.preventDefault()` called on them. You do not need to do so in your event
+  handlers. If you need to allow event propagation (to handle file inputs for
+  example) you can supply the `preventDefault=false` option to the `{{action}}` helper:
+
+  ```handlebars
+  &lt;div {{action &quot;sayHello&quot; preventDefault=false}}&gt;
+    &lt;input type=&quot;file&quot; /&gt;
+    &lt;input type=&quot;checkbox&quot; /&gt;
+  &lt;/div&gt;
+  ```
+
+  To disable bubbling, pass `bubbles=false` to the helper:
+
+  ```handlebars
+  &lt;button {{action &#039;edit&#039; post bubbles=false}}&gt;Edit&lt;/button&gt;
+  ```
+
+  If you need the default handler to trigger you should either register your
+  own event handler, or use event methods on your view class. See [Ember.View](/api/classes/Ember.View.html)
+  &#039;Responding to Browser Events&#039; for more information.
+
+  ### Specifying DOM event type
+
+  By default the `{{action}}` helper registers for DOM `click` events. You can
+  supply an `on` option to the helper to specify a different DOM event name:
+
+  ```handlebars
+  &lt;div {{action &quot;anActionName&quot; on=&quot;doubleClick&quot;}}&gt;
+    click me
+  &lt;/div&gt;
+  ```
+
+  See `Ember.View` &#039;Responding to Browser Events&#039; for a list of
+  acceptable DOM event names.
+
+  ### Specifying whitelisted modifier keys
+
+  By default the `{{action}}` helper will ignore click event with pressed modifier
+  keys. You can supply an `allowedKeys` option to specify which keys should not be ignored.
+
+  ```handlebars
+  &lt;div {{action &quot;anActionName&quot; allowedKeys=&quot;alt&quot;}}&gt;
+    click me
+  &lt;/div&gt;
+  ```
+
+  This way the `{{action}}` will fire when clicking with the alt key pressed down.
+
+  Alternatively, supply &quot;any&quot; to the `allowedKeys` option to accept any combination of modifier keys.
+
+  ```handlebars
+  &lt;div {{action &quot;anActionName&quot; allowedKeys=&quot;any&quot;}}&gt;
+    click me with any key pressed
+  &lt;/div&gt;
+  ```
+
+  ### Specifying a Target
+
+  There are several possible target objects for `{{action}}` helpers:
+
+  In a typical Ember application, where templates are managed through use of the
+  `{{outlet}}` helper, actions will bubble to the current controller, then
+  to the current route, and then up the route hierarchy.
+
+  Alternatively, a `target` option can be provided to the helper to change
+  which object will receive the method call. This option must be a path
+  to an object, accessible in the current context:
+
+  ```handlebars
+  {{! the application template }}
+  &lt;div {{action &quot;anActionName&quot; target=view}}&gt;
+    click me
+  &lt;/div&gt;
+  ```
+
+  ```javascript
+  App.ApplicationView = Ember.View.extend({
+    actions: {
+      anActionName: function() {}
+    }
+  });
+
+  ```
+
+  ### Additional Parameters
+
+  You may specify additional parameters to the `{{action}}` helper. These
+  parameters are passed along as the arguments to the JavaScript function
+  implementing the action.
+
+  ```handlebars
+  {{#each people as |person|}}
+    &lt;div {{action &quot;edit&quot; person}}&gt;
+      click me
+    &lt;/div&gt;
+  {{/each}}
+  ```
+
+  Clicking &quot;click me&quot; will trigger the `edit` method on the current controller
+  with the value of `person` as a parameter.
+
+  @method action
+  @for Ember.Handlebars.helpers
+  @public
+*/
+
+exports[&#039;default&#039;] = function (morph, env, scope, params, hash, template, inverse, visitor) {
+  if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-routing-htmlbars-improved-actions&#039;)) {
+    if (morph) {
+      (0, _htmlbarsRuntimeHooks.keyword)(&#039;@element_action&#039;, morph, env, scope, params, hash, template, inverse, visitor);
+      return true;
+    }
+
+    return (0, _emberRoutingHtmlbarsKeywordsClosureAction2[&#039;default&#039;])(morph, env, scope, params, hash, template, inverse, visitor);
+  } else {
+    (0, _htmlbarsRuntimeHooks.keyword)(&#039;@element_action&#039;, morph, env, scope, params, hash, template, inverse, visitor);
+    return true;
+  }
+};
+
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

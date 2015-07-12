@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\property_set.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\property_set.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">52.64</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">186</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">42.42</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.36</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.set = set;
+exports.trySet = trySet;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_events = require(&#039;ember-metal/property_events&#039;);
+
+var _emberMetalProperties = require(&#039;ember-metal/properties&#039;);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalPath_cache = require(&#039;ember-metal/path_cache&#039;);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var INTERCEPT_SET = (0, _emberMetalUtils.symbol)(&#039;INTERCEPT_SET&#039;);
+exports.INTERCEPT_SET = INTERCEPT_SET;
+var UNHANDLED_SET = (0, _emberMetalUtils.symbol)(&#039;UNHANDLED_SET&#039;);
+
+exports.UNHANDLED_SET = UNHANDLED_SET;
+/**
+  Sets the value of a property on an object, respecting computed properties
+  and notifying observers and other listeners of the change. If the
+  property is not defined but the object implements the `setUnknownProperty`
+  method then that will be invoked as well.
+
+  @method set
+  @for Ember
+  @param {Object} obj The object to modify.
+  @param {String} keyName The property key to set
+  @param {Object} value The value to set
+  @return {Object} the passed value.
+  @public
+*/
+
+function set(obj, keyName, value, tolerant) {
+  if (typeof obj === &#039;string&#039;) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Path \&#039;&#039; + obj + &#039;\&#039; must be global if no obj is given.&#039;, (0, _emberMetalPath_cache.isGlobalPath)(obj));
+    value = keyName;
+    keyName = obj;
+    obj = _emberMetalCore2[&#039;default&#039;].lookup;
+  }
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Cannot call set with \&#039;&#039; + keyName + &#039;\&#039; key.&#039;, !!keyName);
+
+  if (obj === _emberMetalCore2[&#039;default&#039;].lookup) {
+    return setPath(obj, keyName, value, tolerant);
+  }
+
+  // This path exists purely to implement backwards-compatible
+  // effects (specifically, setting a property on a view may
+  // invoke a mutator on `attrs`).
+  if (obj &amp;&amp; typeof obj[INTERCEPT_SET] === &#039;function&#039;) {
+    var result = obj[INTERCEPT_SET](obj, keyName, value, tolerant);
+    if (result !== UNHANDLED_SET) {
+      return result;
+    }
+  }
+
+  var meta, possibleDesc, desc;
+  if (obj) {
+    meta = obj[&#039;__ember_meta__&#039;];
+    possibleDesc = obj[keyName];
+    desc = possibleDesc !== null &amp;&amp; typeof possibleDesc === &#039;object&#039; &amp;&amp; possibleDesc.isDescriptor ? possibleDesc : undefined;
+  }
+
+  var isUnknown, currentValue;
+  if ((!obj || desc === undefined) &amp;&amp; (0, _emberMetalPath_cache.isPath)(keyName)) {
+    return setPath(obj, keyName, value, tolerant);
+  }
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;You need to provide an object and key to `set`.&#039;, !!obj &amp;&amp; keyName !== undefined);
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;calling set on destroyed object&#039;, !obj.isDestroyed);
+
+  if (desc) {
+    desc.set(obj, keyName, value);
+  } else {
+
+    if (obj !== null &amp;&amp; value !== undefined &amp;&amp; typeof obj === &#039;object&#039; &amp;&amp; obj[keyName] === value) {
+      return value;
+    }
+
+    isUnknown = &#039;object&#039; === typeof obj &amp;&amp; !(keyName in obj);
+
+    // setUnknownProperty is called if `obj` is an object,
+    // the property does not already exist, and the
+    // `setUnknownProperty` method exists on the object
+    if (isUnknown &amp;&amp; &#039;function&#039; === typeof obj.setUnknownProperty) {
+      obj.setUnknownProperty(keyName, value);
+    } else if (meta &amp;&amp; meta.watching[keyName] &gt; 0) {
+      if (meta.proto !== obj) {
+        if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;mandatory-setter&#039;)) {
+          currentValue = meta.values[keyName];
+        } else {
+          currentValue = obj[keyName];
+        }
+      }
+      // only trigger a change if the value has changed
+      if (value !== currentValue) {
+        (0, _emberMetalProperty_events.propertyWillChange)(obj, keyName);
+        if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;mandatory-setter&#039;)) {
+          if (currentValue === undefined &amp;&amp; !(keyName in obj) || !Object.prototype.propertyIsEnumerable.call(obj, keyName)) {
+            (0, _emberMetalProperties.defineProperty)(obj, keyName, null, value); // setup mandatory setter
+          } else {
+            meta.values[keyName] = value;
+          }
+        } else {
+          obj[keyName] = value;
+        }
+        (0, _emberMetalProperty_events.propertyDidChange)(obj, keyName);
+      }
+    } else {
+      obj[keyName] = value;
+      if (obj[_emberMetalProperty_events.PROPERTY_DID_CHANGE]) {
+        obj[_emberMetalProperty_events.PROPERTY_DID_CHANGE](keyName);
+      }
+    }
+  }
+  return value;
+}
+
+function setPath(root, path, value, tolerant) {
+  var keyName;
+
+  // get the last part of the path
+  keyName = path.slice(path.lastIndexOf(&#039;.&#039;) + 1);
+
+  // get the first part of the part
+  path = path === keyName ? keyName : path.slice(0, path.length - (keyName.length + 1));
+
+  // unless the path is this, look up the first part to
+  // get the root
+  if (path !== &#039;this&#039;) {
+    root = (0, _emberMetalProperty_get._getPath)(root, path);
+  }
+
+  if (!keyName || keyName.length === 0) {
+    throw new _emberMetalError2[&#039;default&#039;](&#039;Property set failed: You passed an empty path&#039;);
+  }
+
+  if (!root) {
+    if (tolerant) {
+      return;
+    } else {
+      throw new _emberMetalError2[&#039;default&#039;](&#039;Property set failed: object in path &quot;&#039; + path + &#039;&quot; could not be found or was destroyed.&#039;);
+    }
+  }
+
+  return set(root, keyName, value);
+}
+
+/**
+  Error-tolerant form of `Ember.set`. Will not blow up if any part of the
+  chain is `undefined`, `null`, or destroyed.
+
+  This is primarily used when syncing bindings, which may try to update after
+  an object has been destroyed.
+
+  @method trySet
+  @for Ember
+  @param {Object} root The object to modify.
+  @param {String} path The property path to set
+  @param {Object} value The value to set
+  @public
+*/
+
+function trySet(root, path, value) {
+  return set(root, path, value, true);
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

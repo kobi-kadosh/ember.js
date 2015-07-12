@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\property_events.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\property_events.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">62.60</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">330</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">76.88</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.07</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalEvents = require(&#039;ember-metal/events&#039;);
+
+var _emberMetalObserver_set = require(&#039;ember-metal/observer_set&#039;);
+
+var _emberMetalObserver_set2 = _interopRequireDefault(_emberMetalObserver_set);
+
+var PROPERTY_DID_CHANGE = (0, _emberMetalUtils.symbol)(&#039;PROPERTY_DID_CHANGE&#039;);
+
+exports.PROPERTY_DID_CHANGE = PROPERTY_DID_CHANGE;
+var beforeObserverSet = new _emberMetalObserver_set2[&#039;default&#039;]();
+var observerSet = new _emberMetalObserver_set2[&#039;default&#039;]();
+var deferred = 0;
+
+// ..........................................................
+// PROPERTY CHANGES
+//
+
+/**
+  This function is called just before an object property is about to change.
+  It will notify any before observers and prepare caches among other things.
+
+  Normally you will not need to call this method directly but if for some
+  reason you can&#039;t directly watch a property you can invoke this method
+  manually along with `Ember.propertyDidChange()` which you should call just
+  after the property value changes.
+
+  @method propertyWillChange
+  @for Ember
+  @param {Object} obj The object with the property that will change
+  @param {String} keyName The property key (or path) that will change.
+  @return {void}
+  @private
+*/
+function propertyWillChange(obj, keyName) {
+  var m = obj[&#039;__ember_meta__&#039;];
+  var watching = m &amp;&amp; m.watching[keyName] &gt; 0 || keyName === &#039;length&#039;;
+  var proto = m &amp;&amp; m.proto;
+  var possibleDesc = obj[keyName];
+  var desc = possibleDesc !== null &amp;&amp; typeof possibleDesc === &#039;object&#039; &amp;&amp; possibleDesc.isDescriptor ? possibleDesc : undefined;
+
+  if (!watching) {
+    return;
+  }
+
+  if (proto === obj) {
+    return;
+  }
+
+  if (desc &amp;&amp; desc.willChange) {
+    desc.willChange(obj, keyName);
+  }
+
+  dependentKeysWillChange(obj, keyName, m);
+  chainsWillChange(obj, keyName, m);
+  notifyBeforeObservers(obj, keyName);
+}
+
+/**
+  This function is called just after an object property has changed.
+  It will notify any observers and clear caches among other things.
+
+  Normally you will not need to call this method directly but if for some
+  reason you can&#039;t directly watch a property you can invoke this method
+  manually along with `Ember.propertyWillChange()` which you should call just
+  before the property value changes.
+
+  @method propertyDidChange
+  @for Ember
+  @param {Object} obj The object with the property that will change
+  @param {String} keyName The property key (or path) that will change.
+  @return {void}
+  @private
+*/
+function propertyDidChange(obj, keyName) {
+  var m = obj[&#039;__ember_meta__&#039;];
+  var watching = m &amp;&amp; m.watching[keyName] &gt; 0 || keyName === &#039;length&#039;;
+  var proto = m &amp;&amp; m.proto;
+  var possibleDesc = obj[keyName];
+  var desc = possibleDesc !== null &amp;&amp; typeof possibleDesc === &#039;object&#039; &amp;&amp; possibleDesc.isDescriptor ? possibleDesc : undefined;
+
+  if (proto === obj) {
+    return;
+  }
+
+  // shouldn&#039;t this mean that we&#039;re watching this key?
+  if (desc &amp;&amp; desc.didChange) {
+    desc.didChange(obj, keyName);
+  }
+
+  if (obj[PROPERTY_DID_CHANGE]) {
+    obj[PROPERTY_DID_CHANGE](keyName);
+  }
+
+  if (!watching &amp;&amp; keyName !== &#039;length&#039;) {
+    return;
+  }
+
+  if (m &amp;&amp; m.deps &amp;&amp; m.deps[keyName]) {
+    dependentKeysDidChange(obj, keyName, m);
+  }
+
+  chainsDidChange(obj, keyName, m, false);
+  notifyObservers(obj, keyName);
+}
+
+var WILL_SEEN, DID_SEEN;
+// called whenever a property is about to change to clear the cache of any dependent keys (and notify those properties of changes, etc...)
+function dependentKeysWillChange(obj, depKey, meta) {
+  if (obj.isDestroying) {
+    return;
+  }
+
+  var deps;
+  if (meta &amp;&amp; meta.deps &amp;&amp; (deps = meta.deps[depKey])) {
+    var seen = WILL_SEEN;
+    var top = !seen;
+
+    if (top) {
+      seen = WILL_SEEN = {};
+    }
+
+    iterDeps(propertyWillChange, obj, deps, depKey, seen, meta);
+
+    if (top) {
+      WILL_SEEN = null;
+    }
+  }
+}
+
+// called whenever a property has just changed to update dependent keys
+function dependentKeysDidChange(obj, depKey, meta) {
+  if (obj.isDestroying) {
+    return;
+  }
+
+  var deps;
+  if (meta &amp;&amp; meta.deps &amp;&amp; (deps = meta.deps[depKey])) {
+    var seen = DID_SEEN;
+    var top = !seen;
+
+    if (top) {
+      seen = DID_SEEN = {};
+    }
+
+    iterDeps(propertyDidChange, obj, deps, depKey, seen, meta);
+
+    if (top) {
+      DID_SEEN = null;
+    }
+  }
+}
+
+function keysOf(obj) {
+  var keys = [];
+
+  for (var key in obj) {
+    keys.push(key);
+  }
+
+  return keys;
+}
+
+function iterDeps(method, obj, deps, depKey, seen, meta) {
+  var keys, key, i, possibleDesc, desc;
+  var guid = (0, _emberMetalUtils.guidFor)(obj);
+  var current = seen[guid];
+
+  if (!current) {
+    current = seen[guid] = {};
+  }
+
+  if (current[depKey]) {
+    return;
+  }
+
+  current[depKey] = true;
+
+  if (deps) {
+    keys = keysOf(deps);
+    for (i = 0; i &lt; keys.length; i++) {
+      key = keys[i];
+      possibleDesc = obj[key];
+      desc = possibleDesc !== null &amp;&amp; typeof possibleDesc === &#039;object&#039; &amp;&amp; possibleDesc.isDescriptor ? possibleDesc : undefined;
+
+      if (desc &amp;&amp; desc._suspended === obj) {
+        continue;
+      }
+
+      method(obj, key);
+    }
+  }
+}
+
+function chainsWillChange(obj, keyName, m) {
+  if (!(m.hasOwnProperty(&#039;chainWatchers&#039;) &amp;&amp; m.chainWatchers[keyName])) {
+    return;
+  }
+
+  var nodes = m.chainWatchers[keyName];
+  var events = [];
+  var i, l;
+
+  for (i = 0, l = nodes.length; i &lt; l; i++) {
+    nodes[i].willChange(events);
+  }
+
+  for (i = 0, l = events.length; i &lt; l; i += 2) {
+    propertyWillChange(events[i], events[i + 1]);
+  }
+}
+
+function chainsDidChange(obj, keyName, m, suppressEvents) {
+  if (!(m &amp;&amp; m.hasOwnProperty(&#039;chainWatchers&#039;) &amp;&amp; m.chainWatchers[keyName])) {
+    return;
+  }
+
+  var nodes = m.chainWatchers[keyName];
+  var events = suppressEvents ? null : [];
+  var i, l;
+
+  for (i = 0, l = nodes.length; i &lt; l; i++) {
+    nodes[i].didChange(events);
+  }
+
+  if (suppressEvents) {
+    return;
+  }
+
+  for (i = 0, l = events.length; i &lt; l; i += 2) {
+    propertyDidChange(events[i], events[i + 1]);
+  }
+}
+
+function overrideChains(obj, keyName, m) {
+  chainsDidChange(obj, keyName, m, true);
+}
+
+/**
+  @method beginPropertyChanges
+  @chainable
+  @private
+*/
+function beginPropertyChanges() {
+  deferred++;
+}
+
+/**
+  @method endPropertyChanges
+  @private
+*/
+function endPropertyChanges() {
+  deferred--;
+  if (deferred &lt;= 0) {
+    beforeObserverSet.clear();
+    observerSet.flush();
+  }
+}
+
+/**
+  Make a series of property changes together in an
+  exception-safe way.
+
+  ```javascript
+  Ember.changeProperties(function() {
+    obj1.set(&#039;foo&#039;, mayBlowUpWhenSet);
+    obj2.set(&#039;bar&#039;, baz);
+  });
+  ```
+
+  @method changeProperties
+  @param {Function} callback
+  @param [binding]
+  @private
+*/
+function changeProperties(callback, binding) {
+  beginPropertyChanges();
+  try {
+    callback.call(binding);
+  } finally {
+    endPropertyChanges.call(binding);
+  }
+}
+
+function notifyBeforeObservers(obj, keyName) {
+  if (obj.isDestroying) {
+    return;
+  }
+
+  var eventName = keyName + &#039;:before&#039;;
+  var listeners, added;
+  if (deferred) {
+    listeners = beforeObserverSet.add(obj, keyName, eventName);
+    added = (0, _emberMetalEvents.accumulateListeners)(obj, eventName, listeners);
+    (0, _emberMetalEvents.sendEvent)(obj, eventName, [obj, keyName], added);
+  } else {
+    (0, _emberMetalEvents.sendEvent)(obj, eventName, [obj, keyName]);
+  }
+}
+
+function notifyObservers(obj, keyName) {
+  if (obj.isDestroying) {
+    return;
+  }
+
+  var eventName = keyName + &#039;:change&#039;;
+  var listeners;
+  if (deferred) {
+    listeners = observerSet.add(obj, keyName, eventName);
+    (0, _emberMetalEvents.accumulateListeners)(obj, eventName, listeners);
+  } else {
+    (0, _emberMetalEvents.sendEvent)(obj, eventName, [obj, keyName]);
+  }
+}
+
+exports.propertyWillChange = propertyWillChange;
+exports.propertyDidChange = propertyDidChange;
+exports.overrideChains = overrideChains;
+exports.beginPropertyChanges = beginPropertyChanges;
+exports.endPropertyChanges = endPropertyChanges;
+exports.changeProperties = changeProperties;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

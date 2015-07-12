@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\mixins\array.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\mixins\array.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.74</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">512</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">67.79</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.27</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+
+// ..........................................................
+// HELPERS
+//
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// ES6TODO: Ember.A
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalIs_none = require(&#039;ember-metal/is_none&#039;);
+
+var _emberMetalIs_none2 = _interopRequireDefault(_emberMetalIs_none);
+
+var _emberRuntimeMixinsEnumerable = require(&#039;ember-runtime/mixins/enumerable&#039;);
+
+var _emberRuntimeMixinsEnumerable2 = _interopRequireDefault(_emberRuntimeMixinsEnumerable);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberMetalProperty_events = require(&#039;ember-metal/property_events&#039;);
+
+var _emberMetalEvents = require(&#039;ember-metal/events&#039;);
+
+var _emberMetalWatching = require(&#039;ember-metal/watching&#039;);
+
+function arrayObserversHelper(obj, target, opts, operation, notify) {
+  var willChange = opts &amp;&amp; opts.willChange || &#039;arrayWillChange&#039;;
+  var didChange = opts &amp;&amp; opts.didChange || &#039;arrayDidChange&#039;;
+  var hasObservers = (0, _emberMetalProperty_get.get)(obj, &#039;hasArrayObservers&#039;);
+
+  if (hasObservers === notify) {
+    (0, _emberMetalProperty_events.propertyWillChange)(obj, &#039;hasArrayObservers&#039;);
+  }
+
+  operation(obj, &#039;@array:before&#039;, target, willChange);
+  operation(obj, &#039;@array:change&#039;, target, didChange);
+
+  if (hasObservers === notify) {
+    (0, _emberMetalProperty_events.propertyDidChange)(obj, &#039;hasArrayObservers&#039;);
+  }
+
+  return obj;
+}
+
+// ..........................................................
+// ARRAY
+//
+/**
+  This mixin implements Observer-friendly Array-like behavior. It is not a
+  concrete implementation, but it can be used up by other classes that want
+  to appear like arrays.
+
+  For example, ArrayProxy and ArrayController are both concrete classes that can
+  be instantiated to implement array-like behavior. Both of these classes use
+  the Array Mixin by way of the MutableArray mixin, which allows observable
+  changes to be made to the underlying array.
+
+  Unlike `Ember.Enumerable,` this mixin defines methods specifically for
+  collections that provide index-ordered access to their contents. When you
+  are designing code that needs to accept any kind of Array-like object, you
+  should use these methods instead of Array primitives because these will
+  properly notify observers of changes to the array.
+
+  Although these methods are efficient, they do add a layer of indirection to
+  your application so it is a good idea to use them only when you need the
+  flexibility of using both true JavaScript arrays and &quot;virtual&quot; arrays such
+  as controllers and collections.
+
+  You can use the methods defined in this module to access and modify array
+  contents in a KVO-friendly way. You can also be notified whenever the
+  membership of an array changes by using `.observes(&#039;myArray.[]&#039;)`.
+
+  To support `Ember.Array` in your own class, you must override two
+  primitives to use it: `replace()` and `objectAt()`.
+
+  Note that the Ember.Array mixin also incorporates the `Ember.Enumerable`
+  mixin. All `Ember.Array`-like objects are also enumerable.
+
+  @class Array
+  @namespace Ember
+  @uses Ember.Enumerable
+  @since Ember 0.9.0
+  @public
+*/
+exports[&#039;default&#039;] = _emberMetalMixin.Mixin.create(_emberRuntimeMixinsEnumerable2[&#039;default&#039;], {
+
+  /**
+    __Required.__ You must implement this method to apply this mixin.
+      Your array must support the `length` property. Your replace methods should
+    set this property whenever it changes.
+      @property {Number} length
+    @public
+  */
+  length: null,
+
+  /**
+    Returns the object at the given `index`. If the given `index` is negative
+    or is greater or equal than the array length, returns `undefined`.
+      This is one of the primitives you must implement to support `Ember.Array`.
+    If your object supports retrieving the value of an array item using `get()`
+    (i.e. `myArray.get(0)`), then you do not need to implement this method
+    yourself.
+      ```javascript
+    var arr = [&#039;a&#039;, &#039;b&#039;, &#039;c&#039;, &#039;d&#039;];
+      arr.objectAt(0);   // &#039;a&#039;
+    arr.objectAt(3);   // &#039;d&#039;
+    arr.objectAt(-1);  // undefined
+    arr.objectAt(4);   // undefined
+    arr.objectAt(5);   // undefined
+    ```
+      @method objectAt
+    @param {Number} idx The index of the item to return.
+    @return {*} item at index or undefined
+    @public
+  */
+  objectAt: function objectAt(idx) {
+    if (idx &lt; 0 || idx &gt;= (0, _emberMetalProperty_get.get)(this, &#039;length&#039;)) {
+      return undefined;
+    }
+
+    return (0, _emberMetalProperty_get.get)(this, idx);
+  },
+
+  /**
+    This returns the objects at the specified indexes, using `objectAt`.
+      ```javascript
+    var arr = [&#039;a&#039;, &#039;b&#039;, &#039;c&#039;, &#039;d&#039;];
+      arr.objectsAt([0, 1, 2]);  // [&#039;a&#039;, &#039;b&#039;, &#039;c&#039;]
+    arr.objectsAt([2, 3, 4]);  // [&#039;c&#039;, &#039;d&#039;, undefined]
+    ```
+      @method objectsAt
+    @param {Array} indexes An array of indexes of items to return.
+    @return {Array}
+    @public
+   */
+  objectsAt: function objectsAt(indexes) {
+    var self = this;
+
+    return indexes.map(function (idx) {
+      return self.objectAt(idx);
+    });
+  },
+
+  // overrides Ember.Enumerable version
+  nextObject: function nextObject(idx) {
+    return this.objectAt(idx);
+  },
+
+  /**
+    This is the handler for the special array content property. If you get
+    this property, it will return this. If you set this property to a new
+    array, it will replace the current content.
+      This property overrides the default property defined in `Ember.Enumerable`.
+      @property []
+    @return this
+    @public
+  */
+  &#039;[]&#039;: (0, _emberMetalComputed.computed)({
+    get: function get(key) {
+      return this;
+    },
+    set: function set(key, value) {
+      this.replace(0, (0, _emberMetalProperty_get.get)(this, &#039;length&#039;), value);
+      return this;
+    }
+  }),
+
+  firstObject: (0, _emberMetalComputed.computed)(function () {
+    return this.objectAt(0);
+  }),
+
+  lastObject: (0, _emberMetalComputed.computed)(function () {
+    return this.objectAt((0, _emberMetalProperty_get.get)(this, &#039;length&#039;) - 1);
+  }),
+
+  // optimized version from Enumerable
+  contains: function contains(obj) {
+    return this.indexOf(obj) &gt;= 0;
+  },
+
+  // Add any extra methods to Ember.Array that are native to the built-in Array.
+  /**
+    Returns a new array that is a slice of the receiver. This implementation
+    uses the observable array methods to retrieve the objects for the new
+    slice.
+      ```javascript
+    var arr = [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;];
+      arr.slice(0);       // [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;]
+    arr.slice(0, 2);    // [&#039;red&#039;, &#039;green&#039;]
+    arr.slice(1, 100);  // [&#039;green&#039;, &#039;blue&#039;]
+    ```
+      @method slice
+    @param {Number} beginIndex (Optional) index to begin slicing from.
+    @param {Number} endIndex (Optional) index to end the slice at (but not included).
+    @return {Array} New array with specified slice
+    @public
+  */
+  slice: function slice(beginIndex, endIndex) {
+    var ret = _emberMetalCore2[&#039;default&#039;].A();
+    var length = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+
+    if ((0, _emberMetalIs_none2[&#039;default&#039;])(beginIndex)) {
+      beginIndex = 0;
+    }
+
+    if ((0, _emberMetalIs_none2[&#039;default&#039;])(endIndex) || endIndex &gt; length) {
+      endIndex = length;
+    }
+
+    if (beginIndex &lt; 0) {
+      beginIndex = length + beginIndex;
+    }
+
+    if (endIndex &lt; 0) {
+      endIndex = length + endIndex;
+    }
+
+    while (beginIndex &lt; endIndex) {
+      ret[ret.length] = this.objectAt(beginIndex++);
+    }
+
+    return ret;
+  },
+
+  /**
+    Returns the index of the given object&#039;s first occurrence.
+    If no `startAt` argument is given, the starting location to
+    search is 0. If it&#039;s negative, will count backward from
+    the end of the array. Returns -1 if no match is found.
+      ```javascript
+    var arr = [&#039;a&#039;, &#039;b&#039;, &#039;c&#039;, &#039;d&#039;, &#039;a&#039;];
+      arr.indexOf(&#039;a&#039;);       //  0
+    arr.indexOf(&#039;z&#039;);       // -1
+    arr.indexOf(&#039;a&#039;, 2);    //  4
+    arr.indexOf(&#039;a&#039;, -1);   //  4
+    arr.indexOf(&#039;b&#039;, 3);    // -1
+    arr.indexOf(&#039;a&#039;, 100);  // -1
+    ```
+      @method indexOf
+    @param {Object} object the item to search for
+    @param {Number} startAt optional starting location to search, default 0
+    @return {Number} index or -1 if not found
+    @public
+  */
+  indexOf: function indexOf(object, startAt) {
+    var len = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    var idx;
+
+    if (startAt === undefined) {
+      startAt = 0;
+    }
+
+    if (startAt &lt; 0) {
+      startAt += len;
+    }
+
+    for (idx = startAt; idx &lt; len; idx++) {
+      if (this.objectAt(idx) === object) {
+        return idx;
+      }
+    }
+
+    return -1;
+  },
+
+  /**
+    Returns the index of the given object&#039;s last occurrence.
+    If no `startAt` argument is given, the search starts from
+    the last position. If it&#039;s negative, will count backward
+    from the end of the array. Returns -1 if no match is found.
+      ```javascript
+    var arr = [&#039;a&#039;, &#039;b&#039;, &#039;c&#039;, &#039;d&#039;, &#039;a&#039;];
+      arr.lastIndexOf(&#039;a&#039;);       //  4
+    arr.lastIndexOf(&#039;z&#039;);       // -1
+    arr.lastIndexOf(&#039;a&#039;, 2);    //  0
+    arr.lastIndexOf(&#039;a&#039;, -1);   //  4
+    arr.lastIndexOf(&#039;b&#039;, 3);    //  1
+    arr.lastIndexOf(&#039;a&#039;, 100);  //  4
+    ```
+      @method lastIndexOf
+    @param {Object} object the item to search for
+    @param {Number} startAt optional starting location to search, default 0
+    @return {Number} index or -1 if not found
+    @public
+  */
+  lastIndexOf: function lastIndexOf(object, startAt) {
+    var len = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    var idx;
+
+    if (startAt === undefined || startAt &gt;= len) {
+      startAt = len - 1;
+    }
+
+    if (startAt &lt; 0) {
+      startAt += len;
+    }
+
+    for (idx = startAt; idx &gt;= 0; idx--) {
+      if (this.objectAt(idx) === object) {
+        return idx;
+      }
+    }
+
+    return -1;
+  },
+
+  // ..........................................................
+  // ARRAY OBSERVERS
+  //
+
+  /**
+    Adds an array observer to the receiving array. The array observer object
+    normally must implement two methods:
+      * `arrayWillChange(observedObj, start, removeCount, addCount)` - This method will be
+      called just before the array is modified.
+    * `arrayDidChange(observedObj, start, removeCount, addCount)` - This method will be
+      called just after the array is modified.
+      Both callbacks will be passed the observed object, starting index of the
+    change as well a a count of the items to be removed and added. You can use
+    these callbacks to optionally inspect the array during the change, clear
+    caches, or do any other bookkeeping necessary.
+      In addition to passing a target, you can also include an options hash
+    which you can use to override the method names that will be invoked on the
+    target.
+      @method addArrayObserver
+    @param {Object} target The observer object.
+    @param {Object} opts Optional hash of configuration options including
+      `willChange` and `didChange` option.
+    @return {Ember.Array} receiver
+    @public
+  */
+
+  addArrayObserver: function addArrayObserver(target, opts) {
+    return arrayObserversHelper(this, target, opts, _emberMetalEvents.addListener, false);
+  },
+
+  /**
+    Removes an array observer from the object if the observer is current
+    registered. Calling this method multiple times with the same object will
+    have no effect.
+      @method removeArrayObserver
+    @param {Object} target The object observing the array.
+    @param {Object} opts Optional hash of configuration options including
+      `willChange` and `didChange` option.
+    @return {Ember.Array} receiver
+    @public
+  */
+  removeArrayObserver: function removeArrayObserver(target, opts) {
+    return arrayObserversHelper(this, target, opts, _emberMetalEvents.removeListener, true);
+  },
+
+  /**
+    Becomes true whenever the array currently has observers watching changes
+    on the array.
+      @property {Boolean} hasArrayObservers
+    @public
+  */
+  hasArrayObservers: (0, _emberMetalComputed.computed)(function () {
+    return (0, _emberMetalEvents.hasListeners)(this, &#039;@array:change&#039;) || (0, _emberMetalEvents.hasListeners)(this, &#039;@array:before&#039;);
+  }),
+
+  /**
+    If you are implementing an object that supports `Ember.Array`, call this
+    method just before the array content changes to notify any observers and
+    invalidate any related properties. Pass the starting index of the change
+    as well as a delta of the amounts to change.
+      @method arrayContentWillChange
+    @param {Number} startIdx The starting index in the array that will change.
+    @param {Number} removeAmt The number of items that will be removed. If you
+      pass `null` assumes 0
+    @param {Number} addAmt The number of items that will be added. If you
+      pass `null` assumes 0.
+    @return {Ember.Array} receiver
+    @public
+  */
+  arrayContentWillChange: function arrayContentWillChange(startIdx, removeAmt, addAmt) {
+    var removing, lim;
+
+    // if no args are passed assume everything changes
+    if (startIdx === undefined) {
+      startIdx = 0;
+      removeAmt = addAmt = -1;
+    } else {
+      if (removeAmt === undefined) {
+        removeAmt = -1;
+      }
+
+      if (addAmt === undefined) {
+        addAmt = -1;
+      }
+    }
+
+    // Make sure the @each proxy is set up if anyone is observing @each
+    if ((0, _emberMetalWatching.isWatching)(this, &#039;@each&#039;)) {
+      (0, _emberMetalProperty_get.get)(this, &#039;@each&#039;);
+    }
+
+    (0, _emberMetalEvents.sendEvent)(this, &#039;@array:before&#039;, [this, startIdx, removeAmt, addAmt]);
+
+    if (startIdx &gt;= 0 &amp;&amp; removeAmt &gt;= 0 &amp;&amp; (0, _emberMetalProperty_get.get)(this, &#039;hasEnumerableObservers&#039;)) {
+      removing = [];
+      lim = startIdx + removeAmt;
+
+      for (var idx = startIdx; idx &lt; lim; idx++) {
+        removing.push(this.objectAt(idx));
+      }
+    } else {
+      removing = removeAmt;
+    }
+
+    this.enumerableContentWillChange(removing, addAmt);
+
+    return this;
+  },
+
+  /**
+    If you are implementing an object that supports `Ember.Array`, call this
+    method just after the array content changes to notify any observers and
+    invalidate any related properties. Pass the starting index of the change
+    as well as a delta of the amounts to change.
+      @method arrayContentDidChange
+    @param {Number} startIdx The starting index in the array that did change.
+    @param {Number} removeAmt The number of items that were removed. If you
+      pass `null` assumes 0
+    @param {Number} addAmt The number of items that were added. If you
+      pass `null` assumes 0.
+    @return {Ember.Array} receiver
+    @public
+  */
+  arrayContentDidChange: function arrayContentDidChange(startIdx, removeAmt, addAmt) {
+    var adding, lim;
+
+    // if no args are passed assume everything changes
+    if (startIdx === undefined) {
+      startIdx = 0;
+      removeAmt = addAmt = -1;
+    } else {
+      if (removeAmt === undefined) {
+        removeAmt = -1;
+      }
+
+      if (addAmt === undefined) {
+        addAmt = -1;
+      }
+    }
+
+    if (startIdx &gt;= 0 &amp;&amp; addAmt &gt;= 0 &amp;&amp; (0, _emberMetalProperty_get.get)(this, &#039;hasEnumerableObservers&#039;)) {
+      adding = [];
+      lim = startIdx + addAmt;
+
+      for (var idx = startIdx; idx &lt; lim; idx++) {
+        adding.push(this.objectAt(idx));
+      }
+    } else {
+      adding = addAmt;
+    }
+
+    this.enumerableContentDidChange(removeAmt, adding);
+    (0, _emberMetalEvents.sendEvent)(this, &#039;@array:change&#039;, [this, startIdx, removeAmt, addAmt]);
+
+    var length = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    var cachedFirst = (0, _emberMetalComputed.cacheFor)(this, &#039;firstObject&#039;);
+    var cachedLast = (0, _emberMetalComputed.cacheFor)(this, &#039;lastObject&#039;);
+
+    if (this.objectAt(0) !== cachedFirst) {
+      (0, _emberMetalProperty_events.propertyWillChange)(this, &#039;firstObject&#039;);
+      (0, _emberMetalProperty_events.propertyDidChange)(this, &#039;firstObject&#039;);
+    }
+
+    if (this.objectAt(length - 1) !== cachedLast) {
+      (0, _emberMetalProperty_events.propertyWillChange)(this, &#039;lastObject&#039;);
+      (0, _emberMetalProperty_events.propertyDidChange)(this, &#039;lastObject&#039;);
+    }
+
+    return this;
+  },
+
+  // ..........................................................
+  // ENUMERATED PROPERTIES
+  //
+
+  /**
+    Returns a special object that can be used to observe individual properties
+    on the array. Just get an equivalent property on this object and it will
+    return an enumerable that maps automatically to the named key on the
+    member objects.
+      If you merely want to watch for any items being added or removed to the array,
+    use the `[]` property instead of `@each`.
+      @property @each
+    @public
+  */
+  &#039;@each&#039;: (0, _emberMetalComputed.computed)(function () {
+    if (!this.__each) {
+      // ES6TODO: GRRRRR
+      var EachProxy = requireModule(&#039;ember-runtime/system/each_proxy&#039;)[&#039;EachProxy&#039;];
+
+      this.__each = new EachProxy(this);
+    }
+
+    return this.__each;
+  })
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\compat\render_buffer.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\compat\render_buffer.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">65.64</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">621</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">53.53</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.84</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-views
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.renderComponentWithBuffer = renderComponentWithBuffer;
+exports[&#039;default&#039;] = RenderBuffer;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberViewsSystemJquery = require(&#039;ember-views/system/jquery&#039;);
+
+var _emberViewsSystemJquery2 = _interopRequireDefault(_emberViewsSystemJquery);
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _domHelperProp = require(&#039;dom-helper/prop&#039;);
+
+var _emberViewsSystemPlatform = require(&#039;ember-views/system/platform&#039;);
+
+// The HTML spec allows for &quot;omitted start tags&quot;. These tags are optional
+// when their intended child is the first thing in the parent tag. For
+// example, this is a tbody start tag:
+//
+// &lt;table&gt;
+//   &lt;tbody&gt;
+//     &lt;tr&gt;
+//
+// The tbody may be omitted, and the browser will accept and render:
+//
+// &lt;table&gt;
+//   &lt;tr&gt;
+//
+// However, the omitted start tag will still be added to the DOM. Here
+// we test the string and context to see if the browser is about to
+// perform this cleanup, but with a special allowance for disregarding
+// &lt;script tags. This disregarding of &lt;script being the first child item
+// may bend the official spec a bit, and is only needed for Handlebars
+// templates.
+//
+// http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#optional-tags
+// describes which tags are omittable. The spec for tbody and colgroup
+// explains this behavior:
+//
+// http://www.whatwg.org/specs/web-apps/current-work/multipage/tables.html#the-tbody-element
+// http://www.whatwg.org/specs/web-apps/current-work/multipage/tables.html#the-colgroup-element
+//
+var omittedStartTagChildren;
+var omittedStartTagChildTest = /(?:&lt;script)*.*?&lt;([\w:]+)/i;
+
+function detectOmittedStartTag(dom, string, contextualElement) {
+  omittedStartTagChildren = omittedStartTagChildren || {
+    tr: dom.createElement(&#039;tbody&#039;),
+    col: dom.createElement(&#039;colgroup&#039;)
+  };
+
+  // Omitted start tags are only inside table tags.
+  if (contextualElement.tagName === &#039;TABLE&#039;) {
+    var omittedStartTagChildMatch = omittedStartTagChildTest.exec(string);
+    if (omittedStartTagChildMatch) {
+      // It is already asserted that the contextual element is a table
+      // and not the proper start tag. Just look up the start tag.
+      return omittedStartTagChildren[omittedStartTagChildMatch[1].toLowerCase()];
+    }
+  }
+}
+
+function ClassSet() {
+  this.seen = Object.create(null);
+  this.list = [];
+}
+
+ClassSet.prototype = {
+  add: function add(string) {
+    if (this.seen[string] === true) {
+      return;
+    }
+    this.seen[string] = true;
+
+    this.list.push(string);
+  }
+};
+
+var BAD_TAG_NAME_TEST_REGEXP = /[^a-zA-Z0-9\-]/;
+var BAD_TAG_NAME_REPLACE_REGEXP = /[^a-zA-Z0-9\-]/g;
+
+function stripTagName(tagName) {
+  if (!tagName) {
+    return tagName;
+  }
+
+  if (!BAD_TAG_NAME_TEST_REGEXP.test(tagName)) {
+    return tagName;
+  }
+
+  return tagName.replace(BAD_TAG_NAME_REPLACE_REGEXP, &#039;&#039;);
+}
+
+var BAD_CHARS_REGEXP = /&amp;(?!\w+;)|[&lt;&gt;&quot;&#039;`]/g;
+var POSSIBLE_CHARS_REGEXP = /[&amp;&lt;&gt;&quot;&#039;`]/;
+
+function escapeAttribute(value) {
+  // Stolen shamelessly from Handlebars
+
+  var escape = {
+    &#039;&lt;&#039;: &#039;&amp;lt;&#039;,
+    &#039;&gt;&#039;: &#039;&amp;gt;&#039;,
+    &#039;&quot;&#039;: &#039;&amp;quot;&#039;,
+    &#039;\&#039;&#039;: &#039;&amp;#x27;&#039;,
+    &#039;`&#039;: &#039;&amp;#x60;&#039;
+  };
+
+  var escapeChar = function escapeChar(chr) {
+    return escape[chr] || &#039;&amp;amp;&#039;;
+  };
+
+  var string = value.toString();
+
+  if (!POSSIBLE_CHARS_REGEXP.test(string)) {
+    return string;
+  }
+  return string.replace(BAD_CHARS_REGEXP, escapeChar);
+}
+
+function renderComponentWithBuffer(component, contextualElement, dom) {
+  var buffer = [];
+  component.render(buffer);
+  var element = dom.parseHTML(buffer.join(&#039;&#039;), contextualElement);
+  return element;
+}
+
+/**
+  `Ember.RenderBuffer` gathers information regarding the view and generates the
+  final representation. `Ember.RenderBuffer` will generate HTML which can be pushed
+  to the DOM.
+
+   ```javascript
+   var buffer = new Ember.RenderBuffer(&#039;div&#039;, contextualElement);
+  ```
+
+  @class RenderBuffer
+  @namespace Ember
+  @deprecated
+  @private
+*/
+
+function RenderBuffer(domHelper) {
+  _emberMetalCore2[&#039;default&#039;].deprecate(&#039;`Ember.RenderBuffer` is deprecated.&#039;);
+  this.buffer = null;
+  this.childViews = [];
+  this.attrNodes = [];
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;RenderBuffer requires a DOM helper to be passed to its constructor.&#039;, !!domHelper);
+
+  this.dom = domHelper;
+
+  this.tagName = undefined;
+  this.buffer = null;
+  this._element = null;
+  this._outerContextualElement = undefined;
+  this.elementClasses = null;
+  this.elementId = null;
+  this.elementAttributes = null;
+  this.elementProperties = null;
+  this.elementTag = null;
+  this.elementStyle = null;
+}
+
+RenderBuffer.prototype = {
+
+  reset: function reset(tagName, contextualElement) {
+    this.tagName = tagName;
+    this.buffer = null;
+    this._element = null;
+    this._outerContextualElement = contextualElement;
+    this.elementClasses = null;
+    this.elementId = null;
+    this.elementAttributes = null;
+    this.elementProperties = null;
+    this.elementTag = null;
+    this.elementStyle = null;
+    this.childViews.length = 0;
+    this.attrNodes.length = 0;
+  },
+
+  // The root view&#039;s element
+  _element: null,
+
+  // The root view&#039;s contextualElement
+  _outerContextualElement: null,
+
+  /**
+    An internal set used to de-dupe class names when `addClass()` is
+    used. After each call to `addClass()`, the `classes` property
+    will be updated.
+      @private
+    @property elementClasses
+    @type Array
+    @default null
+  */
+  elementClasses: null,
+
+  /**
+    Array of class names which will be applied in the class attribute.
+      You can use `setClasses()` to set this property directly. If you
+    use `addClass()`, it will be maintained for you.
+      @property classes
+    @type Array
+    @default null
+    @private
+  */
+  classes: null,
+
+  /**
+    The id in of the element, to be applied in the id attribute.
+      You should not set this property yourself, rather, you should use
+    the `id()` method of `Ember.RenderBuffer`.
+      @property elementId
+    @type String
+    @default null
+    @private
+  */
+  elementId: null,
+
+  /**
+    A hash keyed on the name of the attribute and whose value will be
+    applied to that attribute. For example, if you wanted to apply a
+    `data-view=&quot;Foo.bar&quot;` property to an element, you would set the
+    elementAttributes hash to `{&#039;data-view&#039;:&#039;Foo.bar&#039;}`.
+      You should not maintain this hash yourself, rather, you should use
+    the `attr()` method of `Ember.RenderBuffer`.
+      @property elementAttributes
+    @type Hash
+    @default {}
+    @private
+  */
+  elementAttributes: null,
+
+  /**
+    A hash keyed on the name of the properties and whose value will be
+    applied to that property. For example, if you wanted to apply a
+    `checked=true` property to an element, you would set the
+    elementProperties hash to `{&#039;checked&#039;:true}`.
+      You should not maintain this hash yourself, rather, you should use
+    the `prop()` method of `Ember.RenderBuffer`.
+      @property elementProperties
+    @type Hash
+    @default {}
+    @private
+  */
+  elementProperties: null,
+
+  /**
+    The tagname of the element an instance of `Ember.RenderBuffer` represents.
+      Usually, this gets set as the first parameter to `Ember.RenderBuffer`. For
+    example, if you wanted to create a `p` tag, then you would call
+      ```javascript
+    Ember.RenderBuffer(&#039;p&#039;, contextualElement)
+    ```
+      @property elementTag
+    @type String
+    @default null
+    @private
+  */
+  elementTag: null,
+
+  /**
+    A hash keyed on the name of the style attribute and whose value will
+    be applied to that attribute. For example, if you wanted to apply a
+    `background-color:black;` style to an element, you would set the
+    elementStyle hash to `{&#039;background-color&#039;:&#039;black&#039;}`.
+      You should not maintain this hash yourself, rather, you should use
+    the `style()` method of `Ember.RenderBuffer`.
+      @property elementStyle
+    @type Hash
+    @default {}
+    @private
+  */
+  elementStyle: null,
+
+  pushChildView: function pushChildView(view) {
+    var index = this.childViews.length;
+    this.childViews[index] = view;
+    this.push(&#039;&lt;script id=\&#039;morph-&#039; + index + &#039;\&#039; type=\&#039;text/x-placeholder\&#039;&gt;&lt;/script&gt;&#039;);
+  },
+
+  pushAttrNode: function pushAttrNode(node) {
+    var index = this.attrNodes.length;
+    this.attrNodes[index] = node;
+  },
+
+  hydrateMorphs: function hydrateMorphs(contextualElement) {
+    var childViews = this.childViews;
+    var el = this._element;
+    for (var i = 0, l = childViews.length; i &lt; l; i++) {
+      var childView = childViews[i];
+      var ref = el.querySelector(&#039;#morph-&#039; + i);
+
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;An error occurred while setting up template bindings. Please check &#039; + (childView &amp;&amp; childView.parentView &amp;&amp; childView._parentView._debugTemplateName ? &#039;&quot;&#039; + childView._parentView._debugTemplateName + &#039;&quot; template &#039; : &#039;&#039;) + &#039;for invalid markup or bindings within HTML comments.&#039;, ref);
+
+      var parent = ref.parentNode;
+
+      childView._morph = this.dom.insertMorphBefore(parent, ref, parent.nodeType === 1 ? parent : contextualElement);
+      parent.removeChild(ref);
+    }
+  },
+
+  /**
+    Adds a string of HTML to the `RenderBuffer`.
+      @method push
+    @param {String} string HTML to push into the buffer
+    @chainable
+    @private
+  */
+  push: function push(content) {
+    if (typeof content === &#039;string&#039;) {
+      if (this.buffer === null) {
+        this.buffer = &#039;&#039;;
+      }
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;A string cannot be pushed into the buffer after a fragment&#039;, !this.buffer.nodeType);
+      this.buffer += content;
+    } else {
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;A fragment cannot be pushed into a buffer that contains content&#039;, !this.buffer);
+      this.buffer = content;
+    }
+    return this;
+  },
+
+  /**
+    Adds a class to the buffer, which will be rendered to the class attribute.
+      @method addClass
+    @param {String} className Class name to add to the buffer
+    @chainable
+    @private
+  */
+  addClass: function addClass(className) {
+    // lazily create elementClasses
+    this.elementClasses = this.elementClasses || new ClassSet();
+    this.elementClasses.add(className);
+    this.classes = this.elementClasses.list;
+
+    return this;
+  },
+
+  setClasses: function setClasses(classNames) {
+    this.elementClasses = null;
+    var len = classNames.length;
+    var i;
+    for (i = 0; i &lt; len; i++) {
+      this.addClass(classNames[i]);
+    }
+  },
+
+  /**
+    Sets the elementID to be used for the element.
+      @method id
+    @param {String} id
+    @chainable
+    @private
+  */
+  id: function id(_id) {
+    this.elementId = _id;
+    return this;
+  },
+
+  // duck type attribute functionality like jQuery so a render buffer
+  // can be used like a jQuery object in attribute binding scenarios.
+
+  /**
+    Adds an attribute which will be rendered to the element.
+      @method attr
+    @param {String} name The name of the attribute
+    @param {String} value The value to add to the attribute
+    @chainable
+    @return {Ember.RenderBuffer|String} this or the current attribute value
+    @private
+  */
+  attr: function attr(name, value) {
+    var attributes = this.elementAttributes = this.elementAttributes || {};
+
+    if (arguments.length === 1) {
+      return attributes[name];
+    } else {
+      attributes[name] = value;
+    }
+
+    return this;
+  },
+
+  /**
+    Remove an attribute from the list of attributes to render.
+      @method removeAttr
+    @param {String} name The name of the attribute
+    @chainable
+    @private
+  */
+  removeAttr: function removeAttr(name) {
+    var attributes = this.elementAttributes;
+    if (attributes) {
+      delete attributes[name];
+    }
+
+    return this;
+  },
+
+  /**
+    Adds a property which will be rendered to the element.
+      @method prop
+    @param {String} name The name of the property
+    @param {String} value The value to add to the property
+    @chainable
+    @return {Ember.RenderBuffer|String} this or the current property value
+    @private
+  */
+  prop: function prop(name, value) {
+    var properties = this.elementProperties = this.elementProperties || {};
+
+    if (arguments.length === 1) {
+      return properties[name];
+    } else {
+      properties[name] = value;
+    }
+
+    return this;
+  },
+
+  /**
+    Remove an property from the list of properties to render.
+      @method removeProp
+    @param {String} name The name of the property
+    @chainable
+    @private
+  */
+  removeProp: function removeProp(name) {
+    var properties = this.elementProperties;
+    if (properties) {
+      delete properties[name];
+    }
+
+    return this;
+  },
+
+  /**
+    Adds a style to the style attribute which will be rendered to the element.
+      @method style
+    @param {String} name Name of the style
+    @param {String} value
+    @chainable
+    @private
+  */
+  style: function style(name, value) {
+    this.elementStyle = this.elementStyle || {};
+
+    this.elementStyle[name] = value;
+    return this;
+  },
+
+  generateElement: function generateElement() {
+    var tagName = this.tagName;
+    var id = this.elementId;
+    var classes = this.classes;
+    var attrs = this.elementAttributes;
+    var props = this.elementProperties;
+    var style = this.elementStyle;
+    var styleBuffer = &#039;&#039;;
+    var attr, prop, tagString;
+
+    if (!_emberViewsSystemPlatform.canSetNameOnInputs &amp;&amp; attrs &amp;&amp; attrs.name) {
+      // IE allows passing a tag to createElement. See note on `canSetNameOnInputs` above as well.
+      tagString = &#039;&lt;&#039; + stripTagName(tagName) + &#039; name=&quot;&#039; + escapeAttribute(attrs.name) + &#039;&quot;&gt;&#039;;
+    } else {
+      tagString = tagName;
+    }
+
+    var element = this.dom.createElement(tagString, this.outerContextualElement());
+
+    if (id) {
+      this.dom.setAttribute(element, &#039;id&#039;, id);
+      this.elementId = null;
+    }
+    if (classes) {
+      this.dom.setAttribute(element, &#039;class&#039;, classes.join(&#039; &#039;));
+      this.classes = null;
+      this.elementClasses = null;
+    }
+
+    if (style) {
+      for (prop in style) {
+        styleBuffer += prop + &#039;:&#039; + style[prop] + &#039;;&#039;;
+      }
+
+      this.dom.setAttribute(element, &#039;style&#039;, styleBuffer);
+
+      this.elementStyle = null;
+    }
+
+    if (attrs) {
+      for (attr in attrs) {
+        this.dom.setAttribute(element, attr, attrs[attr]);
+      }
+
+      this.elementAttributes = null;
+    }
+
+    if (props) {
+      for (prop in props) {
+        var _normalizeProperty = (0, _domHelperProp.normalizeProperty)(element, prop);
+
+        var normalized = _normalizeProperty.normalized;
+
+        this.dom.setPropertyStrict(element, normalized, props[prop]);
+      }
+
+      this.elementProperties = null;
+    }
+
+    return this._element = element;
+  },
+
+  /**
+    @method element
+    @return {DOMElement} The element corresponding to the generated HTML
+      of this buffer
+    @private
+  */
+  element: function element() {
+
+    if (this._element &amp;&amp; this.attrNodes.length &gt; 0) {
+      var i, l, attrMorph, attrNode;
+      for (i = 0, l = this.attrNodes.length; i &lt; l; i++) {
+        attrNode = this.attrNodes[i];
+        attrMorph = this.dom.createAttrMorph(this._element, attrNode.attrName);
+        attrNode._morph = attrMorph;
+      }
+    }
+
+    var content = this.innerContent();
+    // No content means a text node buffer, with the content
+    // in _element. Ember._BoundView is an example.
+    if (content === null) {
+      return this._element;
+    }
+
+    var contextualElement = this.innerContextualElement(content);
+    this.dom.detectNamespace(contextualElement);
+
+    if (!this._element) {
+      this._element = this.dom.createDocumentFragment();
+    }
+
+    if (content.nodeType) {
+      this._element.appendChild(content);
+    } else {
+      var frag = this.dom.parseHTML(content, contextualElement);
+      this._element.appendChild(frag);
+    }
+
+    // This should only happen with legacy string buffers
+    if (this.childViews.length &gt; 0) {
+      this.hydrateMorphs(contextualElement);
+    }
+
+    return this._element;
+  },
+
+  /**
+    Generates the HTML content for this buffer.
+      @method string
+    @return {String} The generated HTML
+    @private
+  */
+  string: function string() {
+    if (this._element) {
+      // Firefox versions &lt; 11 do not have support for element.outerHTML.
+      var thisElement = this.element();
+      var outerHTML = thisElement.outerHTML;
+      if (typeof outerHTML === &#039;undefined&#039;) {
+        return (0, _emberViewsSystemJquery2[&#039;default&#039;])(&#039;&lt;div/&gt;&#039;).append(thisElement).html();
+      }
+      return outerHTML;
+    } else {
+      return this.innerString();
+    }
+  },
+
+  outerContextualElement: function outerContextualElement() {
+    if (this._outerContextualElement === undefined) {
+      _emberMetalCore2[&#039;default&#039;].deprecate(&#039;The render buffer expects an outer contextualElement to exist.&#039; + &#039; This ensures DOM that requires context is correctly generated (tr, SVG tags).&#039; + &#039; Defaulting to document.body, but this will be removed in the future&#039;);
+      this.outerContextualElement = document.body;
+    }
+    return this._outerContextualElement;
+  },
+
+  innerContextualElement: function innerContextualElement(html) {
+    var innerContextualElement;
+    if (this._element &amp;&amp; this._element.nodeType === 1) {
+      innerContextualElement = this._element;
+    } else {
+      innerContextualElement = this.outerContextualElement();
+    }
+
+    var omittedStartTag;
+    if (html) {
+      omittedStartTag = detectOmittedStartTag(this.dom, html, innerContextualElement);
+    }
+    return omittedStartTag || innerContextualElement;
+  },
+
+  innerString: function innerString() {
+    var content = this.innerContent();
+    if (content &amp;&amp; !content.nodeType) {
+      return content;
+    }
+  },
+
+  innerContent: function innerContent() {
+    return this.buffer;
+  }
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

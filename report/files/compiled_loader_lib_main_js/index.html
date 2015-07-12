@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\loader\lib\main.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\loader\lib\main.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">59.24</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">115</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">45.60</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.80</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+var define, requireModule, require, requirejs, Ember;
+var mainContext = undefined;
+
+(function () {
+  var isNode = typeof process !== &#039;undefined&#039; &amp;&amp; ({}).toString.call(process) === &#039;[object process]&#039;;
+
+  if (!isNode) {
+    Ember = this.Ember = this.Ember || {};
+  }
+
+  if (typeof Ember === &#039;undefined&#039;) {
+    Ember = {};
+  };
+
+  if (typeof Ember.__loader === &#039;undefined&#039;) {
+    var registry;
+    var seen;
+
+    (function () {
+      var internalRequire = function internalRequire(name, referrerName) {
+        var exports = seen[name];
+
+        if (exports !== undefined) {
+          return exports;
+        }
+
+        exports = seen[name] = {};
+
+        if (!registry[name]) {
+          if (referrerName) {
+            throw new Error(&#039;Could not find module &#039; + name + &#039; required by: &#039; + referrerName);
+          } else {
+            throw new Error(&#039;Could not find module &#039; + name);
+          }
+        }
+
+        var mod = registry[name];
+        var deps = mod.deps;
+        var callback = mod.callback;
+        var reified = [];
+        var length = deps.length;
+
+        for (var i = 0; i &lt; length; i++) {
+          if (deps[i] === &#039;exports&#039;) {
+            reified.push(exports);
+          } else {
+            reified.push(internalRequire(resolve(deps[i], name), name));
+          }
+        }
+
+        callback.apply(this, reified);
+
+        return exports;
+      };
+
+      var resolve = function resolve(child, name) {
+        if (child.charAt(0) !== &#039;.&#039;) {
+          return child;
+        }
+        var parts = child.split(&#039;/&#039;);
+        var parentBase = name.split(&#039;/&#039;).slice(0, -1);
+
+        for (var i = 0, l = parts.length; i &lt; l; i++) {
+          var part = parts[i];
+
+          if (part === &#039;..&#039;) {
+            parentBase.pop();
+          } else if (part === &#039;.&#039;) {
+            continue;
+          } else {
+            parentBase.push(part);
+          }
+        }
+
+        return parentBase.join(&#039;/&#039;);
+      };
+
+      registry = {};
+      seen = {};
+
+      define = function (name, deps, callback) {
+        var value = {};
+
+        if (!callback) {
+          value.deps = [];
+          value.callback = deps;
+        } else {
+          value.deps = deps;
+          value.callback = callback;
+        }
+
+        registry[name] = value;
+      };
+
+      requirejs = require = requireModule = function (name) {
+        return internalRequire(name, null);
+      };
+
+      ;
+
+      requirejs._eak_seen = registry;
+
+      Ember.__loader = {
+        define: define,
+        require: require,
+        registry: registry
+      };
+    })();
+  } else {
+    define = Ember.__loader.define;
+    requirejs = require = requireModule = Ember.__loader.require;
+  }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

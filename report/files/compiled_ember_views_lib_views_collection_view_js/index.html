@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\views\collection_view.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\views\collection_view.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">65.83</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">468</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">38.28</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.95</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-views
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert
+
+var _emberViewsViewsContainer_view = require(&#039;ember-views/views/container_view&#039;);
+
+var _emberViewsViewsContainer_view2 = _interopRequireDefault(_emberViewsViewsContainer_view);
+
+var _emberViewsViewsView = require(&#039;ember-views/views/view&#039;);
+
+var _emberViewsViewsView2 = _interopRequireDefault(_emberViewsViewsView);
+
+var _emberRuntimeMixinsArray = require(&#039;ember-runtime/mixins/array&#039;);
+
+var _emberRuntimeMixinsArray2 = _interopRequireDefault(_emberRuntimeMixinsArray);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberViewsStreamsUtils = require(&#039;ember-views/streams/utils&#039;);
+
+var _emberViewsMixinsEmpty_view_support = require(&#039;ember-views/mixins/empty_view_support&#039;);
+
+var _emberViewsMixinsEmpty_view_support2 = _interopRequireDefault(_emberViewsMixinsEmpty_view_support);
+
+/**
+  `Ember.CollectionView` is an `Ember.View` descendent responsible for managing
+  a collection (an array or array-like object) by maintaining a child view object
+  and associated DOM representation for each item in the array and ensuring
+  that child views and their associated rendered HTML are updated when items in
+  the array are added, removed, or replaced.
+
+  ## Setting content
+
+  The managed collection of objects is referenced as the `Ember.CollectionView`
+  instance&#039;s `content` property.
+
+  ```javascript
+  someItemsView = Ember.CollectionView.create({
+    content: [&#039;A&#039;, &#039;B&#039;,&#039;C&#039;]
+  })
+  ```
+
+  The view for each item in the collection will have its `content` property set
+  to the item.
+
+  ## Specifying `itemViewClass`
+
+  By default the view class for each item in the managed collection will be an
+  instance of `Ember.View`. You can supply a different class by setting the
+  `CollectionView`&#039;s `itemViewClass` property.
+
+  Given the following application code:
+
+  ```javascript
+  var App = Ember.Application.create();
+  App.ItemListView = Ember.CollectionView.extend({
+    classNames: [&#039;a-collection&#039;],
+    content: [&#039;A&#039;,&#039;B&#039;,&#039;C&#039;],
+    itemViewClass: Ember.View.extend({
+      template: Ember.Handlebars.compile(&quot;the letter: {{view.content}}&quot;)
+    })
+  });
+  ```
+
+  And a simple application template:
+
+  ```handlebars
+  {{view &#039;item-list&#039;}}
+  ```
+
+  The following HTML will result:
+
+  ```html
+  &lt;div class=&quot;ember-view a-collection&quot;&gt;
+    &lt;div class=&quot;ember-view&quot;&gt;the letter: A&lt;/div&gt;
+    &lt;div class=&quot;ember-view&quot;&gt;the letter: B&lt;/div&gt;
+    &lt;div class=&quot;ember-view&quot;&gt;the letter: C&lt;/div&gt;
+  &lt;/div&gt;
+  ```
+
+  ## Automatic matching of parent/child tagNames
+
+  Setting the `tagName` property of a `CollectionView` to any of
+  &quot;ul&quot;, &quot;ol&quot;, &quot;table&quot;, &quot;thead&quot;, &quot;tbody&quot;, &quot;tfoot&quot;, &quot;tr&quot;, or &quot;select&quot; will result
+  in the item views receiving an appropriately matched `tagName` property.
+
+  Given the following application code:
+
+  ```javascript
+  var App = Ember.Application.create();
+  App.UnorderedListView = Ember.CollectionView.create({
+    tagName: &#039;ul&#039;,
+    content: [&#039;A&#039;,&#039;B&#039;,&#039;C&#039;],
+    itemViewClass: Ember.View.extend({
+      template: Ember.Handlebars.compile(&quot;the letter: {{view.content}}&quot;)
+    })
+  });
+  ```
+
+  And a simple application template:
+
+  ```handlebars
+  {{view &#039;unordered-list-view&#039;}}
+  ```
+
+  The following HTML will result:
+
+  ```html
+  &lt;ul class=&quot;ember-view a-collection&quot;&gt;
+    &lt;li class=&quot;ember-view&quot;&gt;the letter: A&lt;/li&gt;
+    &lt;li class=&quot;ember-view&quot;&gt;the letter: B&lt;/li&gt;
+    &lt;li class=&quot;ember-view&quot;&gt;the letter: C&lt;/li&gt;
+  &lt;/ul&gt;
+  ```
+
+  Additional `tagName` pairs can be provided by adding to
+  `Ember.CollectionView.CONTAINER_MAP`. For example:
+
+  ```javascript
+  Ember.CollectionView.CONTAINER_MAP[&#039;article&#039;] = &#039;section&#039;
+  ```
+
+  ## Programmatic creation of child views
+
+  For cases where additional customization beyond the use of a single
+  `itemViewClass` or `tagName` matching is required CollectionView&#039;s
+  `createChildView` method can be overridden:
+
+  ```javascript
+  App.CustomCollectionView = Ember.CollectionView.extend({
+    createChildView: function(viewClass, attrs) {
+      if (attrs.content.kind == &#039;album&#039;) {
+        viewClass = App.AlbumView;
+      } else {
+        viewClass = App.SongView;
+      }
+      return this._super(viewClass, attrs);
+    }
+  });
+  ```
+
+  ## Empty View
+
+  You can provide an `Ember.View` subclass to the `Ember.CollectionView`
+  instance as its `emptyView` property. If the `content` property of a
+  `CollectionView` is set to `null` or an empty array, an instance of this view
+  will be the `CollectionView`s only child.
+
+  ```javascript
+  var App = Ember.Application.create();
+  App.ListWithNothing = Ember.CollectionView.create({
+    classNames: [&#039;nothing&#039;],
+    content: null,
+    emptyView: Ember.View.extend({
+      template: Ember.Handlebars.compile(&quot;The collection is empty&quot;)
+    })
+  });
+  ```
+
+  And a simple application template:
+
+  ```handlebars
+  {{view &#039;list-with-nothing&#039;}}
+  ```
+
+  The following HTML will result:
+
+  ```html
+  &lt;div class=&quot;ember-view nothing&quot;&gt;
+    &lt;div class=&quot;ember-view&quot;&gt;
+      The collection is empty
+    &lt;/div&gt;
+  &lt;/div&gt;
+  ```
+
+  ## Adding and Removing items
+
+  The `childViews` property of a `CollectionView` should not be directly
+  manipulated. Instead, add, remove, replace items from its `content` property.
+  This will trigger appropriate changes to its rendered HTML.
+
+
+  @class CollectionView
+  @namespace Ember
+  @extends Ember.ContainerView
+  @uses Ember.EmptyViewSupport
+  @since Ember 0.9
+  @private
+*/
+var CollectionView = _emberViewsViewsContainer_view2[&#039;default&#039;].extend(_emberViewsMixinsEmpty_view_support2[&#039;default&#039;], {
+
+  /**
+    A list of items to be displayed by the `Ember.CollectionView`.
+      @property content
+    @type Ember.Array
+    @default null
+    @private
+  */
+  content: null,
+
+  /**
+    @property itemViewClass
+    @type Ember.View
+    @default Ember.View
+    @private
+  */
+  itemViewClass: _emberViewsViewsView2[&#039;default&#039;],
+
+  /**
+    Setup a CollectionView
+      @method init
+    @private
+  */
+  init: function init() {
+    var ret = this._super.apply(this, arguments);
+    this._contentDidChange();
+    return ret;
+  },
+
+  /**
+    Invoked when the content property is about to change. Notifies observers that the
+    entire array content will change.
+      @private
+    @method _contentWillChange
+  */
+  _contentWillChange: (0, _emberMetalMixin.beforeObserver)(&#039;content&#039;, function () {
+    var content = this.get(&#039;content&#039;);
+
+    if (content) {
+      content.removeArrayObserver(this);
+    }
+    var len = content ? (0, _emberMetalProperty_get.get)(content, &#039;length&#039;) : 0;
+    this.arrayWillChange(content, 0, len);
+  }),
+
+  /**
+    Check to make sure that the content has changed, and if so,
+    update the children directly. This is always scheduled
+    asynchronously, to allow the element to be created before
+    bindings have synchronized and vice versa.
+      @private
+    @method _contentDidChange
+  */
+  _contentDidChange: (0, _emberMetalMixin.observer)(&#039;content&#039;, function () {
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+
+    if (content) {
+      this._assertArrayLike(content);
+      content.addArrayObserver(this);
+    }
+
+    var len = content ? (0, _emberMetalProperty_get.get)(content, &#039;length&#039;) : 0;
+    this.arrayDidChange(content, 0, null, len);
+  }),
+
+  /**
+    Ensure that the content implements Ember.Array
+      @private
+    @method _assertArrayLike
+  */
+  _assertArrayLike: function _assertArrayLike(content) {
+    _emberMetalCore2[&#039;default&#039;].assert((0, _emberRuntimeSystemString.fmt)(&#039;an Ember.CollectionView\&#039;s content must implement Ember.Array. You passed %@&#039;, [content]), _emberRuntimeMixinsArray2[&#039;default&#039;].detect(content));
+  },
+
+  /**
+    Removes the content and content observers.
+      @method destroy
+    @private
+  */
+  destroy: function destroy() {
+    if (!this._super.apply(this, arguments)) {
+      return;
+    }
+
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    if (content) {
+      content.removeArrayObserver(this);
+    }
+
+    if (this._createdEmptyView) {
+      this._createdEmptyView.destroy();
+    }
+
+    return this;
+  },
+
+  /**
+    Called when a mutation to the underlying content array will occur.
+      This method will remove any views that are no longer in the underlying
+    content array.
+      Invokes whenever the content array itself will change.
+      @method arrayWillChange
+    @param {Array} content the managed collection of objects
+    @param {Number} start the index at which the changes will occur
+    @param {Number} removed number of object to be removed from content
+    @private
+  */
+  arrayWillChange: function arrayWillChange(content, start, removedCount) {
+    this.replace(start, removedCount, []);
+  },
+
+  /**
+    Called when a mutation to the underlying content array occurs.
+      This method will replay that mutation against the views that compose the
+    `Ember.CollectionView`, ensuring that the view reflects the model.
+      This array observer is added in `contentDidChange`.
+      @method arrayDidChange
+    @param {Array} content the managed collection of objects
+    @param {Number} start the index at which the changes occurred
+    @param {Number} removed number of object removed from content
+    @param {Number} added number of object added to content
+    @private
+  */
+  arrayDidChange: function arrayDidChange(content, start, removed, added) {
+    var addedViews = [];
+    var view, item, idx, len, itemViewClass, itemViewProps;
+
+    len = content ? (0, _emberMetalProperty_get.get)(content, &#039;length&#039;) : 0;
+
+    if (len) {
+      itemViewProps = this._itemViewProps || {};
+      itemViewClass = this.getAttr(&#039;itemViewClass&#039;) || (0, _emberMetalProperty_get.get)(this, &#039;itemViewClass&#039;);
+
+      itemViewClass = (0, _emberViewsStreamsUtils.readViewFactory)(itemViewClass, this.container);
+
+      for (idx = start; idx &lt; start + added; idx++) {
+        item = content.objectAt(idx);
+        itemViewProps._context = this.keyword ? this.get(&#039;context&#039;) : item;
+        itemViewProps.content = item;
+        itemViewProps.contentIndex = idx;
+
+        view = this.createChildView(itemViewClass, itemViewProps);
+
+        addedViews.push(view);
+      }
+
+      this.replace(start, 0, addedViews);
+    }
+  },
+
+  /**
+    Instantiates a view to be added to the childViews array during view
+    initialization. You generally will not call this method directly unless
+    you are overriding `createChildViews()`. Note that this method will
+    automatically configure the correct settings on the new view instance to
+    act as a child of the parent.
+      The tag name for the view will be set to the tagName of the viewClass
+    passed in.
+      @method createChildView
+    @param {Class} viewClass
+    @param {Object} [attrs] Attributes to add
+    @return {Ember.View} new instance
+    @private
+  */
+  createChildView: function createChildView(_view, attrs) {
+    var view = this._super(_view, attrs);
+
+    var itemTagName = (0, _emberMetalProperty_get.get)(view, &#039;tagName&#039;);
+
+    if (itemTagName === null || itemTagName === undefined) {
+      itemTagName = CollectionView.CONTAINER_MAP[(0, _emberMetalProperty_get.get)(this, &#039;tagName&#039;)];
+      (0, _emberMetalProperty_set.set)(view, &#039;tagName&#039;, itemTagName);
+    }
+
+    return view;
+  },
+
+  _willRender: function _willRender() {
+    var attrs = this.attrs;
+    var itemProps = buildItemViewProps(this._itemViewTemplate, attrs);
+    this._itemViewProps = itemProps;
+    var childViews = (0, _emberMetalProperty_get.get)(this, &#039;childViews&#039;);
+
+    for (var i = 0, l = childViews.length; i &lt; l; i++) {
+      childViews[i].setProperties(itemProps);
+    }
+
+    if (&#039;content&#039; in attrs) {
+      (0, _emberMetalProperty_set.set)(this, &#039;content&#039;, this.getAttr(&#039;content&#039;));
+    }
+
+    if (&#039;emptyView&#039; in attrs) {
+      (0, _emberMetalProperty_set.set)(this, &#039;emptyView&#039;, this.getAttr(&#039;emptyView&#039;));
+    }
+  },
+
+  _emptyViewTagName: (0, _emberMetalComputed.computed)(&#039;tagName&#039;, function () {
+    var tagName = (0, _emberMetalProperty_get.get)(this, &#039;tagName&#039;);
+    return CollectionView.CONTAINER_MAP[tagName] || &#039;div&#039;;
+  })
+});
+
+/**
+  A map of parent tags to their default child tags. You can add
+  additional parent tags if you want collection views that use
+  a particular parent tag to default to a child tag.
+
+  @property CONTAINER_MAP
+  @type Object
+  @static
+  @final
+  @private
+*/
+CollectionView.CONTAINER_MAP = {
+  ul: &#039;li&#039;,
+  ol: &#039;li&#039;,
+  table: &#039;tr&#039;,
+  thead: &#039;tr&#039;,
+  tbody: &#039;tr&#039;,
+  tfoot: &#039;tr&#039;,
+  tr: &#039;td&#039;,
+  select: &#039;option&#039;
+};
+
+var CONTAINER_MAP = CollectionView.CONTAINER_MAP;
+
+exports.CONTAINER_MAP = CONTAINER_MAP;
+function buildItemViewProps(template, attrs) {
+  var props = {};
+
+  // Go through options passed to the {{collection}} helper and extract options
+  // that configure item views instead of the collection itself.
+  for (var prop in attrs) {
+    if (prop === &#039;itemViewClass&#039; || prop === &#039;itemController&#039; || prop === &#039;itemClassBinding&#039;) {
+      continue;
+    }
+    if (attrs.hasOwnProperty(prop)) {
+      var match = prop.match(/^item(.)(.*)$/);
+      if (match) {
+        var childProp = match[1].toLowerCase() + match[2];
+
+        if (childProp === &#039;class&#039; || childProp === &#039;classNames&#039;) {
+          props.classNames = [attrs[prop]];
+        } else {
+          props[childProp] = attrs[prop];
+        }
+
+        delete attrs[prop];
+      }
+    }
+  }
+
+  if (template) {
+    props.template = template;
+  }
+
+  return props;
+}
+
+exports[&#039;default&#039;] = CollectionView;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

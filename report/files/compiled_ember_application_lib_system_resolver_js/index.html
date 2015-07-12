@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-application\lib\system\resolver.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-application\lib\system\resolver.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.32</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">482</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">58.90</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.15</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-application
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i &amp;&amp; _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n &amp;&amp; _i[&#039;return&#039;]) _i[&#039;return&#039;](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError(&#039;Invalid attempt to destructure non-iterable instance&#039;); } }; })();
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.TEMPLATES, Ember.assert
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalLogger = require(&#039;ember-metal/logger&#039;);
+
+var _emberMetalLogger2 = _interopRequireDefault(_emberMetalLogger);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberRuntimeSystemNamespace = require(&#039;ember-runtime/system/namespace&#039;);
+
+var _emberRuntimeSystemNamespace2 = _interopRequireDefault(_emberRuntimeSystemNamespace);
+
+var _emberHtmlbarsHelpers = require(&#039;ember-htmlbars/helpers&#039;);
+
+var _emberHtmlbarsHelpers2 = _interopRequireDefault(_emberHtmlbarsHelpers);
+
+var _emberApplicationUtilsValidateType = require(&#039;ember-application/utils/validate-type&#039;);
+
+var _emberApplicationUtilsValidateType2 = _interopRequireDefault(_emberApplicationUtilsValidateType);
+
+var _emberMetalDictionary = require(&#039;ember-metal/dictionary&#039;);
+
+var _emberMetalDictionary2 = _interopRequireDefault(_emberMetalDictionary);
+
+var Resolver = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+  /*
+    This will be set to the Application instance when it is
+    created.
+      @property namespace
+  */
+  namespace: null,
+  normalize: null, // required
+  resolve: null, // required
+  parseName: null, // required
+  lookupDescription: null, // required
+  makeToString: null, // required
+  resolveOther: null, // required
+  _logLookup: null // required
+});
+
+exports.Resolver = Resolver;
+/**
+  The DefaultResolver defines the default lookup rules to resolve
+  container lookups before consulting the container for registered
+  items:
+
+  * templates are looked up on `Ember.TEMPLATES`
+  * other names are looked up on the application after converting
+    the name. For example, `controller:post` looks up
+    `App.PostController` by default.
+  * there are some nuances (see examples below)
+
+  ### How Resolving Works
+
+  The container calls this object&#039;s `resolve` method with the
+  `fullName` argument.
+
+  It first parses the fullName into an object using `parseName`.
+
+  Then it checks for the presence of a type-specific instance
+  method of the form `resolve[Type]` and calls it if it exists.
+  For example if it was resolving &#039;template:post&#039;, it would call
+  the `resolveTemplate` method.
+
+  Its last resort is to call the `resolveOther` method.
+
+  The methods of this object are designed to be easy to override
+  in a subclass. For example, you could enhance how a template
+  is resolved like so:
+
+  ```javascript
+  App = Ember.Application.create({
+    Resolver: Ember.DefaultResolver.extend({
+      resolveTemplate: function(parsedName) {
+        var resolvedTemplate = this._super(parsedName);
+        if (resolvedTemplate) { return resolvedTemplate; }
+        return Ember.TEMPLATES[&#039;not_found&#039;];
+      }
+    })
+  });
+  ```
+
+  Some examples of how names are resolved:
+
+  ```
+  &#039;template:post&#039;           //=&gt; Ember.TEMPLATES[&#039;post&#039;]
+  &#039;template:posts/byline&#039;   //=&gt; Ember.TEMPLATES[&#039;posts/byline&#039;]
+  &#039;template:posts.byline&#039;   //=&gt; Ember.TEMPLATES[&#039;posts/byline&#039;]
+  &#039;template:blogPost&#039;       //=&gt; Ember.TEMPLATES[&#039;blogPost&#039;]
+                            //   OR
+                            //   Ember.TEMPLATES[&#039;blog_post&#039;]
+  &#039;controller:post&#039;         //=&gt; App.PostController
+  &#039;controller:posts.index&#039;  //=&gt; App.PostsIndexController
+  &#039;controller:blog/post&#039;    //=&gt; Blog.PostController
+  &#039;controller:basic&#039;        //=&gt; Ember.Controller
+  &#039;route:post&#039;              //=&gt; App.PostRoute
+  &#039;route:posts.index&#039;       //=&gt; App.PostsIndexRoute
+  &#039;route:blog/post&#039;         //=&gt; Blog.PostRoute
+  &#039;route:basic&#039;             //=&gt; Ember.Route
+  &#039;view:post&#039;               //=&gt; App.PostView
+  &#039;view:posts.index&#039;        //=&gt; App.PostsIndexView
+  &#039;view:blog/post&#039;          //=&gt; Blog.PostView
+  &#039;view:basic&#039;              //=&gt; Ember.View
+  &#039;foo:post&#039;                //=&gt; App.PostFoo
+  &#039;model:post&#039;              //=&gt; App.Post
+  ```
+
+  @class DefaultResolver
+  @namespace Ember
+  @extends Ember.Object
+  @public
+*/
+
+exports[&#039;default&#039;] = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+  /**
+    This will be set to the Application instance when it is
+    created.
+      @property namespace
+    @public
+  */
+  namespace: null,
+
+  init: function init() {
+    this._parseNameCache = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+  },
+  normalize: function normalize(fullName) {
+    var _fullName$split = fullName.split(&#039;:&#039;, 2);
+
+    var _fullName$split2 = _slicedToArray(_fullName$split, 2);
+
+    var type = _fullName$split2[0];
+    var name = _fullName$split2[1];
+
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Tried to normalize a container name without a colon (:) in it.&#039; + &#039; You probably tried to lookup a name that did not contain a type,&#039; + &#039; a colon, and a name. A proper lookup name would be `view:post`.&#039;, fullName.split(&#039;:&#039;).length === 2);
+
+    if (type !== &#039;template&#039;) {
+      var result = name;
+
+      if (result.indexOf(&#039;.&#039;) &gt; -1) {
+        result = result.replace(/\.(.)/g, function (m) {
+          return m.charAt(1).toUpperCase();
+        });
+      }
+
+      if (name.indexOf(&#039;_&#039;) &gt; -1) {
+        result = result.replace(/_(.)/g, function (m) {
+          return m.charAt(1).toUpperCase();
+        });
+      }
+
+      return type + &#039;:&#039; + result;
+    } else {
+      return fullName;
+    }
+  },
+
+  /**
+    This method is called via the container&#039;s resolver method.
+    It parses the provided `fullName` and then looks up and
+    returns the appropriate template or class.
+      @method resolve
+    @param {String} fullName the lookup string
+    @return {Object} the resolved factory
+    @public
+  */
+  resolve: function resolve(fullName) {
+    var parsedName = this.parseName(fullName);
+    var resolveMethodName = parsedName.resolveMethodName;
+    var resolved;
+
+    if (this[resolveMethodName]) {
+      resolved = this[resolveMethodName](parsedName);
+    }
+
+    resolved = resolved || this.resolveOther(parsedName);
+
+    if (parsedName.root &amp;&amp; parsedName.root.LOG_RESOLVER) {
+      this._logLookup(resolved, parsedName);
+    }
+
+    if (resolved) {
+      (0, _emberApplicationUtilsValidateType2[&#039;default&#039;])(resolved, parsedName);
+    }
+
+    return resolved;
+  },
+
+  /**
+    Convert the string name of the form &#039;type:name&#039; to
+    a Javascript object with the parsed aspects of the name
+    broken out.
+      @protected
+    @param {String} fullName the lookup string
+    @method parseName
+    @public
+  */
+
+  parseName: function parseName(fullName) {
+    return this._parseNameCache[fullName] || (this._parseNameCache[fullName] = this._parseName(fullName));
+  },
+
+  _parseName: function _parseName(fullName) {
+    var _fullName$split3 = fullName.split(&#039;:&#039;);
+
+    var _fullName$split32 = _slicedToArray(_fullName$split3, 2);
+
+    var type = _fullName$split32[0];
+    var fullNameWithoutType = _fullName$split32[1];
+
+    var name = fullNameWithoutType;
+    var namespace = (0, _emberMetalProperty_get.get)(this, &#039;namespace&#039;);
+    var root = namespace;
+
+    if (type !== &#039;template&#039; &amp;&amp; name.indexOf(&#039;/&#039;) !== -1) {
+      var parts = name.split(&#039;/&#039;);
+      name = parts[parts.length - 1];
+      var namespaceName = (0, _emberRuntimeSystemString.capitalize)(parts.slice(0, -1).join(&#039;.&#039;));
+      root = _emberRuntimeSystemNamespace2[&#039;default&#039;].byName(namespaceName);
+
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;You are looking for a &#039; + name + &#039; &#039; + type + &#039; in the &#039; + namespaceName + &#039; namespace, but the namespace could not be found&#039;, root);
+    }
+
+    var resolveMethodName = fullNameWithoutType === &#039;main&#039; ? &#039;Main&#039; : (0, _emberRuntimeSystemString.classify)(type);
+
+    if (!(name &amp;&amp; type)) {
+      throw new TypeError(&#039;Invalid fullName: `&#039; + fullName + &#039;`, must be of the form `type:name` &#039;);
+    }
+
+    return {
+      fullName: fullName,
+      type: type,
+      fullNameWithoutType: fullNameWithoutType,
+      name: name,
+      root: root,
+      resolveMethodName: &#039;resolve&#039; + resolveMethodName
+    };
+  },
+
+  /**
+    Returns a human-readable description for a fullName. Used by the
+    Application namespace in assertions to describe the
+    precise name of the class that Ember is looking for, rather than
+    container keys.
+      @protected
+    @param {String} fullName the lookup string
+    @method lookupDescription
+    @public
+  */
+  lookupDescription: function lookupDescription(fullName) {
+    var parsedName = this.parseName(fullName);
+    var description;
+
+    if (parsedName.type === &#039;template&#039;) {
+      return &#039;template at &#039; + parsedName.fullNameWithoutType.replace(/\./g, &#039;/&#039;);
+    }
+
+    description = parsedName.root + &#039;.&#039; + (0, _emberRuntimeSystemString.classify)(parsedName.name).replace(/\./g, &#039;&#039;);
+
+    if (parsedName.type !== &#039;model&#039;) {
+      description += (0, _emberRuntimeSystemString.classify)(parsedName.type);
+    }
+
+    return description;
+  },
+
+  makeToString: function makeToString(factory, fullName) {
+    return factory.toString();
+  },
+
+  /**
+    Given a parseName object (output from `parseName`), apply
+    the conventions expected by `Ember.Router`
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method useRouterNaming
+    @public
+  */
+  useRouterNaming: function useRouterNaming(parsedName) {
+    parsedName.name = parsedName.name.replace(/\./g, &#039;_&#039;);
+    if (parsedName.name === &#039;basic&#039;) {
+      parsedName.name = &#039;&#039;;
+    }
+  },
+  /**
+    Look up the template in Ember.TEMPLATES
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method resolveTemplate
+    @public
+  */
+  resolveTemplate: function resolveTemplate(parsedName) {
+    var templateName = parsedName.fullNameWithoutType.replace(/\./g, &#039;/&#039;);
+
+    if (_emberMetalCore2[&#039;default&#039;].TEMPLATES[templateName]) {
+      return _emberMetalCore2[&#039;default&#039;].TEMPLATES[templateName];
+    }
+
+    templateName = (0, _emberRuntimeSystemString.decamelize)(templateName);
+    if (_emberMetalCore2[&#039;default&#039;].TEMPLATES[templateName]) {
+      return _emberMetalCore2[&#039;default&#039;].TEMPLATES[templateName];
+    }
+  },
+
+  /**
+    Lookup the view using `resolveOther`
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method resolveView
+    @public
+  */
+  resolveView: function resolveView(parsedName) {
+    this.useRouterNaming(parsedName);
+    return this.resolveOther(parsedName);
+  },
+
+  /**
+    Lookup the controller using `resolveOther`
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method resolveController
+    @public
+  */
+  resolveController: function resolveController(parsedName) {
+    this.useRouterNaming(parsedName);
+    return this.resolveOther(parsedName);
+  },
+  /**
+    Lookup the route using `resolveOther`
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method resolveRoute
+    @public
+  */
+  resolveRoute: function resolveRoute(parsedName) {
+    this.useRouterNaming(parsedName);
+    return this.resolveOther(parsedName);
+  },
+
+  /**
+    Lookup the model on the Application namespace
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method resolveModel
+    @public
+  */
+  resolveModel: function resolveModel(parsedName) {
+    var className = (0, _emberRuntimeSystemString.classify)(parsedName.name);
+    var factory = (0, _emberMetalProperty_get.get)(parsedName.root, className);
+
+    if (factory) {
+      return factory;
+    }
+  },
+  /**
+    Look up the specified object (from parsedName) on the appropriate
+    namespace (usually on the Application)
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method resolveHelper
+    @public
+  */
+  resolveHelper: function resolveHelper(parsedName) {
+    return this.resolveOther(parsedName) || _emberHtmlbarsHelpers2[&#039;default&#039;][parsedName.fullNameWithoutType];
+  },
+  /**
+    Look up the specified object (from parsedName) on the appropriate
+    namespace (usually on the Application)
+      @protected
+    @param {Object} parsedName a parseName object with the parsed
+      fullName lookup string
+    @method resolveOther
+    @public
+  */
+  resolveOther: function resolveOther(parsedName) {
+    var className = (0, _emberRuntimeSystemString.classify)(parsedName.name) + (0, _emberRuntimeSystemString.classify)(parsedName.type);
+    var factory = (0, _emberMetalProperty_get.get)(parsedName.root, className);
+    if (factory) {
+      return factory;
+    }
+  },
+
+  resolveMain: function resolveMain(parsedName) {
+    var className = (0, _emberRuntimeSystemString.classify)(parsedName.type);
+    return (0, _emberMetalProperty_get.get)(parsedName.root, className);
+  },
+
+  /**
+   @method _logLookup
+   @param {Boolean} found
+   @param {Object} parsedName
+   @private
+  */
+  _logLookup: function _logLookup(found, parsedName) {
+    var symbol, padding;
+
+    if (found) {
+      symbol = &#039;[✓]&#039;;
+    } else {
+      symbol = &#039;[ ]&#039;;
+    }
+
+    if (parsedName.fullName.length &gt; 60) {
+      padding = &#039;.&#039;;
+    } else {
+      padding = new Array(60 - parsedName.fullName.length).join(&#039;.&#039;);
+    }
+
+    _emberMetalLogger2[&#039;default&#039;].info(symbol, parsedName.fullName, padding, this.lookupDescription(parsedName.fullName));
+  },
+
+  /**
+   Used to iterate all items of a given type.
+     @method knownForType
+   @param {String} type the type to search for
+   @private
+   */
+  knownForType: function knownForType(type) {
+    var namespace = (0, _emberMetalProperty_get.get)(this, &#039;namespace&#039;);
+    var suffix = (0, _emberRuntimeSystemString.classify)(type);
+    var typeRegexp = new RegExp(suffix + &#039;$&#039;);
+
+    var known = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+    var knownKeys = Object.keys(namespace);
+    for (var index = 0, _length = knownKeys.length; index &lt; _length; index++) {
+      var _name = knownKeys[index];
+
+      if (typeRegexp.test(_name)) {
+        var containerName = this.translateToContainerFullname(type, _name);
+
+        known[containerName] = true;
+      }
+    }
+
+    return known;
+  },
+
+  /**
+   Converts provided name from the backing namespace into a container lookup name.
+     Examples:
+     App.FooBarHelper -&gt; helper:foo-bar
+   App.THelper -&gt; helper:t
+     @method translateToContainerFullname
+   @param {String} type
+   @param {String} name
+   @private
+   */
+
+  translateToContainerFullname: function translateToContainerFullname(type, name) {
+    var suffix = (0, _emberRuntimeSystemString.classify)(type);
+    var namePrefix = name.slice(0, suffix.length * -1);
+    var dasherizedName = (0, _emberRuntimeSystemString.dasherize)(namePrefix);
+
+    return type + &#039;:&#039; + dasherizedName;
+  }
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

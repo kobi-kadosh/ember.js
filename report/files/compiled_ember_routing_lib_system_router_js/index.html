@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-routing\lib\system\router.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-routing\lib\system\router.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.97</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1181</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">90.16</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">10.91</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// FEATURES, Logger, assert
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalProperties = require(&#039;ember-metal/properties&#039;);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+var _emberMetalRun_loop = require(&#039;ember-metal/run_loop&#039;);
+
+var _emberMetalRun_loop2 = _interopRequireDefault(_emberMetalRun_loop);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberRuntimeMixinsEvented = require(&#039;ember-runtime/mixins/evented&#039;);
+
+var _emberRuntimeMixinsEvented2 = _interopRequireDefault(_emberRuntimeMixinsEvented);
+
+var _emberRoutingSystemDsl = require(&#039;ember-routing/system/dsl&#039;);
+
+var _emberRoutingSystemDsl2 = _interopRequireDefault(_emberRoutingSystemDsl);
+
+var _emberRoutingLocationApi = require(&#039;ember-routing/location/api&#039;);
+
+var _emberRoutingLocationApi2 = _interopRequireDefault(_emberRoutingLocationApi);
+
+var _emberRoutingUtils = require(&#039;ember-routing/utils&#039;);
+
+var _router_state = require(&#039;./router_state&#039;);
+
+var _router_state2 = _interopRequireDefault(_router_state);
+
+/**
+@module ember
+@submodule ember-routing
+*/
+
+var _router4 = require(&#039;router&#039;);
+
+var _router5 = _interopRequireDefault(_router4);
+
+require(&#039;router/transition&#039;);
+
+function K() {
+  return this;
+}
+
+var slice = [].slice;
+
+/**
+  The `Ember.Router` class manages the application state and URLs. Refer to
+  the [routing guide](http://emberjs.com/guides/routing/) for documentation.
+
+  @class Router
+  @namespace Ember
+  @extends Ember.Object
+  @uses Ember.Evented
+  @public
+*/
+var EmberRouter = _emberRuntimeSystemObject2[&#039;default&#039;].extend(_emberRuntimeMixinsEvented2[&#039;default&#039;], {
+  /**
+    The `location` property determines the type of URL&#039;s that your
+    application will use.
+      The following location types are currently available:
+      * `auto`
+    * `hash`
+    * `history`
+    * `none`
+      @property location
+    @default &#039;hash&#039;
+    @see {Ember.Location}
+    @public
+  */
+  location: &#039;hash&#039;,
+
+  /**
+   Represents the URL of the root of the application, often &#039;/&#039;. This prefix is
+   assumed on all routes defined on this router.
+     @property rootURL
+   @default &#039;/&#039;
+   @public
+  */
+  rootURL: &#039;/&#039;,
+
+  _initRouterJs: function _initRouterJs(moduleBasedResolver) {
+    var router = this.router = new _router5[&#039;default&#039;]();
+    router.triggerEvent = triggerEvent;
+
+    router._triggerWillChangeContext = K;
+    router._triggerWillLeave = K;
+
+    var dslCallbacks = this.constructor.dslCallbacks || [K];
+    var dsl = new _emberRoutingSystemDsl2[&#039;default&#039;](null, {
+      enableLoadingSubstates: !!moduleBasedResolver
+    });
+
+    function generateDSL() {
+      this.route(&#039;application&#039;, { path: &#039;/&#039;, resetNamespace: true, overrideNameAssertion: true }, function () {
+        for (var i = 0; i &lt; dslCallbacks.length; i++) {
+          dslCallbacks[i].call(this);
+        }
+      });
+    }
+
+    generateDSL.call(dsl);
+
+    if ((0, _emberMetalProperty_get.get)(this, &#039;namespace.LOG_TRANSITIONS_INTERNAL&#039;)) {
+      router.log = _emberMetalCore2[&#039;default&#039;].Logger.debug;
+    }
+
+    router.map(dsl.generate());
+  },
+
+  init: function init() {
+    this._activeViews = {};
+    this._qpCache = {};
+    this._resetQueuedQueryParameterChanges();
+  },
+
+  /*
+    Resets all pending query paramter changes.
+    Called after transitioning to a new route
+    based on query parameter changes.
+  */
+  _resetQueuedQueryParameterChanges: function _resetQueuedQueryParameterChanges() {
+    this._queuedQPChanges = {};
+  },
+
+  /**
+    Represents the current URL.
+      @method url
+    @return {String} The current URL.
+    @private
+  */
+  url: (0, _emberMetalComputed.computed)(function () {
+    return (0, _emberMetalProperty_get.get)(this, &#039;location&#039;).getURL();
+  }),
+
+  /**
+    Initializes the current router instance and sets up the change handling
+    event listeners used by the instances `location` implementation.
+      A property named `initialURL` will be used to determine the initial URL.
+    If no value is found `/` will be used.
+      @method startRouting
+    @private
+  */
+  startRouting: function startRouting(moduleBasedResolver) {
+    var initialURL = (0, _emberMetalProperty_get.get)(this, &#039;initialURL&#039;);
+
+    if (this.setupRouter(moduleBasedResolver)) {
+      if (typeof initialURL === &#039;undefined&#039;) {
+        initialURL = (0, _emberMetalProperty_get.get)(this, &#039;location&#039;).getURL();
+      }
+      var initialTransition = this.handleURL(initialURL);
+      if (initialTransition &amp;&amp; initialTransition.error) {
+        throw initialTransition.error;
+      }
+    }
+  },
+
+  setupRouter: function setupRouter(moduleBasedResolver) {
+    var _this = this;
+
+    this._initRouterJs(moduleBasedResolver);
+    this._setupLocation();
+
+    var router = this.router;
+    var location = (0, _emberMetalProperty_get.get)(this, &#039;location&#039;);
+
+    // Allow the Location class to cancel the router setup while it refreshes
+    // the page
+    if ((0, _emberMetalProperty_get.get)(location, &#039;cancelRouterSetup&#039;)) {
+      return false;
+    }
+
+    this._setupRouter(router, location);
+
+    location.onUpdateURL(function (url) {
+      _this.handleURL(url);
+    });
+
+    return true;
+  },
+
+  /**
+    Handles updating the paths and notifying any listeners of the URL
+    change.
+      Triggers the router level `didTransition` hook.
+      @method didTransition
+    @private
+    @since 1.2.0
+  */
+  didTransition: function didTransition(infos) {
+    updatePaths(this);
+
+    this._cancelSlowTransitionTimer();
+
+    this.notifyPropertyChange(&#039;url&#039;);
+    this.set(&#039;currentState&#039;, this.targetState);
+
+    // Put this in the runloop so url will be accurate. Seems
+    // less surprising than didTransition being out of sync.
+    _emberMetalRun_loop2[&#039;default&#039;].once(this, this.trigger, &#039;didTransition&#039;);
+
+    if ((0, _emberMetalProperty_get.get)(this, &#039;namespace&#039;).LOG_TRANSITIONS) {
+      _emberMetalCore2[&#039;default&#039;].Logger.log(&#039;Transitioned into \&#039;&#039; + EmberRouter._routePath(infos) + &#039;\&#039;&#039;);
+    }
+  },
+
+  _setOutlets: function _setOutlets() {
+    var handlerInfos = this.router.currentHandlerInfos;
+    var route;
+    var defaultParentState;
+    var liveRoutes = null;
+
+    if (!handlerInfos) {
+      return;
+    }
+
+    for (var i = 0; i &lt; handlerInfos.length; i++) {
+      route = handlerInfos[i].handler;
+      var connections = route.connections;
+      var ownState;
+      for (var j = 0; j &lt; connections.length; j++) {
+        var appended = appendLiveRoute(liveRoutes, defaultParentState, connections[j]);
+        liveRoutes = appended.liveRoutes;
+        if (appended.ownState.render.name === route.routeName || appended.ownState.render.outlet === &#039;main&#039;) {
+          ownState = appended.ownState;
+        }
+      }
+      if (connections.length === 0) {
+        ownState = representEmptyRoute(liveRoutes, defaultParentState, route);
+      }
+      defaultParentState = ownState;
+    }
+    if (!this._toplevelView) {
+      var OutletView = this.container.lookupFactory(&#039;view:-outlet&#039;);
+      this._toplevelView = OutletView.create();
+      var instance = this.container.lookup(&#039;-application-instance:main&#039;);
+      instance.didCreateRootView(this._toplevelView);
+    }
+    this._toplevelView.setOutletState(liveRoutes);
+  },
+
+  /**
+    Handles notifying any listeners of an impending URL
+    change.
+      Triggers the router level `willTransition` hook.
+      @method willTransition
+    @private
+    @since 1.11.0
+  */
+  willTransition: function willTransition(oldInfos, newInfos, transition) {
+    _emberMetalRun_loop2[&#039;default&#039;].once(this, this.trigger, &#039;willTransition&#039;, transition);
+
+    if ((0, _emberMetalProperty_get.get)(this, &#039;namespace&#039;).LOG_TRANSITIONS) {
+      _emberMetalCore2[&#039;default&#039;].Logger.log(&#039;Preparing to transition from \&#039;&#039; + EmberRouter._routePath(oldInfos) + &#039;\&#039; to \&#039; &#039; + EmberRouter._routePath(newInfos) + &#039;\&#039;&#039;);
+    }
+  },
+
+  handleURL: function handleURL(url) {
+    // Until we have an ember-idiomatic way of accessing #hashes, we need to
+    // remove it because router.js doesn&#039;t know how to handle it.
+    url = url.split(/#(.+)?/)[0];
+    return this._doURLTransition(&#039;handleURL&#039;, url);
+  },
+
+  _doURLTransition: function _doURLTransition(routerJsMethod, url) {
+    var transition = this.router[routerJsMethod](url || &#039;/&#039;);
+    didBeginTransition(transition, this);
+    return transition;
+  },
+
+  transitionTo: function transitionTo() {
+    var queryParams;
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    if (resemblesURL(args[0])) {
+      return this._doURLTransition(&#039;transitionTo&#039;, args[0]);
+    }
+
+    var possibleQueryParams = args[args.length - 1];
+    if (possibleQueryParams &amp;&amp; possibleQueryParams.hasOwnProperty(&#039;queryParams&#039;)) {
+      queryParams = args.pop().queryParams;
+    } else {
+      queryParams = {};
+    }
+
+    var targetRouteName = args.shift();
+    return this._doTransition(targetRouteName, args, queryParams);
+  },
+
+  intermediateTransitionTo: function intermediateTransitionTo() {
+    var _router;
+
+    (_router = this.router).intermediateTransitionTo.apply(_router, arguments);
+
+    updatePaths(this);
+
+    var infos = this.router.currentHandlerInfos;
+    if ((0, _emberMetalProperty_get.get)(this, &#039;namespace&#039;).LOG_TRANSITIONS) {
+      _emberMetalCore2[&#039;default&#039;].Logger.log(&#039;Intermediate-transitioned into \&#039;&#039; + EmberRouter._routePath(infos) + &#039;\&#039;&#039;);
+    }
+  },
+
+  replaceWith: function replaceWith() {
+    return this.transitionTo.apply(this, arguments).method(&#039;replace&#039;);
+  },
+
+  generate: function generate() {
+    var _router2;
+
+    var url = (_router2 = this.router).generate.apply(_router2, arguments);
+    return this.location.formatURL(url);
+  },
+
+  /**
+    Determines if the supplied route is currently active.
+      @method isActive
+    @param routeName
+    @return {Boolean}
+    @private
+  */
+  isActive: function isActive(routeName) {
+    var router = this.router;
+    return router.isActive.apply(router, arguments);
+  },
+
+  /**
+    An alternative form of `isActive` that doesn&#039;t require
+    manual concatenation of the arguments into a single
+    array.
+      @method isActiveIntent
+    @param routeName
+    @param models
+    @param queryParams
+    @return {Boolean}
+    @private
+    @since 1.7.0
+  */
+  isActiveIntent: function isActiveIntent(routeName, models, queryParams) {
+    return this.currentState.isActiveIntent(routeName, models, queryParams);
+  },
+
+  send: function send(name, context) {
+    var _router3;
+
+    (_router3 = this.router).trigger.apply(_router3, arguments);
+  },
+
+  /**
+    Does this router instance have the given route.
+      @method hasRoute
+    @return {Boolean}
+    @private
+  */
+  hasRoute: function hasRoute(route) {
+    return this.router.hasRoute(route);
+  },
+
+  /**
+    Resets the state of the router by clearing the current route
+    handlers and deactivating them.
+      @private
+    @method reset
+   */
+  reset: function reset() {
+    if (this.router) {
+      this.router.reset();
+    }
+  },
+
+  willDestroy: function willDestroy() {
+    if (this._toplevelView) {
+      this._toplevelView.destroy();
+      this._toplevelView = null;
+    }
+    this._super.apply(this, arguments);
+    this.reset();
+  },
+
+  _lookupActiveComponentNode: function _lookupActiveComponentNode(templateName) {
+    return this._activeViews[templateName];
+  },
+
+  /*
+    Called when an active route&#039;s query parameter has changed.
+    These changes are batched into a runloop run and trigger
+    a single transition.
+  */
+  _activeQPChanged: function _activeQPChanged(queryParameterName, newValue) {
+    this._queuedQPChanges[queryParameterName] = newValue;
+    _emberMetalRun_loop2[&#039;default&#039;].once(this, this._fireQueryParamTransition);
+  },
+
+  _updatingQPChanged: function _updatingQPChanged(queryParameterName) {
+    if (!this._qpUpdates) {
+      this._qpUpdates = {};
+    }
+    this._qpUpdates[queryParameterName] = true;
+  },
+
+  /*
+    Triggers a transition to a route based on query parameter changes.
+    This is called once per runloop, to batch changes.
+      e.g.
+      if these methods are called in succession:
+    this._activeQPChanged(&#039;foo&#039;, &#039;10&#039;);
+      // results in _queuedQPChanges = {foo: &#039;10&#039;}
+    this._activeQPChanged(&#039;bar&#039;, false);
+      // results in _queuedQPChanges = {foo: &#039;10&#039;, bar: false}
+  
+    _queuedQPChanges will represent both of these changes
+    and the transition using `transitionTo` will be triggered
+    once.
+  */
+  _fireQueryParamTransition: function _fireQueryParamTransition() {
+    this.transitionTo({ queryParams: this._queuedQPChanges });
+    this._resetQueuedQueryParameterChanges();
+  },
+
+  _connectActiveComponentNode: function _connectActiveComponentNode(templateName, componentNode) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;cannot connect an activeView that already exists&#039;, !this._activeViews[templateName]);
+
+    var _activeViews = this._activeViews;
+    function disconnectActiveView() {
+      delete _activeViews[templateName];
+    }
+
+    this._activeViews[templateName] = componentNode;
+    componentNode.renderNode.addDestruction({ destroy: disconnectActiveView });
+  },
+
+  _setupLocation: function _setupLocation() {
+    var location = (0, _emberMetalProperty_get.get)(this, &#039;location&#039;);
+    var rootURL = (0, _emberMetalProperty_get.get)(this, &#039;rootURL&#039;);
+
+    if (&#039;string&#039; === typeof location &amp;&amp; this.container) {
+      var resolvedLocation = this.container.lookup(&#039;location:&#039; + location);
+
+      if (&#039;undefined&#039; !== typeof resolvedLocation) {
+        location = (0, _emberMetalProperty_set.set)(this, &#039;location&#039;, resolvedLocation);
+      } else {
+        // Allow for deprecated registration of custom location API&#039;s
+        var options = {
+          implementation: location
+        };
+
+        location = (0, _emberMetalProperty_set.set)(this, &#039;location&#039;, _emberRoutingLocationApi2[&#039;default&#039;].create(options));
+      }
+    }
+
+    if (location !== null &amp;&amp; typeof location === &#039;object&#039;) {
+      if (rootURL) {
+        (0, _emberMetalProperty_set.set)(location, &#039;rootURL&#039;, rootURL);
+      }
+
+      // Allow the location to do any feature detection, such as AutoLocation
+      // detecting history support. This gives it a chance to set its
+      // `cancelRouterSetup` property which aborts routing.
+      if (typeof location.detect === &#039;function&#039;) {
+        location.detect();
+      }
+
+      // ensure that initState is called AFTER the rootURL is set on
+      // the location instance
+      if (typeof location.initState === &#039;function&#039;) {
+        location.initState();
+      }
+    }
+  },
+
+  _getHandlerFunction: function _getHandlerFunction() {
+    var _this2 = this;
+
+    var seen = Object.create(null);
+    var container = this.container;
+    var DefaultRoute = container.lookupFactory(&#039;route:basic&#039;);
+
+    return function (name) {
+      var routeName = &#039;route:&#039; + name;
+      var handler = container.lookup(routeName);
+
+      if (seen[name]) {
+        return handler;
+      }
+
+      seen[name] = true;
+
+      if (!handler) {
+        container._registry.register(routeName, DefaultRoute.extend());
+        handler = container.lookup(routeName);
+
+        if ((0, _emberMetalProperty_get.get)(_this2, &#039;namespace.LOG_ACTIVE_GENERATION&#039;)) {
+          _emberMetalCore2[&#039;default&#039;].Logger.info(&#039;generated -&gt; &#039; + routeName, { fullName: routeName });
+        }
+      }
+
+      handler.routeName = name;
+      return handler;
+    };
+  },
+
+  _setupRouter: function _setupRouter(router, location) {
+    var lastURL;
+    var emberRouter = this;
+
+    router.getHandler = this._getHandlerFunction();
+
+    var doUpdateURL = function doUpdateURL() {
+      location.setURL(lastURL);
+    };
+
+    router.updateURL = function (path) {
+      lastURL = path;
+      _emberMetalRun_loop2[&#039;default&#039;].once(doUpdateURL);
+    };
+
+    if (location.replaceURL) {
+      var doReplaceURL = function doReplaceURL() {
+        location.replaceURL(lastURL);
+      };
+
+      router.replaceURL = function (path) {
+        lastURL = path;
+        _emberMetalRun_loop2[&#039;default&#039;].once(doReplaceURL);
+      };
+    }
+
+    router.didTransition = function (infos) {
+      emberRouter.didTransition(infos);
+    };
+
+    if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-router-willtransition&#039;)) {
+      router.willTransition = function (oldInfos, newInfos, transition) {
+        emberRouter.willTransition(oldInfos, newInfos, transition);
+      };
+    }
+  },
+
+  _serializeQueryParams: function _serializeQueryParams(targetRouteName, queryParams) {
+    var groupedByUrlKey = {};
+
+    forEachQueryParam(this, targetRouteName, queryParams, function (key, value, qp) {
+      var urlKey = qp.urlKey;
+      if (!groupedByUrlKey[urlKey]) {
+        groupedByUrlKey[urlKey] = [];
+      }
+      groupedByUrlKey[urlKey].push({
+        qp: qp,
+        value: value
+      });
+      delete queryParams[key];
+    });
+
+    for (var key in groupedByUrlKey) {
+      var qps = groupedByUrlKey[key];
+      _emberMetalCore2[&#039;default&#039;].assert((0, _emberRuntimeSystemString.fmt)(&#039;You\&#039;re not allowed to have more than one controller &#039; + &#039;property map to the same query param key, but both &#039; + &#039;`%@` and `%@` map to `%@`. You can fix this by mapping &#039; + &#039;one of the controller properties to a different query &#039; + &#039;param key via the `as` config option, e.g. `%@: { as: \&#039;other-%@\&#039; }`&#039;, [qps[0].qp.scopedPropertyName, qps[1] ? qps[1].qp.scopedPropertyName : &#039;&#039;, qps[0].qp.urlKey, qps[0].qp.prop, qps[0].qp.prop]), qps.length &lt;= 1);
+      var qp = qps[0].qp;
+      queryParams[qp.urlKey] = qp.route.serializeQueryParam(qps[0].value, qp.urlKey, qp.type);
+    }
+  },
+
+  _deserializeQueryParams: function _deserializeQueryParams(targetRouteName, queryParams) {
+    forEachQueryParam(this, targetRouteName, queryParams, function (key, value, qp) {
+      delete queryParams[key];
+      queryParams[qp.prop] = qp.route.deserializeQueryParam(value, qp.urlKey, qp.type);
+    });
+  },
+
+  _pruneDefaultQueryParamValues: function _pruneDefaultQueryParamValues(targetRouteName, queryParams) {
+    var qps = this._queryParamsFor(targetRouteName);
+    for (var key in queryParams) {
+      var qp = qps.map[key];
+      if (qp &amp;&amp; qp.serializedDefaultValue === queryParams[key]) {
+        delete queryParams[key];
+      }
+    }
+  },
+
+  _doTransition: function _doTransition(_targetRouteName, models, _queryParams) {
+    var targetRouteName = _targetRouteName || (0, _emberRoutingUtils.getActiveTargetName)(this.router);
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;The route &#039; + targetRouteName + &#039; was not found&#039;, targetRouteName &amp;&amp; this.router.hasRoute(targetRouteName));
+
+    var queryParams = {};
+    (0, _emberMetalMerge2[&#039;default&#039;])(queryParams, _queryParams);
+    this._prepareQueryParams(targetRouteName, models, queryParams);
+
+    var transitionArgs = (0, _emberRoutingUtils.routeArgs)(targetRouteName, models, queryParams);
+    var transitionPromise = this.router.transitionTo.apply(this.router, transitionArgs);
+
+    didBeginTransition(transitionPromise, this);
+
+    return transitionPromise;
+  },
+
+  _prepareQueryParams: function _prepareQueryParams(targetRouteName, models, queryParams) {
+    this._hydrateUnsuppliedQueryParams(targetRouteName, models, queryParams);
+    this._serializeQueryParams(targetRouteName, queryParams);
+    this._pruneDefaultQueryParamValues(targetRouteName, queryParams);
+  },
+
+  /**
+    Returns a merged query params meta object for a given route.
+    Useful for asking a route what its known query params are.
+      @private
+   */
+  _queryParamsFor: function _queryParamsFor(leafRouteName) {
+    if (this._qpCache[leafRouteName]) {
+      return this._qpCache[leafRouteName];
+    }
+
+    var map = {};
+    var qps = [];
+    this._qpCache[leafRouteName] = {
+      map: map,
+      qps: qps
+    };
+
+    var routerjs = this.router;
+    var recogHandlerInfos = routerjs.recognizer.handlersFor(leafRouteName);
+
+    for (var i = 0, len = recogHandlerInfos.length; i &lt; len; ++i) {
+      var recogHandler = recogHandlerInfos[i];
+      var route = routerjs.getHandler(recogHandler.handler);
+      var qpMeta = (0, _emberMetalProperty_get.get)(route, &#039;_qp&#039;);
+
+      if (!qpMeta) {
+        continue;
+      }
+
+      (0, _emberMetalMerge2[&#039;default&#039;])(map, qpMeta.map);
+      qps.push.apply(qps, qpMeta.qps);
+    }
+
+    return {
+      qps: qps,
+      map: map
+    };
+  },
+
+  _hydrateUnsuppliedQueryParams: function _hydrateUnsuppliedQueryParams(leafRouteName, contexts, queryParams) {
+    var state = calculatePostTransitionState(this, leafRouteName, contexts);
+    var handlerInfos = state.handlerInfos;
+    var appCache = this._bucketCache;
+    (0, _emberRoutingUtils.stashParamNames)(this, handlerInfos);
+
+    for (var i = 0, len = handlerInfos.length; i &lt; len; ++i) {
+      var route = handlerInfos[i].handler;
+      var qpMeta = (0, _emberMetalProperty_get.get)(route, &#039;_qp&#039;);
+
+      for (var j = 0, qpLen = qpMeta.qps.length; j &lt; qpLen; ++j) {
+        var qp = qpMeta.qps[j];
+
+        var presentProp = qp.prop in queryParams &amp;&amp; qp.prop || qp.scopedPropertyName in queryParams &amp;&amp; qp.scopedPropertyName;
+
+        if (presentProp) {
+          if (presentProp !== qp.scopedPropertyName) {
+            queryParams[qp.scopedPropertyName] = queryParams[presentProp];
+            delete queryParams[presentProp];
+          }
+        } else {
+          var cacheKey = (0, _emberRoutingUtils.calculateCacheKey)(qp.ctrl, qp.parts, state.params);
+          queryParams[qp.scopedPropertyName] = appCache.lookup(cacheKey, qp.prop, qp.defaultValue);
+        }
+      }
+    }
+  },
+
+  _scheduleLoadingEvent: function _scheduleLoadingEvent(transition, originRoute) {
+    this._cancelSlowTransitionTimer();
+    this._slowTransitionTimer = _emberMetalRun_loop2[&#039;default&#039;].scheduleOnce(&#039;routerTransitions&#039;, this, &#039;_handleSlowTransition&#039;, transition, originRoute);
+  },
+
+  currentState: null,
+  targetState: null,
+
+  _handleSlowTransition: function _handleSlowTransition(transition, originRoute) {
+    if (!this.router.activeTransition) {
+      // Don&#039;t fire an event if we&#039;ve since moved on from
+      // the transition that put us in a loading state.
+      return;
+    }
+
+    this.set(&#039;targetState&#039;, _router_state2[&#039;default&#039;].create({
+      emberRouter: this,
+      routerJs: this.router,
+      routerJsState: this.router.activeTransition.state
+    }));
+
+    transition.trigger(true, &#039;loading&#039;, transition, originRoute);
+  },
+
+  _cancelSlowTransitionTimer: function _cancelSlowTransitionTimer() {
+    if (this._slowTransitionTimer) {
+      _emberMetalRun_loop2[&#039;default&#039;].cancel(this._slowTransitionTimer);
+    }
+    this._slowTransitionTimer = null;
+  }
+});
+
+/*
+  Helper function for iterating root-ward, starting
+  from (but not including) the provided `originRoute`.
+
+  Returns true if the last callback fired requested
+  to bubble upward.
+
+  @private
+ */
+function forEachRouteAbove(originRoute, transition, callback) {
+  var handlerInfos = transition.state.handlerInfos;
+  var originRouteFound = false;
+  var handlerInfo, route;
+
+  for (var i = handlerInfos.length - 1; i &gt;= 0; --i) {
+    handlerInfo = handlerInfos[i];
+    route = handlerInfo.handler;
+
+    if (!originRouteFound) {
+      if (originRoute === route) {
+        originRouteFound = true;
+      }
+      continue;
+    }
+
+    if (callback(route, handlerInfos[i + 1].handler) !== true) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// These get invoked when an action bubbles above ApplicationRoute
+// and are not meant to be overridable.
+var defaultActionHandlers = {
+
+  willResolveModel: function willResolveModel(transition, originRoute) {
+    originRoute.router._scheduleLoadingEvent(transition, originRoute);
+  },
+
+  error: function error(_error2, transition, originRoute) {
+    // Attempt to find an appropriate error substate to enter.
+    var router = originRoute.router;
+
+    var tryTopLevel = forEachRouteAbove(originRoute, transition, function (route, childRoute) {
+      var childErrorRouteName = findChildRouteName(route, childRoute, &#039;error&#039;);
+      if (childErrorRouteName) {
+        router.intermediateTransitionTo(childErrorRouteName, _error2);
+        return;
+      }
+      return true;
+    });
+
+    if (tryTopLevel) {
+      // Check for top-level error state to enter.
+      if (routeHasBeenDefined(originRoute.router, &#039;application_error&#039;)) {
+        router.intermediateTransitionTo(&#039;application_error&#039;, _error2);
+        return;
+      }
+    }
+
+    logError(_error2, &#039;Error while processing route: &#039; + transition.targetName);
+  },
+
+  loading: function loading(transition, originRoute) {
+    // Attempt to find an appropriate loading substate to enter.
+    var router = originRoute.router;
+
+    var tryTopLevel = forEachRouteAbove(originRoute, transition, function (route, childRoute) {
+      var childLoadingRouteName = findChildRouteName(route, childRoute, &#039;loading&#039;);
+
+      if (childLoadingRouteName) {
+        router.intermediateTransitionTo(childLoadingRouteName);
+        return;
+      }
+
+      // Don&#039;t bubble above pivot route.
+      if (transition.pivotHandler !== route) {
+        return true;
+      }
+    });
+
+    if (tryTopLevel) {
+      // Check for top-level loading state to enter.
+      if (routeHasBeenDefined(originRoute.router, &#039;application_loading&#039;)) {
+        router.intermediateTransitionTo(&#039;application_loading&#039;);
+        return;
+      }
+    }
+  }
+};
+
+function logError(_error, initialMessage) {
+  var errorArgs = [];
+  var error;
+  if (_error &amp;&amp; typeof _error === &#039;object&#039; &amp;&amp; typeof _error.errorThrown === &#039;object&#039;) {
+    error = _error.errorThrown;
+  } else {
+    error = _error;
+  }
+
+  if (initialMessage) {
+    errorArgs.push(initialMessage);
+  }
+
+  if (error) {
+    if (error.message) {
+      errorArgs.push(error.message);
+    }
+    if (error.stack) {
+      errorArgs.push(error.stack);
+    }
+
+    if (typeof error === &#039;string&#039;) {
+      errorArgs.push(error);
+    }
+  }
+
+  _emberMetalCore2[&#039;default&#039;].Logger.error.apply(this, errorArgs);
+}
+
+function findChildRouteName(parentRoute, originatingChildRoute, name) {
+  var router = parentRoute.router;
+  var childName;
+  var targetChildRouteName = originatingChildRoute.routeName.split(&#039;.&#039;).pop();
+  var namespace = parentRoute.routeName === &#039;application&#039; ? &#039;&#039; : parentRoute.routeName + &#039;.&#039;;
+
+  if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-routing-named-substates&#039;)) {
+    // First, try a named loading state, e.g. &#039;foo_loading&#039;
+    childName = namespace + targetChildRouteName + &#039;_&#039; + name;
+    if (routeHasBeenDefined(router, childName)) {
+      return childName;
+    }
+  }
+
+  // Second, try general loading state, e.g. &#039;loading&#039;
+  childName = namespace + name;
+  if (routeHasBeenDefined(router, childName)) {
+    return childName;
+  }
+}
+
+function routeHasBeenDefined(router, name) {
+  var container = router.container;
+  return router.hasRoute(name) &amp;&amp; (container._registry.has(&#039;template:&#039; + name) || container._registry.has(&#039;route:&#039; + name));
+}
+
+function triggerEvent(handlerInfos, ignoreFailure, args) {
+  var name = args.shift();
+
+  if (!handlerInfos) {
+    if (ignoreFailure) {
+      return;
+    }
+    throw new _emberMetalError2[&#039;default&#039;](&#039;Can\&#039;t trigger action \&#039;&#039; + name + &#039;\&#039; because your app hasn\&#039;t finished transitioning into its first route. To trigger an action on destination routes during a transition, you can call `.send()` on the `Transition` object passed to the `model/beforeModel/afterModel` hooks.&#039;);
+  }
+
+  var eventWasHandled = false;
+  var handlerInfo, handler;
+
+  for (var i = handlerInfos.length - 1; i &gt;= 0; i--) {
+    handlerInfo = handlerInfos[i];
+    handler = handlerInfo.handler;
+
+    if (handler._actions &amp;&amp; handler._actions[name]) {
+      if (handler._actions[name].apply(handler, args) === true) {
+        eventWasHandled = true;
+      } else {
+        return;
+      }
+    }
+  }
+
+  if (defaultActionHandlers[name]) {
+    defaultActionHandlers[name].apply(null, args);
+    return;
+  }
+
+  if (!eventWasHandled &amp;&amp; !ignoreFailure) {
+    throw new _emberMetalError2[&#039;default&#039;](&#039;Nothing handled the action \&#039;&#039; + name + &#039;\&#039;. If you did handle the action, this error can be caused by returning true from an action handler in a controller, causing the action to bubble.&#039;);
+  }
+}
+
+function calculatePostTransitionState(emberRouter, leafRouteName, contexts) {
+  var routerjs = emberRouter.router;
+  var state = routerjs.applyIntent(leafRouteName, contexts);
+  var handlerInfos = state.handlerInfos;
+  var params = state.params;
+
+  for (var i = 0, len = handlerInfos.length; i &lt; len; ++i) {
+    var handlerInfo = handlerInfos[i];
+    if (!handlerInfo.isResolved) {
+      handlerInfo = handlerInfo.becomeResolved(null, handlerInfo.context);
+    }
+    params[handlerInfo.name] = handlerInfo.params;
+  }
+  return state;
+}
+
+function updatePaths(router) {
+  var appController = router.container.lookup(&#039;controller:application&#039;);
+
+  if (!appController) {
+    // appController might not exist when top-level loading/error
+    // substates have been entered since ApplicationRoute hasn&#039;t
+    // actually been entered at that point.
+    return;
+  }
+
+  var infos = router.router.currentHandlerInfos;
+  var path = EmberRouter._routePath(infos);
+
+  if (!(&#039;currentPath&#039; in appController)) {
+    (0, _emberMetalProperties.defineProperty)(appController, &#039;currentPath&#039;);
+  }
+
+  (0, _emberMetalProperty_set.set)(appController, &#039;currentPath&#039;, path);
+  (0, _emberMetalProperty_set.set)(router, &#039;currentPath&#039;, path);
+
+  if (!(&#039;currentRouteName&#039; in appController)) {
+    (0, _emberMetalProperties.defineProperty)(appController, &#039;currentRouteName&#039;);
+  }
+
+  (0, _emberMetalProperty_set.set)(appController, &#039;currentRouteName&#039;, infos[infos.length - 1].name);
+  (0, _emberMetalProperty_set.set)(router, &#039;currentRouteName&#039;, infos[infos.length - 1].name);
+}
+
+EmberRouter.reopenClass({
+  router: null,
+
+  /**
+    The `Router.map` function allows you to define mappings from URLs to routes
+    in your application. These mappings are defined within the
+    supplied callback function using `this.route`.
+      The first parameter is the name of the route which is used by default as the
+    path name as well.
+      The second parameter is the optional options hash. Available options are:
+      * `path`: allows you to provide your own path as well as mark dynamic
+        segments.
+      * `resetNamespace`: false by default; when nesting routes, ember will
+        combine the route names to form the fully-qualified route name, which is
+        used with `{{link-to}}` or manually transitioning to routes. Setting
+        `resetNamespace: true` will cause the route not to inherit from its
+        parent route&#039;s names. This is handy for resources which can be accessed
+        in multiple places as well as preventing extremely long route names.
+        Keep in mind that the actual URL path behavior is still retained.
+      The third parameter is a function, which can be used to nest routes.
+    Nested routes, by default, will have the parent route tree&#039;s route name and
+    path prepended to it&#039;s own.
+      ```javascript
+    App.Router.map(function(){
+      this.route(&#039;post&#039;, { path: &#039;/post/:post_id&#039; }, function() {
+        this.route(&#039;edit&#039;);
+        this.route(&#039;comments&#039;, { resetNamespace: true }, function() {
+          this.route(&#039;new&#039;);
+        });
+      });
+    });
+    ```
+      For more detailed documentation and examples please see
+    [the guides](http://emberjs.com/guides/routing/defining-your-routes/).
+      @method map
+    @param callback
+    @public
+  */
+  map: function map(callback) {
+
+    if (!this.dslCallbacks) {
+      this.dslCallbacks = [];
+      this.reopenClass({ dslCallbacks: this.dslCallbacks });
+    }
+
+    this.dslCallbacks.push(callback);
+
+    return this;
+  },
+
+  _routePath: function _routePath(handlerInfos) {
+    var path = [];
+
+    // We have to handle coalescing resource names that
+    // are prefixed with their parent&#039;s names, e.g.
+    // [&#039;foo&#039;, &#039;foo.bar.baz&#039;] =&gt; &#039;foo.bar.baz&#039;, not &#039;foo.foo.bar.baz&#039;
+
+    function intersectionMatches(a1, a2) {
+      for (var i = 0, len = a1.length; i &lt; len; ++i) {
+        if (a1[i] !== a2[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    var name, nameParts, oldNameParts;
+    for (var i = 1, l = handlerInfos.length; i &lt; l; i++) {
+      name = handlerInfos[i].name;
+      nameParts = name.split(&#039;.&#039;);
+      oldNameParts = slice.call(path);
+
+      while (oldNameParts.length) {
+        if (intersectionMatches(oldNameParts, nameParts)) {
+          break;
+        }
+        oldNameParts.shift();
+      }
+
+      path.push.apply(path, nameParts.slice(oldNameParts.length));
+    }
+
+    return path.join(&#039;.&#039;);
+  }
+});
+
+function didBeginTransition(transition, router) {
+  var routerState = _router_state2[&#039;default&#039;].create({
+    emberRouter: router,
+    routerJs: router.router,
+    routerJsState: transition.state
+  });
+
+  if (!router.currentState) {
+    router.set(&#039;currentState&#039;, routerState);
+  }
+  router.set(&#039;targetState&#039;, routerState);
+
+  transition.then(null, function (error) {
+    if (!error || !error.name) {
+      return;
+    }
+
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;The URL \&#039;&#039; + error.message + &#039;\&#039; did not match any routes in your application&#039;, error.name !== &#039;UnrecognizedURLError&#039;);
+
+    return error;
+  }, &#039;Ember: Process errors from Router&#039;);
+}
+
+function resemblesURL(str) {
+  return typeof str === &#039;string&#039; &amp;&amp; (str === &#039;&#039; || str.charAt(0) === &#039;/&#039;);
+}
+
+function forEachQueryParam(router, targetRouteName, queryParams, callback) {
+  var qpCache = router._queryParamsFor(targetRouteName);
+
+  for (var key in queryParams) {
+    if (!queryParams.hasOwnProperty(key)) {
+      continue;
+    }
+    var value = queryParams[key];
+    var qp = qpCache.map[key];
+
+    if (qp) {
+      callback(key, value, qp);
+    }
+  }
+}
+
+function findLiveRoute(liveRoutes, name) {
+  if (!liveRoutes) {
+    return;
+  }
+  var stack = [liveRoutes];
+  while (stack.length &gt; 0) {
+    var test = stack.shift();
+    if (test.render.name === name) {
+      return test;
+    }
+    var outlets = test.outlets;
+    for (var outletName in outlets) {
+      stack.push(outlets[outletName]);
+    }
+  }
+}
+
+function appendLiveRoute(liveRoutes, defaultParentState, renderOptions) {
+  var target;
+  var myState = {
+    render: renderOptions,
+    outlets: Object.create(null)
+  };
+  if (renderOptions.into) {
+    target = findLiveRoute(liveRoutes, renderOptions.into);
+  } else {
+    target = defaultParentState;
+  }
+  if (target) {
+    (0, _emberMetalProperty_set.set)(target.outlets, renderOptions.outlet, myState);
+  } else {
+    if (renderOptions.into) {
+      // Megahax time. Post-2.0-breaking-changes, we will just assert
+      // right here that the user tried to target a nonexistent
+      // thing. But for now we still need to support the `render`
+      // helper, and people are allowed to target templates rendered
+      // by the render helper. So instead we defer doing anyting with
+      // these orphan renders until afterRender.
+      appendOrphan(liveRoutes, renderOptions.into, myState);
+    } else {
+      liveRoutes = myState;
+    }
+  }
+  return {
+    liveRoutes: liveRoutes,
+    ownState: myState
+  };
+}
+
+function appendOrphan(liveRoutes, into, myState) {
+  if (!liveRoutes.outlets.__ember_orphans__) {
+    liveRoutes.outlets.__ember_orphans__ = {
+      render: {
+        name: &#039;__ember_orphans__&#039;
+      },
+      outlets: Object.create(null)
+    };
+  }
+  liveRoutes.outlets.__ember_orphans__.outlets[into] = myState;
+  _emberMetalCore2[&#039;default&#039;].run.schedule(&#039;afterRender&#039;, function () {
+    // `wasUsed` gets set by the render helper. See the function
+    // `impersonateAnOutlet`.
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;You attempted to render into \&#039;&#039; + into + &#039;\&#039; but it was not found&#039;, liveRoutes.outlets.__ember_orphans__.outlets[into].wasUsed);
+  });
+}
+
+function representEmptyRoute(liveRoutes, defaultParentState, route) {
+  // the route didn&#039;t render anything
+  var alreadyAppended = findLiveRoute(liveRoutes, route.routeName);
+  if (alreadyAppended) {
+    // But some other route has already rendered our default
+    // template, so that becomes the default target for any
+    // children we may have.
+    return alreadyAppended;
+  } else {
+    // Create an entry to represent our default template name,
+    // just so other routes can target it and inherit its place
+    // in the outlet hierarchy.
+    defaultParentState.outlets.main = {
+      render: {
+        name: route.routeName,
+        outlet: &#039;main&#039;
+      },
+      outlets: {}
+    };
+    return defaultParentState;
+  }
+}
+
+exports[&#039;default&#039;] = EmberRouter;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

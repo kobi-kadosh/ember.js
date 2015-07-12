@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\system\namespace.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\system\namespace.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.86</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">253</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">40.61</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.46</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+
+// Ember.lookup, Ember.BOOTED, Ember.deprecate, Ember.NAME_KEY, Ember.anyUnprocessedMixins
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+/**
+  A Namespace is an object usually used to contain other objects or methods
+  such as an application or framework. Create a namespace anytime you want
+  to define one of these new containers.
+
+  # Example Usage
+
+  ```javascript
+  MyFramework = Ember.Namespace.create({
+    VERSION: &#039;1.0.0&#039;
+  });
+  ```
+
+  @class Namespace
+  @namespace Ember
+  @extends Ember.Object
+  @public
+*/
+var Namespace = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+  isNamespace: true,
+
+  init: function init() {
+    Namespace.NAMESPACES.push(this);
+    Namespace.PROCESSED = false;
+  },
+
+  toString: function toString() {
+    var name = (0, _emberMetalProperty_get.get)(this, &#039;name&#039;) || (0, _emberMetalProperty_get.get)(this, &#039;modulePrefix&#039;);
+    if (name) {
+      return name;
+    }
+
+    findNamespaces();
+    return this[NAME_KEY];
+  },
+
+  nameClasses: function nameClasses() {
+    processNamespace([this.toString()], this, {});
+  },
+
+  destroy: function destroy() {
+    var namespaces = Namespace.NAMESPACES;
+    var toString = this.toString();
+
+    if (toString) {
+      _emberMetalCore2[&#039;default&#039;].lookup[toString] = undefined;
+      delete Namespace.NAMESPACES_BY_ID[toString];
+    }
+    namespaces.splice(namespaces.indexOf(this), 1);
+    this._super.apply(this, arguments);
+  }
+});
+
+Namespace.reopenClass({
+  NAMESPACES: [_emberMetalCore2[&#039;default&#039;]],
+  NAMESPACES_BY_ID: {},
+  PROCESSED: false,
+  processAll: processAllNamespaces,
+  byName: function byName(name) {
+    if (!_emberMetalCore2[&#039;default&#039;].BOOTED) {
+      processAllNamespaces();
+    }
+
+    return NAMESPACES_BY_ID[name];
+  }
+});
+
+var NAMESPACES_BY_ID = Namespace.NAMESPACES_BY_ID;
+
+var hasOwnProp = ({}).hasOwnProperty;
+
+function processNamespace(paths, root, seen) {
+  var idx = paths.length;
+
+  NAMESPACES_BY_ID[paths.join(&#039;.&#039;)] = root;
+
+  // Loop over all of the keys in the namespace, looking for classes
+  for (var key in root) {
+    if (!hasOwnProp.call(root, key)) {
+      continue;
+    }
+    var obj = root[key];
+
+    // If we are processing the `Ember` namespace, for example, the
+    // `paths` will start with `[&quot;Ember&quot;]`. Every iteration through
+    // the loop will update the **second** element of this list with
+    // the key, so processing `Ember.View` will make the Array
+    // `[&#039;Ember&#039;, &#039;View&#039;]`.
+    paths[idx] = key;
+
+    // If we have found an unprocessed class
+    if (obj &amp;&amp; obj.toString === classToString) {
+      // Replace the class&#039; `toString` with the dot-separated path
+      // and set its `NAME_KEY`
+      obj.toString = makeToString(paths.join(&#039;.&#039;));
+      obj[NAME_KEY] = paths.join(&#039;.&#039;);
+
+      // Support nested namespaces
+    } else if (obj &amp;&amp; obj.isNamespace) {
+      // Skip aliased namespaces
+      if (seen[(0, _emberMetalUtils.guidFor)(obj)]) {
+        continue;
+      }
+      seen[(0, _emberMetalUtils.guidFor)(obj)] = true;
+
+      // Process the child namespace
+      processNamespace(paths, obj, seen);
+    }
+  }
+
+  paths.length = idx; // cut out last item
+}
+
+var STARTS_WITH_UPPERCASE = /^[A-Z]/;
+
+function tryIsNamespace(lookup, prop) {
+  try {
+    var obj = lookup[prop];
+    return obj &amp;&amp; obj.isNamespace &amp;&amp; obj;
+  } catch (e) {}
+}
+
+function findNamespaces() {
+  var lookup = _emberMetalCore2[&#039;default&#039;].lookup;
+  var obj;
+
+  if (Namespace.PROCESSED) {
+    return;
+  }
+
+  for (var prop in lookup) {
+    // Only process entities that start with uppercase A-Z
+    if (!STARTS_WITH_UPPERCASE.test(prop)) {
+      continue;
+    }
+
+    // Unfortunately, some versions of IE don&#039;t support window.hasOwnProperty
+    if (lookup.hasOwnProperty &amp;&amp; !lookup.hasOwnProperty(prop)) {
+      continue;
+    }
+
+    // At times we are not allowed to access certain properties for security reasons.
+    // There are also times where even if we can access them, we are not allowed to access their properties.
+    obj = tryIsNamespace(lookup, prop);
+    if (obj) {
+      obj[NAME_KEY] = prop;
+    }
+  }
+}
+
+var NAME_KEY = _emberMetalCore2[&#039;default&#039;].NAME_KEY = _emberMetalUtils.GUID_KEY + &#039;_name&#039;;
+
+function superClassString(_x) {
+  var _again = true;
+
+  _function: while (_again) {
+    var mixin = _x;
+    superclass = undefined;
+    _again = false;
+
+    var superclass = mixin.superclass;
+    if (superclass) {
+      if (superclass[NAME_KEY]) {
+        return superclass[NAME_KEY];
+      } else {
+        _x = superclass;
+        _again = true;
+        continue _function;
+      }
+    } else {
+      return;
+    }
+  }
+}
+
+function classToString() {
+  if (!_emberMetalCore2[&#039;default&#039;].BOOTED &amp;&amp; !this[NAME_KEY]) {
+    processAllNamespaces();
+  }
+
+  var ret;
+
+  if (this[NAME_KEY]) {
+    ret = this[NAME_KEY];
+  } else if (this._toString) {
+    ret = this._toString;
+  } else {
+    var str = superClassString(this);
+    if (str) {
+      ret = &#039;(subclass of &#039; + str + &#039;)&#039;;
+    } else {
+      ret = &#039;(unknown mixin)&#039;;
+    }
+    this.toString = makeToString(ret);
+  }
+
+  return ret;
+}
+
+function processAllNamespaces() {
+  var unprocessedNamespaces = !Namespace.PROCESSED;
+  var unprocessedMixins = _emberMetalCore2[&#039;default&#039;].anyUnprocessedMixins;
+
+  if (unprocessedNamespaces) {
+    findNamespaces();
+    Namespace.PROCESSED = true;
+  }
+
+  if (unprocessedNamespaces || unprocessedMixins) {
+    var namespaces = Namespace.NAMESPACES;
+    var namespace;
+
+    for (var i = 0, l = namespaces.length; i &lt; l; i++) {
+      namespace = namespaces[i];
+      processNamespace([namespace.toString()], namespace, {});
+    }
+
+    _emberMetalCore2[&#039;default&#039;].anyUnprocessedMixins = false;
+  }
+}
+
+function makeToString(ret) {
+  return function () {
+    return ret;
+  };
+}
+
+_emberMetalMixin.Mixin.prototype.toString = classToString; // ES6TODO: altering imported objects. SBB.
+
+exports[&#039;default&#039;] = Namespace;
+module.exports = exports[&#039;default&#039;];
+
+// continue</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

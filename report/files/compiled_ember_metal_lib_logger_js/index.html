@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\logger.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\logger.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.22</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">162</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">23.58</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.54</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.imports
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+function K() {
+  return this;
+}
+
+function consoleMethod(name) {
+  var consoleObj, logToConsole;
+  if (_emberMetalCore2[&#039;default&#039;].imports.console) {
+    consoleObj = _emberMetalCore2[&#039;default&#039;].imports.console;
+  } else if (typeof console !== &#039;undefined&#039;) {
+    consoleObj = console;
+  }
+
+  var method = typeof consoleObj === &#039;object&#039; ? consoleObj[name] : null;
+
+  if (method) {
+    // Older IE doesn&#039;t support bind, but Chrome needs it
+    if (typeof method.bind === &#039;function&#039;) {
+      logToConsole = method.bind(consoleObj);
+      logToConsole.displayName = &#039;console.&#039; + name;
+      return logToConsole;
+    } else if (typeof method.apply === &#039;function&#039;) {
+      logToConsole = function () {
+        method.apply(consoleObj, arguments);
+      };
+      logToConsole.displayName = &#039;console.&#039; + name;
+      return logToConsole;
+    } else {
+      return function () {
+        var message = Array.prototype.join.call(arguments, &#039;, &#039;);
+        method(message);
+      };
+    }
+  }
+}
+
+function assertPolyfill(test, message) {
+  if (!test) {
+    try {
+      // attempt to preserve the stack
+      throw new _emberMetalError2[&#039;default&#039;](&#039;assertion failed: &#039; + message);
+    } catch (error) {
+      setTimeout(function () {
+        throw error;
+      }, 0);
+    }
+  }
+}
+
+/**
+  Inside Ember-Metal, simply uses the methods from `imports.console`.
+  Override this to provide more robust logging functionality.
+
+  @class Logger
+  @namespace Ember
+  @private
+*/
+exports[&#039;default&#039;] = {
+  /**
+   Logs the arguments to the console.
+   You can pass as many arguments as you want and they will be joined together with a space.
+      ```javascript
+    var foo = 1;
+    Ember.Logger.log(&#039;log value of foo:&#039;, foo);
+    // &quot;log value of foo: 1&quot; will be printed to the console
+    ```
+     @method log
+   @for Ember.Logger
+   @param {*} arguments
+   @private
+  */
+  log: consoleMethod(&#039;log&#039;) || K,
+
+  /**
+   Prints the arguments to the console with a warning icon.
+   You can pass as many arguments as you want and they will be joined together with a space.
+      ```javascript
+    Ember.Logger.warn(&#039;Something happened!&#039;);
+    // &quot;Something happened!&quot; will be printed to the console with a warning icon.
+    ```
+     @method warn
+   @for Ember.Logger
+   @param {*} arguments
+   @private
+  */
+  warn: consoleMethod(&#039;warn&#039;) || K,
+
+  /**
+   Prints the arguments to the console with an error icon, red text and a stack trace.
+   You can pass as many arguments as you want and they will be joined together with a space.
+      ```javascript
+    Ember.Logger.error(&#039;Danger! Danger!&#039;);
+    // &quot;Danger! Danger!&quot; will be printed to the console in red text.
+    ```
+     @method error
+   @for Ember.Logger
+   @param {*} arguments
+   @private
+  */
+  error: consoleMethod(&#039;error&#039;) || K,
+
+  /**
+   Logs the arguments to the console.
+   You can pass as many arguments as you want and they will be joined together with a space.
+      ```javascript
+    var foo = 1;
+    Ember.Logger.info(&#039;log value of foo:&#039;, foo);
+    // &quot;log value of foo: 1&quot; will be printed to the console
+    ```
+     @method info
+   @for Ember.Logger
+   @param {*} arguments
+   @private
+  */
+  info: consoleMethod(&#039;info&#039;) || K,
+
+  /**
+   Logs the arguments to the console in blue text.
+   You can pass as many arguments as you want and they will be joined together with a space.
+      ```javascript
+    var foo = 1;
+    Ember.Logger.debug(&#039;log value of foo:&#039;, foo);
+    // &quot;log value of foo: 1&quot; will be printed to the console
+    ```
+     @method debug
+   @for Ember.Logger
+   @param {*} arguments
+   @private
+  */
+  debug: consoleMethod(&#039;debug&#039;) || consoleMethod(&#039;info&#039;) || K,
+
+  /**
+   If the value passed into `Ember.Logger.assert` is not truthy it will throw an error with a stack trace.
+      ```javascript
+    Ember.Logger.assert(true); // undefined
+    Ember.Logger.assert(true === false); // Throws an Assertion failed error.
+    ```
+     @method assert
+   @for Ember.Logger
+   @param {Boolean} bool Value to test
+   @private
+  */
+  assert: consoleMethod(&#039;assert&#039;) || assertPolyfill
+};
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

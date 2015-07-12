@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-routing\lib\location\history_location.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-routing\lib\location\history_location.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.40</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">243</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">36.02</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.39</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberRoutingLocationApi = require(&#039;ember-routing/location/api&#039;);
+
+var _emberRoutingLocationApi2 = _interopRequireDefault(_emberRoutingLocationApi);
+
+var _emberViewsSystemJquery = require(&#039;ember-views/system/jquery&#039;);
+
+var _emberViewsSystemJquery2 = _interopRequireDefault(_emberViewsSystemJquery);
+
+/**
+@module ember
+@submodule ember-routing
+*/
+
+var popstateFired = false;
+
+/**
+  Ember.HistoryLocation implements the location API using the browser&#039;s
+  history.pushState API.
+
+  @class HistoryLocation
+  @namespace Ember
+  @extends Ember.Object
+  @private
+*/
+exports[&#039;default&#039;] = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+  implementation: &#039;history&#039;,
+
+  init: function init() {
+    (0, _emberMetalProperty_set.set)(this, &#039;location&#039;, (0, _emberMetalProperty_get.get)(this, &#039;location&#039;) || window.location);
+    (0, _emberMetalProperty_set.set)(this, &#039;baseURL&#039;, (0, _emberViewsSystemJquery2[&#039;default&#039;])(&#039;base&#039;).attr(&#039;href&#039;) || &#039;&#039;);
+  },
+
+  /**
+    Used to set state on first call to setURL
+      @private
+    @method initState
+  */
+  initState: function initState() {
+    var history = (0, _emberMetalProperty_get.get)(this, &#039;history&#039;) || window.history;
+    (0, _emberMetalProperty_set.set)(this, &#039;history&#039;, history);
+
+    if (history &amp;&amp; &#039;state&#039; in history) {
+      this.supportsHistory = true;
+    }
+
+    this.replaceState(this.formatURL(this.getURL()));
+  },
+
+  /**
+    Will be pre-pended to path upon state change
+      @property rootURL
+    @default &#039;/&#039;
+    @private
+  */
+  rootURL: &#039;/&#039;,
+
+  /**
+    Returns the current `location.pathname` without `rootURL` or `baseURL`
+      @private
+    @method getURL
+    @return url {String}
+  */
+  getURL: function getURL() {
+    var rootURL = (0, _emberMetalProperty_get.get)(this, &#039;rootURL&#039;);
+    var location = (0, _emberMetalProperty_get.get)(this, &#039;location&#039;);
+    var path = location.pathname;
+    var baseURL = (0, _emberMetalProperty_get.get)(this, &#039;baseURL&#039;);
+
+    rootURL = rootURL.replace(/\/$/, &#039;&#039;);
+    baseURL = baseURL.replace(/\/$/, &#039;&#039;);
+
+    var url = path.replace(baseURL, &#039;&#039;).replace(rootURL, &#039;&#039;);
+    var search = location.search || &#039;&#039;;
+
+    url += search;
+    url += this.getHash();
+
+    return url;
+  },
+
+  /**
+    Uses `history.pushState` to update the url without a page reload.
+      @private
+    @method setURL
+    @param path {String}
+  */
+  setURL: function setURL(path) {
+    var state = this.getState();
+    path = this.formatURL(path);
+
+    if (!state || state.path !== path) {
+      this.pushState(path);
+    }
+  },
+
+  /**
+    Uses `history.replaceState` to update the url without a page reload
+    or history modification.
+      @private
+    @method replaceURL
+    @param path {String}
+  */
+  replaceURL: function replaceURL(path) {
+    var state = this.getState();
+    path = this.formatURL(path);
+
+    if (!state || state.path !== path) {
+      this.replaceState(path);
+    }
+  },
+
+  /**
+    Get the current `history.state`. Checks for if a polyfill is
+    required and if so fetches this._historyState. The state returned
+    from getState may be null if an iframe has changed a window&#039;s
+    history.
+      @private
+    @method getState
+    @return state {Object}
+  */
+  getState: function getState() {
+    if (this.supportsHistory) {
+      return (0, _emberMetalProperty_get.get)(this, &#039;history&#039;).state;
+    }
+
+    return this._historyState;
+  },
+
+  /**
+   Pushes a new state.
+     @private
+   @method pushState
+   @param path {String}
+  */
+  pushState: function pushState(path) {
+    var state = { path: path };
+
+    (0, _emberMetalProperty_get.get)(this, &#039;history&#039;).pushState(state, null, path);
+
+    this._historyState = state;
+
+    // used for webkit workaround
+    this._previousURL = this.getURL();
+  },
+
+  /**
+   Replaces the current state.
+     @private
+   @method replaceState
+   @param path {String}
+  */
+  replaceState: function replaceState(path) {
+    var state = { path: path };
+    (0, _emberMetalProperty_get.get)(this, &#039;history&#039;).replaceState(state, null, path);
+
+    this._historyState = state;
+
+    // used for webkit workaround
+    this._previousURL = this.getURL();
+  },
+
+  /**
+    Register a callback to be invoked whenever the browser
+    history changes, including using forward and back buttons.
+      @private
+    @method onUpdateURL
+    @param callback {Function}
+  */
+  onUpdateURL: function onUpdateURL(callback) {
+    var _this = this;
+
+    var guid = (0, _emberMetalUtils.guidFor)(this);
+
+    (0, _emberViewsSystemJquery2[&#039;default&#039;])(window).on(&#039;popstate.ember-location-&#039; + guid, function (e) {
+      // Ignore initial page load popstate event in Chrome
+      if (!popstateFired) {
+        popstateFired = true;
+        if (_this.getURL() === _this._previousURL) {
+          return;
+        }
+      }
+      callback(_this.getURL());
+    });
+  },
+
+  /**
+    Used when using `{{action}}` helper.  The url is always appended to the rootURL.
+      @private
+    @method formatURL
+    @param url {String}
+    @return formatted url {String}
+  */
+  formatURL: function formatURL(url) {
+    var rootURL = (0, _emberMetalProperty_get.get)(this, &#039;rootURL&#039;);
+    var baseURL = (0, _emberMetalProperty_get.get)(this, &#039;baseURL&#039;);
+
+    if (url !== &#039;&#039;) {
+      rootURL = rootURL.replace(/\/$/, &#039;&#039;);
+      baseURL = baseURL.replace(/\/$/, &#039;&#039;);
+    } else if (baseURL.match(/^\//) &amp;&amp; rootURL.match(/^\//)) {
+      baseURL = baseURL.replace(/\/$/, &#039;&#039;);
+    }
+
+    return baseURL + rootURL + url;
+  },
+
+  /**
+    Cleans up the HistoryLocation event listener.
+      @private
+    @method willDestroy
+  */
+  willDestroy: function willDestroy() {
+    var guid = (0, _emberMetalUtils.guidFor)(this);
+
+    (0, _emberViewsSystemJquery2[&#039;default&#039;])(window).off(&#039;popstate.ember-location-&#039; + guid);
+  },
+
+  /**
+    @private
+      Returns normalized location.hash
+      @method getHash
+  */
+  getHash: _emberRoutingLocationApi2[&#039;default&#039;]._getHash
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

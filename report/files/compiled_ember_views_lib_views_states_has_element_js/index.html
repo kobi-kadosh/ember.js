@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\views\states\has_element.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\views\states\has_element.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">77.73</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">97</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">15.60</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.68</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberViewsViewsStatesDefault = require(&#039;ember-views/views/states/default&#039;);
+
+var _emberViewsViewsStatesDefault2 = _interopRequireDefault(_emberViewsViewsStatesDefault);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+var _emberViewsSystemJquery = require(&#039;ember-views/system/jquery&#039;);
+
+var _emberViewsSystemJquery2 = _interopRequireDefault(_emberViewsSystemJquery);
+
+/**
+@module ember
+@submodule ember-views
+*/
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _htmlbarsRuntime = require(&#039;htmlbars-runtime&#039;);
+
+var hasElement = Object.create(_emberViewsViewsStatesDefault2[&#039;default&#039;]);
+
+(0, _emberMetalMerge2[&#039;default&#039;])(hasElement, {
+  $: function $(view, sel) {
+    var elem = view.element;
+    return sel ? (0, _emberViewsSystemJquery2[&#039;default&#039;])(sel, elem) : (0, _emberViewsSystemJquery2[&#039;default&#039;])(elem);
+  },
+
+  getElement: function getElement(view) {
+    var parent = (0, _emberMetalProperty_get.get)(view, &#039;parentView&#039;);
+    if (parent) {
+      parent = (0, _emberMetalProperty_get.get)(parent, &#039;element&#039;);
+    }
+    if (parent) {
+      return view.findElementInParentElement(parent);
+    }
+    return (0, _emberViewsSystemJquery2[&#039;default&#039;])(&#039;#&#039; + (0, _emberMetalProperty_get.get)(view, &#039;elementId&#039;))[0];
+  },
+
+  // once the view has been inserted into the DOM, rerendering is
+  // deferred to allow bindings to synchronize.
+  rerender: function rerender(view) {
+    view.renderer.ensureViewNotRendering(view);
+
+    var renderNode = view._renderNode;
+
+    renderNode.isDirty = true;
+    _htmlbarsRuntime.internal.visitChildren(renderNode.childNodes, function (node) {
+      if (node.state &amp;&amp; node.state.manager) {
+        node.shouldReceiveAttrs = true;
+      }
+      node.isDirty = true;
+    });
+
+    renderNode.ownerNode.emberView.scheduleRevalidate(renderNode, view.toString(), &#039;rerendering&#039;);
+  },
+
+  cleanup: function cleanup(view) {
+    view.currentState.destroyElement(view);
+  },
+
+  // once the view is already in the DOM, destroying it removes it
+  // from the DOM, nukes its element, and puts it back into the
+  // preRender state if inDOM.
+
+  destroyElement: function destroyElement(view) {
+    view.renderer.remove(view, false);
+    return view;
+  },
+
+  // Handle events from `Ember.EventDispatcher`
+  handleEvent: function handleEvent(view, eventName, evt) {
+    if (view.has(eventName)) {
+      // Handler should be able to re-dispatch events, so we don&#039;t
+      // preventDefault or stopPropagation.
+      return view.trigger(eventName, evt);
+    } else {
+      return true; // continue event propagation
+    }
+  },
+
+  invokeObserver: function invokeObserver(target, observer) {
+    observer.call(target);
+  }
+});
+
+exports[&#039;default&#039;] = hasElement;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

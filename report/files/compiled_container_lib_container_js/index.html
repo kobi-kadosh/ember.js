@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\container\lib\container.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\container\lib\container.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.21</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">372</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">56.37</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.52</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert
+
+var _emberMetalDictionary = require(&#039;ember-metal/dictionary&#039;);
+
+var _emberMetalDictionary2 = _interopRequireDefault(_emberMetalDictionary);
+
+// TODO - Temporary workaround for v0.4.0 of the ES6 transpiler, which lacks support for circular dependencies.
+// See the below usage of requireModule. Instead, it should be possible to simply `import Registry from &#039;./registry&#039;;`
+var Registry;
+
+/**
+ A container used to instantiate and cache objects.
+
+ Every `Container` must be associated with a `Registry`, which is referenced
+ to determine the factory and options that should be used to instantiate
+ objects.
+
+ The public API for `Container` is still in flux and should not be considered
+ stable.
+
+ @private
+ @class Container
+ */
+function Container(registry, options) {
+  this._registry = registry || (function () {
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;A container should only be created for an already instantiated registry. For backward compatibility, an isolated registry will be instantiated just for this container.&#039;);
+
+    // TODO - See note above about transpiler import workaround.
+    if (!Registry) {
+      Registry = requireModule(&#039;container/registry&#039;)[&#039;default&#039;];
+    }
+
+    return new Registry();
+  })();
+
+  this.cache = (0, _emberMetalDictionary2[&#039;default&#039;])(options &amp;&amp; options.cache ? options.cache : null);
+  this.factoryCache = (0, _emberMetalDictionary2[&#039;default&#039;])(options &amp;&amp; options.factoryCache ? options.factoryCache : null);
+  this.validationCache = (0, _emberMetalDictionary2[&#039;default&#039;])(options &amp;&amp; options.validationCache ? options.validationCache : null);
+}
+
+Container.prototype = {
+  /**
+   @private
+     @property _registry
+   @type Registry
+   @since 1.11.0
+   */
+  _registry: null,
+
+  /**
+   @private
+     @property cache
+   @type InheritingDict
+   */
+  cache: null,
+
+  /**
+   @private
+   @property factoryCache
+   @type InheritingDict
+   */
+  factoryCache: null,
+
+  /**
+   @private
+   @property validationCache
+   @type InheritingDict
+   */
+  validationCache: null,
+
+  /**
+   Given a fullName return a corresponding instance.
+     The default behaviour is for lookup to return a singleton instance.
+   The singleton is scoped to the container, allowing multiple containers
+   to all have their own locally scoped singletons.
+     ```javascript
+   var registry = new Registry();
+   var container = registry.container();
+     registry.register(&#039;api:twitter&#039;, Twitter);
+     var twitter = container.lookup(&#039;api:twitter&#039;);
+     twitter instanceof Twitter; // =&gt; true
+     // by default the container will return singletons
+   var twitter2 = container.lookup(&#039;api:twitter&#039;);
+   twitter2 instanceof Twitter; // =&gt; true
+     twitter === twitter2; //=&gt; true
+   ```
+     If singletons are not wanted an optional flag can be provided at lookup.
+     ```javascript
+   var registry = new Registry();
+   var container = registry.container();
+     registry.register(&#039;api:twitter&#039;, Twitter);
+     var twitter = container.lookup(&#039;api:twitter&#039;, { singleton: false });
+   var twitter2 = container.lookup(&#039;api:twitter&#039;, { singleton: false });
+     twitter === twitter2; //=&gt; false
+   ```
+     @private
+   @method lookup
+   @param {String} fullName
+   @param {Object} options
+   @return {any}
+   */
+  lookup: (function (_lookup) {
+    function lookup(_x, _x2) {
+      return _lookup.apply(this, arguments);
+    }
+
+    lookup.toString = function () {
+      return _lookup.toString();
+    };
+
+    return lookup;
+  })(function (fullName, options) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this._registry.validateFullName(fullName));
+    return lookup(this, this._registry.normalize(fullName), options);
+  }),
+
+  /**
+   Given a fullName return the corresponding factory.
+     @private
+   @method lookupFactory
+   @param {String} fullName
+   @return {any}
+   */
+  lookupFactory: function lookupFactory(fullName) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this._registry.validateFullName(fullName));
+    return factoryFor(this, this._registry.normalize(fullName));
+  },
+
+  /**
+   A depth first traversal, destroying the container, its descendant containers and all
+   their managed objects.
+     @private
+   @method destroy
+   */
+  destroy: function destroy() {
+    eachDestroyable(this, function (item) {
+      if (item.destroy) {
+        item.destroy();
+      }
+    });
+
+    this.isDestroyed = true;
+  },
+
+  /**
+   Clear either the entire cache or just the cache for a particular key.
+     @private
+   @method reset
+   @param {String} fullName optional key to reset; if missing, resets everything
+   */
+  reset: function reset(fullName) {
+    if (arguments.length &gt; 0) {
+      resetMember(this, this._registry.normalize(fullName));
+    } else {
+      resetCache(this);
+    }
+  }
+};
+
+(function exposeRegistryMethods() {
+  var methods = [&#039;register&#039;, &#039;unregister&#039;, &#039;resolve&#039;, &#039;normalize&#039;, &#039;typeInjection&#039;, &#039;injection&#039;, &#039;factoryInjection&#039;, &#039;factoryTypeInjection&#039;, &#039;has&#039;, &#039;options&#039;, &#039;optionsForType&#039;];
+
+  function exposeRegistryMethod(method) {
+    Container.prototype[method] = function () {
+      _emberMetalCore2[&#039;default&#039;].deprecate(method + &#039; should be called on the registry instead of the container&#039;);
+      return this._registry[method].apply(this._registry, arguments);
+    };
+  }
+
+  for (var i = 0, l = methods.length; i &lt; l; i++) {
+    exposeRegistryMethod(methods[i]);
+  }
+})();
+
+function lookup(container, fullName, options) {
+  options = options || {};
+
+  if (container.cache[fullName] &amp;&amp; options.singleton !== false) {
+    return container.cache[fullName];
+  }
+
+  var value = instantiate(container, fullName);
+
+  if (value === undefined) {
+    return;
+  }
+
+  if (container._registry.getOption(fullName, &#039;singleton&#039;) !== false &amp;&amp; options.singleton !== false) {
+    container.cache[fullName] = value;
+  }
+
+  return value;
+}
+
+function buildInjections(container) {
+  var hash = {};
+
+  if (arguments.length &gt; 1) {
+    var injectionArgs = Array.prototype.slice.call(arguments, 1);
+    var injections = [];
+    var injection;
+
+    for (var i = 0, l = injectionArgs.length; i &lt; l; i++) {
+      if (injectionArgs[i]) {
+        injections = injections.concat(injectionArgs[i]);
+      }
+    }
+
+    container._registry.validateInjections(injections);
+
+    for (i = 0, l = injections.length; i &lt; l; i++) {
+      injection = injections[i];
+      hash[injection.property] = lookup(container, injection.fullName);
+    }
+  }
+
+  return hash;
+}
+
+function factoryFor(container, fullName) {
+  var cache = container.factoryCache;
+  if (cache[fullName]) {
+    return cache[fullName];
+  }
+  var registry = container._registry;
+  var factory = registry.resolve(fullName);
+  if (factory === undefined) {
+    return;
+  }
+
+  var type = fullName.split(&#039;:&#039;)[0];
+  if (!factory || typeof factory.extend !== &#039;function&#039; || !_emberMetalCore2[&#039;default&#039;].MODEL_FACTORY_INJECTIONS &amp;&amp; type === &#039;model&#039;) {
+    if (factory &amp;&amp; typeof factory._onLookup === &#039;function&#039;) {
+      factory._onLookup(fullName);
+    }
+
+    // TODO: think about a &#039;safe&#039; merge style extension
+    // for now just fallback to create time injection
+    cache[fullName] = factory;
+    return factory;
+  } else {
+    var injections = injectionsFor(container, fullName);
+    var factoryInjections = factoryInjectionsFor(container, fullName);
+
+    factoryInjections._toString = registry.makeToString(factory, fullName);
+
+    var injectedFactory = factory.extend(injections);
+    injectedFactory.reopenClass(factoryInjections);
+
+    if (factory &amp;&amp; typeof factory._onLookup === &#039;function&#039;) {
+      factory._onLookup(fullName);
+    }
+
+    cache[fullName] = injectedFactory;
+
+    return injectedFactory;
+  }
+}
+
+function injectionsFor(container, fullName) {
+  var registry = container._registry;
+  var splitName = fullName.split(&#039;:&#039;);
+  var type = splitName[0];
+
+  var injections = buildInjections(container, registry.getTypeInjections(type), registry.getInjections(fullName));
+  injections._debugContainerKey = fullName;
+  injections.container = container;
+
+  return injections;
+}
+
+function factoryInjectionsFor(container, fullName) {
+  var registry = container._registry;
+  var splitName = fullName.split(&#039;:&#039;);
+  var type = splitName[0];
+
+  var factoryInjections = buildInjections(container, registry.getFactoryTypeInjections(type), registry.getFactoryInjections(fullName));
+  factoryInjections._debugContainerKey = fullName;
+
+  return factoryInjections;
+}
+
+function instantiate(container, fullName) {
+  var factory = factoryFor(container, fullName);
+  var lazyInjections, validationCache;
+
+  if (container._registry.getOption(fullName, &#039;instantiate&#039;) === false) {
+    return factory;
+  }
+
+  if (factory) {
+    if (typeof factory.create !== &#039;function&#039;) {
+      throw new Error(&#039;Failed to create an instance of \&#039;&#039; + fullName + &#039;\&#039;. &#039; + &#039;Most likely an improperly defined class or an invalid module export.&#039;);
+    }
+
+    validationCache = container.validationCache;
+
+    // Ensure that all lazy injections are valid at instantiation time
+    if (!validationCache[fullName] &amp;&amp; typeof factory._lazyInjections === &#039;function&#039;) {
+      lazyInjections = factory._lazyInjections();
+      lazyInjections = container._registry.normalizeInjectionsHash(lazyInjections);
+
+      container._registry.validateInjections(lazyInjections);
+    }
+
+    validationCache[fullName] = true;
+
+    if (typeof factory.extend === &#039;function&#039;) {
+      // assume the factory was extendable and is already injected
+      return factory.create();
+    } else {
+      // assume the factory was extendable
+      // to create time injections
+      // TODO: support new&#039;ing for instantiation and merge injections for pure JS Functions
+      return factory.create(injectionsFor(container, fullName));
+    }
+  }
+}
+
+function eachDestroyable(container, callback) {
+  var cache = container.cache;
+  var keys = Object.keys(cache);
+  var key, value;
+
+  for (var i = 0, l = keys.length; i &lt; l; i++) {
+    key = keys[i];
+    value = cache[key];
+
+    if (container._registry.getOption(key, &#039;instantiate&#039;) !== false) {
+      callback(value);
+    }
+  }
+}
+
+function resetCache(container) {
+  eachDestroyable(container, function (value) {
+    if (value.destroy) {
+      value.destroy();
+    }
+  });
+
+  container.cache.dict = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+}
+
+function resetMember(container, fullName) {
+  var member = container.cache[fullName];
+
+  delete container.factoryCache[fullName];
+
+  if (member) {
+    delete container.cache[fullName];
+
+    if (member.destroy) {
+      member.destroy();
+    }
+  }
+}
+
+exports[&#039;default&#039;] = Container;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

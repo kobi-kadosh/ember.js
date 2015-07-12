@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\main.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\main.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">82.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">238</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">13.87</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.31</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+
+// BEGIN IMPORTS
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetal = require(&#039;ember-metal&#039;);
+
+var _emberMetal2 = _interopRequireDefault(_emberMetal);
+
+var _emberRuntimeCore = require(&#039;ember-runtime/core&#039;);
+
+var _emberRuntimeCompare = require(&#039;ember-runtime/compare&#039;);
+
+var _emberRuntimeCompare2 = _interopRequireDefault(_emberRuntimeCompare);
+
+var _emberRuntimeCopy = require(&#039;ember-runtime/copy&#039;);
+
+var _emberRuntimeCopy2 = _interopRequireDefault(_emberRuntimeCopy);
+
+var _emberRuntimeInject = require(&#039;ember-runtime/inject&#039;);
+
+var _emberRuntimeInject2 = _interopRequireDefault(_emberRuntimeInject);
+
+var _emberRuntimeSystemNamespace = require(&#039;ember-runtime/system/namespace&#039;);
+
+var _emberRuntimeSystemNamespace2 = _interopRequireDefault(_emberRuntimeSystemNamespace);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberRuntimeSystemTracked_array = require(&#039;ember-runtime/system/tracked_array&#039;);
+
+var _emberRuntimeSystemTracked_array2 = _interopRequireDefault(_emberRuntimeSystemTracked_array);
+
+var _emberRuntimeSystemSubarray = require(&#039;ember-runtime/system/subarray&#039;);
+
+var _emberRuntimeSystemSubarray2 = _interopRequireDefault(_emberRuntimeSystemSubarray);
+
+var _emberRuntimeSystemContainer = require(&#039;ember-runtime/system/container&#039;);
+
+var _emberRuntimeSystemArray_proxy = require(&#039;ember-runtime/system/array_proxy&#039;);
+
+var _emberRuntimeSystemArray_proxy2 = _interopRequireDefault(_emberRuntimeSystemArray_proxy);
+
+var _emberRuntimeSystemObject_proxy = require(&#039;ember-runtime/system/object_proxy&#039;);
+
+var _emberRuntimeSystemObject_proxy2 = _interopRequireDefault(_emberRuntimeSystemObject_proxy);
+
+var _emberRuntimeSystemCore_object = require(&#039;ember-runtime/system/core_object&#039;);
+
+var _emberRuntimeSystemCore_object2 = _interopRequireDefault(_emberRuntimeSystemCore_object);
+
+var _emberRuntimeSystemNative_array = require(&#039;ember-runtime/system/native_array&#039;);
+
+var _emberRuntimeSystemNative_array2 = _interopRequireDefault(_emberRuntimeSystemNative_array);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+var _emberRuntimeSystemString2 = _interopRequireDefault(_emberRuntimeSystemString);
+
+var _emberRuntimeSystemLazy_load = require(&#039;ember-runtime/system/lazy_load&#039;);
+
+var _emberRuntimeMixinsArray = require(&#039;ember-runtime/mixins/array&#039;);
+
+var _emberRuntimeMixinsArray2 = _interopRequireDefault(_emberRuntimeMixinsArray);
+
+var _emberRuntimeMixinsComparable = require(&#039;ember-runtime/mixins/comparable&#039;);
+
+var _emberRuntimeMixinsComparable2 = _interopRequireDefault(_emberRuntimeMixinsComparable);
+
+var _emberRuntimeMixinsCopyable = require(&#039;ember-runtime/mixins/copyable&#039;);
+
+var _emberRuntimeMixinsCopyable2 = _interopRequireDefault(_emberRuntimeMixinsCopyable);
+
+var _emberRuntimeMixinsEnumerable = require(&#039;ember-runtime/mixins/enumerable&#039;);
+
+var _emberRuntimeMixinsEnumerable2 = _interopRequireDefault(_emberRuntimeMixinsEnumerable);
+
+var _emberRuntimeMixinsFreezable = require(&#039;ember-runtime/mixins/freezable&#039;);
+
+var _emberRuntimeMixinsProxy = require(&#039;ember-runtime/mixins/-proxy&#039;);
+
+var _emberRuntimeMixinsProxy2 = _interopRequireDefault(_emberRuntimeMixinsProxy);
+
+var _emberRuntimeMixinsObservable = require(&#039;ember-runtime/mixins/observable&#039;);
+
+var _emberRuntimeMixinsObservable2 = _interopRequireDefault(_emberRuntimeMixinsObservable);
+
+var _emberRuntimeMixinsAction_handler = require(&#039;ember-runtime/mixins/action_handler&#039;);
+
+var _emberRuntimeMixinsAction_handler2 = _interopRequireDefault(_emberRuntimeMixinsAction_handler);
+
+var _emberRuntimeMixinsMutable_enumerable = require(&#039;ember-runtime/mixins/mutable_enumerable&#039;);
+
+var _emberRuntimeMixinsMutable_enumerable2 = _interopRequireDefault(_emberRuntimeMixinsMutable_enumerable);
+
+var _emberRuntimeMixinsMutable_array = require(&#039;ember-runtime/mixins/mutable_array&#039;);
+
+var _emberRuntimeMixinsMutable_array2 = _interopRequireDefault(_emberRuntimeMixinsMutable_array);
+
+var _emberRuntimeMixinsTarget_action_support = require(&#039;ember-runtime/mixins/target_action_support&#039;);
+
+var _emberRuntimeMixinsTarget_action_support2 = _interopRequireDefault(_emberRuntimeMixinsTarget_action_support);
+
+var _emberRuntimeMixinsEvented = require(&#039;ember-runtime/mixins/evented&#039;);
+
+var _emberRuntimeMixinsEvented2 = _interopRequireDefault(_emberRuntimeMixinsEvented);
+
+var _emberRuntimeMixinsPromise_proxy = require(&#039;ember-runtime/mixins/promise_proxy&#039;);
+
+var _emberRuntimeMixinsPromise_proxy2 = _interopRequireDefault(_emberRuntimeMixinsPromise_proxy);
+
+var _emberRuntimeMixinsSortable = require(&#039;ember-runtime/mixins/sortable&#039;);
+
+var _emberRuntimeMixinsSortable2 = _interopRequireDefault(_emberRuntimeMixinsSortable);
+
+var _emberRuntimeComputedReduce_computed_macros = require(&#039;ember-runtime/computed/reduce_computed_macros&#039;);
+
+var _emberRuntimeControllersArray_controller = require(&#039;ember-runtime/controllers/array_controller&#039;);
+
+var _emberRuntimeControllersArray_controller2 = _interopRequireDefault(_emberRuntimeControllersArray_controller);
+
+var _emberRuntimeControllersObject_controller = require(&#039;ember-runtime/controllers/object_controller&#039;);
+
+var _emberRuntimeControllersObject_controller2 = _interopRequireDefault(_emberRuntimeControllersObject_controller);
+
+var _emberRuntimeControllersController = require(&#039;ember-runtime/controllers/controller&#039;);
+
+var _emberRuntimeControllersController2 = _interopRequireDefault(_emberRuntimeControllersController);
+
+var _emberRuntimeMixinsController = require(&#039;ember-runtime/mixins/controller&#039;);
+
+var _emberRuntimeMixinsController2 = _interopRequireDefault(_emberRuntimeMixinsController);
+
+var _emberRuntimeSystemService = require(&#039;ember-runtime/system/service&#039;);
+
+var _emberRuntimeSystemService2 = _interopRequireDefault(_emberRuntimeSystemService);
+
+var _emberRuntimeExtRsvp = require(&#039;ember-runtime/ext/rsvp&#039;);
+
+var _emberRuntimeExtRsvp2 = _interopRequireDefault(_emberRuntimeExtRsvp);
+
+// just for side effect of extending Ember.RSVP
+
+require(&#039;ember-runtime/ext/string&#039;);
+
+// just for side effect of extending String.prototype
+
+require(&#039;ember-runtime/ext/function&#039;);
+
+// just for side effect of extending Function.prototype
+
+var _emberRuntimeUtils = require(&#039;ember-runtime/utils&#039;);
+
+// END IMPORTS
+
+// BEGIN EXPORTS
+_emberMetal2[&#039;default&#039;].compare = _emberRuntimeCompare2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].copy = _emberRuntimeCopy2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].isEqual = _emberRuntimeCore.isEqual;
+
+_emberMetal2[&#039;default&#039;].inject = _emberRuntimeInject2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].Array = _emberRuntimeMixinsArray2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].Comparable = _emberRuntimeMixinsComparable2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].Copyable = _emberRuntimeMixinsCopyable2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].SortableMixin = _emberRuntimeMixinsSortable2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].Freezable = _emberRuntimeMixinsFreezable.Freezable;
+_emberMetal2[&#039;default&#039;].FROZEN_ERROR = _emberRuntimeMixinsFreezable.FROZEN_ERROR;
+
+_emberMetal2[&#039;default&#039;].MutableEnumerable = _emberRuntimeMixinsMutable_enumerable2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].MutableArray = _emberRuntimeMixinsMutable_array2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].TargetActionSupport = _emberRuntimeMixinsTarget_action_support2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].Evented = _emberRuntimeMixinsEvented2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].PromiseProxyMixin = _emberRuntimeMixinsPromise_proxy2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].Observable = _emberRuntimeMixinsObservable2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].typeOf = _emberRuntimeUtils.typeOf;
+_emberMetal2[&#039;default&#039;].isArray = Array.isArray;
+
+// ES6TODO: this seems a less than ideal way/place to add properties to Ember.computed
+var EmComputed = _emberMetal2[&#039;default&#039;].computed;
+
+EmComputed.sum = _emberRuntimeComputedReduce_computed_macros.sum;
+EmComputed.min = _emberRuntimeComputedReduce_computed_macros.min;
+EmComputed.max = _emberRuntimeComputedReduce_computed_macros.max;
+EmComputed.map = _emberRuntimeComputedReduce_computed_macros.map;
+EmComputed.sort = _emberRuntimeComputedReduce_computed_macros.sort;
+EmComputed.setDiff = _emberRuntimeComputedReduce_computed_macros.setDiff;
+EmComputed.mapBy = _emberRuntimeComputedReduce_computed_macros.mapBy;
+EmComputed.filter = _emberRuntimeComputedReduce_computed_macros.filter;
+EmComputed.filterBy = _emberRuntimeComputedReduce_computed_macros.filterBy;
+EmComputed.uniq = _emberRuntimeComputedReduce_computed_macros.uniq;
+EmComputed.union = _emberRuntimeComputedReduce_computed_macros.union;
+EmComputed.intersect = _emberRuntimeComputedReduce_computed_macros.intersect;
+
+_emberMetal2[&#039;default&#039;].String = _emberRuntimeSystemString2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].Object = _emberRuntimeSystemObject2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].TrackedArray = _emberRuntimeSystemTracked_array2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].SubArray = _emberRuntimeSystemSubarray2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].Container = _emberRuntimeSystemContainer.Container;
+_emberMetal2[&#039;default&#039;].Registry = _emberRuntimeSystemContainer.Registry;
+_emberMetal2[&#039;default&#039;].Namespace = _emberRuntimeSystemNamespace2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].Enumerable = _emberRuntimeMixinsEnumerable2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].ArrayProxy = _emberRuntimeSystemArray_proxy2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].ObjectProxy = _emberRuntimeSystemObject_proxy2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].ActionHandler = _emberRuntimeMixinsAction_handler2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].CoreObject = _emberRuntimeSystemCore_object2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].NativeArray = _emberRuntimeSystemNative_array2[&#039;default&#039;];
+// ES6TODO: Currently we must rely on the global from ember-metal/core to avoid circular deps
+// Ember.A = A;
+_emberMetal2[&#039;default&#039;].onLoad = _emberRuntimeSystemLazy_load.onLoad;
+_emberMetal2[&#039;default&#039;].runLoadHooks = _emberRuntimeSystemLazy_load.runLoadHooks;
+
+_emberMetal2[&#039;default&#039;].ArrayController = _emberRuntimeControllersArray_controller2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].ObjectController = _emberRuntimeControllersObject_controller2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].Controller = _emberRuntimeControllersController2[&#039;default&#039;];
+_emberMetal2[&#039;default&#039;].ControllerMixin = _emberRuntimeMixinsController2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].Service = _emberRuntimeSystemService2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;]._ProxyMixin = _emberRuntimeMixinsProxy2[&#039;default&#039;];
+
+_emberMetal2[&#039;default&#039;].RSVP = _emberRuntimeExtRsvp2[&#039;default&#039;];
+// END EXPORTS
+
+exports[&#039;default&#039;] = _emberMetal2[&#039;default&#039;];
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

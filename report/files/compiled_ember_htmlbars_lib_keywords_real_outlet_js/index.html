@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\keywords\real_outlet.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\keywords\real_outlet.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.52</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">145</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">23.24</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.29</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-htmlbars
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberHtmlbarsNodeManagersViewNodeManager = require(&#039;ember-htmlbars/node-managers/view-node-manager&#039;);
+
+var _emberHtmlbarsNodeManagersViewNodeManager2 = _interopRequireDefault(_emberHtmlbarsNodeManagersViewNodeManager);
+
+var _emberHtmlbarsTemplatesTopLevelView = require(&#039;ember-htmlbars/templates/top-level-view&#039;);
+
+var _emberHtmlbarsTemplatesTopLevelView2 = _interopRequireDefault(_emberHtmlbarsTemplatesTopLevelView);
+
+_emberHtmlbarsTemplatesTopLevelView2[&#039;default&#039;].meta.revision = &#039;Ember@VERSION_STRING_PLACEHOLDER&#039;;
+
+exports[&#039;default&#039;] = {
+  willRender: function willRender(renderNode, env) {
+    env.view.ownerView._outlets.push(renderNode);
+  },
+
+  setupState: function setupState(state, env, scope, params, hash) {
+    var outletState = env.outletState;
+    var read = env.hooks.getValue;
+    var outletName = read(params[0]) || &#039;main&#039;;
+    var selectedOutletState = outletState[outletName];
+
+    var toRender = selectedOutletState &amp;&amp; selectedOutletState.render;
+    if (toRender &amp;&amp; !toRender.template &amp;&amp; !toRender.ViewClass) {
+      toRender.template = _emberHtmlbarsTemplatesTopLevelView2[&#039;default&#039;];
+    }
+
+    return {
+      outletState: selectedOutletState,
+      hasParentOutlet: env.hasParentOutlet,
+      manager: state.manager
+    };
+  },
+
+  childEnv: function childEnv(state, env) {
+    return env.childWithOutletState(state.outletState &amp;&amp; state.outletState.outlets, true);
+  },
+
+  isStable: (function (_isStable) {
+    function isStable(_x, _x2) {
+      return _isStable.apply(this, arguments);
+    }
+
+    isStable.toString = function () {
+      return _isStable.toString();
+    };
+
+    return isStable;
+  })(function (lastState, nextState) {
+    return isStable(lastState.outletState, nextState.outletState);
+  }),
+
+  isEmpty: (function (_isEmpty) {
+    function isEmpty(_x3) {
+      return _isEmpty.apply(this, arguments);
+    }
+
+    isEmpty.toString = function () {
+      return _isEmpty.toString();
+    };
+
+    return isEmpty;
+  })(function (state) {
+    return isEmpty(state.outletState);
+  }),
+
+  render: function render(renderNode, env, scope, params, hash, template, inverse, visitor) {
+    var state = renderNode.state;
+    var parentView = env.view;
+    var outletState = state.outletState;
+    var toRender = outletState.render;
+    var namespace = env.container.lookup(&#039;application:main&#039;);
+    var LOG_VIEW_LOOKUPS = (0, _emberMetalProperty_get.get)(namespace, &#039;LOG_VIEW_LOOKUPS&#039;);
+
+    var ViewClass = outletState.render.ViewClass;
+
+    if (!state.hasParentOutlet &amp;&amp; !ViewClass) {
+      ViewClass = env.container.lookupFactory(&#039;view:toplevel&#039;);
+    }
+
+    var options = {
+      component: ViewClass,
+      self: toRender.controller,
+      createOptions: {
+        controller: toRender.controller
+      }
+    };
+
+    template = template || toRender.template &amp;&amp; toRender.template.raw;
+
+    if (LOG_VIEW_LOOKUPS &amp;&amp; ViewClass) {
+      _emberMetalCore2[&#039;default&#039;].Logger.info(&#039;Rendering &#039; + toRender.name + &#039; with &#039; + ViewClass, { fullName: &#039;view:&#039; + toRender.name });
+    }
+
+    if (state.manager) {
+      state.manager.destroy();
+      state.manager = null;
+    }
+
+    var nodeManager = _emberHtmlbarsNodeManagersViewNodeManager2[&#039;default&#039;].create(renderNode, env, {}, options, parentView, null, null, template);
+    state.manager = nodeManager;
+
+    nodeManager.render(env, hash, visitor);
+  }
+};
+
+function isEmpty(outletState) {
+  return !outletState || !outletState.render.ViewClass &amp;&amp; !outletState.render.template;
+}
+
+function isStable(a, b) {
+  if (!a &amp;&amp; !b) {
+    return true;
+  }
+  if (!a || !b) {
+    return false;
+  }
+  a = a.render;
+  b = b.render;
+  for (var key in a) {
+    if (a.hasOwnProperty(key)) {
+      // name is only here for logging &amp; debugging. If two different
+      // names result in otherwise identical states, they&#039;re still
+      // identical.
+      if (a[key] !== b[key] &amp;&amp; key !== &#039;name&#039;) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

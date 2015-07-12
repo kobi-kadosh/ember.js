@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-debug\lib\main.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-debug\lib\main.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.46</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">324</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">35.39</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.76</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/*global __fail__*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports._warnIfUsingStrippedFeatureFlags = _warnIfUsingStrippedFeatureFlags;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalLogger = require(&#039;ember-metal/logger&#039;);
+
+var _emberMetalLogger2 = _interopRequireDefault(_emberMetalLogger);
+
+var _emberDebugDeprecationManager = require(&#039;ember-debug/deprecation-manager&#039;);
+
+var _emberDebugDeprecationManager2 = _interopRequireDefault(_emberDebugDeprecationManager);
+
+var _emberMetalEnvironment = require(&#039;ember-metal/environment&#039;);
+
+var _emberMetalEnvironment2 = _interopRequireDefault(_emberMetalEnvironment);
+
+/**
+@module ember
+@submodule ember-debug
+*/
+
+/**
+@class Ember
+@public
+*/
+
+function isPlainFunction(test) {
+  return typeof test === &#039;function&#039; &amp;&amp; test.PrototypeMixin === undefined;
+}
+
+/**
+  Define an assertion that will throw an exception if the condition is not
+  met. Ember build tools will remove any calls to `Ember.assert()` when
+  doing a production build. Example:
+
+  ```javascript
+  // Test for truthiness
+  Ember.assert(&#039;Must pass a valid object&#039;, obj);
+
+  // Fail unconditionally
+  Ember.assert(&#039;This code path should never be run&#039;);
+  ```
+
+  @method assert
+  @param {String} desc A description of the assertion. This will become
+    the text of the Error thrown if the assertion fails.
+  @param {Boolean|Function} test Must be truthy for the assertion to pass. If
+    falsy, an exception will be thrown. If this is a function, it will be executed and
+    its return value will be used as condition.
+  @public
+*/
+_emberMetalCore2[&#039;default&#039;].assert = function (desc, test) {
+  var throwAssertion;
+
+  if (isPlainFunction(test)) {
+    throwAssertion = !test();
+  } else {
+    throwAssertion = !test;
+  }
+
+  if (throwAssertion) {
+    throw new _emberMetalError2[&#039;default&#039;](&#039;Assertion Failed: &#039; + desc);
+  }
+};
+
+/**
+  Display a warning with the provided message. Ember build tools will
+  remove any calls to `Ember.warn()` when doing a production build.
+
+  @method warn
+  @param {String} message A warning to display.
+  @param {Boolean} test An optional boolean. If falsy, the warning
+    will be displayed.
+  @public
+*/
+_emberMetalCore2[&#039;default&#039;].warn = function (message, test) {
+  if (!test) {
+    _emberMetalLogger2[&#039;default&#039;].warn(&#039;WARNING: &#039; + message);
+    if (&#039;trace&#039; in _emberMetalLogger2[&#039;default&#039;]) {
+      _emberMetalLogger2[&#039;default&#039;].trace();
+    }
+  }
+};
+
+/**
+  Display a debug notice. Ember build tools will remove any calls to
+  `Ember.debug()` when doing a production build.
+
+  ```javascript
+  Ember.debug(&#039;I\&#039;m a debug notice!&#039;);
+  ```
+
+  @method debug
+  @param {String} message A debug message to display.
+  @public
+*/
+_emberMetalCore2[&#039;default&#039;].debug = function (message) {
+  _emberMetalLogger2[&#039;default&#039;].debug(&#039;DEBUG: &#039; + message);
+};
+
+/**
+  Display a deprecation warning with the provided message and a stack trace
+  (Chrome and Firefox only). Ember build tools will remove any calls to
+  `Ember.deprecate()` when doing a production build.
+
+  @method deprecate
+  @param {String} message A description of the deprecation.
+  @param {Boolean|Function} test An optional boolean. If falsy, the deprecation
+    will be displayed. If this is a function, it will be executed and its return
+    value will be used as condition.
+  @param {Object} options An optional object that can be used to pass
+    in a `url` to the transition guide on the emberjs.com website, and a unique
+    `id` for this deprecation. The `id` can be used by Ember debugging tools
+    to change the behavior (raise, log or silence) for that specific deprecation.
+    The `id` should be namespaced by dots, e.g. &quot;view.helper.select&quot;.
+  @public
+*/
+_emberMetalCore2[&#039;default&#039;].deprecate = function (message, test, options) {
+  if (_emberMetalCore2[&#039;default&#039;].ENV.RAISE_ON_DEPRECATION) {
+    _emberDebugDeprecationManager2[&#039;default&#039;].setDefaultLevel(_emberDebugDeprecationManager.deprecationLevels.RAISE);
+  }
+  if (_emberDebugDeprecationManager2[&#039;default&#039;].getLevel(options &amp;&amp; options.id) === _emberDebugDeprecationManager.deprecationLevels.SILENCE) {
+    return;
+  }
+
+  var noDeprecation;
+
+  if (isPlainFunction(test)) {
+    noDeprecation = test();
+  } else {
+    noDeprecation = test;
+  }
+
+  if (noDeprecation) {
+    return;
+  }
+
+  if (options &amp;&amp; options.id) {
+    message = message + (&#039; [deprecation id: &#039; + options.id + &#039;]&#039;);
+  }
+
+  if (_emberDebugDeprecationManager2[&#039;default&#039;].getLevel(options &amp;&amp; options.id) === _emberDebugDeprecationManager.deprecationLevels.RAISE) {
+    throw new _emberMetalError2[&#039;default&#039;](message);
+  }
+
+  var error;
+
+  // When using new Error, we can&#039;t do the arguments check for Chrome. Alternatives are welcome
+  try {
+    __fail__.fail();
+  } catch (e) {
+    error = e;
+  }
+
+  if (arguments.length === 3) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;options argument to Ember.deprecate should be an object&#039;, options &amp;&amp; typeof options === &#039;object&#039;);
+    if (options.url) {
+      message += &#039; See &#039; + options.url + &#039; for more details.&#039;;
+    }
+  }
+
+  if (_emberMetalCore2[&#039;default&#039;].LOG_STACKTRACE_ON_DEPRECATION &amp;&amp; error.stack) {
+    var stack;
+    var stackStr = &#039;&#039;;
+
+    if (error[&#039;arguments&#039;]) {
+      // Chrome
+      stack = error.stack.replace(/^\s+at\s+/gm, &#039;&#039;).replace(/^([^\(]+?)([\n$])/gm, &#039;{anonymous}($1)$2&#039;).replace(/^Object.&lt;anonymous&gt;\s*\(([^\)]+)\)/gm, &#039;{anonymous}($1)&#039;).split(&#039;\n&#039;);
+      stack.shift();
+    } else {
+      // Firefox
+      stack = error.stack.replace(/(?:\n@:0)?\s+$/m, &#039;&#039;).replace(/^\(/gm, &#039;{anonymous}(&#039;).split(&#039;\n&#039;);
+    }
+
+    stackStr = &#039;\n    &#039; + stack.slice(2).join(&#039;\n    &#039;);
+    message = message + stackStr;
+  }
+
+  _emberMetalLogger2[&#039;default&#039;].warn(&#039;DEPRECATION: &#039; + message);
+};
+
+/**
+  Alias an old, deprecated method with its new counterpart.
+
+  Display a deprecation warning with the provided message and a stack trace
+  (Chrome and Firefox only) when the assigned method is called.
+
+  Ember build tools will not remove calls to `Ember.deprecateFunc()`, though
+  no warnings will be shown in production.
+
+  ```javascript
+  Ember.oldMethod = Ember.deprecateFunc(&#039;Please use the new, updated method&#039;, Ember.newMethod);
+  ```
+
+  @method deprecateFunc
+  @param {String} message A description of the deprecation.
+  @param {Function} func The new function called to replace its deprecated counterpart.
+  @return {Function} a new function that wrapped the original function with a deprecation warning
+  @private
+*/
+_emberMetalCore2[&#039;default&#039;].deprecateFunc = function (message, func) {
+  return function () {
+    _emberMetalCore2[&#039;default&#039;].deprecate(message);
+    return func.apply(this, arguments);
+  };
+};
+
+/**
+  Run a function meant for debugging. Ember build tools will remove any calls to
+  `Ember.runInDebug()` when doing a production build.
+
+  ```javascript
+  Ember.runInDebug(function() {
+    Ember.Handlebars.EachView.reopen({
+      didInsertElement: function() {
+        console.log(&#039;I\&#039;m happy&#039;);
+      }
+    });
+  });
+  ```
+
+  @method runInDebug
+  @param {Function} func The function to be executed.
+  @since 1.5.0
+  @public
+*/
+_emberMetalCore2[&#039;default&#039;].runInDebug = function (func) {
+  func();
+};
+
+/**
+  Will call `Ember.warn()` if ENABLE_ALL_FEATURES, ENABLE_OPTIONAL_FEATURES, or
+  any specific FEATURES flag is truthy.
+
+  This method is called automatically in debug canary builds.
+
+  @private
+  @method _warnIfUsingStrippedFeatureFlags
+  @return {void}
+*/
+
+function _warnIfUsingStrippedFeatureFlags(FEATURES, featuresWereStripped) {
+  if (featuresWereStripped) {
+    _emberMetalCore2[&#039;default&#039;].warn(&#039;Ember.ENV.ENABLE_ALL_FEATURES is only available in canary builds.&#039;, !_emberMetalCore2[&#039;default&#039;].ENV.ENABLE_ALL_FEATURES);
+    _emberMetalCore2[&#039;default&#039;].warn(&#039;Ember.ENV.ENABLE_OPTIONAL_FEATURES is only available in canary builds.&#039;, !_emberMetalCore2[&#039;default&#039;].ENV.ENABLE_OPTIONAL_FEATURES);
+
+    for (var key in FEATURES) {
+      if (FEATURES.hasOwnProperty(key) &amp;&amp; key !== &#039;isEnabled&#039;) {
+        _emberMetalCore2[&#039;default&#039;].warn(&#039;FEATURE[&quot;&#039; + key + &#039;&quot;] is set as enabled, but FEATURE flags are only available in canary builds.&#039;, !FEATURES[key]);
+      }
+    }
+  }
+}
+
+if (!_emberMetalCore2[&#039;default&#039;].testing) {
+  // Complain if they&#039;re using FEATURE flags in builds other than canary
+  _emberMetalFeatures.FEATURES[&#039;features-stripped-test&#039;] = true;
+  var featuresWereStripped = true;
+
+  if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;features-stripped-test&#039;)) {
+    featuresWereStripped = false;
+  }
+
+  delete _emberMetalFeatures.FEATURES[&#039;features-stripped-test&#039;];
+  _warnIfUsingStrippedFeatureFlags(_emberMetalCore2[&#039;default&#039;].ENV.FEATURES, featuresWereStripped);
+
+  // Inform the developer about the Ember Inspector if not installed.
+  var isFirefox = _emberMetalEnvironment2[&#039;default&#039;].isFirefox;
+  var isChrome = _emberMetalEnvironment2[&#039;default&#039;].isChrome;
+
+  if (typeof window !== &#039;undefined&#039; &amp;&amp; (isFirefox || isChrome) &amp;&amp; window.addEventListener) {
+    window.addEventListener(&#039;load&#039;, function () {
+      if (document.documentElement &amp;&amp; document.documentElement.dataset &amp;&amp; !document.documentElement.dataset.emberExtension) {
+        var downloadURL;
+
+        if (isChrome) {
+          downloadURL = &#039;https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi&#039;;
+        } else if (isFirefox) {
+          downloadURL = &#039;https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/&#039;;
+        }
+
+        _emberMetalCore2[&#039;default&#039;].debug(&#039;For more advanced debugging, install the Ember Inspector from &#039; + downloadURL);
+      }
+    }, false);
+  }
+}
+
+_emberMetalCore2[&#039;default&#039;].Debug = {
+  _addDeprecationLevel: function _addDeprecationLevel(id, level) {
+    _emberDebugDeprecationManager2[&#039;default&#039;].setLevel(id, level);
+  },
+  _deprecationLevels: _emberDebugDeprecationManager.deprecationLevels
+};
+
+/*
+  We are transitioning away from `ember.js` to `ember.debug.js` to make
+  it much clearer that it is only for local development purposes.
+
+  This flag value is changed by the tooling (by a simple string replacement)
+  so that if `ember.js` (which must be output for backwards compat reasons) is
+  used a nice helpful warning message will be printed out.
+*/
+var runningNonEmberDebugJS = false;
+exports.runningNonEmberDebugJS = runningNonEmberDebugJS;
+if (runningNonEmberDebugJS) {
+  _emberMetalCore2[&#039;default&#039;].warn(&#039;Please use `ember.debug.js` instead of `ember.js` for development and debugging.&#039;);
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\streams\stream.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\streams\stream.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.54</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">343</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">58.69</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.41</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalPath_cache = require(&#039;ember-metal/path_cache&#039;);
+
+var _emberMetalObserver = require(&#039;ember-metal/observer&#039;);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+var _emberMetalStreamsSubscriber = require(&#039;ember-metal/streams/subscriber&#039;);
+
+var _emberMetalStreamsSubscriber2 = _interopRequireDefault(_emberMetalStreamsSubscriber);
+
+var _emberMetalStreamsDependency = require(&#039;ember-metal/streams/dependency&#039;);
+
+var _emberMetalStreamsDependency2 = _interopRequireDefault(_emberMetalStreamsDependency);
+
+/**
+  @module ember-metal
+*/
+
+/**
+  @private
+  @class Stream
+  @namespace Ember.stream
+  @constructor
+*/
+function Stream(fn, label) {
+  this.init(label);
+  this.compute = fn;
+}
+
+var KeyStream;
+var ProxyMixin;
+
+Stream.prototype = {
+  isStream: true,
+
+  init: function init(label) {
+    this.label = makeLabel(label);
+    this.isActive = false;
+    this.isDirty = true;
+    this.isDestroyed = false;
+    this.cache = undefined;
+    this.children = undefined;
+    this.subscriberHead = null;
+    this.subscriberTail = null;
+    this.dependencyHead = null;
+    this.dependencyTail = null;
+    this.observedProxy = null;
+  },
+
+  _makeChildStream: function _makeChildStream(key) {
+    KeyStream = KeyStream || _emberMetalCore2[&#039;default&#039;].__loader.require(&#039;ember-metal/streams/key-stream&#039;)[&#039;default&#039;];
+    return new KeyStream(this, key);
+  },
+
+  removeChild: function removeChild(key) {
+    delete this.children[key];
+  },
+
+  getKey: function getKey(key) {
+    if (this.children === undefined) {
+      this.children = Object.create(null);
+    }
+
+    var keyStream = this.children[key];
+
+    if (keyStream === undefined) {
+      keyStream = this._makeChildStream(key);
+      this.children[key] = keyStream;
+    }
+
+    return keyStream;
+  },
+
+  get: function get(path) {
+    var firstKey = (0, _emberMetalPath_cache.getFirstKey)(path);
+    var tailPath = (0, _emberMetalPath_cache.getTailPath)(path);
+
+    if (this.children === undefined) {
+      this.children = Object.create(null);
+    }
+
+    var keyStream = this.children[firstKey];
+
+    if (keyStream === undefined) {
+      keyStream = this._makeChildStream(firstKey, path);
+      this.children[firstKey] = keyStream;
+    }
+
+    if (tailPath === undefined) {
+      return keyStream;
+    } else {
+      return keyStream.get(tailPath);
+    }
+  },
+
+  value: function value() {
+    // TODO: Ensure value is never called on a destroyed stream
+    // so that we can uncomment this assertion.
+    //
+    // Ember.assert(&quot;Stream error: value was called after the stream was destroyed&quot;, !this.isDestroyed);
+
+    // TODO: Remove this block. This will require ensuring we are
+    // not treating streams as &quot;volatile&quot; anywhere.
+    if (!this.isActive) {
+      this.isDirty = true;
+    }
+
+    var willRevalidate = false;
+
+    if (!this.isActive &amp;&amp; this.subscriberHead) {
+      this.activate();
+      willRevalidate = true;
+    }
+
+    if (this.isDirty) {
+      if (this.isActive) {
+        willRevalidate = true;
+      }
+
+      this.cache = this.compute();
+      this.isDirty = false;
+    }
+
+    if (willRevalidate) {
+      this.revalidate(this.cache);
+    }
+
+    return this.cache;
+  },
+
+  addMutableDependency: function addMutableDependency(object) {
+    var dependency = new _emberMetalStreamsDependency2[&#039;default&#039;](this, object);
+
+    if (this.isActive) {
+      dependency.subscribe();
+    }
+
+    if (this.dependencyHead === null) {
+      this.dependencyHead = this.dependencyTail = dependency;
+    } else {
+      var tail = this.dependencyTail;
+      tail.next = dependency;
+      dependency.prev = tail;
+      this.dependencyTail = dependency;
+    }
+
+    return dependency;
+  },
+
+  addDependency: function addDependency(object) {
+    if ((0, _emberMetalStreamsUtils.isStream)(object)) {
+      this.addMutableDependency(object);
+    }
+  },
+
+  subscribeDependencies: function subscribeDependencies() {
+    var dependency = this.dependencyHead;
+    while (dependency) {
+      var next = dependency.next;
+      dependency.subscribe();
+      dependency = next;
+    }
+  },
+
+  unsubscribeDependencies: function unsubscribeDependencies() {
+    var dependency = this.dependencyHead;
+    while (dependency) {
+      var next = dependency.next;
+      dependency.unsubscribe();
+      dependency = next;
+    }
+  },
+
+  maybeDeactivate: function maybeDeactivate() {
+    if (!this.subscriberHead &amp;&amp; this.isActive) {
+      this.isActive = false;
+      this.unsubscribeDependencies();
+      this.deactivate();
+    }
+  },
+
+  activate: function activate() {
+    this.isActive = true;
+    this.subscribeDependencies();
+  },
+
+  revalidate: function revalidate(value) {
+    if (value !== this.observedProxy) {
+      this._clearObservedProxy();
+
+      ProxyMixin = ProxyMixin || _emberMetalCore2[&#039;default&#039;].__loader.require(&#039;ember-runtime/mixins/-proxy&#039;)[&#039;default&#039;];
+
+      if (ProxyMixin.detect(value)) {
+        (0, _emberMetalObserver.addObserver)(value, &#039;content&#039;, this, this.notify);
+        this.observedProxy = value;
+      }
+    }
+  },
+
+  _clearObservedProxy: function _clearObservedProxy() {
+    if (this.observedProxy) {
+      (0, _emberMetalObserver.removeObserver)(this.observedProxy, &#039;content&#039;, this, this.notify);
+      this.observedProxy = null;
+    }
+  },
+
+  deactivate: function deactivate() {
+    this._clearObservedProxy();
+  },
+
+  compute: function compute() {
+    throw new Error(&#039;Stream error: compute not implemented&#039;);
+  },
+
+  setValue: function setValue() {
+    throw new Error(&#039;Stream error: setValue not implemented&#039;);
+  },
+
+  notify: function notify() {
+    this.notifyExcept();
+  },
+
+  notifyExcept: function notifyExcept(callbackToSkip, contextToSkip) {
+    if (!this.isDirty) {
+      this.isDirty = true;
+      this.notifySubscribers(callbackToSkip, contextToSkip);
+    }
+  },
+
+  subscribe: function subscribe(callback, context) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;You tried to subscribe to a stream but the callback provided was not a function.&#039;, typeof callback === &#039;function&#039;);
+
+    var subscriber = new _emberMetalStreamsSubscriber2[&#039;default&#039;](callback, context, this);
+    if (this.subscriberHead === null) {
+      this.subscriberHead = this.subscriberTail = subscriber;
+    } else {
+      var tail = this.subscriberTail;
+      tail.next = subscriber;
+      subscriber.prev = tail;
+      this.subscriberTail = subscriber;
+    }
+
+    var stream = this;
+    return function (prune) {
+      subscriber.removeFrom(stream);
+      if (prune) {
+        stream.prune();
+      }
+    };
+  },
+
+  prune: function prune() {
+    if (this.subscriberHead === null) {
+      this.destroy(true);
+    }
+  },
+
+  unsubscribe: function unsubscribe(callback, context) {
+    var subscriber = this.subscriberHead;
+
+    while (subscriber) {
+      var next = subscriber.next;
+      if (subscriber.callback === callback &amp;&amp; subscriber.context === context) {
+        subscriber.removeFrom(this);
+      }
+      subscriber = next;
+    }
+  },
+
+  notifySubscribers: function notifySubscribers(callbackToSkip, contextToSkip) {
+    var subscriber = this.subscriberHead;
+
+    while (subscriber) {
+      var next = subscriber.next;
+
+      var callback = subscriber.callback;
+      var context = subscriber.context;
+
+      subscriber = next;
+
+      if (callback === callbackToSkip &amp;&amp; context === contextToSkip) {
+        continue;
+      }
+
+      if (context === undefined) {
+        callback(this);
+      } else {
+        callback.call(context, this);
+      }
+    }
+  },
+
+  destroy: function destroy(prune) {
+    if (!this.isDestroyed) {
+      this.isDestroyed = true;
+
+      this.subscriberHead = this.subscriberTail = null;
+      this.maybeDeactivate();
+
+      var dependencies = this.dependencies;
+
+      if (dependencies) {
+        for (var i = 0, l = dependencies.length; i &lt; l; i++) {
+          dependencies[i](prune);
+        }
+      }
+
+      this.dependencies = null;
+      return true;
+    }
+  }
+};
+
+Stream.wrap = function (value, Kind, param) {
+  if ((0, _emberMetalStreamsUtils.isStream)(value)) {
+    return value;
+  } else {
+    return new Kind(value, param);
+  }
+};
+
+function makeLabel(label) {
+  if (label === undefined) {
+    return &#039;(no label)&#039;;
+  } else {
+    return label;
+  }
+}
+
+exports[&#039;default&#039;] = Stream;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

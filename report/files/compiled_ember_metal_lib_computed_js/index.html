@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\computed.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\computed.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">65.05</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">615</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">66.38</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.24</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports[&#039;default&#039;] = computed;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalExpand_properties = require(&#039;ember-metal/expand_properties&#039;);
+
+var _emberMetalExpand_properties2 = _interopRequireDefault(_emberMetalExpand_properties);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalProperties = require(&#039;ember-metal/properties&#039;);
+
+var _emberMetalProperty_events = require(&#039;ember-metal/property_events&#039;);
+
+var _emberMetalDependent_keys = require(&#039;ember-metal/dependent_keys&#039;);
+
+/**
+@module ember
+@submodule ember-metal
+*/
+
+var metaFor = _emberMetalUtils.meta;
+
+function UNDEFINED() {}
+
+// ..........................................................
+// COMPUTED PROPERTY
+//
+
+/**
+  A computed property transforms an object&#039;s function into a property.
+
+  By default the function backing the computed property will only be called
+  once and the result will be cached. You can specify various properties
+  that your computed property depends on. This will force the cached
+  result to be recomputed if the dependencies are modified.
+
+  In the following example we declare a computed property (by calling
+  `.property()` on the fullName function) and setup the property
+  dependencies (depending on firstName and lastName). The fullName function
+  will be called once (regardless of how many times it is accessed) as long
+  as its dependencies have not changed. Once firstName or lastName are updated
+  any future calls (or anything bound) to fullName will incorporate the new
+  values.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    // these will be supplied by `create`
+    firstName: null,
+    lastName: null,
+
+    fullName: function() {
+      var firstName = this.get(&#039;firstName&#039;);
+      var lastName = this.get(&#039;lastName&#039;);
+
+     return firstName + &#039; &#039; + lastName;
+    }.property(&#039;firstName&#039;, &#039;lastName&#039;)
+  });
+
+  var tom = Person.create({
+    firstName: &#039;Tom&#039;,
+    lastName: &#039;Dale&#039;
+  });
+
+  tom.get(&#039;fullName&#039;) // &#039;Tom Dale&#039;
+  ```
+
+  You can also define what Ember should do when setting a computed property.
+  If you try to set a computed property, it will be invoked with the key and
+  value you want to set it to. You can also accept the previous value as the
+  third parameter.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    // these will be supplied by `create`
+    firstName: null,
+    lastName: null,
+
+    fullName: function(key, value, oldValue) {
+      // getter
+      if (arguments.length === 1) {
+        var firstName = this.get(&#039;firstName&#039;);
+        var lastName = this.get(&#039;lastName&#039;);
+
+        return firstName + &#039; &#039; + lastName;
+
+      // setter
+      } else {
+        var name = value.split(&#039; &#039;);
+
+        this.set(&#039;firstName&#039;, name[0]);
+        this.set(&#039;lastName&#039;, name[1]);
+
+        return value;
+      }
+    }.property(&#039;firstName&#039;, &#039;lastName&#039;)
+  });
+
+  var person = Person.create();
+
+  person.set(&#039;fullName&#039;, &#039;Peter Wagenet&#039;);
+  person.get(&#039;firstName&#039;); // &#039;Peter&#039;
+  person.get(&#039;lastName&#039;);  // &#039;Wagenet&#039;
+  ```
+
+  @class ComputedProperty
+  @namespace Ember
+  @constructor
+  @public
+*/
+function ComputedProperty(config, opts) {
+  this.isDescriptor = true;
+  if (typeof config === &#039;function&#039;) {
+    this._getter = config;
+  } else {
+    this._getter = config.get;
+    this._setter = config.set;
+  }
+  this._dependentKeys = undefined;
+  this._suspended = undefined;
+  this._meta = undefined;
+  this._cacheable = true;
+  this._dependentKeys = opts &amp;&amp; opts.dependentKeys;
+  this._readOnly = false;
+}
+
+ComputedProperty.prototype = new _emberMetalProperties.Descriptor();
+
+var ComputedPropertyPrototype = ComputedProperty.prototype;
+
+/**
+  Call on a computed property to set it into non-cached mode. When in this
+  mode the computed property will not automatically cache the return value.
+
+  ```javascript
+  var outsideService = Ember.Object.extend({
+    value: function() {
+      return OutsideService.getValue();
+    }.property().volatile()
+  }).create();
+  ```
+
+  @method volatile
+  @return {Ember.ComputedProperty} this
+  @chainable
+  @public
+*/
+ComputedPropertyPrototype.volatile = function () {
+  this._cacheable = false;
+  return this;
+};
+
+/**
+  Call on a computed property to set it into read-only mode. When in this
+  mode the computed property will throw an error when set.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    guid: function() {
+      return &#039;guid-guid-guid&#039;;
+    }.property().readOnly()
+  });
+
+  var person = Person.create();
+
+  person.set(&#039;guid&#039;, &#039;new-guid&#039;); // will throw an exception
+  ```
+
+  @method readOnly
+  @return {Ember.ComputedProperty} this
+  @chainable
+  @public
+*/
+ComputedPropertyPrototype.readOnly = function () {
+  this._readOnly = true;
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Computed properties that define a setter using the new syntax cannot be read-only&#039;, !(this._readOnly &amp;&amp; this._setter &amp;&amp; this._setter !== this._getter));
+  return this;
+};
+
+/**
+  Sets the dependent keys on this computed property. Pass any number of
+  arguments containing key paths that this computed property depends on.
+
+  ```javascript
+  var President = Ember.Object.extend({
+    fullName: computed(function() {
+      return this.get(&#039;firstName&#039;) + &#039; &#039; + this.get(&#039;lastName&#039;);
+
+      // Tell Ember that this computed property depends on firstName
+      // and lastName
+    }).property(&#039;firstName&#039;, &#039;lastName&#039;)
+  });
+
+  var president = President.create({
+    firstName: &#039;Barack&#039;,
+    lastName: &#039;Obama&#039;
+  });
+
+  president.get(&#039;fullName&#039;); // &#039;Barack Obama&#039;
+  ```
+
+  @method property
+  @param {String} path* zero or more property paths
+  @return {Ember.ComputedProperty} this
+  @chainable
+  @public
+*/
+ComputedPropertyPrototype.property = function () {
+  var args;
+
+  var addArg = function addArg(property) {
+    args.push(property);
+  };
+
+  args = [];
+  for (var i = 0, l = arguments.length; i &lt; l; i++) {
+    (0, _emberMetalExpand_properties2[&#039;default&#039;])(arguments[i], addArg);
+  }
+
+  this._dependentKeys = args;
+  return this;
+};
+
+/**
+  In some cases, you may want to annotate computed properties with additional
+  metadata about how they function or what values they operate on. For example,
+  computed property functions may close over variables that are then no longer
+  available for introspection.
+
+  You can pass a hash of these values to a computed property like this:
+
+  ```
+  person: function() {
+    var personId = this.get(&#039;personId&#039;);
+    return App.Person.create({ id: personId });
+  }.property().meta({ type: App.Person })
+  ```
+
+  The hash that you pass to the `meta()` function will be saved on the
+  computed property descriptor under the `_meta` key. Ember runtime
+  exposes a public API for retrieving these values from classes,
+  via the `metaForProperty()` function.
+
+  @method meta
+  @param {Object} meta
+  @chainable
+  @public
+*/
+
+ComputedPropertyPrototype.meta = function (meta) {
+  if (arguments.length === 0) {
+    return this._meta || {};
+  } else {
+    this._meta = meta;
+    return this;
+  }
+};
+
+/* impl descriptor API */
+ComputedPropertyPrototype.didChange = function (obj, keyName) {
+  // _suspended is set via a CP.set to ensure we don&#039;t clear
+  // the cached value set by the setter
+  if (this._cacheable &amp;&amp; this._suspended !== obj) {
+    var meta = metaFor(obj);
+    if (meta.cache &amp;&amp; meta.cache[keyName] !== undefined) {
+      meta.cache[keyName] = undefined;
+      (0, _emberMetalDependent_keys.removeDependentKeys)(this, obj, keyName, meta);
+    }
+  }
+};
+
+function finishChains(chainNodes) {
+  for (var i = 0, l = chainNodes.length; i &lt; l; i++) {
+    chainNodes[i].didChange(null);
+  }
+}
+
+/**
+  Access the value of the function backing the computed property.
+  If this property has already been cached, return the cached result.
+  Otherwise, call the function passing the property name as an argument.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    fullName: function(keyName) {
+      // the keyName parameter is &#039;fullName&#039; in this case.
+      return this.get(&#039;firstName&#039;) + &#039; &#039; + this.get(&#039;lastName&#039;);
+    }.property(&#039;firstName&#039;, &#039;lastName&#039;)
+  });
+
+
+  var tom = Person.create({
+    firstName: &#039;Tom&#039;,
+    lastName: &#039;Dale&#039;
+  });
+
+  tom.get(&#039;fullName&#039;) // &#039;Tom Dale&#039;
+  ```
+
+  @method get
+  @param {String} keyName The key being accessed.
+  @return {Object} The return value of the function backing the CP.
+  @public
+*/
+ComputedPropertyPrototype.get = function (obj, keyName) {
+  var ret, cache, meta, chainNodes;
+  if (this._cacheable) {
+    meta = metaFor(obj);
+    cache = meta.cache;
+
+    var result = cache &amp;&amp; cache[keyName];
+
+    if (result === UNDEFINED) {
+      return undefined;
+    } else if (result !== undefined) {
+      return result;
+    }
+
+    ret = this._getter.call(obj, keyName);
+    cache = meta.cache;
+    if (!cache) {
+      cache = meta.cache = {};
+    }
+    if (ret === undefined) {
+      cache[keyName] = UNDEFINED;
+    } else {
+      cache[keyName] = ret;
+    }
+
+    chainNodes = meta.chainWatchers &amp;&amp; meta.chainWatchers[keyName];
+    if (chainNodes) {
+      finishChains(chainNodes);
+    }
+    (0, _emberMetalDependent_keys.addDependentKeys)(this, obj, keyName, meta);
+  } else {
+    ret = this._getter.call(obj, keyName);
+  }
+  return ret;
+};
+
+/**
+  Set the value of a computed property. If the function that backs your
+  computed property does not accept arguments then the default action for
+  setting would be to define the property on the current object, and set
+  the value of the property to the value being set.
+
+  Generally speaking if you intend for your computed property to be set
+  your backing function should accept either two or three arguments.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    // these will be supplied by `create`
+    firstName: null,
+    lastName: null,
+
+    fullName: function(key, value, oldValue) {
+      // getter
+      if (arguments.length === 1) {
+        var firstName = this.get(&#039;firstName&#039;);
+        var lastName = this.get(&#039;lastName&#039;);
+
+        return firstName + &#039; &#039; + lastName;
+
+      // setter
+      } else {
+        var name = value.split(&#039; &#039;);
+
+        this.set(&#039;firstName&#039;, name[0]);
+        this.set(&#039;lastName&#039;, name[1]);
+
+        return value;
+      }
+    }.property(&#039;firstName&#039;, &#039;lastName&#039;)
+  });
+
+  var person = Person.create();
+
+  person.set(&#039;fullName&#039;, &#039;Peter Wagenet&#039;);
+  person.get(&#039;firstName&#039;); // &#039;Peter&#039;
+  person.get(&#039;lastName&#039;);  // &#039;Wagenet&#039;
+  ```
+
+  @method set
+  @param {String} keyName The key being accessed.
+  @param {Object} newValue The new value being assigned.
+  @param {String} oldValue The old value being replaced.
+  @return {Object} The return value of the function backing the CP.
+  @public
+*/
+ComputedPropertyPrototype.set = function computedPropertySetWithSuspend(obj, keyName, value) {
+  var oldSuspended = this._suspended;
+
+  this._suspended = obj;
+
+  try {
+    this._set(obj, keyName, value);
+  } finally {
+    this._suspended = oldSuspended;
+  }
+};
+
+ComputedPropertyPrototype._set = function computedPropertySet(obj, keyName, value) {
+  var cacheable = this._cacheable;
+  var setter = this._setter;
+  var meta = metaFor(obj, cacheable);
+  var cache = meta.cache;
+  var hadCachedValue = false;
+
+  var cachedValue, ret;
+
+  if (this._readOnly) {
+    throw new _emberMetalError2[&#039;default&#039;](&#039;Cannot set read-only property &quot;&#039; + keyName + &#039;&quot; on object: &#039; + (0, _emberMetalUtils.inspect)(obj));
+  }
+
+  if (cacheable &amp;&amp; cache &amp;&amp; cache[keyName] !== undefined) {
+    if (cache[keyName] !== UNDEFINED) {
+      cachedValue = cache[keyName];
+    }
+
+    hadCachedValue = true;
+  }
+
+  if (!setter) {
+    (0, _emberMetalProperties.defineProperty)(obj, keyName, null, cachedValue);
+    return (0, _emberMetalProperty_set.set)(obj, keyName, value);
+  } else {
+    ret = setter.call(obj, keyName, value, cachedValue);
+  }
+
+  if (hadCachedValue &amp;&amp; cachedValue === ret) {
+    return;
+  }
+
+  var watched = meta.watching[keyName];
+  if (watched) {
+    (0, _emberMetalProperty_events.propertyWillChange)(obj, keyName);
+  }
+
+  if (hadCachedValue) {
+    cache[keyName] = undefined;
+  }
+
+  if (cacheable) {
+    if (!hadCachedValue) {
+      (0, _emberMetalDependent_keys.addDependentKeys)(this, obj, keyName, meta);
+    }
+    if (!cache) {
+      cache = meta.cache = {};
+    }
+    if (ret === undefined) {
+      cache[keyName] = UNDEFINED;
+    } else {
+      cache[keyName] = ret;
+    }
+  }
+
+  if (watched) {
+    (0, _emberMetalProperty_events.propertyDidChange)(obj, keyName);
+  }
+
+  return ret;
+};
+
+/* called before property is overridden */
+ComputedPropertyPrototype.teardown = function (obj, keyName) {
+  var meta = metaFor(obj);
+
+  if (meta.cache) {
+    if (keyName in meta.cache) {
+      (0, _emberMetalDependent_keys.removeDependentKeys)(this, obj, keyName, meta);
+    }
+
+    if (this._cacheable) {
+      delete meta.cache[keyName];
+    }
+  }
+
+  return null; // no value to restore
+};
+
+/**
+  This helper returns a new property descriptor that wraps the passed
+  computed property function. You can use this helper to define properties
+  with mixins or via `Ember.defineProperty()`.
+
+  The function you pass will be used to both get and set property values.
+  The function should accept two parameters, key and value. If value is not
+  undefined you should set the value first. In either case return the
+  current value of the property.
+
+  A computed property defined in this way might look like this:
+
+  ```js
+  var Person = Ember.Object.extend({
+    firstName: &#039;Betty&#039;,
+    lastName: &#039;Jones&#039;,
+
+    fullName: Ember.computed(&#039;firstName&#039;, &#039;lastName&#039;, function(key, value) {
+      return this.get(&#039;firstName&#039;) + &#039; &#039; + this.get(&#039;lastName&#039;);
+    })
+  });
+
+  var client = Person.create();
+
+  client.get(&#039;fullName&#039;); // &#039;Betty Jones&#039;
+
+  client.set(&#039;lastName&#039;, &#039;Fuller&#039;);
+  client.get(&#039;fullName&#039;); // &#039;Betty Fuller&#039;
+  ```
+
+  _Note: This is the preferred way to define computed properties when writing third-party
+  libraries that depend on or use Ember, since there is no guarantee that the user
+  will have prototype extensions enabled._
+
+  You might use this method if you disabled
+  [Prototype Extensions](http://emberjs.com/guides/configuring-ember/disabling-prototype-extensions/).
+  The alternative syntax might look like this
+  (if prototype extensions are enabled, which is the default behavior):
+
+  ```js
+  fullName: function () {
+    return this.get(&#039;firstName&#039;) + &#039; &#039; + this.get(&#039;lastName&#039;);
+  }.property(&#039;firstName&#039;, &#039;lastName&#039;)
+  ```
+
+  @class computed
+  @namespace Ember
+  @constructor
+  @static
+  @param {String} [dependentKeys*] Optional dependent keys that trigger this computed property.
+  @param {Function} func The computed property function.
+  @return {Ember.ComputedProperty} property descriptor instance
+  @public
+*/
+
+function computed(func) {
+  var args;
+
+  if (arguments.length &gt; 1) {
+    args = [].slice.call(arguments);
+    func = args.pop();
+  }
+
+  var cp = new ComputedProperty(func);
+
+  if (args) {
+    cp.property.apply(cp, args);
+  }
+
+  return cp;
+}
+
+/**
+  Returns the cached value for a property, if one exists.
+  This can be useful for peeking at the value of a computed
+  property that is generated lazily, without accidentally causing
+  it to be created.
+
+  @method cacheFor
+  @for Ember
+  @param {Object} obj the object whose property you want to check
+  @param {String} key the name of the property whose cached value you want
+    to return
+  @return {Object} the cached value
+  @public
+*/
+function cacheFor(obj, key) {
+  var meta = obj[&#039;__ember_meta__&#039;];
+  var cache = meta &amp;&amp; meta.cache;
+  var ret = cache &amp;&amp; cache[key];
+
+  if (ret === UNDEFINED) {
+    return undefined;
+  }
+  return ret;
+}
+
+cacheFor.set = function (cache, key, value) {
+  if (value === undefined) {
+    cache[key] = UNDEFINED;
+  } else {
+    cache[key] = value;
+  }
+};
+
+cacheFor.get = function (cache, key) {
+  var ret = cache[key];
+  if (ret === UNDEFINED) {
+    return undefined;
+  }
+  return ret;
+};
+
+cacheFor.remove = function (cache, key) {
+  cache[key] = undefined;
+};
+
+exports.ComputedProperty = ComputedProperty;
+exports.computed = computed;
+exports.cacheFor = cacheFor;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\mixins\sortable.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\mixins\sortable.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">73.41</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">328</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">52.45</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.29</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert, Ember.A
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberRuntimeMixinsMutable_enumerable = require(&#039;ember-runtime/mixins/mutable_enumerable&#039;);
+
+var _emberRuntimeMixinsMutable_enumerable2 = _interopRequireDefault(_emberRuntimeMixinsMutable_enumerable);
+
+var _emberRuntimeCompare = require(&#039;ember-runtime/compare&#039;);
+
+var _emberRuntimeCompare2 = _interopRequireDefault(_emberRuntimeCompare);
+
+var _emberMetalObserver = require(&#039;ember-metal/observer&#039;);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalComputed_macros = require(&#039;ember-metal/computed_macros&#039;);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+//ES6TODO: should we access these directly from their package or from how their exposed in ember-metal?
+
+/**
+  `Ember.SortableMixin` provides a standard interface for array proxies
+  to specify a sort order and maintain this sorting when objects are added,
+  removed, or updated without changing the implicit order of their underlying
+  model array:
+
+  ```javascript
+  songs = [
+    {trackNumber: 4, title: &#039;Ob-La-Di, Ob-La-Da&#039;},
+    {trackNumber: 2, title: &#039;Back in the U.S.S.R.&#039;},
+    {trackNumber: 3, title: &#039;Glass Onion&#039;},
+  ];
+
+  songsController = Ember.ArrayController.create({
+    model: songs,
+    sortProperties: [&#039;trackNumber&#039;],
+    sortAscending: true
+  });
+
+  songsController.get(&#039;firstObject&#039;);  // {trackNumber: 2, title: &#039;Back in the U.S.S.R.&#039;}
+
+  songsController.addObject({trackNumber: 1, title: &#039;Dear Prudence&#039;});
+  songsController.get(&#039;firstObject&#039;);  // {trackNumber: 1, title: &#039;Dear Prudence&#039;}
+  ```
+
+  If you add or remove the properties to sort by or change the sort direction the model
+  sort order will be automatically updated.
+
+  ```javascript
+  songsController.set(&#039;sortProperties&#039;, [&#039;title&#039;]);
+  songsController.get(&#039;firstObject&#039;); // {trackNumber: 2, title: &#039;Back in the U.S.S.R.&#039;}
+
+  songsController.toggleProperty(&#039;sortAscending&#039;);
+  songsController.get(&#039;firstObject&#039;); // {trackNumber: 4, title: &#039;Ob-La-Di, Ob-La-Da&#039;}
+  ```
+
+  `SortableMixin` works by sorting the `arrangedContent` array, which is the array that
+  `ArrayProxy` displays. Due to the fact that the underlying &#039;content&#039; array is not changed, that
+  array will not display the sorted list:
+
+   ```javascript
+  songsController.get(&#039;content&#039;).get(&#039;firstObject&#039;); // Returns the unsorted original content
+  songsController.get(&#039;firstObject&#039;); // Returns the sorted content.
+  ```
+
+  Although the sorted content can also be accessed through the `arrangedContent` property,
+  it is preferable to use the proxied class and not the `arrangedContent` array directly.
+
+  @class SortableMixin
+  @namespace Ember
+  @uses Ember.MutableEnumerable
+  @private
+*/
+exports[&#039;default&#039;] = _emberMetalMixin.Mixin.create(_emberRuntimeMixinsMutable_enumerable2[&#039;default&#039;], {
+
+  /**
+    Specifies which properties dictate the `arrangedContent`&#039;s sort order.
+      When specifying multiple properties the sorting will use properties
+    from the `sortProperties` array prioritized from first to last.
+      @property {Array} sortProperties
+    @private
+  */
+  sortProperties: null,
+
+  /**
+    Specifies the `arrangedContent`&#039;s sort direction.
+    Sorts the content in ascending order by default. Set to `false` to
+    use descending order.
+      @property {Boolean} sortAscending
+    @default true
+    @private
+  */
+  sortAscending: true,
+
+  /**
+    The function used to compare two values. You can override this if you
+    want to do custom comparisons. Functions must be of the type expected by
+    Array#sort, i.e.,
+      *  return 0 if the two parameters are equal,
+    *  return a negative value if the first parameter is smaller than the second or
+    *  return a positive value otherwise:
+      ```javascript
+    function(x, y) { // These are assumed to be integers
+      if (x === y)
+        return 0;
+      return x &lt; y ? -1 : 1;
+    }
+    ```
+      @property sortFunction
+    @type {Function}
+    @default Ember.compare
+    @private
+  */
+  sortFunction: _emberRuntimeCompare2[&#039;default&#039;],
+
+  orderBy: function orderBy(item1, item2) {
+    var _this = this;
+
+    var result = 0;
+    var sortProperties = (0, _emberMetalProperty_get.get)(this, &#039;sortProperties&#039;);
+    var sortAscending = (0, _emberMetalProperty_get.get)(this, &#039;sortAscending&#039;);
+    var sortFunction = (0, _emberMetalProperty_get.get)(this, &#039;sortFunction&#039;);
+
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;you need to define `sortProperties`&#039;, !!sortProperties);
+
+    sortProperties.forEach(function (propertyName) {
+      if (result === 0) {
+        result = sortFunction.call(_this, (0, _emberMetalProperty_get.get)(item1, propertyName), (0, _emberMetalProperty_get.get)(item2, propertyName));
+        if (result !== 0 &amp;&amp; !sortAscending) {
+          result = -1 * result;
+        }
+      }
+    });
+
+    return result;
+  },
+
+  destroy: function destroy() {
+    var _this2 = this;
+
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    var sortProperties = (0, _emberMetalProperty_get.get)(this, &#039;sortProperties&#039;);
+
+    if (content &amp;&amp; sortProperties) {
+      content.forEach(function (item) {
+        sortProperties.forEach(function (sortProperty) {
+          (0, _emberMetalObserver.removeObserver)(item, sortProperty, _this2, &#039;contentItemSortPropertyDidChange&#039;);
+        });
+      });
+    }
+
+    return this._super.apply(this, arguments);
+  },
+
+  isSorted: (0, _emberMetalComputed_macros.notEmpty)(&#039;sortProperties&#039;),
+
+  /**
+    Overrides the default `arrangedContent` from `ArrayProxy` in order to sort by `sortFunction`.
+    Also sets up observers for each `sortProperty` on each item in the content Array.
+      @property arrangedContent
+    @private
+  */
+  arrangedContent: (0, _emberMetalComputed.computed)(&#039;content&#039;, &#039;sortProperties.@each&#039;, {
+    get: function get(key) {
+      var _this3 = this;
+
+      var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+      var isSorted = (0, _emberMetalProperty_get.get)(this, &#039;isSorted&#039;);
+      var sortProperties = (0, _emberMetalProperty_get.get)(this, &#039;sortProperties&#039;);
+
+      if (content &amp;&amp; isSorted) {
+        content = content.slice();
+        content.sort(function (item1, item2) {
+          return _this3.orderBy(item1, item2);
+        });
+
+        content.forEach(function (item) {
+          sortProperties.forEach(function (sortProperty) {
+            (0, _emberMetalObserver.addObserver)(item, sortProperty, _this3, &#039;contentItemSortPropertyDidChange&#039;);
+          });
+        });
+
+        return _emberMetalCore2[&#039;default&#039;].A(content);
+      }
+
+      return content;
+    }
+  }),
+
+  _contentWillChange: (0, _emberMetalMixin.beforeObserver)(&#039;content&#039;, function () {
+    var _this4 = this;
+
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    var sortProperties = (0, _emberMetalProperty_get.get)(this, &#039;sortProperties&#039;);
+
+    if (content &amp;&amp; sortProperties) {
+      content.forEach(function (item) {
+        sortProperties.forEach(function (sortProperty) {
+          (0, _emberMetalObserver.removeObserver)(item, sortProperty, _this4, &#039;contentItemSortPropertyDidChange&#039;);
+        });
+      });
+    }
+
+    this._super.apply(this, arguments);
+  }),
+
+  sortPropertiesWillChange: (0, _emberMetalMixin.beforeObserver)(&#039;sortProperties&#039;, function () {
+    this._lastSortAscending = undefined;
+  }),
+
+  sortPropertiesDidChange: (0, _emberMetalMixin.observer)(&#039;sortProperties&#039;, function () {
+    this._lastSortAscending = undefined;
+  }),
+
+  sortAscendingWillChange: (0, _emberMetalMixin.beforeObserver)(&#039;sortAscending&#039;, function () {
+    this._lastSortAscending = (0, _emberMetalProperty_get.get)(this, &#039;sortAscending&#039;);
+  }),
+
+  sortAscendingDidChange: (0, _emberMetalMixin.observer)(&#039;sortAscending&#039;, function () {
+    if (this._lastSortAscending !== undefined &amp;&amp; (0, _emberMetalProperty_get.get)(this, &#039;sortAscending&#039;) !== this._lastSortAscending) {
+      var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+      arrangedContent.reverseObjects();
+    }
+  }),
+
+  contentArrayWillChange: function contentArrayWillChange(array, idx, removedCount, addedCount) {
+    var _this5 = this;
+
+    var isSorted = (0, _emberMetalProperty_get.get)(this, &#039;isSorted&#039;);
+
+    if (isSorted) {
+      var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+      var removedObjects = array.slice(idx, idx + removedCount);
+      var sortProperties = (0, _emberMetalProperty_get.get)(this, &#039;sortProperties&#039;);
+
+      removedObjects.forEach(function (item) {
+        arrangedContent.removeObject(item);
+
+        sortProperties.forEach(function (sortProperty) {
+          (0, _emberMetalObserver.removeObserver)(item, sortProperty, _this5, &#039;contentItemSortPropertyDidChange&#039;);
+        }, _this5);
+      }, this);
+    }
+
+    return this._super(array, idx, removedCount, addedCount);
+  },
+
+  contentArrayDidChange: function contentArrayDidChange(array, idx, removedCount, addedCount) {
+    var _this6 = this;
+
+    var isSorted = (0, _emberMetalProperty_get.get)(this, &#039;isSorted&#039;);
+    var sortProperties = (0, _emberMetalProperty_get.get)(this, &#039;sortProperties&#039;);
+
+    if (isSorted) {
+      var addedObjects = array.slice(idx, idx + addedCount);
+
+      addedObjects.forEach(function (item) {
+        _this6.insertItemSorted(item);
+
+        sortProperties.forEach(function (sortProperty) {
+          (0, _emberMetalObserver.addObserver)(item, sortProperty, _this6, &#039;contentItemSortPropertyDidChange&#039;);
+        });
+      });
+    }
+
+    return this._super(array, idx, removedCount, addedCount);
+  },
+
+  insertItemSorted: function insertItemSorted(item) {
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+    var length = (0, _emberMetalProperty_get.get)(arrangedContent, &#039;length&#039;);
+
+    var idx = this._binarySearch(item, 0, length);
+    arrangedContent.insertAt(idx, item);
+  },
+
+  contentItemSortPropertyDidChange: function contentItemSortPropertyDidChange(item) {
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+    var oldIndex = arrangedContent.indexOf(item);
+    var leftItem = arrangedContent.objectAt(oldIndex - 1);
+    var rightItem = arrangedContent.objectAt(oldIndex + 1);
+    var leftResult = leftItem &amp;&amp; this.orderBy(item, leftItem);
+    var rightResult = rightItem &amp;&amp; this.orderBy(item, rightItem);
+
+    if (leftResult &lt; 0 || rightResult &gt; 0) {
+      arrangedContent.removeObject(item);
+      this.insertItemSorted(item);
+    }
+  },
+
+  _binarySearch: function _binarySearch(item, low, high) {
+    var mid, midItem, res, arrangedContent;
+
+    if (low === high) {
+      return low;
+    }
+
+    arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+
+    mid = low + Math.floor((high - low) / 2);
+    midItem = arrangedContent.objectAt(mid);
+
+    res = this.orderBy(midItem, item);
+
+    if (res &lt; 0) {
+      return this._binarySearch(item, mid + 1, high);
+    } else if (res &gt; 0) {
+      return this._binarySearch(item, low, mid);
+    }
+
+    return mid;
+  }
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

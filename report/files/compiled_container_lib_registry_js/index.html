@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\container\lib\registry.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\container\lib\registry.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.94</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">771</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">79.60</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">4.05</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberMetalDictionary = require(&#039;ember-metal/dictionary&#039;);
+
+var _emberMetalDictionary2 = _interopRequireDefault(_emberMetalDictionary);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _container = require(&#039;./container&#039;);
+
+var _container2 = _interopRequireDefault(_container);
+
+var VALID_FULL_NAME_REGEXP = /^[^:]+.+:[^:]+$/;
+
+var instanceInitializersFeatureEnabled;
+if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-application-instance-initializers&#039;)) {
+  instanceInitializersFeatureEnabled = true;
+}
+
+/**
+ A registry used to store factory and option information keyed
+ by type.
+
+ A `Registry` stores the factory and option information needed by a
+ `Container` to instantiate and cache objects.
+
+ The public API for `Registry` is still in flux and should not be considered
+ stable.
+
+ @private
+ @class Registry
+ @since 1.11.0
+*/
+function Registry(options) {
+  this.fallback = options &amp;&amp; options.fallback ? options.fallback : null;
+
+  this.resolver = options &amp;&amp; options.resolver ? options.resolver : function () {};
+
+  this.registrations = (0, _emberMetalDictionary2[&#039;default&#039;])(options &amp;&amp; options.registrations ? options.registrations : null);
+
+  this._typeInjections = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+  this._injections = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+  this._factoryTypeInjections = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+  this._factoryInjections = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+
+  this._normalizeCache = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+  this._resolveCache = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+  this._failCache = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+
+  this._options = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+  this._typeOptions = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+}
+
+Registry.prototype = {
+  /**
+   A backup registry for resolving registrations when no matches can be found.
+     @private
+   @property fallback
+   @type Registry
+   */
+  fallback: null,
+
+  /**
+   @private
+   @property resolver
+   @type function
+   */
+  resolver: null,
+
+  /**
+   @private
+   @property registrations
+   @type InheritingDict
+   */
+  registrations: null,
+
+  /**
+   @private
+     @property _typeInjections
+   @type InheritingDict
+   */
+  _typeInjections: null,
+
+  /**
+   @private
+     @property _injections
+   @type InheritingDict
+   */
+  _injections: null,
+
+  /**
+   @private
+     @property _factoryTypeInjections
+   @type InheritingDict
+   */
+  _factoryTypeInjections: null,
+
+  /**
+   @private
+     @property _factoryInjections
+   @type InheritingDict
+   */
+  _factoryInjections: null,
+
+  /**
+   @private
+     @property _normalizeCache
+   @type InheritingDict
+   */
+  _normalizeCache: null,
+
+  /**
+   @private
+     @property _resolveCache
+   @type InheritingDict
+   */
+  _resolveCache: null,
+
+  /**
+   @private
+     @property _options
+   @type InheritingDict
+   */
+  _options: null,
+
+  /**
+   @private
+     @property _typeOptions
+   @type InheritingDict
+   */
+  _typeOptions: null,
+
+  /**
+   The first container created for this registry.
+     This allows deprecated access to `lookup` and `lookupFactory` to avoid
+   breaking compatibility for Ember 1.x initializers.
+     @private
+   @property _defaultContainer
+   @type Container
+   */
+  _defaultContainer: null,
+
+  /**
+   Creates a container based on this registry.
+     @private
+   @method container
+   @param {Object} options
+   @return {Container} created container
+   */
+  container: function container(options) {
+    var container = new _container2[&#039;default&#039;](this, options);
+
+    // 2.0TODO - remove `registerContainer`
+    this.registerContainer(container);
+
+    return container;
+  },
+
+  /**
+   Register the first container created for a registery to allow deprecated
+   access to its `lookup` and `lookupFactory` methods to avoid breaking
+   compatibility for Ember 1.x initializers.
+     2.0TODO: Remove this method. The bookkeeping is only needed to support
+            deprecated behavior.
+     @private
+   @param {Container} newly created container
+   */
+  registerContainer: function registerContainer(container) {
+    if (!this._defaultContainer) {
+      this._defaultContainer = container;
+    }
+    if (this.fallback) {
+      this.fallback.registerContainer(container);
+    }
+  },
+
+  lookup: function lookup(fullName, options) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Create a container on the registry (with `registry.container()`) before calling `lookup`.&#039;, this._defaultContainer);
+
+    if (instanceInitializersFeatureEnabled) {
+      _emberMetalCore2[&#039;default&#039;].deprecate(&#039;`lookup` was called on a Registry. The `initializer` API no longer receives a container, and you should use an `instanceInitializer` to look up objects from the container.&#039;, false, { url: &#039;http://emberjs.com/guides/deprecations#toc_deprecate-access-to-instances-in-initializers&#039; });
+    }
+
+    return this._defaultContainer.lookup(fullName, options);
+  },
+
+  lookupFactory: function lookupFactory(fullName) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Create a container on the registry (with `registry.container()`) before calling `lookupFactory`.&#039;, this._defaultContainer);
+
+    if (instanceInitializersFeatureEnabled) {
+      _emberMetalCore2[&#039;default&#039;].deprecate(&#039;`lookupFactory` was called on a Registry. The `initializer` API no longer receives a container, and you should use an `instanceInitializer` to look up objects from the container.&#039;, false, { url: &#039;http://emberjs.com/guides/deprecations#toc_deprecate-access-to-instances-in-initializers&#039; });
+    }
+
+    return this._defaultContainer.lookupFactory(fullName);
+  },
+
+  /**
+   Registers a factory for later injection.
+     Example:
+     ```javascript
+   var registry = new Registry();
+     registry.register(&#039;model:user&#039;, Person, {singleton: false });
+   registry.register(&#039;fruit:favorite&#039;, Orange);
+   registry.register(&#039;communication:main&#039;, Email, {singleton: false});
+   ```
+     @private
+   @method register
+   @param {String} fullName
+   @param {Function} factory
+   @param {Object} options
+   */
+  register: function register(fullName, factory, options) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this.validateFullName(fullName));
+
+    if (factory === undefined) {
+      throw new TypeError(&#039;Attempting to register an unknown factory: `&#039; + fullName + &#039;`&#039;);
+    }
+
+    var normalizedName = this.normalize(fullName);
+
+    if (this._resolveCache[normalizedName]) {
+      throw new Error(&#039;Cannot re-register: `&#039; + fullName + &#039;`, as it has already been resolved.&#039;);
+    }
+
+    delete this._failCache[normalizedName];
+    this.registrations[normalizedName] = factory;
+    this._options[normalizedName] = options || {};
+  },
+
+  /**
+   Unregister a fullName
+     ```javascript
+   var registry = new Registry();
+   registry.register(&#039;model:user&#039;, User);
+     registry.resolve(&#039;model:user&#039;).create() instanceof User //=&gt; true
+     registry.unregister(&#039;model:user&#039;)
+   registry.resolve(&#039;model:user&#039;) === undefined //=&gt; true
+   ```
+     @private
+   @method unregister
+   @param {String} fullName
+   */
+  unregister: function unregister(fullName) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this.validateFullName(fullName));
+
+    var normalizedName = this.normalize(fullName);
+
+    delete this.registrations[normalizedName];
+    delete this._resolveCache[normalizedName];
+    delete this._failCache[normalizedName];
+    delete this._options[normalizedName];
+  },
+
+  /**
+   Given a fullName return the corresponding factory.
+     By default `resolve` will retrieve the factory from
+   the registry.
+     ```javascript
+   var registry = new Registry();
+   registry.register(&#039;api:twitter&#039;, Twitter);
+     registry.resolve(&#039;api:twitter&#039;) // =&gt; Twitter
+   ```
+     Optionally the registry can be provided with a custom resolver.
+   If provided, `resolve` will first provide the custom resolver
+   the opportunity to resolve the fullName, otherwise it will fallback
+   to the registry.
+     ```javascript
+   var registry = new Registry();
+   registry.resolver = function(fullName) {
+      // lookup via the module system of choice
+    };
+     // the twitter factory is added to the module system
+   registry.resolve(&#039;api:twitter&#039;) // =&gt; Twitter
+   ```
+     @private
+   @method resolve
+   @param {String} fullName
+   @return {Function} fullName&#039;s factory
+   */
+  resolve: (function (_resolve) {
+    function resolve(_x) {
+      return _resolve.apply(this, arguments);
+    }
+
+    resolve.toString = function () {
+      return _resolve.toString();
+    };
+
+    return resolve;
+  })(function (fullName) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this.validateFullName(fullName));
+    var factory = resolve(this, this.normalize(fullName));
+    if (factory === undefined &amp;&amp; this.fallback) {
+      factory = this.fallback.resolve(fullName);
+    }
+    return factory;
+  }),
+
+  /**
+   A hook that can be used to describe how the resolver will
+   attempt to find the factory.
+     For example, the default Ember `.describe` returns the full
+   class name (including namespace) where Ember&#039;s resolver expects
+   to find the `fullName`.
+     @private
+   @method describe
+   @param {String} fullName
+   @return {string} described fullName
+   */
+  describe: function describe(fullName) {
+    return fullName;
+  },
+
+  /**
+   A hook to enable custom fullName normalization behaviour
+     @private
+   @method normalizeFullName
+   @param {String} fullName
+   @return {string} normalized fullName
+   */
+  normalizeFullName: function normalizeFullName(fullName) {
+    return fullName;
+  },
+
+  /**
+   normalize a fullName based on the applications conventions
+     @private
+   @method normalize
+   @param {String} fullName
+   @return {string} normalized fullName
+   */
+  normalize: function normalize(fullName) {
+    return this._normalizeCache[fullName] || (this._normalizeCache[fullName] = this.normalizeFullName(fullName));
+  },
+
+  /**
+   @method makeToString
+     @private
+   @param {any} factory
+   @param {string} fullName
+   @return {function} toString function
+   */
+  makeToString: function makeToString(factory, fullName) {
+    return factory.toString();
+  },
+
+  /**
+   Given a fullName check if the container is aware of its factory
+   or singleton instance.
+     @private
+   @method has
+   @param {String} fullName
+   @return {Boolean}
+   */
+  has: (function (_has) {
+    function has(_x2) {
+      return _has.apply(this, arguments);
+    }
+
+    has.toString = function () {
+      return _has.toString();
+    };
+
+    return has;
+  })(function (fullName) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this.validateFullName(fullName));
+    return has(this, this.normalize(fullName));
+  }),
+
+  /**
+   Allow registering options for all factories of a type.
+     ```javascript
+   var registry = new Registry();
+   var container = registry.container();
+     // if all of type `connection` must not be singletons
+   registry.optionsForType(&#039;connection&#039;, { singleton: false });
+     registry.register(&#039;connection:twitter&#039;, TwitterConnection);
+   registry.register(&#039;connection:facebook&#039;, FacebookConnection);
+     var twitter = container.lookup(&#039;connection:twitter&#039;);
+   var twitter2 = container.lookup(&#039;connection:twitter&#039;);
+     twitter === twitter2; // =&gt; false
+     var facebook = container.lookup(&#039;connection:facebook&#039;);
+   var facebook2 = container.lookup(&#039;connection:facebook&#039;);
+     facebook === facebook2; // =&gt; false
+   ```
+     @private
+   @method optionsForType
+   @param {String} type
+   @param {Object} options
+   */
+  optionsForType: function optionsForType(type, options) {
+    this._typeOptions[type] = options;
+  },
+
+  getOptionsForType: function getOptionsForType(type) {
+    var optionsForType = this._typeOptions[type];
+    if (optionsForType === undefined &amp;&amp; this.fallback) {
+      optionsForType = this.fallback.getOptionsForType(type);
+    }
+    return optionsForType;
+  },
+
+  /**
+   @private
+   @method options
+   @param {String} fullName
+   @param {Object} options
+   */
+  options: function options(fullName, _options) {
+    _options = _options || {};
+    var normalizedName = this.normalize(fullName);
+    this._options[normalizedName] = _options;
+  },
+
+  getOptions: function getOptions(fullName) {
+    var normalizedName = this.normalize(fullName);
+    var options = this._options[normalizedName];
+    if (options === undefined &amp;&amp; this.fallback) {
+      options = this.fallback.getOptions(fullName);
+    }
+    return options;
+  },
+
+  getOption: function getOption(fullName, optionName) {
+    var options = this._options[fullName];
+
+    if (options &amp;&amp; options[optionName] !== undefined) {
+      return options[optionName];
+    }
+
+    var type = fullName.split(&#039;:&#039;)[0];
+    options = this._typeOptions[type];
+
+    if (options &amp;&amp; options[optionName] !== undefined) {
+      return options[optionName];
+    } else if (this.fallback) {
+      return this.fallback.getOption(fullName, optionName);
+    }
+  },
+
+  option: function option(fullName, optionName) {
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;`Registry.option()` has been deprecated. Call `Registry.getOption()` instead.&#039;);
+    return this.getOption(fullName, optionName);
+  },
+
+  /**
+   Used only via `injection`.
+     Provides a specialized form of injection, specifically enabling
+   all objects of one type to be injected with a reference to another
+   object.
+     For example, provided each object of type `controller` needed a `router`.
+   one would do the following:
+     ```javascript
+   var registry = new Registry();
+   var container = registry.container();
+     registry.register(&#039;router:main&#039;, Router);
+   registry.register(&#039;controller:user&#039;, UserController);
+   registry.register(&#039;controller:post&#039;, PostController);
+     registry.typeInjection(&#039;controller&#039;, &#039;router&#039;, &#039;router:main&#039;);
+     var user = container.lookup(&#039;controller:user&#039;);
+   var post = container.lookup(&#039;controller:post&#039;);
+     user.router instanceof Router; //=&gt; true
+   post.router instanceof Router; //=&gt; true
+     // both controllers share the same router
+   user.router === post.router; //=&gt; true
+   ```
+     @private
+   @method typeInjection
+   @param {String} type
+   @param {String} property
+   @param {String} fullName
+   */
+  typeInjection: function typeInjection(type, property, fullName) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this.validateFullName(fullName));
+
+    var fullNameType = fullName.split(&#039;:&#039;)[0];
+    if (fullNameType === type) {
+      throw new Error(&#039;Cannot inject a `&#039; + fullName + &#039;` on other &#039; + type + &#039;(s).&#039;);
+    }
+
+    var injections = this._typeInjections[type] || (this._typeInjections[type] = []);
+
+    injections.push({
+      property: property,
+      fullName: fullName
+    });
+  },
+
+  /**
+   Defines injection rules.
+     These rules are used to inject dependencies onto objects when they
+   are instantiated.
+     Two forms of injections are possible:
+     * Injecting one fullName on another fullName
+   * Injecting one fullName on a type
+     Example:
+     ```javascript
+   var registry = new Registry();
+   var container = registry.container();
+     registry.register(&#039;source:main&#039;, Source);
+   registry.register(&#039;model:user&#039;, User);
+   registry.register(&#039;model:post&#039;, Post);
+     // injecting one fullName on another fullName
+   // eg. each user model gets a post model
+   registry.injection(&#039;model:user&#039;, &#039;post&#039;, &#039;model:post&#039;);
+     // injecting one fullName on another type
+   registry.injection(&#039;model&#039;, &#039;source&#039;, &#039;source:main&#039;);
+     var user = container.lookup(&#039;model:user&#039;);
+   var post = container.lookup(&#039;model:post&#039;);
+     user.source instanceof Source; //=&gt; true
+   post.source instanceof Source; //=&gt; true
+     user.post instanceof Post; //=&gt; true
+     // and both models share the same source
+   user.source === post.source; //=&gt; true
+   ```
+     @private
+   @method injection
+   @param {String} factoryName
+   @param {String} property
+   @param {String} injectionName
+   */
+  injection: function injection(fullName, property, injectionName) {
+    this.validateFullName(injectionName);
+    var normalizedInjectionName = this.normalize(injectionName);
+
+    if (fullName.indexOf(&#039;:&#039;) === -1) {
+      return this.typeInjection(fullName, property, normalizedInjectionName);
+    }
+
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;fullName must be a proper full name&#039;, this.validateFullName(fullName));
+    var normalizedName = this.normalize(fullName);
+
+    var injections = this._injections[normalizedName] || (this._injections[normalizedName] = []);
+
+    injections.push({
+      property: property,
+      fullName: normalizedInjectionName
+    });
+  },
+
+  /**
+   Used only via `factoryInjection`.
+     Provides a specialized form of injection, specifically enabling
+   all factory of one type to be injected with a reference to another
+   object.
+     For example, provided each factory of type `model` needed a `store`.
+   one would do the following:
+     ```javascript
+   var registry = new Registry();
+     registry.register(&#039;store:main&#039;, SomeStore);
+     registry.factoryTypeInjection(&#039;model&#039;, &#039;store&#039;, &#039;store:main&#039;);
+     var store = registry.lookup(&#039;store:main&#039;);
+   var UserFactory = registry.lookupFactory(&#039;model:user&#039;);
+     UserFactory.store instanceof SomeStore; //=&gt; true
+   ```
+     @private
+   @method factoryTypeInjection
+   @param {String} type
+   @param {String} property
+   @param {String} fullName
+   */
+  factoryTypeInjection: function factoryTypeInjection(type, property, fullName) {
+    var injections = this._factoryTypeInjections[type] || (this._factoryTypeInjections[type] = []);
+
+    injections.push({
+      property: property,
+      fullName: this.normalize(fullName)
+    });
+  },
+
+  /**
+   Defines factory injection rules.
+     Similar to regular injection rules, but are run against factories, via
+   `Registry#lookupFactory`.
+     These rules are used to inject objects onto factories when they
+   are looked up.
+     Two forms of injections are possible:
+     * Injecting one fullName on another fullName
+   * Injecting one fullName on a type
+     Example:
+     ```javascript
+   var registry = new Registry();
+   var container = registry.container();
+     registry.register(&#039;store:main&#039;, Store);
+   registry.register(&#039;store:secondary&#039;, OtherStore);
+   registry.register(&#039;model:user&#039;, User);
+   registry.register(&#039;model:post&#039;, Post);
+     // injecting one fullName on another type
+   registry.factoryInjection(&#039;model&#039;, &#039;store&#039;, &#039;store:main&#039;);
+     // injecting one fullName on another fullName
+   registry.factoryInjection(&#039;model:post&#039;, &#039;secondaryStore&#039;, &#039;store:secondary&#039;);
+     var UserFactory = container.lookupFactory(&#039;model:user&#039;);
+   var PostFactory = container.lookupFactory(&#039;model:post&#039;);
+   var store = container.lookup(&#039;store:main&#039;);
+     UserFactory.store instanceof Store; //=&gt; true
+   UserFactory.secondaryStore instanceof OtherStore; //=&gt; false
+     PostFactory.store instanceof Store; //=&gt; true
+   PostFactory.secondaryStore instanceof OtherStore; //=&gt; true
+     // and both models share the same source instance
+   UserFactory.store === PostFactory.store; //=&gt; true
+   ```
+     @private
+   @method factoryInjection
+   @param {String} factoryName
+   @param {String} property
+   @param {String} injectionName
+   */
+  factoryInjection: function factoryInjection(fullName, property, injectionName) {
+    var normalizedName = this.normalize(fullName);
+    var normalizedInjectionName = this.normalize(injectionName);
+
+    this.validateFullName(injectionName);
+
+    if (fullName.indexOf(&#039;:&#039;) === -1) {
+      return this.factoryTypeInjection(normalizedName, property, normalizedInjectionName);
+    }
+
+    var injections = this._factoryInjections[normalizedName] || (this._factoryInjections[normalizedName] = []);
+
+    injections.push({
+      property: property,
+      fullName: normalizedInjectionName
+    });
+  },
+
+  /**
+   @method knownForType
+   @param {String} type the type to iterate over
+   @private
+  */
+  knownForType: function knownForType(type) {
+    var fallbackKnown = undefined,
+        resolverKnown = undefined;
+
+    var localKnown = (0, _emberMetalDictionary2[&#039;default&#039;])(null);
+    var registeredNames = Object.keys(this.registrations);
+    for (var index = 0, _length = registeredNames.length; index &lt; _length; index++) {
+      var fullName = registeredNames[index];
+      var itemType = fullName.split(&#039;:&#039;)[0];
+
+      if (itemType === type) {
+        localKnown[fullName] = true;
+      }
+    }
+
+    if (this.fallback) {
+      fallbackKnown = this.fallback.knownForType(type);
+    }
+
+    if (this.resolver.knownForType) {
+      resolverKnown = this.resolver.knownForType(type);
+    }
+
+    return (0, _emberMetalMerge.assign)({}, fallbackKnown, localKnown, resolverKnown);
+  },
+
+  validateFullName: function validateFullName(fullName) {
+    if (!VALID_FULL_NAME_REGEXP.test(fullName)) {
+      throw new TypeError(&#039;Invalid Fullname, expected: `type:name` got: &#039; + fullName);
+    }
+    return true;
+  },
+
+  validateInjections: function validateInjections(injections) {
+    if (!injections) {
+      return;
+    }
+
+    var fullName;
+
+    for (var i = 0, length = injections.length; i &lt; length; i++) {
+      fullName = injections[i].fullName;
+
+      if (!this.has(fullName)) {
+        throw new Error(&#039;Attempting to inject an unknown injection: `&#039; + fullName + &#039;`&#039;);
+      }
+    }
+  },
+
+  normalizeInjectionsHash: function normalizeInjectionsHash(hash) {
+    var injections = [];
+
+    for (var key in hash) {
+      if (hash.hasOwnProperty(key)) {
+        _emberMetalCore2[&#039;default&#039;].assert(&#039;Expected a proper full name, given \&#039;&#039; + hash[key] + &#039;\&#039;&#039;, this.validateFullName(hash[key]));
+
+        injections.push({
+          property: key,
+          fullName: hash[key]
+        });
+      }
+    }
+
+    return injections;
+  },
+
+  getInjections: function getInjections(fullName) {
+    var injections = this._injections[fullName] || [];
+    if (this.fallback) {
+      injections = injections.concat(this.fallback.getInjections(fullName));
+    }
+    return injections;
+  },
+
+  getTypeInjections: function getTypeInjections(type) {
+    var injections = this._typeInjections[type] || [];
+    if (this.fallback) {
+      injections = injections.concat(this.fallback.getTypeInjections(type));
+    }
+    return injections;
+  },
+
+  getFactoryInjections: function getFactoryInjections(fullName) {
+    var injections = this._factoryInjections[fullName] || [];
+    if (this.fallback) {
+      injections = injections.concat(this.fallback.getFactoryInjections(fullName));
+    }
+    return injections;
+  },
+
+  getFactoryTypeInjections: function getFactoryTypeInjections(type) {
+    var injections = this._factoryTypeInjections[type] || [];
+    if (this.fallback) {
+      injections = injections.concat(this.fallback.getFactoryTypeInjections(type));
+    }
+    return injections;
+  }
+};
+
+function resolve(registry, normalizedName) {
+  var cached = registry._resolveCache[normalizedName];
+  if (cached) {
+    return cached;
+  }
+  if (registry._failCache[normalizedName]) {
+    return;
+  }
+
+  var resolved = registry.resolver(normalizedName) || registry.registrations[normalizedName];
+
+  if (resolved) {
+    registry._resolveCache[normalizedName] = resolved;
+  } else {
+    registry._failCache[normalizedName] = true;
+  }
+
+  return resolved;
+}
+
+function has(registry, fullName) {
+  return registry.resolve(fullName) !== undefined;
+}
+
+exports[&#039;default&#039;] = Registry;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

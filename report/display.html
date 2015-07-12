@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - JavaScript Introspection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <script>
+    var __options = {"flags":{"complexity":{"logicalor":true,"switchcase":true,"forin":false,"trycatch":false,"newmi":true},"jshint":{"globals":{},"options":{"predef":["QUnit","define","console","DS","Handlebars","RSVP","require","requireModule","equal","notEqual","notStrictEqual","asyncTest","throws","deepEqual","ok","strictEqual","expect","minispade","expectAssertion","expectDeprecation","expectNoDeprecation","ignoreAssertion","ignoreDeprecation","window","document","setTimeout","clearTimeout","setInterval","clearInterval"],"esnext":true,"node":false,"browser":false,"boss":true,"curly":false,"debug":false,"devel":false,"eqeqeq":true,"evil":true,"forin":false,"immed":false,"laxbreak":false,"newcap":true,"noarg":true,"noempty":false,"nonew":false,"nomen":false,"onevar":false,"plusplus":false,"regexp":false,"undef":true,"sub":true,"strict":false,"white":false,"eqnull":true,"trailing":true,"unused":"vars"}}}}
+  </script>
+
+  <link href="assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="assets/css/plato.css" rel="stylesheet">
+  <link href="assets/css/plato-display.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>JavaScript Source Analysis</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="reportBlock lineCount">
+                <div class="reportContent">
+                    <small class="chart-label">Total / Average Lines</small>
+                    <h1>47789 / 151</h1>
+                </div>
+                <div id="chart_historical_sloc" class="chart js-chart"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="reportBlock maintainability">
+                <div class="reportContent">
+                    <small class="chart-label">Average Maintainability</small>
+                    <h1>73.72</h1>
+                </div>
+                <div id="chart_historical_maint" class="chart js-chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="reportBlock maintainabilityList">
+                <h2 class="reportTitle">Worst Maintainability Scores</h2>
+                <ul class="list-unstyled">
+
+                    <li>
+                        <strong>53 score</strong>
+                        <small>compiled\ember-metal\lib\property_set.js</small>
+                    </li>
+
+                    <li>
+                        <strong>56 score</strong>
+                        <small>compiled\ember-runtime\lib\compare.js</small>
+                    </li>
+
+                    <li>
+                        <strong>56 score</strong>
+                        <small>compiled\ember-runtime\lib\copy.js</small>
+                    </li>
+
+                    <li>
+                        <strong>57 score</strong>
+                        <small>compiled\ember-metal\lib\merge.js</small>
+                    </li>
+
+                    <li>
+                        <strong>57 score</strong>
+                        <small>compiled\ember-htmlbars\lib\hooks\invoke-helper.js</small>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="reportBlock locList">
+                <h2 class="reportTitle">Largest Files</h2>
+                <ul class="list-unstyled">
+
+                    <li>
+                        <strong>2135 lines</strong>
+                        <small>compiled\ember-routing\lib\system\route.js</small>
+                    </li>
+
+                    <li>
+                        <strong>1526 lines</strong>
+                        <small>compiled\ember-views\lib\views\view.js</small>
+                    </li>
+
+                    <li>
+                        <strong>1202 lines</strong>
+                        <small>compiled\ember-application\lib\system\application.js</small>
+                    </li>
+
+                    <li>
+                        <strong>1181 lines</strong>
+                        <small>compiled\ember-routing\lib\system\router.js</small>
+                    </li>
+
+                    <li>
+                        <strong>1081 lines</strong>
+                        <small>compiled\ember-runtime\lib\mixins\enumerable.js</small>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="reportBlock lintList">
+                <h2 class="reportTitle">Lint Warnings</h2>
+                <ul class="list-unstyled">
+
+                    <li>
+                        <strong>51 lint errors</strong>
+                        <small>compiled\ember-metal\lib\computed_macros.js</small>
+                   </li>
+
+                    <li>
+                        <strong>51 lint errors</strong>
+                        <small>compiled\ember-metal\lib\mixin.js</small>
+                   </li>
+
+                    <li>
+                        <strong>51 lint errors</strong>
+                        <small>compiled\ember-routing\lib\system\route.js</small>
+                   </li>
+
+                    <li>
+                        <strong>51 lint errors</strong>
+                        <small>compiled\ember-routing-views\lib\views\link.js</small>
+                   </li>
+
+                    <li>
+                        <strong>51 lint errors</strong>
+                        <small>compiled\ember-runtime\lib\mixins\enumerable.js</small>
+                   </li>
+
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script type="text/javascript" src="assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="assets/scripts/plato-display.js"></script>
+
+</body>
+</html>

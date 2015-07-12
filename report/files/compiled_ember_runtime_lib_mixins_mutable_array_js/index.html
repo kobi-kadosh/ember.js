@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\mixins\mutable_array.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\mixins\mutable_array.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">73.05</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">367</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">47.04</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.16</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+
+// require(&#039;ember-runtime/mixins/array&#039;);
+// require(&#039;ember-runtime/mixins/mutable_enumerable&#039;);
+
+// ..........................................................
+// CONSTANTS
+//
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+// ..........................................................
+// HELPERS
+//
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberRuntimeMixinsArray = require(&#039;ember-runtime/mixins/array&#039;);
+
+var _emberRuntimeMixinsArray2 = _interopRequireDefault(_emberRuntimeMixinsArray);
+
+var _emberRuntimeMixinsMutable_enumerable = require(&#039;ember-runtime/mixins/mutable_enumerable&#039;);
+
+var _emberRuntimeMixinsMutable_enumerable2 = _interopRequireDefault(_emberRuntimeMixinsMutable_enumerable);
+
+var _emberRuntimeMixinsEnumerable = require(&#039;ember-runtime/mixins/enumerable&#039;);
+
+var _emberRuntimeMixinsEnumerable2 = _interopRequireDefault(_emberRuntimeMixinsEnumerable);
+
+var OUT_OF_RANGE_EXCEPTION = &#039;Index out of range&#039;;
+var EMPTY = [];
+
+/**
+  This mixin defines the API for modifying array-like objects. These methods
+  can be applied only to a collection that keeps its items in an ordered set.
+  It builds upon the Array mixin and adds methods to modify the array.
+  Concrete implementations of this class include ArrayProxy and ArrayController.
+
+  It is important to use the methods in this class to modify arrays so that
+  changes are observable. This allows the binding system in Ember to function
+  correctly.
+
+
+  Note that an Array can change even if it does not implement this mixin.
+  For example, one might implement a SparseArray that cannot be directly
+  modified, but if its underlying enumerable changes, it will change also.
+
+  @class MutableArray
+  @namespace Ember
+  @uses Ember.Array
+  @uses Ember.MutableEnumerable
+  @public
+*/
+exports[&#039;default&#039;] = _emberMetalMixin.Mixin.create(_emberRuntimeMixinsArray2[&#039;default&#039;], _emberRuntimeMixinsMutable_enumerable2[&#039;default&#039;], {
+
+  /**
+    __Required.__ You must implement this method to apply this mixin.
+      This is one of the primitives you must implement to support `Ember.Array`.
+    You should replace amt objects started at idx with the objects in the
+    passed array. You should also call `this.enumerableContentDidChange()`
+      @method replace
+    @param {Number} idx Starting index in the array to replace. If
+      idx &gt;= length, then append to the end of the array.
+    @param {Number} amt Number of elements that should be removed from
+      the array, starting at *idx*.
+    @param {Array} objects An array of zero or more objects that should be
+      inserted into the array at *idx*
+    @public
+  */
+  replace: null,
+
+  /**
+    Remove all elements from the array. This is useful if you
+    want to reuse an existing array without having to recreate it.
+      ```javascript
+    var colors = [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;];
+      color.length();   //  3
+    colors.clear();   //  []
+    colors.length();  //  0
+    ```
+      @method clear
+    @return {Ember.Array} An empty Array.
+    @public
+  */
+  clear: function clear() {
+    var len = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    if (len === 0) {
+      return this;
+    }
+
+    this.replace(0, len, EMPTY);
+    return this;
+  },
+
+  /**
+    This will use the primitive `replace()` method to insert an object at the
+    specified index.
+      ```javascript
+    var colors = [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;];
+      colors.insertAt(2, &#039;yellow&#039;);  // [&#039;red&#039;, &#039;green&#039;, &#039;yellow&#039;, &#039;blue&#039;]
+    colors.insertAt(5, &#039;orange&#039;);  // Error: Index out of range
+    ```
+      @method insertAt
+    @param {Number} idx index of insert the object at.
+    @param {Object} object object to insert
+    @return {Ember.Array} receiver
+    @public
+  */
+  insertAt: function insertAt(idx, object) {
+    if (idx &gt; (0, _emberMetalProperty_get.get)(this, &#039;length&#039;)) {
+      throw new _emberMetalError2[&#039;default&#039;](OUT_OF_RANGE_EXCEPTION);
+    }
+
+    this.replace(idx, 0, [object]);
+    return this;
+  },
+
+  /**
+    Remove an object at the specified index using the `replace()` primitive
+    method. You can pass either a single index, or a start and a length.
+      If you pass a start and length that is beyond the
+    length this method will throw an `OUT_OF_RANGE_EXCEPTION`.
+      ```javascript
+    var colors = [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;, &#039;yellow&#039;, &#039;orange&#039;];
+      colors.removeAt(0);     // [&#039;green&#039;, &#039;blue&#039;, &#039;yellow&#039;, &#039;orange&#039;]
+    colors.removeAt(2, 2);  // [&#039;green&#039;, &#039;blue&#039;]
+    colors.removeAt(4, 2);  // Error: Index out of range
+    ```
+      @method removeAt
+    @param {Number} start index, start of range
+    @param {Number} len length of passing range
+    @return {Ember.Array} receiver
+    @public
+  */
+  removeAt: function removeAt(start, len) {
+    if (&#039;number&#039; === typeof start) {
+
+      if (start &lt; 0 || start &gt;= (0, _emberMetalProperty_get.get)(this, &#039;length&#039;)) {
+        throw new _emberMetalError2[&#039;default&#039;](OUT_OF_RANGE_EXCEPTION);
+      }
+
+      // fast case
+      if (len === undefined) {
+        len = 1;
+      }
+
+      this.replace(start, len, EMPTY);
+    }
+
+    return this;
+  },
+
+  /**
+    Push the object onto the end of the array. Works just like `push()` but it
+    is KVO-compliant.
+      ```javascript
+    var colors = [&#039;red&#039;, &#039;green&#039;];
+      colors.pushObject(&#039;black&#039;);     // [&#039;red&#039;, &#039;green&#039;, &#039;black&#039;]
+    colors.pushObject([&#039;yellow&#039;]);  // [&#039;red&#039;, &#039;green&#039;, [&#039;yellow&#039;]]
+    ```
+      @method pushObject
+    @param {*} obj object to push
+    @return object same object passed as a param
+    @public
+  */
+  pushObject: function pushObject(obj) {
+    this.insertAt((0, _emberMetalProperty_get.get)(this, &#039;length&#039;), obj);
+    return obj;
+  },
+
+  /**
+    Add the objects in the passed numerable to the end of the array. Defers
+    notifying observers of the change until all objects are added.
+      ```javascript
+    var colors = [&#039;red&#039;];
+      colors.pushObjects([&#039;yellow&#039;, &#039;orange&#039;]);  // [&#039;red&#039;, &#039;yellow&#039;, &#039;orange&#039;]
+    ```
+      @method pushObjects
+    @param {Ember.Enumerable} objects the objects to add
+    @return {Ember.Array} receiver
+    @public
+  */
+  pushObjects: function pushObjects(objects) {
+    if (!(_emberRuntimeMixinsEnumerable2[&#039;default&#039;].detect(objects) || Array.isArray(objects))) {
+      throw new TypeError(&#039;Must pass Ember.Enumerable to Ember.MutableArray#pushObjects&#039;);
+    }
+    this.replace((0, _emberMetalProperty_get.get)(this, &#039;length&#039;), 0, objects);
+    return this;
+  },
+
+  /**
+    Pop object from array or nil if none are left. Works just like `pop()` but
+    it is KVO-compliant.
+      ```javascript
+    var colors = [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;];
+      colors.popObject();   // &#039;blue&#039;
+    console.log(colors);  // [&#039;red&#039;, &#039;green&#039;]
+    ```
+      @method popObject
+    @return object
+    @public
+  */
+  popObject: function popObject() {
+    var len = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    if (len === 0) {
+      return null;
+    }
+
+    var ret = this.objectAt(len - 1);
+    this.removeAt(len - 1, 1);
+    return ret;
+  },
+
+  /**
+    Shift an object from start of array or nil if none are left. Works just
+    like `shift()` but it is KVO-compliant.
+      ```javascript
+    var colors = [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;];
+      colors.shiftObject();  // &#039;red&#039;
+    console.log(colors);   // [&#039;green&#039;, &#039;blue&#039;]
+    ```
+      @method shiftObject
+    @return object
+    @public
+  */
+  shiftObject: function shiftObject() {
+    if ((0, _emberMetalProperty_get.get)(this, &#039;length&#039;) === 0) {
+      return null;
+    }
+
+    var ret = this.objectAt(0);
+    this.removeAt(0);
+    return ret;
+  },
+
+  /**
+    Unshift an object to start of array. Works just like `unshift()` but it is
+    KVO-compliant.
+      ```javascript
+    var colors = [&#039;red&#039;];
+      colors.unshiftObject(&#039;yellow&#039;);    // [&#039;yellow&#039;, &#039;red&#039;]
+    colors.unshiftObject([&#039;black&#039;]);   // [[&#039;black&#039;], &#039;yellow&#039;, &#039;red&#039;]
+    ```
+      @method unshiftObject
+    @param {*} obj object to unshift
+    @return object same object passed as a param
+    @public
+  */
+  unshiftObject: function unshiftObject(obj) {
+    this.insertAt(0, obj);
+    return obj;
+  },
+
+  /**
+    Adds the named objects to the beginning of the array. Defers notifying
+    observers until all objects have been added.
+      ```javascript
+    var colors = [&#039;red&#039;];
+      colors.unshiftObjects([&#039;black&#039;, &#039;white&#039;]);   // [&#039;black&#039;, &#039;white&#039;, &#039;red&#039;]
+    colors.unshiftObjects(&#039;yellow&#039;); // Type Error: &#039;undefined&#039; is not a function
+    ```
+      @method unshiftObjects
+    @param {Ember.Enumerable} objects the objects to add
+    @return {Ember.Array} receiver
+    @public
+  */
+  unshiftObjects: function unshiftObjects(objects) {
+    this.replace(0, 0, objects);
+    return this;
+  },
+
+  /**
+    Reverse objects in the array. Works just like `reverse()` but it is
+    KVO-compliant.
+      @method reverseObjects
+    @return {Ember.Array} receiver
+     @public
+  */
+  reverseObjects: function reverseObjects() {
+    var len = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    if (len === 0) {
+      return this;
+    }
+
+    var objects = this.toArray().reverse();
+    this.replace(0, len, objects);
+    return this;
+  },
+
+  /**
+    Replace all the receiver&#039;s content with content of the argument.
+    If argument is an empty array receiver will be cleared.
+      ```javascript
+    var colors = [&#039;red&#039;, &#039;green&#039;, &#039;blue&#039;];
+      colors.setObjects([&#039;black&#039;, &#039;white&#039;]);  // [&#039;black&#039;, &#039;white&#039;]
+    colors.setObjects([]);                  // []
+    ```
+      @method setObjects
+    @param {Ember.Array} objects array whose content will be used for replacing
+        the content of the receiver
+    @return {Ember.Array} receiver with the new content
+    @public
+  */
+  setObjects: function setObjects(objects) {
+    if (objects.length === 0) {
+      return this.clear();
+    }
+
+    var len = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    this.replace(0, len, objects);
+    return this;
+  },
+
+  // ..........................................................
+  // IMPLEMENT Ember.MutableEnumerable
+  //
+
+  /**
+    Remove all occurrences of an object in the array.
+      ```javascript
+    var cities = [&#039;Chicago&#039;, &#039;Berlin&#039;, &#039;Lima&#039;, &#039;Chicago&#039;];
+      cities.removeObject(&#039;Chicago&#039;);  // [&#039;Berlin&#039;, &#039;Lima&#039;]
+    cities.removeObject(&#039;Lima&#039;);     // [&#039;Berlin&#039;]
+    cities.removeObject(&#039;Tokyo&#039;)     // [&#039;Berlin&#039;]
+    ```
+      @method removeObject
+    @param {*} obj object to remove
+    @return {Ember.Array} receiver
+    @public
+  */
+  removeObject: function removeObject(obj) {
+    var loc = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;) || 0;
+    while (--loc &gt;= 0) {
+      var curObject = this.objectAt(loc);
+
+      if (curObject === obj) {
+        this.removeAt(loc);
+      }
+    }
+    return this;
+  },
+
+  /**
+    Push the object onto the end of the array if it is not already
+    present in the array.
+      ```javascript
+    var cities = [&#039;Chicago&#039;, &#039;Berlin&#039;];
+      cities.addObject(&#039;Lima&#039;);    // [&#039;Chicago&#039;, &#039;Berlin&#039;, &#039;Lima&#039;]
+    cities.addObject(&#039;Berlin&#039;);  // [&#039;Chicago&#039;, &#039;Berlin&#039;, &#039;Lima&#039;]
+    ```
+      @method addObject
+    @param {*} obj object to add, if not already present
+    @return {Ember.Array} receiver
+    @public
+  */
+  addObject: function addObject(obj) {
+    if (!this.contains(obj)) {
+      this.pushObject(obj);
+    }
+
+    return this;
+  }
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

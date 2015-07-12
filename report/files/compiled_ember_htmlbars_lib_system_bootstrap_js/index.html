@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\system\bootstrap.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\system\bootstrap.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">73.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">123</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">19.64</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.67</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/*globals Handlebars */
+
+/**
+@module ember
+@submodule ember-htmlbars
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberViewsComponent_lookup = require(&#039;ember-views/component_lookup&#039;);
+
+var _emberViewsComponent_lookup2 = _interopRequireDefault(_emberViewsComponent_lookup);
+
+var _emberViewsSystemJquery = require(&#039;ember-views/system/jquery&#039;);
+
+var _emberViewsSystemJquery2 = _interopRequireDefault(_emberViewsSystemJquery);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberRuntimeSystemLazy_load = require(&#039;ember-runtime/system/lazy_load&#039;);
+
+var _emberTemplateCompilerSystemCompile = require(&#039;ember-template-compiler/system/compile&#039;);
+
+var _emberTemplateCompilerSystemCompile2 = _interopRequireDefault(_emberTemplateCompilerSystemCompile);
+
+var _emberMetalEnvironment = require(&#039;ember-metal/environment&#039;);
+
+var _emberMetalEnvironment2 = _interopRequireDefault(_emberMetalEnvironment);
+
+/**
+@module ember
+@submodule ember-handlebars
+*/
+
+/**
+  Find templates stored in the head tag as script tags and make them available
+  to `Ember.CoreView` in the global `Ember.TEMPLATES` object. This will be run
+  as as jQuery DOM-ready callback.
+
+  Script tags with `text/x-handlebars` will be compiled
+  with Ember&#039;s Handlebars and are suitable for use as a view&#039;s template.
+  Those with type `text/x-raw-handlebars` will be compiled with regular
+  Handlebars and are suitable for use in views&#039; computed properties.
+
+  @private
+  @method bootstrap
+  @for Ember.Handlebars
+  @static
+  @param ctx
+*/
+function bootstrap(ctx) {
+  var selectors = &#039;script[type=&quot;text/x-handlebars&quot;], script[type=&quot;text/x-raw-handlebars&quot;]&#039;;
+
+  (0, _emberViewsSystemJquery2[&#039;default&#039;])(selectors, ctx).each(function () {
+    // Get a reference to the script tag
+    var script = (0, _emberViewsSystemJquery2[&#039;default&#039;])(this);
+
+    // Get the name of the script, used by Ember.View&#039;s templateName property.
+    // First look for data-template-name attribute, then fall back to its
+    // id if no name is found.
+    var templateName = script.attr(&#039;data-template-name&#039;) || script.attr(&#039;id&#039;) || &#039;application&#039;;
+    var template, compile;
+
+    if (script.attr(&#039;type&#039;) === &#039;text/x-raw-handlebars&#039;) {
+      compile = _emberViewsSystemJquery2[&#039;default&#039;].proxy(Handlebars.compile, Handlebars);
+      template = compile(script.html());
+    } else {
+      template = (0, _emberTemplateCompilerSystemCompile2[&#039;default&#039;])(script.html(), {
+        moduleName: templateName
+      });
+    }
+
+    // Check if template of same name already exists
+    if (_emberMetalCore2[&#039;default&#039;].TEMPLATES[templateName] !== undefined) {
+      throw new _emberMetalError2[&#039;default&#039;](&#039;Template named &quot;&#039; + templateName + &#039;&quot; already exists.&#039;);
+    }
+
+    // For templates which have a name, we save them and then remove them from the DOM
+    _emberMetalCore2[&#039;default&#039;].TEMPLATES[templateName] = template;
+
+    // Remove script tag from DOM
+    script.remove();
+  });
+}
+
+function _bootstrap() {
+  bootstrap((0, _emberViewsSystemJquery2[&#039;default&#039;])(document));
+}
+
+function registerComponentLookup(app) {
+  app.registry.register(&#039;component-lookup:main&#039;, _emberViewsComponent_lookup2[&#039;default&#039;]);
+}
+
+/*
+  We tie this to application.load to ensure that we&#039;ve at least
+  attempted to bootstrap at the point that the application is loaded.
+
+  We also tie this to document ready since we&#039;re guaranteed that all
+  the inline templates are present at this point.
+
+  There&#039;s no harm to running this twice, since we remove the templates
+  from the DOM after processing.
+*/
+
+(0, _emberRuntimeSystemLazy_load.onLoad)(&#039;Ember.Application&#039;, function (Application) {
+  Application.initializer({
+    name: &#039;domTemplates&#039;,
+    initialize: _emberMetalEnvironment2[&#039;default&#039;].hasDOM ? _bootstrap : function () {}
+  });
+
+  Application.instanceInitializer({
+    name: &#039;registerComponentLookup&#039;,
+    initialize: registerComponentLookup
+  });
+});
+
+exports[&#039;default&#039;] = bootstrap;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

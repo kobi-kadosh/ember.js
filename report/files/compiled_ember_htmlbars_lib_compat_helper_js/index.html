@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\compat\helper.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\compat\helper.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.75</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">184</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">33.52</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.66</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-htmlbars
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.registerHandlebarsCompatibleHelper = registerHandlebarsCompatibleHelper;
+exports.handlebarsHelper = handlebarsHelper;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberHtmlbarsHelpers = require(&#039;ember-htmlbars/helpers&#039;);
+
+var _emberHtmlbarsHelpers2 = _interopRequireDefault(_emberHtmlbarsHelpers);
+
+var _emberViewsViewsView = require(&#039;ember-views/views/view&#039;);
+
+var _emberViewsViewsView2 = _interopRequireDefault(_emberViewsViewsView);
+
+var _emberViewsViewsComponent = require(&#039;ember-views/views/component&#039;);
+
+var _emberViewsViewsComponent2 = _interopRequireDefault(_emberViewsViewsComponent);
+
+var _emberHtmlbarsSystemMakeViewHelper = require(&#039;ember-htmlbars/system/make-view-helper&#039;);
+
+var _emberHtmlbarsSystemMakeViewHelper2 = _interopRequireDefault(_emberHtmlbarsSystemMakeViewHelper);
+
+var _emberHtmlbarsCompatMakeBoundHelper = require(&#039;ember-htmlbars/compat/make-bound-helper&#039;);
+
+var _emberHtmlbarsCompatMakeBoundHelper2 = _interopRequireDefault(_emberHtmlbarsCompatMakeBoundHelper);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+var _emberHtmlbarsKeywords = require(&#039;ember-htmlbars/keywords&#039;);
+
+var slice = [].slice;
+
+function calculateCompatType(item) {
+  if ((0, _emberMetalStreamsUtils.isStream)(item)) {
+    return &#039;ID&#039;;
+  } else {
+    var itemType = typeof item;
+
+    return itemType.toUpperCase();
+  }
+}
+
+function pathFor(param) {
+  if ((0, _emberMetalStreamsUtils.isStream)(param)) {
+    // param arguments to helpers may have their path prefixes with self. For
+    // example {{box-thing foo}} may have a param path of `self.foo` depending
+    // on scope.
+    if (param.source &amp;&amp; param.source.dependee &amp;&amp; param.source.dependee.label === &#039;self&#039;) {
+      return param.path.slice(5);
+    } else {
+      return param.path;
+    }
+  } else {
+    return param;
+  }
+}
+
+/**
+  Wraps an Handlebars helper with an HTMLBars helper for backwards compatibility.
+
+  @class HandlebarsCompatibleHelper
+  @constructor
+  @private
+*/
+function HandlebarsCompatibleHelper(fn) {
+  this.helperFunction = function helperFunc(params, hash, options, env, scope) {
+    var param, fnResult;
+    var hasBlock = options.template &amp;&amp; options.template[&#039;yield&#039;];
+
+    var handlebarsOptions = {
+      hash: {},
+      types: new Array(params.length),
+      hashTypes: {}
+    };
+
+    handlebarsOptions.hash = {};
+
+    if (hasBlock) {
+      handlebarsOptions.fn = function () {
+        options.template[&#039;yield&#039;]();
+      };
+
+      if (options.inverse[&#039;yield&#039;]) {
+        handlebarsOptions.inverse = function () {
+          options.inverse[&#039;yield&#039;]();
+        };
+      }
+    }
+
+    for (var prop in hash) {
+      param = hash[prop];
+      handlebarsOptions.hashTypes[prop] = calculateCompatType(param);
+      handlebarsOptions.hash[prop] = pathFor(param);
+    }
+
+    var args = new Array(params.length);
+    for (var i = 0, l = params.length; i &lt; l; i++) {
+      param = params[i];
+      handlebarsOptions.types[i] = calculateCompatType(param);
+      args[i] = pathFor(param);
+    }
+
+    handlebarsOptions.legacyGetPath = function (path) {
+      return env.hooks.get(env, scope, path).value();
+    };
+
+    handlebarsOptions.data = {
+      view: scope.view
+    };
+
+    args.push(handlebarsOptions);
+
+    fnResult = fn.apply(this, args);
+
+    if (options.element) {
+      _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Returning a string of attributes from a helper inside an element is deprecated.&#039;);
+      applyAttributes(env.dom, options.element, fnResult);
+    } else if (!options.template[&#039;yield&#039;]) {
+      return fnResult;
+    }
+  };
+
+  this.isHTMLBars = true;
+}
+
+HandlebarsCompatibleHelper.prototype = {
+  preprocessArguments: function preprocessArguments() {}
+};
+
+function registerHandlebarsCompatibleHelper(name, value) {
+  if (value &amp;&amp; value.isLegacyViewHelper) {
+    (0, _emberHtmlbarsKeywords.registerKeyword)(name, function (morph, env, scope, params, hash, template, inverse, visitor) {
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;You can only pass attributes (such as name=value) not bare &#039; + &#039;values to a helper for a View found in \&#039;&#039; + value.viewClass + &#039;\&#039;&#039;, params.length === 0);
+
+      env.hooks.keyword(&#039;view&#039;, morph, env, scope, [value.viewClass], hash, template, inverse, visitor);
+      return true;
+    });
+    return;
+  }
+
+  var helper;
+
+  if (value &amp;&amp; value.isHTMLBars) {
+    helper = value;
+  } else {
+    helper = new HandlebarsCompatibleHelper(value);
+  }
+
+  _emberHtmlbarsHelpers2[&#039;default&#039;][name] = helper;
+}
+
+function handlebarsHelper(name, value) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;You tried to register a component named \&#039;&#039; + name + &#039;\&#039;, but component names must include a \&#039;-\&#039;&#039;, !_emberViewsViewsComponent2[&#039;default&#039;].detect(value) || name.match(/-/));
+
+  if (_emberViewsViewsView2[&#039;default&#039;].detect(value)) {
+    _emberHtmlbarsHelpers2[&#039;default&#039;][name] = (0, _emberHtmlbarsSystemMakeViewHelper2[&#039;default&#039;])(value);
+  } else {
+    var boundHelperArgs = slice.call(arguments, 1);
+    var boundFn = _emberHtmlbarsCompatMakeBoundHelper2[&#039;default&#039;].apply(this, boundHelperArgs);
+
+    _emberHtmlbarsHelpers2[&#039;default&#039;][name] = boundFn;
+  }
+}
+
+function applyAttributes(dom, element, innerString) {
+  var string = &#039;&lt;&#039; + element.tagName + &#039; &#039; + innerString + &#039;&gt;&lt;/div&gt;&#039;;
+  var fragment = dom.parseHTML(string, dom.createElement(element.tagName));
+
+  var attrs = fragment.firstChild.attributes;
+
+  for (var i = 0, l = attrs.length; i &lt; l; i++) {
+    element.setAttributeNode(attrs[i].cloneNode());
+  }
+}
+
+exports[&#039;default&#039;] = HandlebarsCompatibleHelper;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

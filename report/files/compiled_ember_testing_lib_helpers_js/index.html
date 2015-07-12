@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-testing\lib\helpers.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-testing\lib\helpers.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.35</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">552</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">37.79</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.49</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalRun_loop = require(&#039;ember-metal/run_loop&#039;);
+
+var _emberMetalRun_loop2 = _interopRequireDefault(_emberMetalRun_loop);
+
+var _emberViewsSystemJquery = require(&#039;ember-views/system/jquery&#039;);
+
+var _emberViewsSystemJquery2 = _interopRequireDefault(_emberViewsSystemJquery);
+
+var _emberTestingTest = require(&#039;ember-testing/test&#039;);
+
+var _emberTestingTest2 = _interopRequireDefault(_emberTestingTest);
+
+var _emberRuntimeExtRsvp = require(&#039;ember-runtime/ext/rsvp&#039;);
+
+var _emberRuntimeExtRsvp2 = _interopRequireDefault(_emberRuntimeExtRsvp);
+
+/**
+@module ember
+@submodule ember-testing
+*/
+
+var helper = _emberTestingTest2[&#039;default&#039;].registerHelper;
+var asyncHelper = _emberTestingTest2[&#039;default&#039;].registerAsyncHelper;
+
+function currentRouteName(app) {
+  var appController = app.__container__.lookup(&#039;controller:application&#039;);
+
+  return (0, _emberMetalProperty_get.get)(appController, &#039;currentRouteName&#039;);
+}
+
+function currentPath(app) {
+  var appController = app.__container__.lookup(&#039;controller:application&#039;);
+
+  return (0, _emberMetalProperty_get.get)(appController, &#039;currentPath&#039;);
+}
+
+function currentURL(app) {
+  var router = app.__container__.lookup(&#039;router:main&#039;);
+
+  return (0, _emberMetalProperty_get.get)(router, &#039;location&#039;).getURL();
+}
+
+function pauseTest() {
+  _emberTestingTest2[&#039;default&#039;].adapter.asyncStart();
+  return new _emberMetalCore2[&#039;default&#039;].RSVP.Promise(function () {}, &#039;TestAdapter paused promise&#039;);
+}
+
+function focus(el) {
+  if (el &amp;&amp; el.is(&#039;:input, [contenteditable=true]&#039;)) {
+    var type = el.prop(&#039;type&#039;);
+    if (type !== &#039;checkbox&#039; &amp;&amp; type !== &#039;radio&#039; &amp;&amp; type !== &#039;hidden&#039;) {
+      (0, _emberMetalRun_loop2[&#039;default&#039;])(el, function () {
+        // Firefox does not trigger the `focusin` event if the window
+        // does not have focus. If the document doesn&#039;t have focus just
+        // use trigger(&#039;focusin&#039;) instead.
+        if (!document.hasFocus || document.hasFocus()) {
+          this.focus();
+        } else {
+          this.trigger(&#039;focusin&#039;);
+        }
+      });
+    }
+  }
+}
+
+function visit(app, url) {
+  var router = app.__container__.lookup(&#039;router:main&#039;);
+  var shouldHandleURL = false;
+
+  app.boot().then(function () {
+    router.location.setURL(url);
+
+    if (shouldHandleURL) {
+      (0, _emberMetalRun_loop2[&#039;default&#039;])(app.__deprecatedInstance__, &#039;handleURL&#039;, url);
+    }
+  });
+
+  if (app._readinessDeferrals &gt; 0) {
+    router[&#039;initialURL&#039;] = url;
+    (0, _emberMetalRun_loop2[&#039;default&#039;])(app, &#039;advanceReadiness&#039;);
+    delete router[&#039;initialURL&#039;];
+  } else {
+    shouldHandleURL = true;
+  }
+
+  return app.testHelpers.wait();
+}
+
+function click(app, selector, context) {
+  var $el = app.testHelpers.findWithAssert(selector, context);
+  (0, _emberMetalRun_loop2[&#039;default&#039;])($el, &#039;mousedown&#039;);
+
+  focus($el);
+
+  (0, _emberMetalRun_loop2[&#039;default&#039;])($el, &#039;mouseup&#039;);
+  (0, _emberMetalRun_loop2[&#039;default&#039;])($el, &#039;click&#039;);
+
+  return app.testHelpers.wait();
+}
+
+function check(app, selector, context) {
+  var $el = app.testHelpers.findWithAssert(selector, context);
+  var type = $el.prop(&#039;type&#039;);
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;To check \&#039;&#039; + selector + &#039;\&#039;, the input must be a checkbox&#039;, type === &#039;checkbox&#039;);
+
+  if (!$el.prop(&#039;checked&#039;)) {
+    app.testHelpers.click(selector, context);
+  }
+
+  return app.testHelpers.wait();
+}
+
+function uncheck(app, selector, context) {
+  var $el = app.testHelpers.findWithAssert(selector, context);
+  var type = $el.prop(&#039;type&#039;);
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;To uncheck \&#039;&#039; + selector + &#039;\&#039;, the input must be a checkbox&#039;, type === &#039;checkbox&#039;);
+
+  if ($el.prop(&#039;checked&#039;)) {
+    app.testHelpers.click(selector, context);
+  }
+
+  return app.testHelpers.wait();
+}
+
+function triggerEvent(app, selector, contextOrType, typeOrOptions, possibleOptions) {
+  var arity = arguments.length;
+  var context, type, options;
+
+  if (arity === 3) {
+    // context and options are optional, so this is
+    // app, selector, type
+    context = null;
+    type = contextOrType;
+    options = {};
+  } else if (arity === 4) {
+    // context and options are optional, so this is
+    if (typeof typeOrOptions === &#039;object&#039;) {
+      // either
+      // app, selector, type, options
+      context = null;
+      type = contextOrType;
+      options = typeOrOptions;
+    } else {
+      // or
+      // app, selector, context, type
+      context = contextOrType;
+      type = typeOrOptions;
+      options = {};
+    }
+  } else {
+    context = contextOrType;
+    type = typeOrOptions;
+    options = possibleOptions;
+  }
+
+  var $el = app.testHelpers.findWithAssert(selector, context);
+
+  var event = _emberViewsSystemJquery2[&#039;default&#039;].Event(type, options);
+
+  (0, _emberMetalRun_loop2[&#039;default&#039;])($el, &#039;trigger&#039;, event);
+
+  return app.testHelpers.wait();
+}
+
+function keyEvent(app, selector, contextOrType, typeOrKeyCode, keyCode) {
+  var context, type;
+
+  if (typeof keyCode === &#039;undefined&#039;) {
+    context = null;
+    keyCode = typeOrKeyCode;
+    type = contextOrType;
+  } else {
+    context = contextOrType;
+    type = typeOrKeyCode;
+  }
+
+  return app.testHelpers.triggerEvent(selector, context, type, { keyCode: keyCode, which: keyCode });
+}
+
+function fillIn(app, selector, contextOrText, text) {
+  var $el, context;
+  if (typeof text === &#039;undefined&#039;) {
+    text = contextOrText;
+  } else {
+    context = contextOrText;
+  }
+  $el = app.testHelpers.findWithAssert(selector, context);
+  focus($el);
+  (0, _emberMetalRun_loop2[&#039;default&#039;])(function () {
+    $el.val(text).change();
+  });
+  return app.testHelpers.wait();
+}
+
+function findWithAssert(app, selector, context) {
+  var $el = app.testHelpers.find(selector, context);
+  if ($el.length === 0) {
+    throw new _emberMetalError2[&#039;default&#039;](&#039;Element &#039; + selector + &#039; not found.&#039;);
+  }
+  return $el;
+}
+
+function find(app, selector, context) {
+  var $el;
+  context = context || (0, _emberMetalProperty_get.get)(app, &#039;rootElement&#039;);
+  $el = app.$(selector, context);
+
+  return $el;
+}
+
+function andThen(app, callback) {
+  return app.testHelpers.wait(callback(app));
+}
+
+function wait(app, value) {
+  return new _emberRuntimeExtRsvp2[&#039;default&#039;].Promise(function (resolve) {
+    // Every 10ms, poll for the async thing to have finished
+    var watcher = setInterval(function () {
+      var router = app.__container__.lookup(&#039;router:main&#039;);
+
+      // 1. If the router is loading, keep polling
+      var routerIsLoading = router.router &amp;&amp; !!router.router.activeTransition;
+      if (routerIsLoading) {
+        return;
+      }
+
+      // 2. If there are pending Ajax requests, keep polling
+      if (_emberTestingTest2[&#039;default&#039;].pendingAjaxRequests) {
+        return;
+      }
+
+      // 3. If there are scheduled timers or we are inside of a run loop, keep polling
+      if (_emberMetalRun_loop2[&#039;default&#039;].hasScheduledTimers() || _emberMetalRun_loop2[&#039;default&#039;].currentRunLoop) {
+        return;
+      }
+      if (_emberTestingTest2[&#039;default&#039;].waiters &amp;&amp; _emberTestingTest2[&#039;default&#039;].waiters.any(function (waiter) {
+        var context = waiter[0];
+        var callback = waiter[1];
+        return !callback.call(context);
+      })) {
+        return;
+      }
+      // Stop polling
+      clearInterval(watcher);
+
+      // Synchronously resolve the promise
+      (0, _emberMetalRun_loop2[&#039;default&#039;])(null, resolve, value);
+    }, 10);
+  });
+}
+
+/**
+  Loads a route, sets up any controllers, and renders any templates associated
+  with the route as though a real user had triggered the route change while
+  using your app.
+
+  Example:
+
+  ```javascript
+  visit(&#039;posts/index&#039;).then(function() {
+    // assert something
+  });
+  ```
+
+  @method visit
+  @param {String} url the name of the route
+  @return {RSVP.Promise}
+  @public
+*/
+asyncHelper(&#039;visit&#039;, visit);
+
+/**
+  Clicks an element and triggers any actions triggered by the element&#039;s `click`
+  event.
+
+  Example:
+
+  ```javascript
+  click(&#039;.some-jQuery-selector&#039;).then(function() {
+    // assert something
+  });
+  ```
+
+  @method click
+  @param {String} selector jQuery selector for finding element on the DOM
+  @return {RSVP.Promise}
+  @public
+*/
+asyncHelper(&#039;click&#039;, click);
+
+if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-testing-checkbox-helpers&#039;)) {
+  /**
+    Checks a checkbox. Ensures the presence of the `checked` attribute
+      Example:
+      ```javascript
+    check(&#039;#remember-me&#039;).then(function() {
+      // assert something
+    });
+    ```
+      @method check
+    @param {String} selector jQuery selector finding an `input[type=&quot;checkbox&quot;]`
+    element on the DOM to check
+    @return {RSVP.Promise}
+    @private
+  */
+  asyncHelper(&#039;check&#039;, check);
+
+  /**
+    Unchecks a checkbox. Ensures the absence of the `checked` attribute
+      Example:
+      ```javascript
+    uncheck(&#039;#remember-me&#039;).then(function() {
+     // assert something
+    });
+    ```
+      @method check
+    @param {String} selector jQuery selector finding an `input[type=&quot;checkbox&quot;]`
+    element on the DOM to uncheck
+    @return {RSVP.Promise}
+    @private
+  */
+  asyncHelper(&#039;uncheck&#039;, uncheck);
+}
+/**
+  Simulates a key event, e.g. `keypress`, `keydown`, `keyup` with the desired keyCode
+
+  Example:
+
+  ```javascript
+  keyEvent(&#039;.some-jQuery-selector&#039;, &#039;keypress&#039;, 13).then(function() {
+   // assert something
+  });
+  ```
+
+  @method keyEvent
+  @param {String} selector jQuery selector for finding element on the DOM
+  @param {String} type the type of key event, e.g. `keypress`, `keydown`, `keyup`
+  @param {Number} keyCode the keyCode of the simulated key event
+  @return {RSVP.Promise}
+  @since 1.5.0
+  @public
+*/
+asyncHelper(&#039;keyEvent&#039;, keyEvent);
+
+/**
+  Fills in an input element with some text.
+
+  Example:
+
+  ```javascript
+  fillIn(&#039;#email&#039;, &#039;you@example.com&#039;).then(function() {
+    // assert something
+  });
+  ```
+
+  @method fillIn
+  @param {String} selector jQuery selector finding an input element on the DOM
+  to fill text with
+  @param {String} text text to place inside the input element
+  @return {RSVP.Promise}
+  @public
+*/
+asyncHelper(&#039;fillIn&#039;, fillIn);
+
+/**
+  Finds an element in the context of the app&#039;s container element. A simple alias
+  for `app.$(selector)`.
+
+  Example:
+
+  ```javascript
+  var $el = find(&#039;.my-selector&#039;);
+  ```
+
+  @method find
+  @param {String} selector jQuery string selector for element lookup
+  @return {Object} jQuery object representing the results of the query
+  @public
+*/
+helper(&#039;find&#039;, find);
+
+/**
+  Like `find`, but throws an error if the element selector returns no results.
+
+  Example:
+
+  ```javascript
+  var $el = findWithAssert(&#039;.doesnt-exist&#039;); // throws error
+  ```
+
+  @method findWithAssert
+  @param {String} selector jQuery selector string for finding an element within
+  the DOM
+  @return {Object} jQuery object representing the results of the query
+  @throws {Error} throws error if jQuery object returned has a length of 0
+  @private
+*/
+helper(&#039;findWithAssert&#039;, findWithAssert);
+
+/**
+  Causes the run loop to process any pending events. This is used to ensure that
+  any async operations from other helpers (or your assertions) have been processed.
+
+  This is most often used as the return value for the helper functions (see &#039;click&#039;,
+  &#039;fillIn&#039;,&#039;visit&#039;,etc).
+
+  Example:
+
+  ```javascript
+  Ember.Test.registerAsyncHelper(&#039;loginUser&#039;, function(app, username, password) {
+    visit(&#039;secured/path/here&#039;)
+    .fillIn(&#039;#username&#039;, username)
+    .fillIn(&#039;#password&#039;, password)
+    .click(&#039;.submit&#039;)
+
+    return app.testHelpers.wait();
+  });
+
+  @method wait
+  @param {Object} value The value to be returned.
+  @return {RSVP.Promise}
+  @public
+*/
+asyncHelper(&#039;wait&#039;, wait);
+asyncHelper(&#039;andThen&#039;, andThen);
+
+/**
+  Returns the currently active route name.
+
+Example:
+
+```javascript
+function validateRouteName() {
+  equal(currentRouteName(), &#039;some.path&#039;, &quot;correct route was transitioned into.&quot;);
+}
+
+visit(&#039;/some/path&#039;).then(validateRouteName)
+```
+
+@method currentRouteName
+@return {Object} The name of the currently active route.
+@since 1.5.0
+@public
+*/
+helper(&#039;currentRouteName&#039;, currentRouteName);
+
+/**
+  Returns the current path.
+
+Example:
+
+```javascript
+function validateURL() {
+  equal(currentPath(), &#039;some.path.index&#039;, &quot;correct path was transitioned into.&quot;);
+}
+
+click(&#039;#some-link-id&#039;).then(validateURL);
+```
+
+@method currentPath
+@return {Object} The currently active path.
+@since 1.5.0
+@public
+*/
+helper(&#039;currentPath&#039;, currentPath);
+
+/**
+  Returns the current URL.
+
+Example:
+
+```javascript
+function validateURL() {
+  equal(currentURL(), &#039;/some/path&#039;, &quot;correct URL was transitioned into.&quot;);
+}
+
+click(&#039;#some-link-id&#039;).then(validateURL);
+```
+
+@method currentURL
+@return {Object} The currently active URL.
+@since 1.5.0
+@public
+*/
+helper(&#039;currentURL&#039;, currentURL);
+
+/**
+ Pauses the current test - this is useful for debugging while testing or for test-driving.
+ It allows you to inspect the state of your application at any point.
+
+ Example (The test will pause before clicking the button):
+
+ ```javascript
+ visit(&#039;/&#039;)
+ return pauseTest();
+
+ click(&#039;.btn&#039;);
+ ```
+
+ @since 1.9.0
+ @method pauseTest
+ @return {Object} A promise that will never resolve
+ @public
+*/
+helper(&#039;pauseTest&#039;, pauseTest);
+
+/**
+  Triggers the given DOM event on the element identified by the provided selector.
+
+  Example:
+
+  ```javascript
+  triggerEvent(&#039;#some-elem-id&#039;, &#039;blur&#039;);
+  ```
+
+  This is actually used internally by the `keyEvent` helper like so:
+
+  ```javascript
+  triggerEvent(&#039;#some-elem-id&#039;, &#039;keypress&#039;, { keyCode: 13 });
+  ```
+
+ @method triggerEvent
+ @param {String} selector jQuery selector for finding element on the DOM
+ @param {String} [context] jQuery selector that will limit the selector
+                           argument to find only within the context&#039;s children
+ @param {String} type The event type to be triggered.
+ @param {Object} [options] The options to be passed to jQuery.Event.
+ @return {RSVP.Promise}
+ @since 1.5.0
+ @public
+*/
+asyncHelper(&#039;triggerEvent&#039;, triggerEvent);</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

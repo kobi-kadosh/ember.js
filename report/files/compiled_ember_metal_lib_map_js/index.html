@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\map.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\map.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.15</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">519</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">82.16</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.50</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-metal
+*/
+
+/*
+  JavaScript (before ES6) does not have a Map implementation. Objects,
+  which are often used as dictionaries, may only have Strings as keys.
+
+  Because Ember has a way to get a unique identifier for every object
+  via `Ember.guidFor`, we can implement a performant Map with arbitrary
+  keys. Because it is commonly used in low-level bookkeeping, Map is
+  implemented as a pure JavaScript object for performance.
+
+  This implementation follows the current iteration of the ES6 proposal for
+  maps (http://wiki.ecmascript.org/doku.php?id=harmony:simple_maps_and_sets),
+  with one exception:  as we do not have the luxury of in-VM iteration, we implement a
+  forEach method for iteration.
+
+  Map is mocked out to look like an Ember object, so you can do
+  `Ember.Map.create()` for symmetry with other Ember classes.
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalDeprecate_property = require(&#039;ember-metal/deprecate_property&#039;);
+
+function missingFunction(fn) {
+  throw new TypeError(Object.prototype.toString.call(fn) + &#039; is not a function&#039;);
+}
+
+function missingNew(name) {
+  throw new TypeError(&#039;Constructor &#039; + name + &#039; requires \&#039;new\&#039;&#039;);
+}
+
+function copyNull(obj) {
+  var output = Object.create(null);
+
+  for (var prop in obj) {
+    // hasOwnPropery is not needed because obj is Object.create(null);
+    output[prop] = obj[prop];
+  }
+
+  return output;
+}
+
+function copyMap(original, newObject) {
+  var keys = original._keys.copy();
+  var values = copyNull(original._values);
+
+  newObject._keys = keys;
+  newObject._values = values;
+  newObject.size = original.size;
+
+  return newObject;
+}
+
+/**
+  This class is used internally by Ember and Ember Data.
+  Please do not use it at this time. We plan to clean it up
+  and add many tests soon.
+
+  @class OrderedSet
+  @namespace Ember
+  @constructor
+  @private
+*/
+function OrderedSet() {
+
+  if (this instanceof OrderedSet) {
+    this.clear();
+    this._silenceRemoveDeprecation = false;
+  } else {
+    missingNew(&#039;OrderedSet&#039;);
+  }
+}
+
+/**
+  @method create
+  @static
+  @return {Ember.OrderedSet}
+  @private
+*/
+OrderedSet.create = function () {
+  var Constructor = this;
+
+  return new Constructor();
+};
+
+OrderedSet.prototype = {
+  constructor: OrderedSet,
+  /**
+    @method clear
+    @private
+  */
+  clear: function clear() {
+    this.presenceSet = Object.create(null);
+    this.list = [];
+    this.size = 0;
+  },
+
+  /**
+    @method add
+    @param obj
+    @param guid (optional, and for internal use)
+    @return {Ember.OrderedSet}
+    @private
+  */
+  add: function add(obj, _guid) {
+    var guid = _guid || (0, _emberMetalUtils.guidFor)(obj);
+    var presenceSet = this.presenceSet;
+    var list = this.list;
+
+    if (presenceSet[guid] !== true) {
+      presenceSet[guid] = true;
+      this.size = list.push(obj);
+    }
+
+    return this;
+  },
+
+  /**
+    @deprecated
+      @method remove
+    @param obj
+    @param _guid (optional and for internal use only)
+    @return {Boolean}
+    @private
+  */
+  remove: function remove(obj, _guid) {
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Calling `OrderedSet.prototype.remove` has been deprecated, please use `OrderedSet.prototype.delete` instead.&#039;, this._silenceRemoveDeprecation);
+
+    return this[&#039;delete&#039;](obj, _guid);
+  },
+
+  /**
+    @since 1.8.0
+    @method delete
+    @param obj
+    @param _guid (optional and for internal use only)
+    @return {Boolean}
+    @private
+  */
+  &#039;delete&#039;: function _delete(obj, _guid) {
+    var guid = _guid || (0, _emberMetalUtils.guidFor)(obj);
+    var presenceSet = this.presenceSet;
+    var list = this.list;
+
+    if (presenceSet[guid] === true) {
+      delete presenceSet[guid];
+      var index = list.indexOf(obj);
+      if (index &gt; -1) {
+        list.splice(index, 1);
+      }
+      this.size = list.length;
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  /**
+    @method isEmpty
+    @return {Boolean}
+    @private
+  */
+  isEmpty: function isEmpty() {
+    return this.size === 0;
+  },
+
+  /**
+    @method has
+    @param obj
+    @return {Boolean}
+    @private
+  */
+  has: function has(obj) {
+    if (this.size === 0) {
+      return false;
+    }
+
+    var guid = (0, _emberMetalUtils.guidFor)(obj);
+    var presenceSet = this.presenceSet;
+
+    return presenceSet[guid] === true;
+  },
+
+  /**
+    @method forEach
+    @param {Function} fn
+    @param self
+    @private
+  */
+  forEach: function forEach(fn /*, ...thisArg*/) {
+    if (typeof fn !== &#039;function&#039;) {
+      missingFunction(fn);
+    }
+
+    if (this.size === 0) {
+      return;
+    }
+
+    var list = this.list;
+    var length = arguments.length;
+    var i;
+
+    if (length === 2) {
+      for (i = 0; i &lt; list.length; i++) {
+        fn.call(arguments[1], list[i]);
+      }
+    } else {
+      for (i = 0; i &lt; list.length; i++) {
+        fn(list[i]);
+      }
+    }
+  },
+
+  /**
+    @method toArray
+    @return {Array}
+    @private
+  */
+  toArray: function toArray() {
+    return this.list.slice();
+  },
+
+  /**
+    @method copy
+    @return {Ember.OrderedSet}
+    @private
+  */
+  copy: function copy() {
+    var Constructor = this.constructor;
+    var set = new Constructor();
+
+    set._silenceRemoveDeprecation = this._silenceRemoveDeprecation;
+    set.presenceSet = copyNull(this.presenceSet);
+    set.list = this.toArray();
+    set.size = this.size;
+
+    return set;
+  }
+};
+
+(0, _emberMetalDeprecate_property.deprecateProperty)(OrderedSet.prototype, &#039;length&#039;, &#039;size&#039;);
+
+/**
+  A Map stores values indexed by keys. Unlike JavaScript&#039;s
+  default Objects, the keys of a Map can be any JavaScript
+  object.
+
+  Internally, a Map has two data structures:
+
+  1. `keys`: an OrderedSet of all of the existing keys
+  2. `values`: a JavaScript Object indexed by the `Ember.guidFor(key)`
+
+  When a key/value pair is added for the first time, we
+  add the key to the `keys` OrderedSet, and create or
+  replace an entry in `values`. When an entry is deleted,
+  we delete its entry in `keys` and `values`.
+
+  @class Map
+  @namespace Ember
+  @private
+  @constructor
+*/
+function Map() {
+  if (this instanceof this.constructor) {
+    this._keys = OrderedSet.create();
+    this._keys._silenceRemoveDeprecation = true;
+    this._values = Object.create(null);
+    this.size = 0;
+  } else {
+    missingNew(&#039;OrderedSet&#039;);
+  }
+}
+
+_emberMetalCore2[&#039;default&#039;].Map = Map;
+
+/**
+  @method create
+  @static
+  @private
+*/
+Map.create = function () {
+  var Constructor = this;
+  return new Constructor();
+};
+
+Map.prototype = {
+  constructor: Map,
+
+  /**
+    This property will change as the number of objects in the map changes.
+      @since 1.8.0
+    @property size
+    @type number
+    @default 0
+    @private
+  */
+  size: 0,
+
+  /**
+    Retrieve the value associated with a given key.
+      @method get
+    @param {*} key
+    @return {*} the value associated with the key, or `undefined`
+    @private
+  */
+  get: function get(key) {
+    if (this.size === 0) {
+      return;
+    }
+
+    var values = this._values;
+    var guid = (0, _emberMetalUtils.guidFor)(key);
+
+    return values[guid];
+  },
+
+  /**
+    Adds a value to the map. If a value for the given key has already been
+    provided, the new value will replace the old value.
+      @method set
+    @param {*} key
+    @param {*} value
+    @return {Ember.Map}
+    @private
+  */
+  set: function set(key, value) {
+    var keys = this._keys;
+    var values = this._values;
+    var guid = (0, _emberMetalUtils.guidFor)(key);
+
+    // ensure we don&#039;t store -0
+    var k = key === -0 ? 0 : key;
+
+    keys.add(k, guid);
+
+    values[guid] = value;
+
+    this.size = keys.size;
+
+    return this;
+  },
+
+  /**
+    @deprecated see delete
+    Removes a value from the map for an associated key.
+      @method remove
+    @param {*} key
+    @return {Boolean} true if an item was removed, false otherwise
+    @private
+  */
+  remove: function remove(key) {
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Calling `Map.prototype.remove` has been deprecated, please use `Map.prototype.delete` instead.&#039;);
+
+    return this[&#039;delete&#039;](key);
+  },
+
+  /**
+    Removes a value from the map for an associated key.
+      @since 1.8.0
+    @method delete
+    @param {*} key
+    @return {Boolean} true if an item was removed, false otherwise
+    @private
+  */
+  &#039;delete&#039;: function _delete(key) {
+    if (this.size === 0) {
+      return false;
+    }
+    // don&#039;t use ES6 &quot;delete&quot; because it will be annoying
+    // to use in browsers that are not ES6 friendly;
+    var keys = this._keys;
+    var values = this._values;
+    var guid = (0, _emberMetalUtils.guidFor)(key);
+
+    if (keys[&#039;delete&#039;](key, guid)) {
+      delete values[guid];
+      this.size = keys.size;
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  /**
+    Check whether a key is present.
+      @method has
+    @param {*} key
+    @return {Boolean} true if the item was present, false otherwise
+    @private
+  */
+  has: function has(key) {
+    return this._keys.has(key);
+  },
+
+  /**
+    Iterate over all the keys and values. Calls the function once
+    for each key, passing in value, key, and the map being iterated over,
+    in that order.
+      The keys are guaranteed to be iterated over in insertion order.
+      @method forEach
+    @param {Function} callback
+    @param {*} self if passed, the `this` value inside the
+      callback. By default, `this` is the map.
+    @private
+  */
+  forEach: function forEach(callback /*, ...thisArg*/) {
+    if (typeof callback !== &#039;function&#039;) {
+      missingFunction(callback);
+    }
+
+    if (this.size === 0) {
+      return;
+    }
+
+    var length = arguments.length;
+    var map = this;
+    var cb, thisArg;
+
+    if (length === 2) {
+      thisArg = arguments[1];
+      cb = function (key) {
+        callback.call(thisArg, map.get(key), key, map);
+      };
+    } else {
+      cb = function (key) {
+        callback(map.get(key), key, map);
+      };
+    }
+
+    this._keys.forEach(cb);
+  },
+
+  /**
+    @method clear
+    @private
+  */
+  clear: function clear() {
+    this._keys.clear();
+    this._values = Object.create(null);
+    this.size = 0;
+  },
+
+  /**
+    @method copy
+    @return {Ember.Map}
+    @private
+  */
+  copy: function copy() {
+    return copyMap(this, new Map());
+  }
+};
+
+(0, _emberMetalDeprecate_property.deprecateProperty)(Map.prototype, &#039;length&#039;, &#039;size&#039;);
+
+/**
+  @class MapWithDefault
+  @namespace Ember
+  @extends Ember.Map
+  @private
+  @constructor
+  @param [options]
+    @param {*} [options.defaultValue]
+*/
+function MapWithDefault(options) {
+  this._super$constructor();
+  this.defaultValue = options.defaultValue;
+}
+
+/**
+  @method create
+  @static
+  @param [options]
+    @param {*} [options.defaultValue]
+  @return {Ember.MapWithDefault|Ember.Map} If options are passed, returns
+    `Ember.MapWithDefault` otherwise returns `Ember.Map`
+  @private
+*/
+MapWithDefault.create = function (options) {
+  if (options) {
+    return new MapWithDefault(options);
+  } else {
+    return new Map();
+  }
+};
+
+MapWithDefault.prototype = Object.create(Map.prototype);
+MapWithDefault.prototype.constructor = MapWithDefault;
+MapWithDefault.prototype._super$constructor = Map;
+MapWithDefault.prototype._super$get = Map.prototype.get;
+
+/**
+  Retrieve the value associated with a given key.
+
+  @method get
+  @param {*} key
+  @return {*} the value associated with the key, or the default value
+  @private
+*/
+MapWithDefault.prototype.get = function (key) {
+  var hasValue = this.has(key);
+
+  if (hasValue) {
+    return this._super$get(key);
+  } else {
+    var defaultValue = this.defaultValue(key);
+    this.set(key, defaultValue);
+    return defaultValue;
+  }
+};
+
+/**
+  @method copy
+  @return {Ember.MapWithDefault}
+  @private
+*/
+MapWithDefault.prototype.copy = function () {
+  var Constructor = this.constructor;
+  return copyMap(this, new Constructor({
+    defaultValue: this.defaultValue
+  }));
+};
+
+exports[&#039;default&#039;] = Map;
+exports.OrderedSet = OrderedSet;
+exports.Map = Map;
+exports.MapWithDefault = MapWithDefault;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

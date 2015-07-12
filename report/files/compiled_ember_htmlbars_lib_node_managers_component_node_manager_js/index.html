@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\node-managers\component-node-manager.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\node-managers\component-node-manager.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">62.35</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">428</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">55.62</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.82</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.handleLegacyRender = handleLegacyRender;
+exports.createComponent = createComponent;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberViewsSystemBuildComponentTemplate = require(&#039;ember-views/system/build-component-template&#039;);
+
+var _emberViewsSystemBuildComponentTemplate2 = _interopRequireDefault(_emberViewsSystemBuildComponentTemplate);
+
+var _emberHtmlbarsUtilsLookupComponent = require(&#039;ember-htmlbars/utils/lookup-component&#039;);
+
+var _emberHtmlbarsUtilsLookupComponent2 = _interopRequireDefault(_emberHtmlbarsUtilsLookupComponent);
+
+var _emberHtmlbarsHooksGetCellOrValue = require(&#039;ember-htmlbars/hooks/get-cell-or-value&#039;);
+
+var _emberHtmlbarsHooksGetCellOrValue2 = _interopRequireDefault(_emberHtmlbarsHooksGetCellOrValue);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalSet_properties = require(&#039;ember-metal/set_properties&#039;);
+
+var _emberMetalSet_properties2 = _interopRequireDefault(_emberMetalSet_properties);
+
+var _emberViewsCompatAttrsProxy = require(&#039;ember-views/compat/attrs-proxy&#039;);
+
+var _htmlbarsUtilSafeString = require(&#039;htmlbars-util/safe-string&#039;);
+
+var _htmlbarsUtilSafeString2 = _interopRequireDefault(_htmlbarsUtilSafeString);
+
+var _emberHtmlbarsSystemInstrumentationSupport = require(&#039;ember-htmlbars/system/instrumentation-support&#039;);
+
+var _emberViewsViewsComponent = require(&#039;ember-views/views/component&#039;);
+
+var _emberViewsViewsComponent2 = _interopRequireDefault(_emberViewsViewsComponent);
+
+var _emberMetalStreamsStream = require(&#039;ember-metal/streams/stream&#039;);
+
+var _emberMetalStreamsStream2 = _interopRequireDefault(_emberMetalStreamsStream);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+// In theory this should come through the env, but it should
+// be safe to import this until we make the hook system public
+// and it gets actively used in addons or other downstream
+// libraries.
+
+var _emberHtmlbarsHooksGetValue = require(&#039;ember-htmlbars/hooks/get-value&#039;);
+
+var _emberHtmlbarsHooksGetValue2 = _interopRequireDefault(_emberHtmlbarsHooksGetValue);
+
+function ComponentNodeManager(component, isAngleBracket, scope, renderNode, attrs, block, expectElement) {
+  this.component = component;
+  this.isAngleBracket = isAngleBracket;
+  this.scope = scope;
+  this.renderNode = renderNode;
+  this.attrs = attrs;
+  this.block = block;
+  this.expectElement = expectElement;
+}
+
+exports[&#039;default&#039;] = ComponentNodeManager;
+
+ComponentNodeManager.create = function (renderNode, env, options) {
+  var tagName = options.tagName;
+  var params = options.params;
+  var attrs = options.attrs;
+  var parentView = options.parentView;
+  var parentScope = options.parentScope;
+  var isAngleBracket = options.isAngleBracket;
+  var templates = options.templates;
+
+  attrs = attrs || {};
+
+  // Try to find the Component class and/or template for this component name in
+  // the container.
+
+  var _lookupComponent = (0, _emberHtmlbarsUtilsLookupComponent2[&#039;default&#039;])(env.container, tagName);
+
+  var component = _lookupComponent.component;
+  var layout = _lookupComponent.layout;
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;HTMLBars error: Could not find component named &quot;&#039; + tagName + &#039;&quot; (no component or template with that name was found)&#039;, function () {
+    return component || layout;
+  });
+
+  component = component || _emberViewsViewsComponent2[&#039;default&#039;];
+
+  var createOptions = { parentView: parentView };
+
+  configureTagName(attrs, tagName, component, isAngleBracket, createOptions);
+
+  // Map passed attributes (e.g. &lt;my-component id=&quot;foo&quot;&gt;) to component
+  // properties ({ id: &quot;foo&quot; }).
+  configureCreateOptions(attrs, createOptions);
+
+  // If there is a controller on the scope, pluck it off and save it on the
+  // component. This allows the component to target actions sent via
+  // `sendAction` correctly.
+  if (parentScope.locals.controller) {
+    createOptions._controller = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(parentScope.locals.controller);
+  }
+
+  // this flag is set when a block was provided so that components can see if
+  // `this.get(&#039;template&#039;)` is truthy.  this is added for backwards compat only
+  // and accessing `template` prop on a component will trigger a deprecation
+  // 2.0TODO: remove
+  if (templates[&#039;default&#039;]) {
+    createOptions._deprecatedFlagForBlockProvided = true;
+  }
+
+  // Instantiate the component
+  component = createComponent(component, isAngleBracket, createOptions, renderNode, env, attrs);
+
+  // If the component specifies its template via the `layout` or `template`
+  // properties instead of using the template looked up in the container, get
+  // them now that we have the component instance.
+  var result = extractComponentTemplates(component, templates);
+  layout = result.layout || layout;
+  templates = result.templates || templates;
+
+  extractPositionalParams(renderNode, component, params, attrs);
+
+  var results = (0, _emberViewsSystemBuildComponentTemplate2[&#039;default&#039;])({ layout: layout, component: component, isAngleBracket: isAngleBracket }, attrs, { templates: templates, scope: parentScope });
+
+  return new ComponentNodeManager(component, isAngleBracket, parentScope, renderNode, attrs, results.block, results.createdElement);
+};
+
+function extractPositionalParams(renderNode, component, params, attrs) {
+  if (component.positionalParams) {
+    (function () {
+      // if the component is rendered via {{component}} helper, the first
+      // element of `params` is the name of the component, so we need to
+      // skip that when the positional parameters are constructed
+      var paramsStartIndex = renderNode.state.isComponentHelper ? 1 : 0;
+      var positionalParams = component.positionalParams;
+      var isNamed = typeof positionalParams === &#039;string&#039;;
+      var paramsStream = undefined;
+
+      if (isNamed) {
+        paramsStream = new _emberMetalStreamsStream2[&#039;default&#039;](function () {
+          return (0, _emberMetalStreamsUtils.readArray)(params.slice(paramsStartIndex));
+        }, &#039;params&#039;);
+
+        attrs[positionalParams] = paramsStream;
+      }
+
+      for (var i = 0; i &lt; positionalParams.length; i++) {
+        var param = params[paramsStartIndex + i];
+        if (isNamed) {
+          paramsStream.addDependency(param);
+        } else {
+          attrs[positionalParams[i]] = param;
+        }
+      }
+    })();
+  }
+}
+
+function extractComponentTemplates(component, _templates) {
+  // Even though we looked up a layout from the container earlier, the
+  // component may specify a `layout` property that overrides that.
+  // The component may also provide a `template` property we should
+  // respect (though this behavior is deprecated).
+  var componentLayout = (0, _emberMetalProperty_get.get)(component, &#039;layout&#039;);
+  var hasBlock = _templates &amp;&amp; _templates[&#039;default&#039;];
+  var layout = undefined,
+      templates = undefined,
+      componentTemplate = undefined;
+  if (hasBlock) {
+    componentTemplate = null;
+  } else if (component.isComponent) {
+    componentTemplate = (0, _emberMetalProperty_get.get)(component, &#039;_template&#039;);
+  } else {
+    componentTemplate = (0, _emberMetalProperty_get.get)(component, &#039;template&#039;);
+  }
+
+  if (componentLayout) {
+    layout = componentLayout;
+    templates = extractLegacyTemplate(_templates, componentTemplate);
+  } else if (componentTemplate) {
+    // If the component has a `template` but no `layout`, use the template
+    // as the layout.
+    layout = componentTemplate;
+    templates = _templates;
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Using deprecated `template` property on a Component.&#039;);
+  }
+
+  return { layout: layout, templates: templates };
+}
+
+// 2.0TODO: Remove legacy behavior
+function extractLegacyTemplate(_templates, componentTemplate) {
+  var templates = undefined;
+
+  // There is no block template provided but the component has a
+  // `template` property.
+  if ((!_templates || !_templates[&#039;default&#039;]) &amp;&amp; componentTemplate) {
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Using deprecated `template` property on a Component.&#039;);
+    templates = { &#039;default&#039;: componentTemplate.raw };
+  } else {
+    templates = _templates;
+  }
+
+  return templates;
+}
+
+function configureTagName(attrs, tagName, component, isAngleBracket, createOptions) {
+  if (isAngleBracket) {
+    createOptions.tagName = tagName;
+  } else if (attrs.tagName) {
+    createOptions.tagName = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.tagName);
+  }
+}
+
+function configureCreateOptions(attrs, createOptions) {
+  // Some attrs are special and need to be set as properties on the component
+  // instance. Make sure we use getValue() to get them from `attrs` since
+  // they are still streams.
+  if (attrs.id) {
+    createOptions.elementId = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.id);
+  }
+  if (attrs._defaultTagName) {
+    createOptions._defaultTagName = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs._defaultTagName);
+  }
+  if (attrs.viewName) {
+    createOptions.viewName = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.viewName);
+  }
+}
+
+ComponentNodeManager.prototype.render = function (_env, visitor) {
+  var component = this.component;
+  var attrs = this.attrs;
+
+  return (0, _emberHtmlbarsSystemInstrumentationSupport.instrument)(component, function () {
+    var env = _env.childWithView(component);
+
+    var snapshot = takeSnapshot(attrs);
+    env.renderer.componentInitAttrs(this.component, snapshot);
+    env.renderer.componentWillRender(component);
+    env.renderedViews.push(component.elementId);
+
+    if (this.block) {
+      this.block(env, [], undefined, this.renderNode, this.scope, visitor);
+    }
+
+    var element = this.expectElement &amp;&amp; this.renderNode.firstNode;
+
+    handleLegacyRender(component, element);
+    env.renderer.didCreateElement(component, element);
+    env.renderer.willInsertElement(component, element); // 2.0TODO remove legacy hook
+
+    env.lifecycleHooks.push({ type: &#039;didInsertElement&#039;, view: component });
+  }, this);
+};
+
+function handleLegacyRender(component, element) {
+  if (!component.render) {
+    return;
+  }
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Legacy render functions are not supported with angle-bracket components&#039;, !component._isAngleBracket);
+
+  var content, node, lastChildIndex;
+  var buffer = [];
+  var renderNode = component._renderNode;
+  component.render(buffer);
+  content = buffer.join(&#039;&#039;);
+  if (element) {
+    lastChildIndex = renderNode.childNodes.length - 1;
+    node = renderNode.childNodes[lastChildIndex];
+  } else {
+    node = renderNode;
+  }
+  node.setContent(new _htmlbarsUtilSafeString2[&#039;default&#039;](content));
+}
+
+ComponentNodeManager.prototype.rerender = function (_env, attrs, visitor) {
+  var component = this.component;
+
+  return (0, _emberHtmlbarsSystemInstrumentationSupport.instrument)(component, function () {
+    var env = _env.childWithView(component);
+
+    var snapshot = takeSnapshot(attrs);
+
+    if (component._renderNode.shouldReceiveAttrs) {
+      env.renderer.componentUpdateAttrs(component, snapshot);
+
+      if (!component._isAngleBracket) {
+        (0, _emberMetalSet_properties2[&#039;default&#039;])(component, mergeBindings({}, shadowedAttrs(component, snapshot)));
+      }
+
+      component._renderNode.shouldReceiveAttrs = false;
+    }
+
+    // Notify component that it has become dirty and is about to change.
+    env.renderer.componentWillUpdate(component, snapshot);
+    env.renderer.componentWillRender(component);
+
+    env.renderedViews.push(component.elementId);
+
+    if (this.block) {
+      this.block(env, [], undefined, this.renderNode, this.scope, visitor);
+    }
+
+    env.lifecycleHooks.push({ type: &#039;didUpdate&#039;, view: component });
+
+    return env;
+  }, this);
+};
+
+ComponentNodeManager.prototype.destroy = function () {
+  var component = this.component;
+
+  // Clear component&#039;s render node. Normally this gets cleared
+  // during view destruction, but in this case we&#039;re re-assigning the
+  // node to a different view and it will get cleaned up automatically.
+  component._renderNode = null;
+  component.destroy();
+};
+
+function createComponent(_component, isAngleBracket, _props, renderNode, env) {
+  var attrs = arguments[5] === undefined ? {} : arguments[5];
+
+  var props = (0, _emberMetalMerge.assign)({}, _props);
+
+  if (!isAngleBracket) {
+    var hasSuppliedController = (&#039;controller&#039; in attrs); // 2.0TODO remove
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;controller= is deprecated&#039;, !hasSuppliedController);
+
+    var snapshot = takeSnapshot(attrs);
+    props.attrs = snapshot;
+
+    var proto = _component.proto();
+    mergeBindings(props, shadowedAttrs(proto, snapshot));
+  } else {
+    props._isAngleBracket = true;
+  }
+
+  props.renderer = props.parentView ? props.parentView.renderer : env.container.lookup(&#039;renderer:-dom&#039;);
+  props._viewRegistry = props.parentView ? props.parentView._viewRegistry : env.container.lookup(&#039;-view-registry:main&#039;);
+
+  var component = _component.create(props);
+
+  // for the fallback case
+  component.container = component.container || env.container;
+
+  if (props.parentView) {
+    props.parentView.appendChild(component);
+
+    if (props.viewName) {
+      (0, _emberMetalProperty_set.set)(props.parentView, props.viewName, component);
+    }
+  }
+
+  component._renderNode = renderNode;
+  renderNode.emberView = component;
+  renderNode.buildChildEnv = buildChildEnv;
+  return component;
+}
+
+function shadowedAttrs(target, attrs) {
+  var shadowed = {};
+
+  // For backwards compatibility, set the component property
+  // if it has an attr with that name. Undefined attributes
+  // are handled on demand via the `unknownProperty` hook.
+  for (var attr in attrs) {
+    if (attr in target) {
+      // TODO: Should we issue a deprecation here?
+      //Ember.deprecate(deprecation(attr));
+      shadowed[attr] = attrs[attr];
+    }
+  }
+
+  return shadowed;
+}
+
+function takeSnapshot(attrs) {
+  var hash = {};
+
+  for (var prop in attrs) {
+    hash[prop] = (0, _emberHtmlbarsHooksGetCellOrValue2[&#039;default&#039;])(attrs[prop]);
+  }
+
+  return hash;
+}
+
+function mergeBindings(target, attrs) {
+  for (var prop in attrs) {
+    if (!attrs.hasOwnProperty(prop)) {
+      continue;
+    }
+    // when `attrs` is an actual value being set in the
+    // attrs hash (`{{foo-bar attrs=&quot;blah&quot;}}`) we cannot
+    // set `&quot;blah&quot;` to the root of the target because
+    // that would replace all attrs with `attrs.attrs`
+    if (prop === &#039;attrs&#039;) {
+      _emberMetalCore2[&#039;default&#039;].warn(&#039;Invoking a component with a hash attribute named `attrs` is not supported. Please refactor usage of &#039; + target + &#039; to avoid passing `attrs` as a hash parameter.&#039;);
+      continue;
+    }
+    var value = attrs[prop];
+
+    if (value &amp;&amp; value[_emberViewsCompatAttrsProxy.MUTABLE_CELL]) {
+      target[prop] = value.value;
+    } else {
+      target[prop] = value;
+    }
+  }
+
+  return target;
+}
+
+function buildChildEnv(state, env) {
+  return env.childWithView(this.emberView);
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

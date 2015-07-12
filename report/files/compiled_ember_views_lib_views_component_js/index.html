@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\views\component.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\views\component.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.30</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">422</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">36.96</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.67</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert, Ember.Handlebars
+
+var _emberViewsMixinsComponent_template_deprecation = require(&#039;ember-views/mixins/component_template_deprecation&#039;);
+
+var _emberViewsMixinsComponent_template_deprecation2 = _interopRequireDefault(_emberViewsMixinsComponent_template_deprecation);
+
+var _emberRuntimeMixinsTarget_action_support = require(&#039;ember-runtime/mixins/target_action_support&#039;);
+
+var _emberRuntimeMixinsTarget_action_support2 = _interopRequireDefault(_emberRuntimeMixinsTarget_action_support);
+
+var _emberViewsViewsView = require(&#039;ember-views/views/view&#039;);
+
+var _emberViewsViewsView2 = _interopRequireDefault(_emberViewsViewsView);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalIs_none = require(&#039;ember-metal/is_none&#039;);
+
+var _emberMetalIs_none2 = _interopRequireDefault(_emberMetalIs_none);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberViewsCompatAttrsProxy = require(&#039;ember-views/compat/attrs-proxy&#039;);
+
+function validateAction(component, actionName) {
+  if (actionName &amp;&amp; actionName[_emberViewsCompatAttrsProxy.MUTABLE_CELL]) {
+    actionName = actionName.value;
+  }
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;The default action was triggered on the component &#039; + component.toString() + &#039;, but the action name (&#039; + actionName + &#039;) was not a string.&#039;, (0, _emberMetalIs_none2[&#039;default&#039;])(actionName) || typeof actionName === &#039;string&#039; || typeof actionName === &#039;function&#039;);
+  return actionName;
+}
+
+/**
+@module ember
+@submodule ember-views
+*/
+
+/**
+  An `Ember.Component` is a view that is completely
+  isolated. Properties accessed in its templates go
+  to the view object and actions are targeted at
+  the view object. There is no access to the
+  surrounding context or outer controller; all
+  contextual information must be passed in.
+
+  The easiest way to create an `Ember.Component` is via
+  a template. If you name a template
+  `components/my-foo`, you will be able to use
+  `{{my-foo}}` in other templates, which will make
+  an instance of the isolated component.
+
+  ```handlebars
+  {{app-profile person=currentUser}}
+  ```
+
+  ```handlebars
+  &lt;!-- app-profile template --&gt;
+  &lt;h1&gt;{{person.title}}&lt;/h1&gt;
+  &lt;img src={{person.avatar}}&gt;
+  &lt;p class=&#039;signature&#039;&gt;{{person.signature}}&lt;/p&gt;
+  ```
+
+  You can use `yield` inside a template to
+  include the **contents** of any block attached to
+  the component. The block will be executed in the
+  context of the surrounding context or outer controller:
+
+  ```handlebars
+  {{#app-profile person=currentUser}}
+    &lt;p&gt;Admin mode&lt;/p&gt;
+    {{! Executed in the controller&#039;s context. }}
+  {{/app-profile}}
+  ```
+
+  ```handlebars
+  &lt;!-- app-profile template --&gt;
+  &lt;h1&gt;{{person.title}}&lt;/h1&gt;
+  {{! Executed in the components context. }}
+  {{yield}} {{! block contents }}
+  ```
+
+  If you want to customize the component, in order to
+  handle events or actions, you implement a subclass
+  of `Ember.Component` named after the name of the
+  component. Note that `Component` needs to be appended to the name of
+  your subclass like `AppProfileComponent`.
+
+  For example, you could implement the action
+  `hello` for the `app-profile` component:
+
+  ```javascript
+  App.AppProfileComponent = Ember.Component.extend({
+    actions: {
+      hello: function(name) {
+        console.log(&quot;Hello&quot;, name);
+      }
+    }
+  });
+  ```
+
+  And then use it in the component&#039;s template:
+
+  ```handlebars
+  &lt;!-- app-profile template --&gt;
+
+  &lt;h1&gt;{{person.title}}&lt;/h1&gt;
+  {{yield}} &lt;!-- block contents --&gt;
+
+  &lt;button {{action &#039;hello&#039; person.name}}&gt;
+    Say Hello to {{person.name}}
+  &lt;/button&gt;
+  ```
+
+  Components must have a `-` in their name to avoid
+  conflicts with built-in controls that wrap HTML
+  elements. This is consistent with the same
+  requirement in web components.
+
+  @class Component
+  @namespace Ember
+  @extends Ember.View
+  @public
+*/
+var Component = _emberViewsViewsView2[&#039;default&#039;].extend(_emberRuntimeMixinsTarget_action_support2[&#039;default&#039;], _emberViewsMixinsComponent_template_deprecation2[&#039;default&#039;], {
+  isComponent: true,
+  /*
+    This is set so that the proto inspection in appendTemplatedView does not
+    think that it should set the components `context` to that of the parent view.
+  */
+  controller: null,
+  context: null,
+
+  instrumentName: &#039;component&#039;,
+  instrumentDisplay: (0, _emberMetalComputed.computed)(function () {
+    if (this._debugContainerKey) {
+      return &#039;{{&#039; + this._debugContainerKey.split(&#039;:&#039;)[1] + &#039;}}&#039;;
+    }
+  }),
+
+  init: function init() {
+    this._super.apply(this, arguments);
+    (0, _emberMetalProperty_set.set)(this, &#039;controller&#039;, this);
+    (0, _emberMetalProperty_set.set)(this, &#039;context&#039;, this);
+  },
+
+  /**
+  A components template property is set by passing a block
+  during its invocation. It is executed within the parent context.
+    Example:
+    ```handlebars
+  {{#my-component}}
+    // something that is run in the context
+    // of the parent context
+  {{/my-component}}
+  ```
+    Specifying a template directly to a component is deprecated without
+  also specifying the layout property.
+    @deprecated
+  @property template
+  @public
+  */
+  template: (0, _emberMetalComputed.computed)(&#039;_template&#039;, {
+    get: function get() {
+      _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Accessing \&#039;template\&#039; in &#039; + this + &#039; is deprecated. To determine if a block was specified to &#039; + this + &#039; please use \&#039;{{#if hasBlock}}\&#039; in the components layout.&#039;);
+
+      return (0, _emberMetalProperty_get.get)(this, &#039;_template&#039;);
+    },
+
+    set: function set(key, value) {
+      return (0, _emberMetalProperty_set.set)(this, &#039;_template&#039;, value);
+    }
+  }),
+
+  _template: (0, _emberMetalComputed.computed)(&#039;templateName&#039;, {
+    get: function get() {
+      if ((0, _emberMetalProperty_get.get)(this, &#039;_deprecatedFlagForBlockProvided&#039;)) {
+        return true;
+      }
+      var templateName = (0, _emberMetalProperty_get.get)(this, &#039;templateName&#039;);
+      var template = this.templateForName(templateName, &#039;template&#039;);
+
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;You specified the templateName &#039; + templateName + &#039; for &#039; + this + &#039;, but it did not exist.&#039;, !templateName || !!template);
+      return template || (0, _emberMetalProperty_get.get)(this, &#039;defaultTemplate&#039;);
+    },
+    set: function set(key, value) {
+      return value;
+    }
+  }),
+
+  /**
+  Specifying a components `templateName` is deprecated without also
+  providing the `layout` or `layoutName` properties.
+    @deprecated
+  @property templateName
+  @public
+  */
+  templateName: null,
+
+  /**
+    If the component is currently inserted into the DOM of a parent view, this
+    property will point to the controller of the parent view.
+      @property targetObject
+    @type Ember.Controller
+    @default null
+    @private
+  */
+  targetObject: (0, _emberMetalComputed.computed)(&#039;controller&#039;, function (key) {
+    if (this._targetObject) {
+      return this._targetObject;
+    }
+    if (this._controller) {
+      return this._controller;
+    }
+    var parentView = (0, _emberMetalProperty_get.get)(this, &#039;parentView&#039;);
+    return parentView ? (0, _emberMetalProperty_get.get)(parentView, &#039;controller&#039;) : null;
+  }),
+
+  /**
+    Triggers a named action on the controller context where the component is used if
+    this controller has registered for notifications of the action.
+      For example a component for playing or pausing music may translate click events
+    into action notifications of &quot;play&quot; or &quot;stop&quot; depending on some internal state
+    of the component:
+  
+    ```javascript
+    App.PlayButtonComponent = Ember.Component.extend({
+      click: function() {
+        if (this.get(&#039;isPlaying&#039;)) {
+          this.sendAction(&#039;play&#039;);
+        } else {
+          this.sendAction(&#039;stop&#039;);
+        }
+      }
+    });
+    ```
+      When used inside a template these component actions are configured to
+    trigger actions in the outer application context:
+      ```handlebars
+    {{! application.hbs }}
+    {{play-button play=&quot;musicStarted&quot; stop=&quot;musicStopped&quot;}}
+    ```
+      When the component receives a browser `click` event it translate this
+    interaction into application-specific semantics (&quot;play&quot; or &quot;stop&quot;) and
+    triggers the specified action name on the controller for the template
+    where the component is used:
+  
+    ```javascript
+    App.ApplicationController = Ember.Controller.extend({
+      actions: {
+        musicStarted: function() {
+          // called when the play button is clicked
+          // and the music started playing
+        },
+        musicStopped: function() {
+          // called when the play button is clicked
+          // and the music stopped playing
+        }
+      }
+    });
+    ```
+      If no action name is passed to `sendAction` a default name of &quot;action&quot;
+    is assumed.
+      ```javascript
+    App.NextButtonComponent = Ember.Component.extend({
+      click: function() {
+        this.sendAction();
+      }
+    });
+    ```
+      ```handlebars
+    {{! application.hbs }}
+    {{next-button action=&quot;playNextSongInAlbum&quot;}}
+    ```
+      ```javascript
+    App.ApplicationController = Ember.Controller.extend({
+      actions: {
+        playNextSongInAlbum: function() {
+          ...
+        }
+      }
+    });
+    ```
+      @method sendAction
+    @param [action] {String} the action to trigger
+    @param [context] {*} a context to send with the action
+    @public
+  */
+  sendAction: function sendAction(action) {
+    var actionName;
+
+    // Send the default action
+    if (action === undefined) {
+      action = &#039;action&#039;;
+    }
+    actionName = (0, _emberMetalProperty_get.get)(this, &#039;attrs.&#039; + action) || (0, _emberMetalProperty_get.get)(this, action);
+    actionName = validateAction(this, actionName);
+
+    // If no action name for that action could be found, just abort.
+    if (actionName === undefined) {
+      return;
+    }
+
+    for (var _len = arguments.length, contexts = Array(_len &gt; 1 ? _len - 1 : 0), _key = 1; _key &lt; _len; _key++) {
+      contexts[_key - 1] = arguments[_key];
+    }
+
+    if (typeof actionName === &#039;function&#039;) {
+      actionName.apply(null, contexts);
+    } else {
+      this.triggerAction({
+        action: actionName,
+        actionContext: contexts
+      });
+    }
+  },
+
+  send: function send(actionName) {
+    for (var _len2 = arguments.length, args = Array(_len2 &gt; 1 ? _len2 - 1 : 0), _key2 = 1; _key2 &lt; _len2; _key2++) {
+      args[_key2 - 1] = arguments[_key2];
+    }
+
+    var target;
+    var hasAction = this._actions &amp;&amp; this._actions[actionName];
+
+    if (hasAction) {
+      var shouldBubble = this._actions[actionName].apply(this, args) === true;
+      if (!shouldBubble) {
+        return;
+      }
+    }
+
+    if (target = (0, _emberMetalProperty_get.get)(this, &#039;target&#039;)) {
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;The `target` for &#039; + this + &#039; (&#039; + target + &#039;) does not have a `send` method&#039;, typeof target.send === &#039;function&#039;);
+      target.send.apply(target, arguments);
+    } else {
+      if (!hasAction) {
+        throw new Error(_emberMetalCore2[&#039;default&#039;].inspect(this) + &#039; had no action handler for: &#039; + actionName);
+      }
+    }
+  }
+
+  /**
+    Returns true when the component was invoked with a block template.
+      Example (`hasBlock` will be `false`):
+      ```hbs
+    {{! templates/application.hbs }}
+      {{foo-bar}}
+      {{! templates/components/foo-bar.js }}
+    {{#if hasBlock}}
+      This will not be printed, because no block was provided
+    {{/if}}
+    ```
+      Example (`hasBlock` will be `true`):
+      ```hbs
+    {{! templates/application.hbs }}
+      {{#foo-bar}}
+      Hi!
+    {{/foo-bar}}
+      {{! templates/components/foo-bar.js }}
+    {{#if hasBlock}}
+      This will be printed because a block was provided
+      {{yield}}
+    {{/if}}
+    ```
+      @public
+    @property hasBlock
+    @returns Boolean
+  */
+
+  /**
+    Returns true when the component was invoked with a block parameter
+    supplied.
+      Example (`hasBlockParams` will be `false`):
+      ```hbs
+    {{! templates/application.hbs }}
+      {{#foo-bar}}
+      No block parameter.
+    {{/foo-bar}}
+      {{! templates/components/foo-bar.js }}
+    {{#if hasBlockParams}}
+      This will not be printed, because no block was provided
+      {{yield this}}
+    {{/if}}
+    ```
+      Example (`hasBlockParams` will be `true`):
+      ```hbs
+    {{! templates/application.hbs }}
+      {{#foo-bar as |foo|}}
+      Hi!
+    {{/foo-bar}}
+      {{! templates/components/foo-bar.js }}
+    {{#if hasBlockParams}}
+      This will be printed because a block was provided
+      {{yield this}}
+    {{/if}}
+    ```
+    @public
+    @property hasBlockParams
+    @returns Boolean
+  */
+});
+
+Component.reopenClass({
+  isComponentFactory: true
+});
+
+exports[&#039;default&#039;] = Component;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

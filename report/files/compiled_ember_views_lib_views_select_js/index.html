@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\views\select.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\views\select.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.66</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">711</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">55.18</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.88</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-views
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalReplace = require(&#039;ember-metal/replace&#039;);
+
+var _emberMetalReplace2 = _interopRequireDefault(_emberMetalReplace);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberViewsViewsView = require(&#039;ember-views/views/view&#039;);
+
+var _emberViewsViewsView2 = _interopRequireDefault(_emberViewsViewsView);
+
+var _emberRuntimeUtils = require(&#039;ember-runtime/utils&#039;);
+
+var _emberMetalIs_none = require(&#039;ember-metal/is_none&#039;);
+
+var _emberMetalIs_none2 = _interopRequireDefault(_emberMetalIs_none);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberRuntimeSystemNative_array = require(&#039;ember-runtime/system/native_array&#039;);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberMetalProperties = require(&#039;ember-metal/properties&#039;);
+
+var _emberHtmlbarsTemplatesSelect = require(&#039;ember-htmlbars/templates/select&#039;);
+
+var _emberHtmlbarsTemplatesSelect2 = _interopRequireDefault(_emberHtmlbarsTemplatesSelect);
+
+var _emberHtmlbarsTemplatesSelectOption = require(&#039;ember-htmlbars/templates/select-option&#039;);
+
+var _emberHtmlbarsTemplatesSelectOption2 = _interopRequireDefault(_emberHtmlbarsTemplatesSelectOption);
+
+var _emberHtmlbarsTemplatesSelectOptgroup = require(&#039;ember-htmlbars/templates/select-optgroup&#039;);
+
+var _emberHtmlbarsTemplatesSelectOptgroup2 = _interopRequireDefault(_emberHtmlbarsTemplatesSelectOptgroup);
+
+var defaultTemplate = _emberHtmlbarsTemplatesSelect2[&#039;default&#039;];
+
+var SelectOption = _emberViewsViewsView2[&#039;default&#039;].extend({
+  instrumentDisplay: &#039;Ember.SelectOption&#039;,
+
+  tagName: &#039;option&#039;,
+  attributeBindings: [&#039;value&#039;, &#039;selected&#039;],
+
+  defaultTemplate: _emberHtmlbarsTemplatesSelectOption2[&#039;default&#039;],
+
+  content: null,
+
+  _willRender: function _willRender() {
+    this.labelPathDidChange();
+    this.valuePathDidChange();
+  },
+
+  selected: (0, _emberMetalComputed.computed)(&#039;attrs.content&#039;, &#039;attrs.selection&#039;, function () {
+    var value = (0, _emberMetalProperty_get.get)(this, &#039;value&#039;);
+    var selection = (0, _emberMetalProperty_get.get)(this, &#039;attrs.selection&#039;);
+    if ((0, _emberMetalProperty_get.get)(this, &#039;attrs.multiple&#039;)) {
+      return selection &amp;&amp; selection.indexOf(value) &gt; -1;
+    } else {
+      // Primitives get passed through bindings as objects... since
+      // `new Number(4) !== 4`, we use `==` below
+      return value == (0, _emberMetalProperty_get.get)(this, &#039;attrs.parentValue&#039;); // jshint ignore:line
+    }
+  }),
+
+  labelPathDidChange: (0, _emberMetalMixin.observer)(&#039;attrs.optionLabelPath&#039;, function () {
+    var labelPath = (0, _emberMetalProperty_get.get)(this, &#039;attrs.optionLabelPath&#039;);
+    (0, _emberMetalProperties.defineProperty)(this, &#039;label&#039;, _emberMetalComputed.computed.alias(labelPath));
+  }),
+
+  valuePathDidChange: (0, _emberMetalMixin.observer)(&#039;attrs.optionValuePath&#039;, function () {
+    var valuePath = (0, _emberMetalProperty_get.get)(this, &#039;attrs.optionValuePath&#039;);
+    (0, _emberMetalProperties.defineProperty)(this, &#039;value&#039;, _emberMetalComputed.computed.alias(valuePath));
+  })
+});
+
+var SelectOptgroup = _emberViewsViewsView2[&#039;default&#039;].extend({
+  instrumentDisplay: &#039;Ember.SelectOptgroup&#039;,
+
+  tagName: &#039;optgroup&#039;,
+  defaultTemplate: _emberHtmlbarsTemplatesSelectOptgroup2[&#039;default&#039;],
+  attributeBindings: [&#039;label&#039;]
+});
+
+/**
+  The `Ember.Select` view class renders a
+  [select](https://developer.mozilla.org/en/HTML/Element/select) HTML element,
+  allowing the user to choose from a list of options.
+
+  The text and `value` property of each `&lt;option&gt;` element within the
+  `&lt;select&gt;` element are populated from the objects in the `Element.Select`&#039;s
+  `content` property. The underlying data object of the selected `&lt;option&gt;` is
+  stored in the `Element.Select`&#039;s `value` property.
+
+  ## The Content Property (array of strings)
+
+  The simplest version of an `Ember.Select` takes an array of strings as its
+  `content` property. The string will be used as both the `value` property and
+  the inner text of each `&lt;option&gt;` element inside the rendered `&lt;select&gt;`.
+
+  Example:
+
+  ```javascript
+  App.ApplicationController = Ember.Controller.extend({
+    names: [&quot;Yehuda&quot;, &quot;Tom&quot;]
+  });
+  ```
+
+  ```handlebars
+  {{view &quot;select&quot; content=names}}
+  ```
+
+  Would result in the following HTML:
+
+  ```html
+  &lt;select class=&quot;ember-select&quot;&gt;
+    &lt;option value=&quot;Yehuda&quot;&gt;Yehuda&lt;/option&gt;
+    &lt;option value=&quot;Tom&quot;&gt;Tom&lt;/option&gt;
+  &lt;/select&gt;
+  ```
+
+  You can control which `&lt;option&gt;` is selected through the `Ember.Select`&#039;s
+  `value` property:
+
+  ```javascript
+  App.ApplicationController = Ember.Controller.extend({
+    selectedName: &#039;Tom&#039;,
+    names: [&quot;Yehuda&quot;, &quot;Tom&quot;]
+  });
+  ```
+
+  ```handlebars
+  {{view &quot;select&quot; content=names value=selectedName}}
+  ```
+
+  Would result in the following HTML with the `&lt;option&gt;` for &#039;Tom&#039; selected:
+
+  ```html
+  &lt;select class=&quot;ember-select&quot;&gt;
+    &lt;option value=&quot;Yehuda&quot;&gt;Yehuda&lt;/option&gt;
+    &lt;option value=&quot;Tom&quot; selected=&quot;selected&quot;&gt;Tom&lt;/option&gt;
+  &lt;/select&gt;
+  ```
+
+  A user interacting with the rendered `&lt;select&gt;` to choose &quot;Yehuda&quot; would
+  update the value of `selectedName` to &quot;Yehuda&quot;.
+
+  ## The Content Property (array of Objects)
+
+  An `Ember.Select` can also take an array of JavaScript or Ember objects as
+  its `content` property.
+
+  When using objects you need to tell the `Ember.Select` which property should
+  be accessed on each object to supply the `value` attribute of the `&lt;option&gt;`
+  and which property should be used to supply the element text.
+
+  The `optionValuePath` option is used to specify the path on each object to
+  the desired property for the `value` attribute. The `optionLabelPath`
+  specifies the path on each object to the desired property for the
+  element&#039;s text. Both paths must reference each object itself as `content`:
+
+  ```javascript
+  App.ApplicationController = Ember.Controller.extend({
+    programmers: [
+      {firstName: &quot;Yehuda&quot;, id: 1},
+      {firstName: &quot;Tom&quot;,    id: 2}
+    ]
+  });
+  ```
+
+  ```handlebars
+  {{view &quot;select&quot;
+         content=programmers
+         optionValuePath=&quot;content.id&quot;
+         optionLabelPath=&quot;content.firstName&quot;}}
+  ```
+
+  Would result in the following HTML:
+
+  ```html
+  &lt;select class=&quot;ember-select&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Yehuda&lt;/option&gt;
+    &lt;option value=&quot;2&quot;&gt;Tom&lt;/option&gt;
+  &lt;/select&gt;
+  ```
+
+  The `value` attribute of the selected `&lt;option&gt;` within an `Ember.Select`
+  can be bound to a property on another object:
+
+  ```javascript
+  App.ApplicationController = Ember.Controller.extend({
+    programmers: [
+      {firstName: &quot;Yehuda&quot;, id: 1},
+      {firstName: &quot;Tom&quot;,    id: 2}
+    ],
+    currentProgrammer: {
+      id: 2
+    }
+  });
+  ```
+
+  ```handlebars
+  {{view &quot;select&quot;
+         content=programmers
+         optionValuePath=&quot;content.id&quot;
+         optionLabelPath=&quot;content.firstName&quot;
+         value=currentProgrammer.id}}
+  ```
+
+  Would result in the following HTML with a selected option:
+
+  ```html
+  &lt;select class=&quot;ember-select&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Yehuda&lt;/option&gt;
+    &lt;option value=&quot;2&quot; selected=&quot;selected&quot;&gt;Tom&lt;/option&gt;
+  &lt;/select&gt;
+  ```
+
+  Interacting with the rendered element by selecting the first option
+  (&#039;Yehuda&#039;) will update the `id` of `currentProgrammer`
+  to match the `value` property of the newly selected `&lt;option&gt;`.
+
+  Alternatively, you can control selection through the underlying objects
+  used to render each object by binding the `selection` option. When the selected
+  `&lt;option&gt;` is changed, the property path provided to `selection`
+  will be updated to match the content object of the rendered `&lt;option&gt;`
+  element:
+
+  ```javascript
+
+  var yehuda = {firstName: &quot;Yehuda&quot;, id: 1, bff4eva: &#039;tom&#039;}
+  var tom = {firstName: &quot;Tom&quot;, id: 2, bff4eva: &#039;yehuda&#039;};
+
+  App.ApplicationController = Ember.Controller.extend({
+    selectedPerson: tom,
+    programmers: [ yehuda, tom ]
+  });
+  ```
+
+  ```handlebars
+  {{view &quot;select&quot;
+         content=programmers
+         optionValuePath=&quot;content.id&quot;
+         optionLabelPath=&quot;content.firstName&quot;
+         selection=selectedPerson}}
+  ```
+
+  Would result in the following HTML with a selected option:
+
+  ```html
+  &lt;select class=&quot;ember-select&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Yehuda&lt;/option&gt;
+    &lt;option value=&quot;2&quot; selected=&quot;selected&quot;&gt;Tom&lt;/option&gt;
+  &lt;/select&gt;
+  ```
+
+  Interacting with the rendered element by selecting the first option
+  (&#039;Yehuda&#039;) will update the `selectedPerson` to match the object of
+  the newly selected `&lt;option&gt;`. In this case it is the first object
+  in the `programmers`
+
+  ## Supplying a Prompt
+
+  A `null` value for the `Ember.Select`&#039;s `value` or `selection` property
+  results in there being no `&lt;option&gt;` with a `selected` attribute:
+
+  ```javascript
+  App.ApplicationController = Ember.Controller.extend({
+    selectedProgrammer: null,
+    programmers: [&quot;Yehuda&quot;, &quot;Tom&quot;]
+  });
+  ```
+
+  ``` handlebars
+  {{view &quot;select&quot;
+         content=programmers
+         value=selectedProgrammer
+  }}
+  ```
+
+  Would result in the following HTML:
+
+  ```html
+  &lt;select class=&quot;ember-select&quot;&gt;
+    &lt;option value=&quot;Yehuda&quot;&gt;Yehuda&lt;/option&gt;
+    &lt;option value=&quot;Tom&quot;&gt;Tom&lt;/option&gt;
+  &lt;/select&gt;
+  ```
+
+  Although `selectedProgrammer` is `null` and no `&lt;option&gt;`
+  has a `selected` attribute the rendered HTML will display the
+  first item as though it were selected. You can supply a string
+  value for the `Ember.Select` to display when there is no selection
+  with the `prompt` option:
+
+  ```javascript
+  App.ApplicationController = Ember.Controller.extend({
+    selectedProgrammer: null,
+    programmers: [ &quot;Yehuda&quot;, &quot;Tom&quot; ]
+  });
+  ```
+
+  ```handlebars
+  {{view &quot;select&quot;
+         content=programmers
+         value=selectedProgrammer
+         prompt=&quot;Please select a name&quot;
+  }}
+  ```
+
+  Would result in the following HTML:
+
+  ```html
+  &lt;select class=&quot;ember-select&quot;&gt;
+    &lt;option&gt;Please select a name&lt;/option&gt;
+    &lt;option value=&quot;Yehuda&quot;&gt;Yehuda&lt;/option&gt;
+    &lt;option value=&quot;Tom&quot;&gt;Tom&lt;/option&gt;
+  &lt;/select&gt;
+  ```
+
+  @class Select
+  @namespace Ember
+  @extends Ember.View
+  @public
+  @deprecated See http://emberjs.com/deprecations/v1.x/#toc_ember-select
+*/
+var Select = _emberViewsViewsView2[&#039;default&#039;].extend({
+  instrumentDisplay: &#039;Ember.Select&#039;,
+
+  tagName: &#039;select&#039;,
+  classNames: [&#039;ember-select&#039;],
+  defaultTemplate: defaultTemplate,
+  attributeBindings: [&#039;autofocus&#039;, &#039;autocomplete&#039;, &#039;disabled&#039;, &#039;form&#039;, &#039;multiple&#039;, &#039;name&#039;, &#039;required&#039;, &#039;size&#039;, &#039;tabindex&#039;],
+
+  /**
+    The `multiple` attribute of the select element. Indicates whether multiple
+    options can be selected.
+      @property multiple
+    @type Boolean
+    @default false
+    @public
+  */
+  multiple: false,
+
+  /**
+    The `disabled` attribute of the select element. Indicates whether
+    the element is disabled from interactions.
+      @property disabled
+    @type Boolean
+    @default false
+    @public
+  */
+  disabled: false,
+
+  /**
+    The `required` attribute of the select element. Indicates whether
+    a selected option is required for form validation.
+      @property required
+    @type Boolean
+    @default false
+    @since 1.5.0
+    @public
+  */
+  required: false,
+
+  /**
+    The list of options.
+      If `optionLabelPath` and `optionValuePath` are not overridden, this should
+    be a list of strings, which will serve simultaneously as labels and values.
+      Otherwise, this should be a list of objects. For instance:
+      ```javascript
+    var App = Ember.Application.create();
+    var App.MySelect = Ember.Select.extend({
+      content: Ember.A([
+          { id: 1, firstName: &#039;Yehuda&#039; },
+          { id: 2, firstName: &#039;Tom&#039; }
+        ]),
+      optionLabelPath: &#039;content.firstName&#039;,
+      optionValuePath: &#039;content.id&#039;
+    });
+    ```
+      @property content
+    @type Array
+    @default null
+    @public
+  */
+  content: null,
+
+  /**
+    When `multiple` is `false`, the element of `content` that is currently
+    selected, if any.
+      When `multiple` is `true`, an array of such elements.
+      @property selection
+    @type Object or Array
+    @default null
+    @public
+  */
+  selection: null,
+
+  /**
+    In single selection mode (when `multiple` is `false`), value can be used to
+    get the current selection&#039;s value or set the selection by its value.
+      It is not currently supported in multiple selection mode.
+      @property value
+    @type String
+    @default null
+    @public
+  */
+  value: (0, _emberMetalComputed.computed)(&#039;_valuePath&#039;, &#039;selection&#039;, {
+    get: function get(key) {
+      var valuePath = (0, _emberMetalProperty_get.get)(this, &#039;_valuePath&#039;);
+      return valuePath ? (0, _emberMetalProperty_get.get)(this, &#039;selection.&#039; + valuePath) : (0, _emberMetalProperty_get.get)(this, &#039;selection&#039;);
+    },
+    set: function set(key, value) {
+      return value;
+    }
+  }),
+
+  /**
+    If given, a top-most dummy option will be rendered to serve as a user
+    prompt.
+      @property prompt
+    @type String
+    @default null
+    @public
+  */
+  prompt: null,
+
+  /**
+    The path of the option labels. See [content](/api/classes/Ember.Select.html#property_content).
+      @property optionLabelPath
+    @type String
+    @default &#039;content&#039;
+    @public
+  */
+  optionLabelPath: &#039;content&#039;,
+
+  /**
+    The path of the option values. See [content](/api/classes/Ember.Select.html#property_content).
+      @property optionValuePath
+    @type String
+    @default &#039;content&#039;
+    @public
+  */
+  optionValuePath: &#039;content&#039;,
+
+  /**
+    The path of the option group.
+    When this property is used, `content` should be sorted by `optionGroupPath`.
+      @property optionGroupPath
+    @type String
+    @default null
+    @public
+  */
+  optionGroupPath: null,
+
+  /**
+    The view class for optgroup.
+      @property groupView
+    @type Ember.View
+    @default Ember.SelectOptgroup
+    @public
+  */
+  groupView: SelectOptgroup,
+
+  groupedContent: (0, _emberMetalComputed.computed)(&#039;optionGroupPath&#039;, &#039;content.@each&#039;, function () {
+    var groupPath = (0, _emberMetalProperty_get.get)(this, &#039;optionGroupPath&#039;);
+    var groupedContent = (0, _emberRuntimeSystemNative_array.A)();
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;) || [];
+
+    content.forEach(function (item) {
+      var label = (0, _emberMetalProperty_get.get)(item, groupPath);
+
+      if ((0, _emberMetalProperty_get.get)(groupedContent, &#039;lastObject.label&#039;) !== label) {
+        groupedContent.pushObject({
+          label: label,
+          content: (0, _emberRuntimeSystemNative_array.A)()
+        });
+      }
+
+      (0, _emberMetalProperty_get.get)(groupedContent, &#039;lastObject.content&#039;).push(item);
+    });
+
+    return groupedContent;
+  }),
+
+  /**
+    The view class for option.
+      @property optionView
+    @type Ember.View
+    @default Ember.SelectOption
+    @private
+  */
+  optionView: SelectOption,
+
+  _change: function _change(hasDOM) {
+    if ((0, _emberMetalProperty_get.get)(this, &#039;multiple&#039;)) {
+      this._changeMultiple(hasDOM);
+    } else {
+      this._changeSingle(hasDOM);
+    }
+  },
+
+  selectionDidChange: (0, _emberMetalMixin.observer)(&#039;selection.@each&#039;, function () {
+    var selection = (0, _emberMetalProperty_get.get)(this, &#039;selection&#039;);
+    if ((0, _emberMetalProperty_get.get)(this, &#039;multiple&#039;)) {
+      if (!(0, _emberRuntimeUtils.isArray)(selection)) {
+        (0, _emberMetalProperty_set.set)(this, &#039;selection&#039;, (0, _emberRuntimeSystemNative_array.A)([selection]));
+        return;
+      }
+      this._selectionDidChangeMultiple();
+    } else {
+      this._selectionDidChangeSingle();
+    }
+  }),
+
+  valueDidChange: (0, _emberMetalMixin.observer)(&#039;value&#039;, function () {
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    var value = (0, _emberMetalProperty_get.get)(this, &#039;value&#039;);
+    var valuePath = (0, _emberMetalProperty_get.get)(this, &#039;optionValuePath&#039;).replace(/^content\.?/, &#039;&#039;);
+    var selectedValue = valuePath ? (0, _emberMetalProperty_get.get)(this, &#039;selection.&#039; + valuePath) : (0, _emberMetalProperty_get.get)(this, &#039;selection&#039;);
+    var selection;
+
+    if (value !== selectedValue) {
+      selection = content ? content.find(function (obj) {
+        return value === (valuePath ? (0, _emberMetalProperty_get.get)(obj, valuePath) : obj);
+      }) : null;
+
+      this.set(&#039;selection&#039;, selection);
+    }
+  }),
+
+  _setDefaults: function _setDefaults() {
+    var selection = (0, _emberMetalProperty_get.get)(this, &#039;selection&#039;);
+    var value = (0, _emberMetalProperty_get.get)(this, &#039;value&#039;);
+
+    if (!(0, _emberMetalIs_none2[&#039;default&#039;])(selection)) {
+      this.selectionDidChange();
+    }
+    if (!(0, _emberMetalIs_none2[&#039;default&#039;])(value)) {
+      this.valueDidChange();
+    }
+    if ((0, _emberMetalIs_none2[&#039;default&#039;])(selection)) {
+      this._change(false);
+    }
+  },
+
+  _changeSingle: function _changeSingle(hasDOM) {
+    var value = this.get(&#039;value&#039;);
+    var selectedIndex = hasDOM !== false ? this.$()[0].selectedIndex : this._selectedIndex(value);
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    var prompt = (0, _emberMetalProperty_get.get)(this, &#039;prompt&#039;);
+
+    if (!content || !(0, _emberMetalProperty_get.get)(content, &#039;length&#039;)) {
+      return;
+    }
+    if (prompt &amp;&amp; selectedIndex === 0) {
+      (0, _emberMetalProperty_set.set)(this, &#039;selection&#039;, null);
+      return;
+    }
+
+    if (prompt) {
+      selectedIndex -= 1;
+    }
+    (0, _emberMetalProperty_set.set)(this, &#039;selection&#039;, content.objectAt(selectedIndex));
+  },
+
+  _selectedIndex: function _selectedIndex(value) {
+    var defaultIndex = arguments[1] === undefined ? 0 : arguments[1];
+
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;contentValues&#039;);
+
+    var selectionIndex = content.indexOf(value);
+
+    var prompt = (0, _emberMetalProperty_get.get)(this, &#039;prompt&#039;);
+    if (prompt) {
+      selectionIndex += 1;
+    }
+
+    if (selectionIndex &lt; 0) {
+      selectionIndex = defaultIndex;
+    }
+
+    return selectionIndex;
+  },
+
+  _changeMultiple: function _changeMultiple(hasDOM) {
+    var options = hasDOM !== false ? this.$(&#039;option:selected&#039;) : [];
+    var prompt = (0, _emberMetalProperty_get.get)(this, &#039;prompt&#039;);
+    var offset = prompt ? 1 : 0;
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    var selection = (0, _emberMetalProperty_get.get)(this, &#039;selection&#039;);
+
+    if (!content) {
+      return;
+    }
+    if (options) {
+      var selectedIndexes = options.map(function () {
+        return this.index - offset;
+      });
+      var newSelection = content.objectsAt([].slice.call(selectedIndexes));
+
+      if ((0, _emberRuntimeUtils.isArray)(selection)) {
+        (0, _emberMetalReplace2[&#039;default&#039;])(selection, 0, (0, _emberMetalProperty_get.get)(selection, &#039;length&#039;), newSelection);
+      } else {
+        (0, _emberMetalProperty_set.set)(this, &#039;selection&#039;, newSelection);
+      }
+    }
+  },
+
+  _selectionDidChangeSingle: function _selectionDidChangeSingle() {
+    var value = (0, _emberMetalProperty_get.get)(this, &#039;value&#039;);
+    var self = this;
+    if (value &amp;&amp; value.then) {
+      value.then(function (resolved) {
+        // Ensure that we don&#039;t overwrite new value
+        if ((0, _emberMetalProperty_get.get)(self, &#039;value&#039;) === value) {
+          self._setSelectedIndex(resolved);
+        }
+      });
+    } else {
+      this._setSelectedIndex(value);
+    }
+  },
+
+  _setSelectedIndex: function _setSelectedIndex(selectionValue) {
+    var el = (0, _emberMetalProperty_get.get)(this, &#039;element&#039;);
+    if (!el) {
+      return;
+    }
+
+    el.selectedIndex = this._selectedIndex(selectionValue, -1);
+  },
+
+  _valuePath: (0, _emberMetalComputed.computed)(&#039;optionValuePath&#039;, function () {
+    var optionValuePath = (0, _emberMetalProperty_get.get)(this, &#039;optionValuePath&#039;);
+    return optionValuePath.replace(/^content\.?/, &#039;&#039;);
+  }),
+
+  contentValues: (0, _emberMetalComputed.computed)(&#039;content.[]&#039;, &#039;_valuePath&#039;, function () {
+    var valuePath = (0, _emberMetalProperty_get.get)(this, &#039;_valuePath&#039;);
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;) || [];
+
+    if (valuePath) {
+      return content.map(function (el) {
+        return (0, _emberMetalProperty_get.get)(el, valuePath);
+      });
+    } else {
+      return content.slice();
+    }
+  }),
+
+  _selectionDidChangeMultiple: function _selectionDidChangeMultiple() {
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    var selection = (0, _emberMetalProperty_get.get)(this, &#039;selection&#039;);
+    var selectedIndexes = content ? indexesOf(content, selection) : [-1];
+    var prompt = (0, _emberMetalProperty_get.get)(this, &#039;prompt&#039;);
+    var offset = prompt ? 1 : 0;
+    var options = this.$(&#039;option&#039;);
+    var adjusted;
+
+    if (options) {
+      options.each(function () {
+        adjusted = this.index &gt; -1 ? this.index - offset : -1;
+        this.selected = selectedIndexes.indexOf(adjusted) &gt; -1;
+      });
+    }
+  },
+
+  _willRender: function _willRender() {
+    this._setDefaults();
+  },
+
+  init: function init() {
+    this._super.apply(this, arguments);
+    this.on(&#039;change&#039;, this, this._change);
+  }
+});
+
+var DeprecatedSelect = Select.extend({
+  init: function init() {
+    this._super.apply(this, arguments);
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Ember.Select is deprecated. Consult the Deprecations Guide for a migration strategy.&#039;, !!_emberMetalCore2[&#039;default&#039;].ENV._ENABLE_LEGACY_VIEW_SUPPORT, { url: &#039;http://emberjs.com/deprecations/v1.x/#toc_ember-select&#039; });
+  }
+});
+
+function indexesOf(iterable, elements) {
+  return elements === undefined ? [] : elements.map(function (item) {
+    return iterable.indexOf(item);
+  });
+}
+
+exports[&#039;default&#039;] = Select;
+exports.Select = Select;
+exports.DeprecatedSelect = DeprecatedSelect;
+exports.SelectOption = SelectOption;
+exports.SelectOptgroup = SelectOptgroup;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

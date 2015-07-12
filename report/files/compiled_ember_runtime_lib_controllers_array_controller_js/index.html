@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\controllers\array_controller.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\controllers\array_controller.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">69.92</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">309</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">34.83</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.30</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberRuntimeSystemArray_proxy = require(&#039;ember-runtime/system/array_proxy&#039;);
+
+var _emberRuntimeSystemArray_proxy2 = _interopRequireDefault(_emberRuntimeSystemArray_proxy);
+
+var _emberRuntimeMixinsSortable = require(&#039;ember-runtime/mixins/sortable&#039;);
+
+var _emberRuntimeMixinsSortable2 = _interopRequireDefault(_emberRuntimeMixinsSortable);
+
+var _emberRuntimeMixinsController = require(&#039;ember-runtime/mixins/controller&#039;);
+
+var _emberRuntimeMixinsController2 = _interopRequireDefault(_emberRuntimeMixinsController);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberRuntimeMixinsArray = require(&#039;ember-runtime/mixins/array&#039;);
+
+var _emberRuntimeMixinsArray2 = _interopRequireDefault(_emberRuntimeMixinsArray);
+
+var _emberMetalReplace = require(&#039;ember-metal/replace&#039;);
+
+var _emberMetalReplace2 = _interopRequireDefault(_emberMetalReplace);
+
+var arrayControllerDeprecation = &#039;`Ember.ArrayController` is deprecated.&#039;;
+
+exports.arrayControllerDeprecation = arrayControllerDeprecation;
+/**
+  `Ember.ArrayController` provides a way for you to publish a collection of
+  objects so that you can easily bind to the collection from a Handlebars
+  `#each` helper, an `Ember.CollectionView`, or other controllers.
+
+  The advantage of using an `ArrayController` is that you only have to set up
+  your view bindings once; to change what&#039;s displayed, simply swap out the
+  `model` property on the controller.
+
+  For example, imagine you wanted to display a list of items fetched via an XHR
+  request. Create an `Ember.ArrayController` and set its `model` property:
+
+  ```javascript
+  MyApp.listController = Ember.ArrayController.create();
+
+  $.get(&#039;people.json&#039;, function(data) {
+    MyApp.listController.set(&#039;model&#039;, data);
+  });
+  ```
+
+  Then, create a view that binds to your new controller:
+
+  ```handlebars
+  {{#each MyApp.listController as |person|}}
+    {{person.firstName}} {{person.lastName}}
+  {{/each}}
+  ```
+
+  Although you are binding to the controller, the behavior of this controller
+  is to pass through any methods or properties to the underlying array. This
+  capability comes from `Ember.ArrayProxy`, which this class inherits from.
+
+  Sometimes you want to display computed properties within the body of an
+  `#each` helper that depend on the underlying items in `model`, but are not
+  present on those items.   To do this, set `itemController` to the name of a
+  controller (probably an `ObjectController`) that will wrap each individual item.
+
+  For example:
+
+  ```handlebars
+  {{#each controller as |post|}}
+    &lt;li&gt;{{post.title}} ({{post.titleLength}} characters)&lt;/li&gt;
+  {{/each}}
+  ```
+
+  ```javascript
+  App.PostsController = Ember.ArrayController.extend({
+    itemController: &#039;post&#039;
+  });
+
+  App.PostController = Ember.ObjectController.extend({
+    // the `title` property will be proxied to the underlying post.
+    titleLength: function() {
+      return this.get(&#039;title&#039;).length;
+    }.property(&#039;title&#039;)
+  });
+  ```
+
+  In some cases it is helpful to return a different `itemController` depending
+  on the particular item.  Subclasses can do this by overriding
+  `lookupItemController`.
+
+  For example:
+
+  ```javascript
+  App.MyArrayController = Ember.ArrayController.extend({
+    lookupItemController: function( object ) {
+      if (object.get(&#039;isSpecial&#039;)) {
+        return &quot;special&quot;; // use App.SpecialController
+      } else {
+        return &quot;regular&quot;; // use App.RegularController
+      }
+    }
+  });
+  ```
+
+  The itemController instances will have a `parentController` property set to
+  the `ArrayController` instance.
+
+  @class ArrayController
+  @namespace Ember
+  @extends Ember.ArrayProxy
+  @uses Ember.SortableMixin
+  @uses Ember.ControllerMixin
+  @deprecated
+  @public
+*/
+
+exports[&#039;default&#039;] = _emberRuntimeSystemArray_proxy2[&#039;default&#039;].extend(_emberRuntimeMixinsController2[&#039;default&#039;], _emberRuntimeMixinsSortable2[&#039;default&#039;], {
+
+  /**
+    A string containing the controller name used to wrap items.
+      For example:
+      ```javascript
+    App.MyArrayController = Ember.ArrayController.extend({
+      itemController: &#039;myItem&#039; // use App.MyItemController
+    });
+    ```
+      @property itemController
+    @type String
+    @default null
+    @private
+  */
+  itemController: null,
+
+  /**
+    Return the name of the controller to wrap items, or `null` if items should
+    be returned directly.  The default implementation simply returns the
+    `itemController` property, but subclasses can override this method to return
+    different controllers for different objects.
+      For example:
+      ```javascript
+    App.MyArrayController = Ember.ArrayController.extend({
+      lookupItemController: function( object ) {
+        if (object.get(&#039;isSpecial&#039;)) {
+          return &quot;special&quot;; // use App.SpecialController
+        } else {
+          return &quot;regular&quot;; // use App.RegularController
+        }
+      }
+    });
+    ```
+      @method lookupItemController
+    @param {Object} object
+    @return {String}
+    @private
+  */
+  lookupItemController: function lookupItemController(object) {
+    return (0, _emberMetalProperty_get.get)(this, &#039;itemController&#039;);
+  },
+
+  objectAtContent: function objectAtContent(idx) {
+    var length = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+    var object = arrangedContent &amp;&amp; arrangedContent.objectAt(idx);
+    var controllerClass;
+
+    if (idx &gt;= 0 &amp;&amp; idx &lt; length) {
+      controllerClass = this.lookupItemController(object);
+
+      if (controllerClass) {
+        return this.controllerAt(idx, object, controllerClass);
+      }
+    }
+
+    // When `controllerClass` is falsy, we have not opted in to using item
+    // controllers, so return the object directly.
+
+    // When the index is out of range, we want to return the &quot;out of range&quot;
+    // value, whatever that might be.  Rather than make assumptions
+    // (e.g. guessing `null` or `undefined`) we defer this to `arrangedContent`.
+    return object;
+  },
+
+  arrangedContentDidChange: function arrangedContentDidChange() {
+    this._super.apply(this, arguments);
+    this._resetSubControllers();
+  },
+
+  arrayContentDidChange: function arrayContentDidChange(idx, removedCnt, addedCnt) {
+    var subControllers = this._subControllers;
+
+    if (subControllers.length) {
+      var subControllersToRemove = subControllers.slice(idx, idx + removedCnt);
+
+      subControllersToRemove.forEach(function (subController) {
+        if (subController) {
+          subController.destroy();
+        }
+      });
+
+      (0, _emberMetalReplace2[&#039;default&#039;])(subControllers, idx, removedCnt, new Array(addedCnt));
+    }
+
+    // The shadow array of subcontrollers must be updated before we trigger
+    // observers, otherwise observers will get the wrong subcontainer when
+    // calling `objectAt`
+    this._super(idx, removedCnt, addedCnt);
+  },
+
+  init: function init() {
+    _emberMetalCore2[&#039;default&#039;].deprecate(arrayControllerDeprecation);
+    this._super.apply(this, arguments);
+    this._subControllers = [];
+  },
+
+  model: (0, _emberMetalComputed.computed)({
+    get: function get(key) {
+      return _emberMetalCore2[&#039;default&#039;].A();
+    },
+    set: function set(key, value) {
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;ArrayController expects `model` to implement the Ember.Array mixin. &#039; + &#039;This can often be fixed by wrapping your model with `Ember.A()`.&#039;, _emberRuntimeMixinsArray2[&#039;default&#039;].detect(value) || !value);
+
+      return value;
+    }
+  }),
+
+  /**
+    Flag to mark as being &quot;virtual&quot;. Used to keep this instance
+    from participating in the parentController hierarchy.
+      @private
+    @property _isVirtual
+    @type Boolean
+  */
+  _isVirtual: false,
+
+  controllerAt: function controllerAt(idx, object, controllerClass) {
+    var container = (0, _emberMetalProperty_get.get)(this, &#039;container&#039;);
+    var subControllers = this._subControllers;
+    var fullName, subController, parentController;
+
+    if (subControllers.length &gt; idx) {
+      subController = subControllers[idx];
+
+      if (subController) {
+        return subController;
+      }
+    }
+
+    if (this._isVirtual) {
+      parentController = (0, _emberMetalProperty_get.get)(this, &#039;parentController&#039;);
+    } else {
+      parentController = this;
+    }
+
+    fullName = &#039;controller:&#039; + controllerClass;
+
+    if (!container._registry.has(fullName)) {
+      throw new _emberMetalError2[&#039;default&#039;](&#039;Could not resolve itemController: &quot;&#039; + controllerClass + &#039;&quot;&#039;);
+    }
+
+    subController = container.lookupFactory(fullName).create({
+      target: parentController,
+      parentController: parentController,
+      model: object
+    });
+
+    subControllers[idx] = subController;
+
+    return subController;
+  },
+
+  _subControllers: null,
+
+  _resetSubControllers: function _resetSubControllers() {
+    var controller;
+    var subControllers = this._subControllers;
+
+    if (subControllers.length) {
+      for (var i = 0, length = subControllers.length; length &gt; i; i++) {
+        controller = subControllers[i];
+
+        if (controller) {
+          controller.destroy();
+        }
+      }
+
+      subControllers.length = 0;
+    }
+  },
+
+  willDestroy: function willDestroy() {
+    this._resetSubControllers();
+    this._super.apply(this, arguments);
+  }
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

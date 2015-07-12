@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\streams\utils.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\streams\utils.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">73.77</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">385</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">66.75</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.88</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.isStream = isStream;
+exports.subscribe = subscribe;
+exports.unsubscribe = unsubscribe;
+exports.read = read;
+exports.readArray = readArray;
+exports.readHash = readHash;
+exports.scanArray = scanArray;
+exports.scanHash = scanHash;
+exports.concat = concat;
+exports.labelsFor = labelsFor;
+exports.labelsForObject = labelsForObject;
+exports.labelFor = labelFor;
+exports.or = or;
+exports.addDependency = addDependency;
+exports.zip = zip;
+exports.zipHash = zipHash;
+exports.chain = chain;
+exports.setValue = setValue;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _stream = require(&#039;./stream&#039;);
+
+var _stream2 = _interopRequireDefault(_stream);
+
+/*
+ Check whether an object is a stream or not
+
+ @public
+ @for Ember.stream
+ @function isStream
+ @param {Object|Stream} object object to check whether it is a stream
+ @return {Boolean} `true` if the object is a stream, `false` otherwise
+*/
+
+function isStream(object) {
+  return object &amp;&amp; object.isStream;
+}
+
+/*
+ A method of subscribing to a stream which is safe for use with a non-stream
+ object. If a non-stream object is passed, the function does nothing.
+
+ @public
+ @for Ember.stream
+ @function subscribe
+ @param {Object|Stream} object object or stream to potentially subscribe to
+ @param {Function} callback function to run when stream value changes
+ @param {Object} [context] the callback will be executed with this context if it
+                           is provided
+ */
+
+function subscribe(object, callback, context) {
+  if (object &amp;&amp; object.isStream) {
+    return object.subscribe(callback, context);
+  }
+}
+
+/*
+ A method of unsubscribing from a stream which is safe for use with a non-stream
+ object. If a non-stream object is passed, the function does nothing.
+
+ @public
+ @for Ember.stream
+ @function unsubscribe
+ @param {Object|Stream} object object or stream to potentially unsubscribe from
+ @param {Function} callback function originally passed to `subscribe()`
+ @param {Object} [context] object originally passed to `subscribe()`
+ */
+
+function unsubscribe(object, callback, context) {
+  if (object &amp;&amp; object.isStream) {
+    object.unsubscribe(callback, context);
+  }
+}
+
+/*
+ Retrieve the value of a stream, or in the case a non-stream object is passed,
+ return the object itself.
+
+ @public
+ @for Ember.stream
+ @function read
+ @param {Object|Stream} object object to return the value of
+ @return the stream&#039;s current value, or the non-stream object itself
+ */
+
+function read(object) {
+  if (object &amp;&amp; object.isStream) {
+    return object.value();
+  } else {
+    return object;
+  }
+}
+
+/*
+ Map an array, replacing any streams with their values.
+
+ @public
+ @for Ember.stream
+ @function readArray
+ @param {Array} array The array to read values from
+ @return {Array} a new array of the same length with the values of non-stream
+                 objects mapped from their original positions untouched, and
+                 the values of stream objects retaining their original position
+                 and replaced with the stream&#039;s current value.
+ */
+
+function readArray(array) {
+  var length = array.length;
+  var ret = new Array(length);
+  for (var i = 0; i &lt; length; i++) {
+    ret[i] = read(array[i]);
+  }
+  return ret;
+}
+
+/*
+ Map a hash, replacing any stream property values with the current value of that
+ stream.
+
+ @public
+ @for Ember.stream
+ @function readHash
+ @param {Object} object The hash to read keys and values from
+ @return {Object} a new object with the same keys as the passed object. The
+                  property values in the new object are the original values in
+                  the case of non-stream objects, and the streams&#039; current
+                  values in the case of stream objects.
+ */
+
+function readHash(object) {
+  var ret = {};
+  for (var key in object) {
+    ret[key] = read(object[key]);
+  }
+  return ret;
+}
+
+/*
+ Check whether an array contains any stream values
+
+ @public
+ @for Ember.stream
+ @function scanArray
+ @param {Array} array array given to a handlebars helper
+ @return {Boolean} `true` if the array contains a stream/bound value, `false`
+                   otherwise
+*/
+
+function scanArray(array) {
+  var length = array.length;
+  var containsStream = false;
+
+  for (var i = 0; i &lt; length; i++) {
+    if (isStream(array[i])) {
+      containsStream = true;
+      break;
+    }
+  }
+
+  return containsStream;
+}
+
+/*
+ Check whether a hash has any stream property values
+
+ @public
+ @for Ember.stream
+ @function scanHash
+ @param {Object} hash &quot;hash&quot; argument given to a handlebars helper
+ @return {Boolean} `true` if the object contains a stream/bound value, `false`
+                   otherwise
+ */
+
+function scanHash(hash) {
+  var containsStream = false;
+
+  for (var prop in hash) {
+    if (isStream(hash[prop])) {
+      containsStream = true;
+      break;
+    }
+  }
+
+  return containsStream;
+}
+
+/*
+ Join an array, with any streams replaced by their current values
+
+ @public
+ @for Ember.stream
+ @function concat
+ @param {Array} array An array containing zero or more stream objects and
+                      zero or more non-stream objects
+ @param {String} separator string to be used to join array elements
+ @return {String} String with array elements concatenated and joined by the
+                  provided separator, and any stream array members having been
+                  replaced by the current value of the stream
+ */
+
+function concat(array, separator) {
+  // TODO: Create subclass ConcatStream &lt; Stream. Defer
+  // subscribing to streams until the value() is called.
+  var hasStream = scanArray(array);
+  if (hasStream) {
+    var i, l;
+    var stream = new _stream2[&#039;default&#039;](function () {
+      return concat(readArray(array), separator);
+    }, function () {
+      var labels = labelsFor(array);
+      return &#039;concat([&#039; + labels.join(&#039;, &#039;) + &#039;]; separator=&#039; + inspect(separator) + &#039;)&#039;;
+    });
+
+    for (i = 0, l = array.length; i &lt; l; i++) {
+      subscribe(array[i], stream.notify, stream);
+    }
+
+    // used by angle bracket components to detect an attribute was provided
+    // as a string literal
+    stream.isConcat = true;
+    return stream;
+  } else {
+    return array.join(separator);
+  }
+}
+
+function labelsFor(streams) {
+  var labels = [];
+
+  for (var i = 0, l = streams.length; i &lt; l; i++) {
+    var stream = streams[i];
+    labels.push(labelFor(stream));
+  }
+
+  return labels;
+}
+
+function labelsForObject(streams) {
+  var labels = [];
+
+  for (var prop in streams) {
+    labels.push(prop + &#039;: &#039; + inspect(streams[prop]));
+  }
+
+  return labels.length ? &#039;{ &#039; + labels.join(&#039;, &#039;) + &#039; }&#039; : &#039;{}&#039;;
+}
+
+function labelFor(maybeStream) {
+  if (isStream(maybeStream)) {
+    var stream = maybeStream;
+    return typeof stream.label === &#039;function&#039; ? stream.label() : stream.label;
+  } else {
+    return inspect(maybeStream);
+  }
+}
+
+function inspect(value) {
+  switch (typeof value) {
+    case &#039;string&#039;:
+      return &#039;&quot;&#039; + value + &#039;&quot;&#039;;
+    case &#039;object&#039;:
+      return &#039;{ ... }&#039;;
+    case &#039;function&#039;:
+      return &#039;function() { ... }&#039;;
+    default:
+      return String(value);
+  }
+}
+
+function or(first, second) {
+  var stream = new _stream2[&#039;default&#039;](function () {
+    return first.value() || second.value();
+  }, function () {
+    return labelFor(first) + &#039; || &#039; + labelFor(second);
+  });
+
+  stream.addDependency(first);
+  stream.addDependency(second);
+
+  return stream;
+}
+
+function addDependency(stream, dependency) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Cannot add a stream as a dependency to a non-stream&#039;, isStream(stream) || !isStream(dependency));
+  if (isStream(stream)) {
+    stream.addDependency(dependency);
+  }
+}
+
+function zip(streams, callback, label) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Must call zip with a label&#039;, !!label);
+
+  var stream = new _stream2[&#039;default&#039;](function () {
+    var array = readArray(streams);
+    return callback ? callback(array) : array;
+  }, function () {
+    return label + &#039;(&#039; + labelsFor(streams) + &#039;)&#039;;
+  });
+
+  for (var i = 0, l = streams.length; i &lt; l; i++) {
+    stream.addDependency(streams[i]);
+  }
+
+  return stream;
+}
+
+function zipHash(object, callback, label) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Must call zipHash with a label&#039;, !!label);
+
+  var stream = new _stream2[&#039;default&#039;](function () {
+    var hash = readHash(object);
+    return callback ? callback(hash) : hash;
+  }, function () {
+    return label + &#039;(&#039; + labelsForObject(object) + &#039;)&#039;;
+  });
+
+  for (var prop in object) {
+    stream.addDependency(object[prop]);
+  }
+
+  return stream;
+}
+
+/**
+ Generate a new stream by providing a source stream and a function that can
+ be used to transform the stream&#039;s value. In the case of a non-stream object,
+ returns the result of the function.
+
+ The value to transform would typically be available to the function you pass
+ to `chain()` via scope. For example:
+
+ ```javascript
+     var source = ...;  // stream returning a number
+                            // or a numeric (non-stream) object
+     var result = chain(source, function() {
+       var currentValue = read(source);
+       return currentValue + 1;
+     });
+ ```
+
+ In the example, result is a stream if source is a stream, or a number of
+ source was numeric.
+
+ @public
+ @for Ember.stream
+ @function chain
+ @param {Object|Stream} value A stream or non-stream object
+ @param {Function} fn function to be run when the stream value changes, or to
+                      be run once in the case of a non-stream object
+ @return {Object|Stream} In the case of a stream `value` parameter, a new
+                         stream that will be updated with the return value of
+                         the provided function `fn`. In the case of a
+                         non-stream object, the return value of the provided
+                         function `fn`.
+ */
+
+function chain(value, fn, label) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Must call chain with a label&#039;, !!label);
+  if (isStream(value)) {
+    var stream = new _stream2[&#039;default&#039;](fn, function () {
+      return label + &#039;(&#039; + labelFor(value) + &#039;)&#039;;
+    });
+    stream.addDependency(value);
+    return stream;
+  } else {
+    return fn();
+  }
+}
+
+function setValue(object, value) {
+  if (object &amp;&amp; object.isStream) {
+    object.setValue(value);
+  }
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

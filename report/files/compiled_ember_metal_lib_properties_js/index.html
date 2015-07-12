@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\properties.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\properties.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">62.51</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">179</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">34.10</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.76</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember-metal
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.Descriptor = Descriptor;
+exports.MANDATORY_SETTER_FUNCTION = MANDATORY_SETTER_FUNCTION;
+exports.DEFAULT_GETTER_FUNCTION = DEFAULT_GETTER_FUNCTION;
+exports.defineProperty = defineProperty;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalProperty_events = require(&#039;ember-metal/property_events&#039;);
+
+// ..........................................................
+// DESCRIPTOR
+//
+
+/**
+  Objects of this type can implement an interface to respond to requests to
+  get and set. The default implementation handles simple properties.
+
+  @class Descriptor
+  @private
+*/
+
+function Descriptor() {
+  this.isDescriptor = true;
+}
+
+// ..........................................................
+// DEFINING PROPERTIES API
+//
+
+function MANDATORY_SETTER_FUNCTION(name) {
+  return function SETTER_FUNCTION(value) {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;You must use Ember.set() to set the `&#039; + name + &#039;` property (of &#039; + this + &#039;) to `&#039; + value + &#039;`.&#039;, false);
+  };
+}
+
+function DEFAULT_GETTER_FUNCTION(name) {
+  return function GETTER_FUNCTION() {
+    var meta = this[&#039;__ember_meta__&#039;];
+    return meta &amp;&amp; meta.values[name];
+  };
+}
+
+/**
+  NOTE: This is a low-level method used by other parts of the API. You almost
+  never want to call this method directly. Instead you should use
+  `Ember.mixin()` to define new properties.
+
+  Defines a property on an object. This method works much like the ES5
+  `Object.defineProperty()` method except that it can also accept computed
+  properties and other special descriptors.
+
+  Normally this method takes only three parameters. However if you pass an
+  instance of `Descriptor` as the third param then you can pass an
+  optional value as the fourth parameter. This is often more efficient than
+  creating new descriptor hashes for each property.
+
+  ## Examples
+
+  ```javascript
+  // ES5 compatible mode
+  Ember.defineProperty(contact, &#039;firstName&#039;, {
+    writable: true,
+    configurable: false,
+    enumerable: true,
+    value: &#039;Charles&#039;
+  });
+
+  // define a simple property
+  Ember.defineProperty(contact, &#039;lastName&#039;, undefined, &#039;Jolley&#039;);
+
+  // define a computed property
+  Ember.defineProperty(contact, &#039;fullName&#039;, Ember.computed(function() {
+    return this.firstName+&#039; &#039;+this.lastName;
+  }).property(&#039;firstName&#039;, &#039;lastName&#039;));
+  ```
+
+  @private
+  @method defineProperty
+  @for Ember
+  @param {Object} obj the object to define this property on. This may be a prototype.
+  @param {String} keyName the name of the property
+  @param {Descriptor} [desc] an instance of `Descriptor` (typically a
+    computed property) or an ES5 descriptor.
+    You must provide this or `data` but not both.
+  @param {*} [data] something other than a descriptor, that will
+    become the explicit value of this property.
+*/
+
+function defineProperty(obj, keyName, desc, data, meta) {
+  var possibleDesc, existingDesc, watching, value;
+
+  if (!meta) {
+    meta = (0, _emberMetalUtils.meta)(obj);
+  }
+  var watchEntry = meta.watching[keyName];
+  possibleDesc = obj[keyName];
+  existingDesc = possibleDesc !== null &amp;&amp; typeof possibleDesc === &#039;object&#039; &amp;&amp; possibleDesc.isDescriptor ? possibleDesc : undefined;
+
+  watching = watchEntry !== undefined &amp;&amp; watchEntry &gt; 0;
+
+  if (existingDesc) {
+    existingDesc.teardown(obj, keyName);
+  }
+
+  if (desc instanceof Descriptor) {
+    value = desc;
+    if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;mandatory-setter&#039;)) {
+      if (watching) {
+        Object.defineProperty(obj, keyName, {
+          configurable: true,
+          enumerable: true,
+          writable: true,
+          value: value
+        });
+      } else {
+        obj[keyName] = value;
+      }
+    } else {
+      obj[keyName] = value;
+    }
+    if (desc.setup) {
+      desc.setup(obj, keyName);
+    }
+  } else {
+    if (desc == null) {
+      value = data;
+
+      if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;mandatory-setter&#039;)) {
+        if (watching) {
+          meta.values[keyName] = data;
+          Object.defineProperty(obj, keyName, {
+            configurable: true,
+            enumerable: true,
+            set: MANDATORY_SETTER_FUNCTION(keyName),
+            get: DEFAULT_GETTER_FUNCTION(keyName)
+          });
+        } else {
+          obj[keyName] = data;
+        }
+      } else {
+        obj[keyName] = data;
+      }
+    } else {
+      value = desc;
+
+      // fallback to ES5
+      Object.defineProperty(obj, keyName, desc);
+    }
+  }
+
+  // if key is being watched, override chains that
+  // were initialized with the prototype
+  if (watching) {
+    (0, _emberMetalProperty_events.overrideChains)(obj, keyName, meta);
+  }
+
+  // The `value` passed to the `didDefineProperty` hook is
+  // either the descriptor or data, whichever was passed.
+  if (obj.didDefineProperty) {
+    obj.didDefineProperty(obj, keyName, value);
+  }
+
+  return this;
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

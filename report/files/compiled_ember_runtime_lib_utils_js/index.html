@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\utils.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\utils.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">61.81</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">159</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">18.03</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.48</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.isArray = isArray;
+exports.typeOf = typeOf;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberRuntimeMixinsArray = require(&#039;ember-runtime/mixins/array&#039;);
+
+var _emberRuntimeMixinsArray2 = _interopRequireDefault(_emberRuntimeMixinsArray);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+// ........................................
+// TYPING &amp; ARRAY MESSAGING
+//
+var TYPE_MAP = {
+  &#039;[object Boolean]&#039;: &#039;boolean&#039;,
+  &#039;[object Number]&#039;: &#039;number&#039;,
+  &#039;[object String]&#039;: &#039;string&#039;,
+  &#039;[object Function]&#039;: &#039;function&#039;,
+  &#039;[object Array]&#039;: &#039;array&#039;,
+  &#039;[object Date]&#039;: &#039;date&#039;,
+  &#039;[object RegExp]&#039;: &#039;regexp&#039;,
+  &#039;[object Object]&#039;: &#039;object&#039;
+};
+
+var toString = Object.prototype.toString;
+
+/**
+  Returns true if the passed object is an array or Array-like.
+
+  Ember Array Protocol:
+
+    - the object has an objectAt property
+    - the object is a native Array
+    - the object is an Object, and has a length property
+
+  Unlike `Ember.typeOf` this method returns true even if the passed object is
+  not formally array but appears to be array-like (i.e. implements `Ember.Array`)
+
+  ```javascript
+  Ember.isArray();                                          // false
+  Ember.isArray([]);                                        // true
+  Ember.isArray(Ember.ArrayProxy.create({ content: [] }));  // true
+  ```
+
+  @method isArray
+  @for Ember
+  @param {Object} obj The object to test
+  @return {Boolean} true if the passed object is an array or Array-like
+  @public
+*/
+
+function isArray(obj) {
+  if (!obj || obj.setInterval) {
+    return false;
+  }
+  if (Array.isArray(obj)) {
+    return true;
+  }
+  if (_emberRuntimeMixinsArray2[&#039;default&#039;].detect(obj)) {
+    return true;
+  }
+
+  var type = typeOf(obj);
+  if (&#039;array&#039; === type) {
+    return true;
+  }
+  if (obj.length !== undefined &amp;&amp; &#039;object&#039; === type) {
+    return true;
+  }
+  return false;
+}
+
+/**
+  Returns a consistent type for the passed item.
+
+  Use this instead of the built-in `typeof` to get the type of an item.
+  It will return the same result across all browsers and includes a bit
+  more detail. Here is what will be returned:
+
+      | Return Value  | Meaning                                              |
+      |---------------|------------------------------------------------------|
+      | &#039;string&#039;      | String primitive or String object.                   |
+      | &#039;number&#039;      | Number primitive or Number object.                   |
+      | &#039;boolean&#039;     | Boolean primitive or Boolean object.                 |
+      | &#039;null&#039;        | Null value                                           |
+      | &#039;undefined&#039;   | Undefined value                                      |
+      | &#039;function&#039;    | A function                                           |
+      | &#039;array&#039;       | An instance of Array                                 |
+      | &#039;regexp&#039;      | An instance of RegExp                                |
+      | &#039;date&#039;        | An instance of Date                                  |
+      | &#039;class&#039;       | An Ember class (created using Ember.Object.extend()) |
+      | &#039;instance&#039;    | An Ember object instance                             |
+      | &#039;error&#039;       | An instance of the Error object                      |
+      | &#039;object&#039;      | A JavaScript object not inheriting from Ember.Object |
+
+  Examples:
+
+  ```javascript
+  Ember.typeOf();                       // &#039;undefined&#039;
+  Ember.typeOf(null);                   // &#039;null&#039;
+  Ember.typeOf(undefined);              // &#039;undefined&#039;
+  Ember.typeOf(&#039;michael&#039;);              // &#039;string&#039;
+  Ember.typeOf(new String(&#039;michael&#039;));  // &#039;string&#039;
+  Ember.typeOf(101);                    // &#039;number&#039;
+  Ember.typeOf(new Number(101));        // &#039;number&#039;
+  Ember.typeOf(true);                   // &#039;boolean&#039;
+  Ember.typeOf(new Boolean(true));      // &#039;boolean&#039;
+  Ember.typeOf(Ember.makeArray);        // &#039;function&#039;
+  Ember.typeOf([1, 2, 90]);             // &#039;array&#039;
+  Ember.typeOf(/abc/);                  // &#039;regexp&#039;
+  Ember.typeOf(new Date());             // &#039;date&#039;
+  Ember.typeOf(Ember.Object.extend());  // &#039;class&#039;
+  Ember.typeOf(Ember.Object.create());  // &#039;instance&#039;
+  Ember.typeOf(new Error(&#039;teamocil&#039;));  // &#039;error&#039;
+
+  // &#039;normal&#039; JavaScript object
+  Ember.typeOf({ a: &#039;b&#039; });             // &#039;object&#039;
+  ```
+
+  @method typeOf
+  @for Ember
+  @param {Object} item the item to check
+  @return {String} the type
+  @public
+*/
+
+function typeOf(item) {
+  if (item === null) {
+    return &#039;null&#039;;
+  }
+  if (item === undefined) {
+    return &#039;undefined&#039;;
+  }
+  var ret = TYPE_MAP[toString.call(item)] || &#039;object&#039;;
+
+  if (ret === &#039;function&#039;) {
+    if (_emberRuntimeSystemObject2[&#039;default&#039;].detect(item)) {
+      ret = &#039;class&#039;;
+    }
+  } else if (ret === &#039;object&#039;) {
+    if (item instanceof Error) {
+      ret = &#039;error&#039;;
+    } else if (item instanceof _emberRuntimeSystemObject2[&#039;default&#039;]) {
+      ret = &#039;instance&#039;;
+    } else if (item instanceof Date) {
+      ret = &#039;date&#039;;
+    }
+  }
+
+  return ret;
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

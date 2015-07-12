@@ -1,0 +1,126 @@
+/**
+@module ember
+@submodule ember-htmlbars
+*/
+
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _emberViewsStreamsUtils = require('ember-views/streams/utils');
+
+var _emberViewsViewsView = require('ember-views/views/view');
+
+var _emberViewsViewsView2 = _interopRequireDefault(_emberViewsViewsView);
+
+var _emberHtmlbarsNodeManagersViewNodeManager = require('ember-htmlbars/node-managers/view-node-manager');
+
+var _emberHtmlbarsNodeManagersViewNodeManager2 = _interopRequireDefault(_emberHtmlbarsNodeManagersViewNodeManager);
+
+exports['default'] = {
+  setupState: function setupState(state, env, scope, params, hash) {
+    var read = env.hooks.getValue;
+    var targetObject = read(scope.self);
+    var viewClassOrInstance = state.viewClassOrInstance;
+    if (!viewClassOrInstance) {
+      viewClassOrInstance = getView(read(params[0]), env.container);
+    }
+
+    // if parentView exists, use its controller (the default
+    // behavior), otherwise use `scope.self` as the controller
+    var controller = scope.view ? null : read(scope.self);
+
+    return {
+      manager: state.manager,
+      parentView: scope.view,
+      controller: controller,
+      targetObject: targetObject,
+      viewClassOrInstance: viewClassOrInstance
+    };
+  },
+
+  rerender: function rerender(morph, env, scope, params, hash, template, inverse, visitor) {
+    // If the hash is empty, the component cannot have extracted a part
+    // of a mutable param and used it in its layout, because there are
+    // no params at all.
+    if (Object.keys(hash).length) {
+      return morph.state.manager.rerender(env, hash, visitor, true);
+    }
+  },
+
+  render: function render(node, env, scope, params, hash, template, inverse, visitor) {
+    if (hash.tag) {
+      hash = swapKey(hash, 'tag', 'tagName');
+    }
+
+    if (hash.classNameBindings) {
+      hash.classNameBindings = hash.classNameBindings.split(' ');
+    }
+
+    var state = node.state;
+    var parentView = state.parentView;
+
+    var options = {
+      component: node.state.viewClassOrInstance,
+      layout: null
+    };
+
+    options.createOptions = {};
+    if (node.state.controller) {
+      // Use `_controller` to avoid stomping on a CP
+      // that exists in the target view/component
+      options.createOptions._controller = node.state.controller;
+    }
+
+    if (node.state.targetObject) {
+      // Use `_targetObject` to avoid stomping on a CP
+      // that exists in the target view/component
+      options.createOptions._targetObject = node.state.targetObject;
+    }
+
+    if (state.manager) {
+      state.manager.destroy();
+      state.manager = null;
+    }
+
+    var nodeManager = _emberHtmlbarsNodeManagersViewNodeManager2['default'].create(node, env, hash, options, parentView, null, scope, template);
+    state.manager = nodeManager;
+
+    nodeManager.render(env, hash, visitor);
+  }
+};
+
+function getView(viewPath, container) {
+  var viewClassOrInstance;
+
+  if (!viewPath) {
+    if (container) {
+      viewClassOrInstance = container.lookupFactory('view:toplevel');
+    } else {
+      viewClassOrInstance = _emberViewsViewsView2['default'];
+    }
+  } else {
+    viewClassOrInstance = (0, _emberViewsStreamsUtils.readViewFactory)(viewPath, container);
+  }
+
+  return viewClassOrInstance;
+}
+
+function swapKey(hash, original, update) {
+  var newHash = {};
+
+  for (var prop in hash) {
+    if (prop === original) {
+      newHash[update] = hash[prop];
+    } else {
+      newHash[prop] = hash[prop];
+    }
+  }
+
+  return newHash;
+}
+module.exports = exports['default'];

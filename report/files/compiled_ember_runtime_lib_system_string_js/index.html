@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\system\string.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\system\string.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">83.32</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">319</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">33.51</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.33</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.STRINGS
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberRuntimeUtils = require(&#039;ember-runtime/utils&#039;);
+
+var _emberMetalCache = require(&#039;ember-metal/cache&#039;);
+
+var _emberMetalCache2 = _interopRequireDefault(_emberMetalCache);
+
+var STRING_DASHERIZE_REGEXP = /[ _]/g;
+
+var STRING_DASHERIZE_CACHE = new _emberMetalCache2[&#039;default&#039;](1000, function (key) {
+  return decamelize(key).replace(STRING_DASHERIZE_REGEXP, &#039;-&#039;);
+});
+
+var STRING_CAMELIZE_REGEXP_1 = /(\-|\_|\.|\s)+(.)?/g;
+var STRING_CAMELIZE_REGEXP_2 = /(^|\/)([A-Z])/g;
+
+var CAMELIZE_CACHE = new _emberMetalCache2[&#039;default&#039;](1000, function (key) {
+  return key.replace(STRING_CAMELIZE_REGEXP_1, function (match, separator, chr) {
+    return chr ? chr.toUpperCase() : &#039;&#039;;
+  }).replace(STRING_CAMELIZE_REGEXP_2, function (match, separator, chr) {
+    return match.toLowerCase();
+  });
+});
+
+var STRING_CLASSIFY_REGEXP_1 = /(\-|\_|\.|\s)+(.)?/g;
+var STRING_CLASSIFY_REGEXP_2 = /(^|\/|\.)([a-z])/g;
+
+var CLASSIFY_CACHE = new _emberMetalCache2[&#039;default&#039;](1000, function (str) {
+  return str.replace(STRING_CLASSIFY_REGEXP_1, function (match, separator, chr) {
+    return chr ? chr.toUpperCase() : &#039;&#039;;
+  }).replace(STRING_CLASSIFY_REGEXP_2, function (match, separator, chr) {
+    return match.toUpperCase();
+  });
+});
+
+var STRING_UNDERSCORE_REGEXP_1 = /([a-z\d])([A-Z]+)/g;
+var STRING_UNDERSCORE_REGEXP_2 = /\-|\s+/g;
+
+var UNDERSCORE_CACHE = new _emberMetalCache2[&#039;default&#039;](1000, function (str) {
+  return str.replace(STRING_UNDERSCORE_REGEXP_1, &#039;$1_$2&#039;).replace(STRING_UNDERSCORE_REGEXP_2, &#039;_&#039;).toLowerCase();
+});
+
+var STRING_CAPITALIZE_REGEXP = /(^|\/)([a-z])/g;
+
+var CAPITALIZE_CACHE = new _emberMetalCache2[&#039;default&#039;](1000, function (str) {
+  return str.replace(STRING_CAPITALIZE_REGEXP, function (match, separator, chr) {
+    return match.toUpperCase();
+  });
+});
+
+var STRING_DECAMELIZE_REGEXP = /([a-z\d])([A-Z])/g;
+
+var DECAMELIZE_CACHE = new _emberMetalCache2[&#039;default&#039;](1000, function (str) {
+  return str.replace(STRING_DECAMELIZE_REGEXP, &#039;$1_$2&#039;).toLowerCase();
+});
+
+function fmt(str, formats) {
+  var cachedFormats = formats;
+
+  if (!(0, _emberRuntimeUtils.isArray)(cachedFormats) || arguments.length &gt; 2) {
+    cachedFormats = new Array(arguments.length - 1);
+
+    for (var i = 1, l = arguments.length; i &lt; l; i++) {
+      cachedFormats[i - 1] = arguments[i];
+    }
+  }
+
+  // first, replace any ORDERED replacements.
+  var idx = 0; // the current index for non-numerical replacements
+  return str.replace(/%@([0-9]+)?/g, function (s, argIndex) {
+    argIndex = argIndex ? parseInt(argIndex, 10) - 1 : idx++;
+    s = cachedFormats[argIndex];
+    return s === null ? &#039;(null)&#039; : s === undefined ? &#039;&#039; : (0, _emberMetalUtils.inspect)(s);
+  });
+}
+
+function loc(str, formats) {
+  if (!(0, _emberRuntimeUtils.isArray)(formats) || arguments.length &gt; 2) {
+    formats = Array.prototype.slice.call(arguments, 1);
+  }
+
+  str = _emberMetalCore2[&#039;default&#039;].STRINGS[str] || str;
+  return fmt(str, formats);
+}
+
+function w(str) {
+  return str.split(/\s+/);
+}
+
+function decamelize(str) {
+  return DECAMELIZE_CACHE.get(str);
+}
+
+function dasherize(str) {
+  return STRING_DASHERIZE_CACHE.get(str);
+}
+
+function camelize(str) {
+  return CAMELIZE_CACHE.get(str);
+}
+
+function classify(str) {
+  return CLASSIFY_CACHE.get(str);
+}
+
+function underscore(str) {
+  return UNDERSCORE_CACHE.get(str);
+}
+
+function capitalize(str) {
+  return CAPITALIZE_CACHE.get(str);
+}
+
+/**
+  Defines the hash of localized strings for the current language. Used by
+  the `Ember.String.loc()` helper. To localize, add string values to this
+  hash.
+
+  @property STRINGS
+  @for Ember
+  @type Object
+  @private
+*/
+_emberMetalCore2[&#039;default&#039;].STRINGS = {};
+
+/**
+  Defines string helper methods including string formatting and localization.
+  Unless `Ember.EXTEND_PROTOTYPES.String` is `false` these methods will also be
+  added to the `String.prototype` as well.
+
+  @class String
+  @namespace Ember
+  @static
+  @public
+*/
+exports[&#039;default&#039;] = {
+  /**
+    Apply formatting options to the string. This will look for occurrences
+    of &quot;%@&quot; in your string and substitute them with the arguments you pass into
+    this method. If you want to control the specific order of replacement,
+    you can add a number after the key as well to indicate which argument
+    you want to insert.
+      Ordered insertions are most useful when building loc strings where values
+    you need to insert may appear in different orders.
+      ```javascript
+    &quot;Hello %@ %@&quot;.fmt(&#039;John&#039;, &#039;Doe&#039;);     // &quot;Hello John Doe&quot;
+    &quot;Hello %@2, %@1&quot;.fmt(&#039;John&#039;, &#039;Doe&#039;);  // &quot;Hello Doe, John&quot;
+    ```
+      @method fmt
+    @param {String} str The string to format
+    @param {Array} formats An array of parameters to interpolate into string.
+    @return {String} formatted string
+    @public
+  */
+  fmt: fmt,
+
+  /**
+    Formats the passed string, but first looks up the string in the localized
+    strings hash. This is a convenient way to localize text. See
+    `Ember.String.fmt()` for more information on formatting.
+      Note that it is traditional but not required to prefix localized string
+    keys with an underscore or other character so you can easily identify
+    localized strings.
+      ```javascript
+    Ember.STRINGS = {
+      &#039;_Hello World&#039;: &#039;Bonjour le monde&#039;,
+      &#039;_Hello %@ %@&#039;: &#039;Bonjour %@ %@&#039;
+    };
+      Ember.String.loc(&quot;_Hello World&quot;);  // &#039;Bonjour le monde&#039;;
+    Ember.String.loc(&quot;_Hello %@ %@&quot;, [&quot;John&quot;, &quot;Smith&quot;]);  // &quot;Bonjour John Smith&quot;;
+    ```
+      @method loc
+    @param {String} str The string to format
+    @param {Array} formats Optional array of parameters to interpolate into string.
+    @return {String} formatted string
+    @public
+  */
+  loc: loc,
+
+  /**
+    Splits a string into separate units separated by spaces, eliminating any
+    empty strings in the process. This is a convenience method for split that
+    is mostly useful when applied to the `String.prototype`.
+      ```javascript
+    Ember.String.w(&quot;alpha beta gamma&quot;).forEach(function(key) {
+      console.log(key);
+    });
+      // &gt; alpha
+    // &gt; beta
+    // &gt; gamma
+    ```
+      @method w
+    @param {String} str The string to split
+    @return {Array} array containing the split strings
+    @public
+  */
+  w: w,
+
+  /**
+    Converts a camelized string into all lower case separated by underscores.
+      ```javascript
+    &#039;innerHTML&#039;.decamelize();           // &#039;inner_html&#039;
+    &#039;action_name&#039;.decamelize();        // &#039;action_name&#039;
+    &#039;css-class-name&#039;.decamelize();     // &#039;css-class-name&#039;
+    &#039;my favorite items&#039;.decamelize();  // &#039;my favorite items&#039;
+    ```
+      @method decamelize
+    @param {String} str The string to decamelize.
+    @return {String} the decamelized string.
+    @public
+  */
+  decamelize: decamelize,
+
+  /**
+    Replaces underscores, spaces, or camelCase with dashes.
+      ```javascript
+    &#039;innerHTML&#039;.dasherize();          // &#039;inner-html&#039;
+    &#039;action_name&#039;.dasherize();        // &#039;action-name&#039;
+    &#039;css-class-name&#039;.dasherize();     // &#039;css-class-name&#039;
+    &#039;my favorite items&#039;.dasherize();  // &#039;my-favorite-items&#039;
+    &#039;privateDocs/ownerInvoice&#039;.dasherize(); // &#039;private-docs/owner-invoice&#039;
+    ```
+      @method dasherize
+    @param {String} str The string to dasherize.
+    @return {String} the dasherized string.
+    @public
+  */
+  dasherize: dasherize,
+
+  /**
+    Returns the lowerCamelCase form of a string.
+      ```javascript
+    &#039;innerHTML&#039;.camelize();          // &#039;innerHTML&#039;
+    &#039;action_name&#039;.camelize();        // &#039;actionName&#039;
+    &#039;css-class-name&#039;.camelize();     // &#039;cssClassName&#039;
+    &#039;my favorite items&#039;.camelize();  // &#039;myFavoriteItems&#039;
+    &#039;My Favorite Items&#039;.camelize();  // &#039;myFavoriteItems&#039;
+    &#039;private-docs/owner-invoice&#039;.camelize(); // &#039;privateDocs/ownerInvoice&#039;
+    ```
+      @method camelize
+    @param {String} str The string to camelize.
+    @return {String} the camelized string.
+    @public
+  */
+  camelize: camelize,
+
+  /**
+    Returns the UpperCamelCase form of a string.
+      ```javascript
+    &#039;innerHTML&#039;.classify();          // &#039;InnerHTML&#039;
+    &#039;action_name&#039;.classify();        // &#039;ActionName&#039;
+    &#039;css-class-name&#039;.classify();     // &#039;CssClassName&#039;
+    &#039;my favorite items&#039;.classify();  // &#039;MyFavoriteItems&#039;
+    &#039;private-docs/owner-invoice&#039;.classify(); // &#039;PrivateDocs/OwnerInvoice&#039;
+    ```
+      @method classify
+    @param {String} str the string to classify
+    @return {String} the classified string
+    @public
+  */
+  classify: classify,
+
+  /**
+    More general than decamelize. Returns the lower\_case\_and\_underscored
+    form of a string.
+      ```javascript
+    &#039;innerHTML&#039;.underscore();          // &#039;inner_html&#039;
+    &#039;action_name&#039;.underscore();        // &#039;action_name&#039;
+    &#039;css-class-name&#039;.underscore();     // &#039;css_class_name&#039;
+    &#039;my favorite items&#039;.underscore();  // &#039;my_favorite_items&#039;
+    &#039;privateDocs/ownerInvoice&#039;.underscore(); // &#039;private_docs/owner_invoice&#039;
+    ```
+      @method underscore
+    @param {String} str The string to underscore.
+    @return {String} the underscored string.
+    @public
+  */
+  underscore: underscore,
+
+  /**
+    Returns the Capitalized form of a string
+      ```javascript
+    &#039;innerHTML&#039;.capitalize()         // &#039;InnerHTML&#039;
+    &#039;action_name&#039;.capitalize()       // &#039;Action_name&#039;
+    &#039;css-class-name&#039;.capitalize()    // &#039;Css-class-name&#039;
+    &#039;my favorite items&#039;.capitalize() // &#039;My favorite items&#039;
+    &#039;privateDocs/ownerInvoice&#039;.capitalize(); // &#039;PrivateDocs/OwnerInvoice&#039;
+    ```
+      @method capitalize
+    @param {String} str The string to capitalize.
+    @return {String} The capitalized string.
+    @public
+  */
+  capitalize: capitalize
+};
+exports.fmt = fmt;
+exports.loc = loc;
+exports.w = w;
+exports.decamelize = decamelize;
+exports.dasherize = dasherize;
+exports.camelize = camelize;
+exports.classify = classify;
+exports.underscore = underscore;
+exports.capitalize = capitalize;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

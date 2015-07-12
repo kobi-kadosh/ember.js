@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-extension-support\lib\container_debug_adapter.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-extension-support\lib\container_debug_adapter.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.47</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">134</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">19.16</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.47</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberRuntimeSystemNative_array = require(&#039;ember-runtime/system/native_array&#039;);
+
+var _emberRuntimeUtils = require(&#039;ember-runtime/utils&#039;);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+var _emberRuntimeSystemNamespace = require(&#039;ember-runtime/system/namespace&#039;);
+
+var _emberRuntimeSystemNamespace2 = _interopRequireDefault(_emberRuntimeSystemNamespace);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+/**
+@module ember
+@submodule ember-extension-support
+*/
+
+/**
+  The `ContainerDebugAdapter` helps the container and resolver interface
+  with tools that debug Ember such as the
+  [Ember Extension](https://github.com/tildeio/ember-extension)
+  for Chrome and Firefox.
+
+  This class can be extended by a custom resolver implementer
+  to override some of the methods with library-specific code.
+
+  The methods likely to be overridden are:
+
+  * `canCatalogEntriesByType`
+  * `catalogEntriesByType`
+
+  The adapter will need to be registered
+  in the application&#039;s container as `container-debug-adapter:main`
+
+  Example:
+
+  ```javascript
+  Application.initializer({
+    name: &quot;containerDebugAdapter&quot;,
+
+    initialize: function(container, application) {
+      application.register(&#039;container-debug-adapter:main&#039;, require(&#039;app/container-debug-adapter&#039;));
+    }
+  });
+  ```
+
+  @class ContainerDebugAdapter
+  @namespace Ember
+  @extends Ember.Object
+  @since 1.5.0
+  @public
+*/
+exports[&#039;default&#039;] = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+  /**
+    The container of the application being debugged.
+    This property will be injected
+    on creation.
+      @property container
+    @default null
+    @public
+  */
+  container: null,
+
+  /**
+    The resolver instance of the application
+    being debugged. This property will be injected
+    on creation.
+      @property resolver
+    @default null
+    @public
+  */
+  resolver: null,
+
+  /**
+    Returns true if it is possible to catalog a list of available
+    classes in the resolver for a given type.
+      @method canCatalogEntriesByType
+    @param {String} type The type. e.g. &quot;model&quot;, &quot;controller&quot;, &quot;route&quot;
+    @return {boolean} whether a list is available for this type.
+    @public
+  */
+  canCatalogEntriesByType: function canCatalogEntriesByType(type) {
+    if (type === &#039;model&#039; || type === &#039;template&#039;) {
+      return false;
+    }
+
+    return true;
+  },
+
+  /**
+    Returns the available classes a given type.
+      @method catalogEntriesByType
+    @param {String} type The type. e.g. &quot;model&quot;, &quot;controller&quot;, &quot;route&quot;
+    @return {Array} An array of strings.
+    @public
+  */
+  catalogEntriesByType: function catalogEntriesByType(type) {
+    var namespaces = (0, _emberRuntimeSystemNative_array.A)(_emberRuntimeSystemNamespace2[&#039;default&#039;].NAMESPACES);
+    var types = (0, _emberRuntimeSystemNative_array.A)();
+    var typeSuffixRegex = new RegExp((0, _emberRuntimeSystemString.classify)(type) + &#039;$&#039;);
+
+    namespaces.forEach(function (namespace) {
+      if (namespace !== _emberMetalCore2[&#039;default&#039;]) {
+        for (var key in namespace) {
+          if (!namespace.hasOwnProperty(key)) {
+            continue;
+          }
+          if (typeSuffixRegex.test(key)) {
+            var klass = namespace[key];
+            if ((0, _emberRuntimeUtils.typeOf)(klass) === &#039;class&#039;) {
+              types.push((0, _emberRuntimeSystemString.dasherize)(key.replace(typeSuffixRegex, &#039;&#039;)));
+            }
+          }
+        }
+      }
+    });
+    return types;
+  }
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

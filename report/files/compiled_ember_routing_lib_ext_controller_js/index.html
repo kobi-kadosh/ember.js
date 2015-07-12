@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-routing\lib\ext\controller.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-routing\lib\ext\controller.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">79.04</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">197</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">16.57</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.46</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+    value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// FEATURES, deprecate
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberRuntimeMixinsController = require(&#039;ember-runtime/mixins/controller&#039;);
+
+var _emberRuntimeMixinsController2 = _interopRequireDefault(_emberRuntimeMixinsController);
+
+/**
+@module ember
+@submodule ember-routing
+*/
+
+_emberRuntimeMixinsController2[&#039;default&#039;].reopen({
+    concatenatedProperties: [&#039;queryParams&#039;],
+
+    /**
+      Defines which query parameters the controller accepts.
+      If you give the names [&#039;category&#039;,&#039;page&#039;] it will bind
+      the values of these query parameters to the variables
+      `this.category` and `this.page`
+        @property queryParams
+      @public
+    */
+    queryParams: null,
+
+    /**
+      @property _qpDelegate
+      @private
+    */
+    _qpDelegate: null, // set by route
+
+    /**
+      @method _qpChanged
+      @private
+    */
+    _qpChanged: function _qpChanged(controller, _prop) {
+        var prop = _prop.substr(0, _prop.length - 3);
+
+        var delegate = controller._qpDelegate;
+        var value = (0, _emberMetalProperty_get.get)(controller, prop);
+        delegate(prop, value);
+    },
+
+    /**
+      Transition the application into another route. The route may
+      be either a single route or route path:
+        ```javascript
+      aController.transitionToRoute(&#039;blogPosts&#039;);
+      aController.transitionToRoute(&#039;blogPosts.recentEntries&#039;);
+      ```
+        Optionally supply a model for the route in question. The model
+      will be serialized into the URL using the `serialize` hook of
+      the route:
+        ```javascript
+      aController.transitionToRoute(&#039;blogPost&#039;, aPost);
+      ```
+        If a literal is passed (such as a number or a string), it will
+      be treated as an identifier instead. In this case, the `model`
+      hook of the route will be triggered:
+        ```javascript
+      aController.transitionToRoute(&#039;blogPost&#039;, 1);
+      ```
+        Multiple models will be applied last to first recursively up the
+      route tree.
+        ```javascript
+      App.Router.map(function() {
+        this.route(&#039;blogPost&#039;, { path: &#039;:blogPostId&#039; }, function() {
+          this.route(&#039;blogComment&#039;, { path: &#039;:blogCommentId&#039;, resetNamespace: true });
+        });
+      });
+        aController.transitionToRoute(&#039;blogComment&#039;, aPost, aComment);
+      aController.transitionToRoute(&#039;blogComment&#039;, 1, 13);
+      ```
+        It is also possible to pass a URL (a string that starts with a
+      `/`). This is intended for testing and debugging purposes and
+      should rarely be used in production code.
+        ```javascript
+      aController.transitionToRoute(&#039;/&#039;);
+      aController.transitionToRoute(&#039;/blog/post/1/comment/13&#039;);
+      aController.transitionToRoute(&#039;/blog/posts?sort=title&#039;);
+      ```
+        An options hash with a `queryParams` property may be provided as
+      the final argument to add query parameters to the destination URL.
+        ```javascript
+      aController.transitionToRoute(&#039;blogPost&#039;, 1, {
+        queryParams: {showComments: &#039;true&#039;}
+      });
+        // if you just want to transition the query parameters without changing the route
+      aController.transitionToRoute({queryParams: {sort: &#039;date&#039;}});
+      ```
+        See also [replaceRoute](/api/classes/Ember.ControllerMixin.html#method_replaceRoute).
+        @param {String} name the name of the route or a URL
+      @param {...Object} models the model(s) or identifier(s) to be used
+        while transitioning to the route.
+      @param {Object} [options] optional hash with a queryParams property
+        containing a mapping of query parameters
+      @for Ember.ControllerMixin
+      @method transitionToRoute
+      @public
+    */
+    transitionToRoute: function transitionToRoute() {
+        // target may be either another controller or a router
+        var target = (0, _emberMetalProperty_get.get)(this, &#039;target&#039;);
+        var method = target.transitionToRoute || target.transitionTo;
+        return method.apply(target, arguments);
+    },
+
+    /**
+      @deprecated
+      @for Ember.ControllerMixin
+      @method transitionTo
+      @private
+    */
+    transitionTo: function transitionTo() {
+        _emberMetalCore2[&#039;default&#039;].deprecate(&#039;transitionTo is deprecated. Please use transitionToRoute.&#039;);
+        return this.transitionToRoute.apply(this, arguments);
+    },
+
+    /**
+      Transition into another route while replacing the current URL, if possible.
+      This will replace the current history entry instead of adding a new one.
+      Beside that, it is identical to `transitionToRoute` in all other respects.
+        ```javascript
+      aController.replaceRoute(&#039;blogPosts&#039;);
+      aController.replaceRoute(&#039;blogPosts.recentEntries&#039;);
+      ```
+        Optionally supply a model for the route in question. The model
+      will be serialized into the URL using the `serialize` hook of
+      the route:
+        ```javascript
+      aController.replaceRoute(&#039;blogPost&#039;, aPost);
+      ```
+        If a literal is passed (such as a number or a string), it will
+      be treated as an identifier instead. In this case, the `model`
+      hook of the route will be triggered:
+        ```javascript
+      aController.replaceRoute(&#039;blogPost&#039;, 1);
+      ```
+        Multiple models will be applied last to first recursively up the
+      route tree.
+        ```javascript
+      App.Router.map(function() {
+        this.route(&#039;blogPost&#039;, { path: &#039;:blogPostId&#039; }, function() {
+          this.route(&#039;blogComment&#039;, { path: &#039;:blogCommentId&#039;, resetNamespace: true });
+        });
+      });
+        aController.replaceRoute(&#039;blogComment&#039;, aPost, aComment);
+      aController.replaceRoute(&#039;blogComment&#039;, 1, 13);
+      ```
+        It is also possible to pass a URL (a string that starts with a
+      `/`). This is intended for testing and debugging purposes and
+      should rarely be used in production code.
+        ```javascript
+      aController.replaceRoute(&#039;/&#039;);
+      aController.replaceRoute(&#039;/blog/post/1/comment/13&#039;);
+      ```
+        @param {String} name the name of the route or a URL
+      @param {...Object} models the model(s) or identifier(s) to be used
+      while transitioning to the route.
+      @for Ember.ControllerMixin
+      @method replaceRoute
+      @private
+    */
+    replaceRoute: function replaceRoute() {
+        // target may be either another controller or a router
+        var target = (0, _emberMetalProperty_get.get)(this, &#039;target&#039;);
+        var method = target.replaceRoute || target.replaceWith;
+        return method.apply(target, arguments);
+    },
+
+    /**
+      @deprecated
+      @for Ember.ControllerMixin
+      @method replaceWith
+      @private
+    */
+    replaceWith: function replaceWith() {
+        _emberMetalCore2[&#039;default&#039;].deprecate(&#039;replaceWith is deprecated. Please use replaceRoute.&#039;);
+        return this.replaceRoute.apply(this, arguments);
+    }
+});
+
+exports[&#039;default&#039;] = _emberRuntimeMixinsController2[&#039;default&#039;];
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

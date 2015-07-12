@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\utils.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\utils.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">59.52</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">735</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">81.80</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.75</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">// Remove &quot;use strict&quot;; from transpiled module until
+// https://bugs.webkit.org/show_bug.cgi?id=138038 is fixed
+//
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.uuid = uuid;
+exports.symbol = symbol;
+exports.generateGuid = generateGuid;
+exports.guidFor = guidFor;
+exports.getMeta = getMeta;
+exports.setMeta = setMeta;
+exports.metaPath = metaPath;
+exports.wrap = wrap;
+exports.tryInvoke = tryInvoke;
+exports.makeArray = makeArray;
+exports.inspect = inspect;
+exports.apply = apply;
+exports.applyStr = applyStr;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+&#039;REMOVE_USE_STRICT: true&#039;;
+
+/**
+@module ember-metal
+*/
+
+/**
+  Previously we used `Ember.$.uuid`, however `$.uuid` has been removed from
+  jQuery master. We&#039;ll just bootstrap our own uuid now.
+
+  @private
+  @return {Number} the uuid
+*/
+var _uuid = 0;
+
+/**
+  Generates a universally unique identifier. This method
+  is used internally by Ember for assisting with
+  the generation of GUID&#039;s and other unique identifiers
+  such as `bind-attr` data attributes.
+
+  @public
+  @return {Number} [description]
+ */
+
+function uuid() {
+  return ++_uuid;
+}
+
+/**
+  Prefix used for guids through out Ember.
+  @private
+  @property GUID_PREFIX
+  @for Ember
+  @type String
+  @final
+*/
+var GUID_PREFIX = &#039;ember&#039;;
+
+// Used for guid generation...
+var numberCache = [];
+var stringCache = {};
+
+/**
+  Strongly hint runtimes to intern the provided string.
+
+  When do I need to use this function?
+
+  For the most part, never. Pre-mature optimization is bad, and often the
+  runtime does exactly what you need it to, and more often the trade-off isn&#039;t
+  worth it.
+
+  Why?
+
+  Runtimes store strings in at least 2 different representations:
+  Ropes and Symbols (interned strings). The Rope provides a memory efficient
+  data-structure for strings created from concatenation or some other string
+  manipulation like splitting.
+
+  Unfortunately checking equality of different ropes can be quite costly as
+  runtimes must resort to clever string comparison algorithms. These
+  algorithms typically cost in proportion to the length of the string.
+  Luckily, this is where the Symbols (interned strings) shine. As Symbols are
+  unique by their string content, equality checks can be done by pointer
+  comparison.
+
+  How do I know if my string is a rope or symbol?
+
+  Typically (warning general sweeping statement, but truthy in runtimes at
+  present) static strings created as part of the JS source are interned.
+  Strings often used for comparisons can be interned at runtime if some
+  criteria are met.  One of these criteria can be the size of the entire rope.
+  For example, in chrome 38 a rope longer then 12 characters will not
+  intern, nor will segments of that rope.
+
+  Some numbers: http://jsperf.com/eval-vs-keys/8
+
+  Known Trick™
+
+  @private
+  @return {String} interned version of the provided string
+*/
+function intern(str) {
+  var obj = {};
+  obj[str] = 1;
+  for (var key in obj) {
+    if (key === str) {
+      return key;
+    }
+  }
+  return str;
+}
+
+function symbol(debugName) {
+  // TODO: Investigate using platform symbols, but we do not
+  // want to require non-enumerability for this API, which
+  // would introduce a large cost.
+
+  return intern(debugName + &#039; [id=&#039; + GUID_KEY + Math.floor(Math.random() * new Date()) + &#039;]&#039;);
+}
+
+/**
+  A unique key used to assign guids and other private metadata to objects.
+  If you inspect an object in your browser debugger you will often see these.
+  They can be safely ignored.
+
+  On browsers that support it, these properties are added with enumeration
+  disabled so they won&#039;t show up when you iterate over your properties.
+
+  @private
+  @property GUID_KEY
+  @for Ember
+  @type String
+  @final
+*/
+var GUID_KEY = intern(&#039;__ember&#039; + +new Date());
+
+var GUID_DESC = {
+  writable: true,
+  configurable: true,
+  enumerable: false,
+  value: null
+};
+
+exports.GUID_DESC = GUID_DESC;
+var undefinedDescriptor = {
+  configurable: true,
+  writable: true,
+  enumerable: false,
+  value: undefined
+};
+
+var nullDescriptor = {
+  configurable: true,
+  writable: true,
+  enumerable: false,
+  value: null
+};
+
+var META_DESC = {
+  writable: true,
+  configurable: true,
+  enumerable: false,
+  value: null
+};
+
+var EMBER_META_PROPERTY = {
+  name: &#039;__ember_meta__&#039;,
+  descriptor: META_DESC
+};
+
+exports.EMBER_META_PROPERTY = EMBER_META_PROPERTY;
+var GUID_KEY_PROPERTY = {
+  name: GUID_KEY,
+  descriptor: nullDescriptor
+};
+
+exports.GUID_KEY_PROPERTY = GUID_KEY_PROPERTY;
+var NEXT_SUPER_PROPERTY = {
+  name: &#039;__nextSuper&#039;,
+  descriptor: undefinedDescriptor
+};
+
+exports.NEXT_SUPER_PROPERTY = NEXT_SUPER_PROPERTY;
+/**
+  Generates a new guid, optionally saving the guid to the object that you
+  pass in. You will rarely need to use this method. Instead you should
+  call `Ember.guidFor(obj)`, which return an existing guid if available.
+
+  @private
+  @method generateGuid
+  @for Ember
+  @param {Object} [obj] Object the guid will be used for. If passed in, the guid will
+    be saved on the object and reused whenever you pass the same object
+    again.
+
+    If no object is passed, just generate a new guid.
+  @param {String} [prefix] Prefix to place in front of the guid. Useful when you want to
+    separate the guid into separate namespaces.
+  @return {String} the guid
+*/
+
+function generateGuid(obj, prefix) {
+  if (!prefix) {
+    prefix = GUID_PREFIX;
+  }
+
+  var ret = prefix + uuid();
+  if (obj) {
+    if (obj[GUID_KEY] === null) {
+      obj[GUID_KEY] = ret;
+    } else {
+      GUID_DESC.value = ret;
+      if (obj.__defineNonEnumerable) {
+        obj.__defineNonEnumerable(GUID_KEY_PROPERTY);
+      } else {
+        Object.defineProperty(obj, GUID_KEY, GUID_DESC);
+      }
+    }
+  }
+  return ret;
+}
+
+/**
+  Returns a unique id for the object. If the object does not yet have a guid,
+  one will be assigned to it. You can call this on any object,
+  `Ember.Object`-based or not, but be aware that it will add a `_guid`
+  property.
+
+  You can also use this method on DOM Element objects.
+
+  @private
+  @method guidFor
+  @for Ember
+  @param {Object} obj any object, string, number, Element, or primitive
+  @return {String} the unique guid for this instance.
+*/
+
+function guidFor(obj) {
+
+  // special cases where we don&#039;t want to add a key to object
+  if (obj === undefined) {
+    return &#039;(undefined)&#039;;
+  }
+
+  if (obj === null) {
+    return &#039;(null)&#039;;
+  }
+
+  var ret;
+  var type = typeof obj;
+
+  // Don&#039;t allow prototype changes to String etc. to change the guidFor
+  switch (type) {
+    case &#039;number&#039;:
+      ret = numberCache[obj];
+
+      if (!ret) {
+        ret = numberCache[obj] = &#039;nu&#039; + obj;
+      }
+
+      return ret;
+
+    case &#039;string&#039;:
+      ret = stringCache[obj];
+
+      if (!ret) {
+        ret = stringCache[obj] = &#039;st&#039; + uuid();
+      }
+
+      return ret;
+
+    case &#039;boolean&#039;:
+      return obj ? &#039;(true)&#039; : &#039;(false)&#039;;
+
+    default:
+      if (obj[GUID_KEY]) {
+        return obj[GUID_KEY];
+      }
+
+      if (obj === Object) {
+        return &#039;(Object)&#039;;
+      }
+
+      if (obj === Array) {
+        return &#039;(Array)&#039;;
+      }
+
+      ret = GUID_PREFIX + uuid();
+
+      if (obj[GUID_KEY] === null) {
+        obj[GUID_KEY] = ret;
+      } else {
+        GUID_DESC.value = ret;
+
+        if (obj.__defineNonEnumerable) {
+          obj.__defineNonEnumerable(GUID_KEY_PROPERTY);
+        } else {
+          Object.defineProperty(obj, GUID_KEY, GUID_DESC);
+        }
+      }
+      return ret;
+  }
+}
+
+// ..........................................................
+// META
+//
+function Meta(obj) {
+  this.watching = {};
+  this.cache = undefined;
+  this.cacheMeta = undefined;
+  this.source = obj;
+  this.deps = undefined;
+  this.listeners = undefined;
+  this.mixins = undefined;
+  this.bindings = undefined;
+  this.chains = undefined;
+  this.values = undefined;
+  this.proto = undefined;
+}
+
+Meta.prototype = {
+  chainWatchers: null // FIXME
+};
+
+// Placeholder for non-writable metas.
+var EMPTY_META = new Meta(null);
+
+if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;mandatory-setter&#039;)) {
+  EMPTY_META.values = {};
+}
+
+/**
+  Retrieves the meta hash for an object. If `writable` is true ensures the
+  hash is writable for this object as well.
+
+  The meta object contains information about computed property descriptors as
+  well as any watched properties and other information. You generally will
+  not access this information directly but instead work with higher level
+  methods that manipulate this hash indirectly.
+
+  @method meta
+  @for Ember
+  @private
+
+  @param {Object} obj The object to retrieve meta for
+  @param {Boolean} [writable=true] Pass `false` if you do not intend to modify
+    the meta hash, allowing the method to avoid making an unnecessary copy.
+  @return {Object} the meta hash for an object
+*/
+function meta(obj, writable) {
+  var ret = obj.__ember_meta__;
+  if (writable === false) {
+    return ret || EMPTY_META;
+  }
+
+  if (!ret) {
+    if (obj.__defineNonEnumerable) {
+      obj.__defineNonEnumerable(EMBER_META_PROPERTY);
+    } else {
+      Object.defineProperty(obj, &#039;__ember_meta__&#039;, META_DESC);
+    }
+
+    ret = new Meta(obj);
+
+    if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;mandatory-setter&#039;)) {
+      ret.values = {};
+    }
+
+    obj.__ember_meta__ = ret;
+  } else if (ret.source !== obj) {
+    if (obj.__defineNonEnumerable) {
+      obj.__defineNonEnumerable(EMBER_META_PROPERTY);
+    } else {
+      Object.defineProperty(obj, &#039;__ember_meta__&#039;, META_DESC);
+    }
+
+    ret = Object.create(ret);
+    ret.watching = Object.create(ret.watching);
+    ret.cache = undefined;
+    ret.cacheMeta = undefined;
+    ret.source = obj;
+
+    if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;mandatory-setter&#039;)) {
+      ret.values = Object.create(ret.values);
+    }
+
+    obj[&#039;__ember_meta__&#039;] = ret;
+  }
+  return ret;
+}
+
+function getMeta(obj, property) {
+  var _meta = meta(obj, false);
+  return _meta[property];
+}
+
+function setMeta(obj, property, value) {
+  var _meta = meta(obj, true);
+  _meta[property] = value;
+  return value;
+}
+
+/**
+  @deprecated
+  @private
+
+  In order to store defaults for a class, a prototype may need to create
+  a default meta object, which will be inherited by any objects instantiated
+  from the class&#039;s constructor.
+
+  However, the properties of that meta object are only shallow-cloned,
+  so if a property is a hash (like the event system&#039;s `listeners` hash),
+  it will by default be shared across all instances of that class.
+
+  This method allows extensions to deeply clone a series of nested hashes or
+  other complex objects. For instance, the event system might pass
+  `[&#039;listeners&#039;, &#039;foo:change&#039;, &#039;ember157&#039;]` to `prepareMetaPath`, which will
+  walk down the keys provided.
+
+  For each key, if the key does not exist, it is created. If it already
+  exists and it was inherited from its constructor, the constructor&#039;s
+  key is cloned.
+
+  You can also pass false for `writable`, which will simply return
+  undefined if `prepareMetaPath` discovers any part of the path that
+  shared or undefined.
+
+  @method metaPath
+  @for Ember
+  @param {Object} obj The object whose meta we are examining
+  @param {Array} path An array of keys to walk down
+  @param {Boolean} writable whether or not to create a new meta
+    (or meta property) if one does not already exist or if it&#039;s
+    shared with its constructor
+*/
+
+function metaPath(obj, path, writable) {
+  _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Ember.metaPath is deprecated and will be removed from future releases.&#039;);
+  var _meta = meta(obj, writable);
+  var keyName, value;
+
+  for (var i = 0, l = path.length; i &lt; l; i++) {
+    keyName = path[i];
+    value = _meta[keyName];
+
+    if (!value) {
+      if (!writable) {
+        return undefined;
+      }
+      value = _meta[keyName] = { __ember_source__: obj };
+    } else if (value.__ember_source__ !== obj) {
+      if (!writable) {
+        return undefined;
+      }
+      value = _meta[keyName] = Object.create(value);
+      value.__ember_source__ = obj;
+    }
+
+    _meta = value;
+  }
+
+  return value;
+}
+
+/**
+  Wraps the passed function so that `this._super` will point to the superFunc
+  when the function is invoked. This is the primitive we use to implement
+  calls to super.
+
+  @private
+  @method wrap
+  @for Ember
+  @param {Function} func The function to call
+  @param {Function} superFunc The super function.
+  @return {Function} wrapped function.
+*/
+
+function wrap(func, superFunc) {
+  function superWrapper() {
+    var ret;
+    var sup = this &amp;&amp; this.__nextSuper;
+    var length = arguments.length;
+
+    if (this) {
+      this.__nextSuper = superFunc;
+    }
+
+    if (length === 0) {
+      ret = func.call(this);
+    } else if (length === 1) {
+      ret = func.call(this, arguments[0]);
+    } else if (length === 2) {
+      ret = func.call(this, arguments[0], arguments[1]);
+    } else {
+      var args = new Array(length);
+      for (var i = 0; i &lt; length; i++) {
+        args[i] = arguments[i];
+      }
+      ret = apply(this, func, args);
+    }
+
+    if (this) {
+      this.__nextSuper = sup;
+    }
+
+    return ret;
+  }
+
+  superWrapper.wrappedFunction = func;
+  superWrapper.__ember_observes__ = func.__ember_observes__;
+  superWrapper.__ember_observesBefore__ = func.__ember_observesBefore__;
+  superWrapper.__ember_listens__ = func.__ember_listens__;
+
+  return superWrapper;
+}
+
+/**
+  Checks to see if the `methodName` exists on the `obj`.
+
+  ```javascript
+  var foo = { bar: function() { return &#039;bar&#039;; }, baz: null };
+
+  Ember.canInvoke(foo, &#039;bar&#039;); // true
+  Ember.canInvoke(foo, &#039;baz&#039;); // false
+  Ember.canInvoke(foo, &#039;bat&#039;); // false
+  ```
+
+  @method canInvoke
+  @for Ember
+  @param {Object} obj The object to check for the method
+  @param {String} methodName The method name to check for
+  @return {Boolean}
+  @private
+*/
+function canInvoke(obj, methodName) {
+  return !!(obj &amp;&amp; typeof obj[methodName] === &#039;function&#039;);
+}
+
+/**
+  Checks to see if the `methodName` exists on the `obj`,
+  and if it does, invokes it with the arguments passed.
+
+  ```javascript
+  var d = new Date(&#039;03/15/2013&#039;);
+
+  Ember.tryInvoke(d, &#039;getTime&#039;);              // 1363320000000
+  Ember.tryInvoke(d, &#039;setFullYear&#039;, [2014]);  // 1394856000000
+  Ember.tryInvoke(d, &#039;noSuchMethod&#039;, [2014]); // undefined
+  ```
+
+  @method tryInvoke
+  @for Ember
+  @param {Object} obj The object to check for the method
+  @param {String} methodName The method name to check for
+  @param {Array} [args] The arguments to pass to the method
+  @return {*} the return value of the invoked method or undefined if it cannot be invoked
+  @public
+*/
+
+function tryInvoke(obj, methodName, args) {
+  if (canInvoke(obj, methodName)) {
+    return args ? applyStr(obj, methodName, args) : applyStr(obj, methodName);
+  }
+}
+
+// ........................................
+// TYPING &amp; ARRAY MESSAGING
+//
+
+var toString = Object.prototype.toString;
+
+/**
+  Forces the passed object to be part of an array. If the object is already
+  an array, it will return the object. Otherwise, it will add the object to
+  an array. If obj is `null` or `undefined`, it will return an empty array.
+
+  ```javascript
+  Ember.makeArray();            // []
+  Ember.makeArray(null);        // []
+  Ember.makeArray(undefined);   // []
+  Ember.makeArray(&#039;lindsay&#039;);   // [&#039;lindsay&#039;]
+  Ember.makeArray([1, 2, 42]);  // [1, 2, 42]
+
+  var controller = Ember.ArrayProxy.create({ content: [] });
+
+  Ember.makeArray(controller) === controller;  // true
+  ```
+
+  @method makeArray
+  @for Ember
+  @param {Object} obj the object
+  @return {Array}
+  @private
+*/
+
+function makeArray(obj) {
+  if (obj === null || obj === undefined) {
+    return [];
+  }
+  return Array.isArray(obj) ? obj : [obj];
+}
+
+/**
+  Convenience method to inspect an object. This method will attempt to
+  convert the object into a useful string description.
+
+  It is a pretty simple implementation. If you want something more robust,
+  use something like JSDump: https://github.com/NV/jsDump
+
+  @method inspect
+  @for Ember
+  @param {Object} obj The object you want to inspect.
+  @return {String} A description of the object
+  @since 1.4.0
+  @private
+*/
+
+function inspect(obj) {
+  if (obj === null) {
+    return &#039;null&#039;;
+  }
+  if (obj === undefined) {
+    return &#039;undefined&#039;;
+  }
+  if (Array.isArray(obj)) {
+    return &#039;[&#039; + obj + &#039;]&#039;;
+  }
+  // for non objects
+  var type = typeof obj;
+  if (type !== &#039;object&#039; &amp;&amp; type !== &#039;symbol&#039;) {
+    return &#039;&#039; + obj;
+  }
+  // overridden toString
+  if (typeof obj.toString === &#039;function&#039; &amp;&amp; obj.toString !== toString) {
+    return obj.toString();
+  }
+
+  // Object.prototype.toString === {}.toString
+  var v;
+  var ret = [];
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      v = obj[key];
+      if (v === &#039;toString&#039;) {
+        continue;
+      } // ignore useless items
+      if (typeof v === &#039;function&#039;) {
+        v = &#039;function() { ... }&#039;;
+      }
+
+      if (v &amp;&amp; typeof v.toString !== &#039;function&#039;) {
+        ret.push(key + &#039;: &#039; + toString.call(v));
+      } else {
+        ret.push(key + &#039;: &#039; + v);
+      }
+    }
+  }
+  return &#039;{&#039; + ret.join(&#039;, &#039;) + &#039;}&#039;;
+}
+
+// The following functions are intentionally minified to keep the functions
+// below Chrome&#039;s function body size inlining limit of 600 chars.
+/**
+  @param {Object} t target
+  @param {Function} m method
+  @param {Array} a args
+  @private
+*/
+
+function apply(t, m, a) {
+  var l = a &amp;&amp; a.length;
+  if (!a || !l) {
+    return m.call(t);
+  }
+  switch (l) {
+    case 1:
+      return m.call(t, a[0]);
+    case 2:
+      return m.call(t, a[0], a[1]);
+    case 3:
+      return m.call(t, a[0], a[1], a[2]);
+    case 4:
+      return m.call(t, a[0], a[1], a[2], a[3]);
+    case 5:
+      return m.call(t, a[0], a[1], a[2], a[3], a[4]);
+    default:
+      return m.apply(t, a);
+  }
+}
+
+/**
+  @param {Object} t target
+  @param {String} m method
+  @param {Array} a args
+  @private
+*/
+
+function applyStr(t, m, a) {
+  var l = a &amp;&amp; a.length;
+  if (!a || !l) {
+    return t[m]();
+  }
+  switch (l) {
+    case 1:
+      return t[m](a[0]);
+    case 2:
+      return t[m](a[0], a[1]);
+    case 3:
+      return t[m](a[0], a[1], a[2]);
+    case 4:
+      return t[m](a[0], a[1], a[2], a[3]);
+    case 5:
+      return t[m](a[0], a[1], a[2], a[3], a[4]);
+    default:
+      return t[m].apply(t, a);
+  }
+}
+
+exports.GUID_KEY = GUID_KEY;
+exports.META_DESC = META_DESC;
+exports.EMPTY_META = EMPTY_META;
+exports.meta = meta;
+exports.makeArray = makeArray;
+exports.canInvoke = canInvoke;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

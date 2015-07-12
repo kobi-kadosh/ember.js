@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\system\subarray.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\system\subarray.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.22</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">183</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">71.78</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.23</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var RETAIN = &#039;r&#039;;
+var FILTER = &#039;f&#039;;
+
+function Operation(type, count) {
+  this.type = type;
+  this.count = count;
+}
+
+exports[&#039;default&#039;] = SubArray;
+
+/**
+  An `Ember.SubArray` tracks an array in a way similar to, but more specialized
+  than, `Ember.TrackedArray`.  It is useful for keeping track of the indexes of
+  items within a filtered array.
+
+  @class SubArray
+  @namespace Ember
+  @private
+*/
+function SubArray(length) {
+  if (arguments.length &lt; 1) {
+    length = 0;
+  }
+
+  if (length &gt; 0) {
+    this._operations = [new Operation(RETAIN, length)];
+  } else {
+    this._operations = [];
+  }
+}
+
+SubArray.prototype = {
+  /**
+    Track that an item was added to the tracked array.
+      @method addItem
+      @param {Number} index The index of the item in the tracked array.
+    @param {Boolean} match `true` iff the item is included in the subarray.
+      @return {number} The index of the item in the subarray.
+    @private
+  */
+  addItem: function addItem(index, match) {
+    var returnValue = -1;
+    var itemType = match ? RETAIN : FILTER;
+    var self = this;
+
+    this._findOperation(index, function (operation, operationIndex, rangeStart, rangeEnd, seenInSubArray) {
+      var newOperation, splitOperation;
+
+      if (itemType === operation.type) {
+        ++operation.count;
+      } else if (index === rangeStart) {
+        // insert to the left of `operation`
+        self._operations.splice(operationIndex, 0, new Operation(itemType, 1));
+      } else {
+        newOperation = new Operation(itemType, 1);
+        splitOperation = new Operation(operation.type, rangeEnd - index + 1);
+        operation.count = index - rangeStart;
+
+        self._operations.splice(operationIndex + 1, 0, newOperation, splitOperation);
+      }
+
+      if (match) {
+        if (operation.type === RETAIN) {
+          returnValue = seenInSubArray + (index - rangeStart);
+        } else {
+          returnValue = seenInSubArray;
+        }
+      }
+
+      self._composeAt(operationIndex);
+    }, function (seenInSubArray) {
+      self._operations.push(new Operation(itemType, 1));
+
+      if (match) {
+        returnValue = seenInSubArray;
+      }
+
+      self._composeAt(self._operations.length - 1);
+    });
+
+    return returnValue;
+  },
+
+  /**
+    Track that an item was removed from the tracked array.
+      @method removeItem
+      @param {Number} index The index of the item in the tracked array.
+      @return {number} The index of the item in the subarray, or `-1` if the item
+    was not in the subarray.
+    @private
+  */
+  removeItem: function removeItem(index) {
+    var returnValue = -1;
+    var self = this;
+
+    this._findOperation(index, function (operation, operationIndex, rangeStart, rangeEnd, seenInSubArray) {
+      if (operation.type === RETAIN) {
+        returnValue = seenInSubArray + (index - rangeStart);
+      }
+
+      if (operation.count &gt; 1) {
+        --operation.count;
+      } else {
+        self._operations.splice(operationIndex, 1);
+        self._composeAt(operationIndex);
+      }
+    }, function () {
+      throw new _emberMetalError2[&#039;default&#039;](&#039;Can\&#039;t remove an item that has never been added.&#039;);
+    });
+
+    return returnValue;
+  },
+
+  _findOperation: function _findOperation(index, foundCallback, notFoundCallback) {
+    var seenInSubArray = 0;
+    var operationIndex, len, operation, rangeStart, rangeEnd;
+
+    // OPTIMIZE: change to balanced tree
+    // find leftmost operation to the right of `index`
+    for (operationIndex = rangeStart = 0, len = this._operations.length; operationIndex &lt; len; rangeStart = rangeEnd + 1, ++operationIndex) {
+      operation = this._operations[operationIndex];
+      rangeEnd = rangeStart + operation.count - 1;
+
+      if (index &gt;= rangeStart &amp;&amp; index &lt;= rangeEnd) {
+        foundCallback(operation, operationIndex, rangeStart, rangeEnd, seenInSubArray);
+        return;
+      } else if (operation.type === RETAIN) {
+        seenInSubArray += operation.count;
+      }
+    }
+
+    notFoundCallback(seenInSubArray);
+  },
+
+  _composeAt: function _composeAt(index) {
+    var op = this._operations[index];
+    var otherOp;
+
+    if (!op) {
+      // Composing out of bounds is a no-op, as when removing the last operation
+      // in the list.
+      return;
+    }
+
+    if (index &gt; 0) {
+      otherOp = this._operations[index - 1];
+      if (otherOp.type === op.type) {
+        op.count += otherOp.count;
+        this._operations.splice(index - 1, 1);
+        --index;
+      }
+    }
+
+    if (index &lt; this._operations.length - 1) {
+      otherOp = this._operations[index + 1];
+      if (otherOp.type === op.type) {
+        op.count += otherOp.count;
+        this._operations.splice(index + 1, 1);
+      }
+    }
+  },
+
+  toString: function toString() {
+    var str = &#039;&#039;;
+    this._operations.forEach(function (operation) {
+      str += &#039; &#039; + operation.type + &#039;:&#039; + operation.count;
+    });
+    return str.substring(1);
+  }
+};
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

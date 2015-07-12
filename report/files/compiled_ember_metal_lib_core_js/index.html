@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\core.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\core.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">98.38</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">171</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">28.60</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.61</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/*globals Ember:true,ENV,EmberENV */
+
+/**
+@module ember
+@submodule ember-metal
+*/
+
+/**
+  This namespace contains all Ember methods and functions. Future versions of
+  Ember may overwrite this namespace and therefore, you should avoid adding any
+  new properties.
+
+  You can also use the shorthand `Em` instead of `Ember`.
+
+  At the heart of Ember is Ember-Runtime, a set of core functions that provide
+  cross-platform compatibility and object property observing.  Ember-Runtime is
+  small and performance-focused so you can use it alongside other
+  cross-platform libraries such as jQuery. For more details, see
+  [Ember-Runtime](http://emberjs.com/api/modules/ember-runtime.html).
+
+  @class Ember
+  @static
+  @version VERSION_STRING_PLACEHOLDER
+  @public
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+if (&#039;undefined&#039; === typeof Ember) {
+  // Create core object. Make it act like an instance of Ember.Namespace so that
+  // objects assigned to it are given a sane string representation.
+  Ember = {};
+}
+
+// Default imports, exports and lookup to the global object;
+var global = mainContext || {}; // jshint ignore:line
+Ember.imports = Ember.imports || global;
+Ember.lookup = Ember.lookup || global;
+var emExports = Ember.exports = Ember.exports || global;
+
+// aliases needed to keep minifiers from removing the global context
+emExports.Em = emExports.Ember = Ember;
+
+// Make sure these are set whether Ember was already defined or not
+
+Ember.isNamespace = true;
+
+Ember.toString = function () {
+  return &#039;Ember&#039;;
+};
+
+/**
+  The semantic version.
+
+  @property VERSION
+  @type String
+  @default &#039;VERSION_STRING_PLACEHOLDER&#039;
+  @static
+  @public
+*/
+Ember.VERSION = &#039;VERSION_STRING_PLACEHOLDER&#039;;
+
+/**
+  The hash of environment variables used to control various configuration
+  settings. To specify your own or override default settings, add the
+  desired properties to a global hash named `EmberENV` (or `ENV` for
+  backwards compatibility with earlier versions of Ember). The `EmberENV`
+  hash must be created before loading Ember.
+
+  @property ENV
+  @type Object
+  @public
+*/
+
+if (Ember.ENV) {
+  // do nothing if Ember.ENV is already setup
+  Ember.assert(&#039;Ember.ENV should be an object.&#039;, &#039;object&#039; !== typeof Ember.ENV);
+} else if (&#039;undefined&#039; !== typeof EmberENV) {
+  Ember.ENV = EmberENV;
+} else if (&#039;undefined&#039; !== typeof ENV) {
+  Ember.ENV = ENV;
+} else {
+  Ember.ENV = {};
+}
+
+Ember.config = Ember.config || {};
+
+// We disable the RANGE API by default for performance reasons
+if (&#039;undefined&#039; === typeof Ember.ENV.DISABLE_RANGE_API) {
+  Ember.ENV.DISABLE_RANGE_API = true;
+}
+
+// ..........................................................
+// BOOTSTRAP
+//
+
+/**
+  Determines whether Ember should add to `Array`, `Function`, and `String`
+  native object prototypes, a few extra methods in order to provide a more
+  friendly API.
+
+  We generally recommend leaving this option set to true however, if you need
+  to turn it off, you can add the configuration property
+  `EXTEND_PROTOTYPES` to `EmberENV` and set it to `false`.
+
+  Note, when disabled (the default configuration for Ember Addons), you will
+  instead have to access all methods and functions from the Ember
+  namespace.
+
+  @property EXTEND_PROTOTYPES
+  @type Boolean
+  @default true
+  @for Ember
+  @public
+*/
+Ember.EXTEND_PROTOTYPES = Ember.ENV.EXTEND_PROTOTYPES;
+
+if (typeof Ember.EXTEND_PROTOTYPES === &#039;undefined&#039;) {
+  Ember.EXTEND_PROTOTYPES = true;
+}
+
+/**
+  The `LOG_STACKTRACE_ON_DEPRECATION` property, when true, tells Ember to log
+  a full stack trace during deprecation warnings.
+
+  @property LOG_STACKTRACE_ON_DEPRECATION
+  @type Boolean
+  @default true
+  @public
+*/
+Ember.LOG_STACKTRACE_ON_DEPRECATION = Ember.ENV.LOG_STACKTRACE_ON_DEPRECATION !== false;
+
+/**
+  The `SHIM_ES5` property, when true, tells Ember to add ECMAScript 5 Array
+  shims to older browsers.
+
+  @property SHIM_ES5
+  @type Boolean
+  @default Ember.EXTEND_PROTOTYPES
+  @public
+*/
+Ember.SHIM_ES5 = Ember.ENV.SHIM_ES5 === false ? false : Ember.EXTEND_PROTOTYPES;
+
+/**
+  The `LOG_VERSION` property, when true, tells Ember to log versions of all
+  dependent libraries in use.
+
+  @property LOG_VERSION
+  @type Boolean
+  @default true
+  @public
+*/
+Ember.LOG_VERSION = Ember.ENV.LOG_VERSION === false ? false : true;
+
+/**
+  An empty function useful for some operations. Always returns `this`.
+
+  @method K
+  @private
+  @return {Object}
+  @public
+*/
+function K() {
+  return this;
+}
+exports.K = K;
+
+Ember.K = K;
+//TODO: ES6 GLOBAL TODO
+
+// Stub out the methods defined by the ember-debug package in case it&#039;s not loaded
+
+if (&#039;undefined&#039; === typeof Ember.assert) {
+  Ember.assert = K;
+}
+if (&#039;undefined&#039; === typeof Ember.warn) {
+  Ember.warn = K;
+}
+if (&#039;undefined&#039; === typeof Ember.debug) {
+  Ember.debug = K;
+}
+if (&#039;undefined&#039; === typeof Ember.runInDebug) {
+  Ember.runInDebug = K;
+}
+if (&#039;undefined&#039; === typeof Ember.deprecate) {
+  Ember.deprecate = K;
+}
+if (&#039;undefined&#039; === typeof Ember.deprecateFunc) {
+  Ember.deprecateFunc = function (_, func) {
+    return func;
+  };
+}
+
+exports[&#039;default&#039;] = Ember;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\mixin.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\mixin.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">62.55</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1025</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">110.83</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">7.84</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">// Remove &quot;use strict&quot;; from transpiled module until
+// https://bugs.webkit.org/show_bug.cgi?id=138038 is fixed
+//
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.mixin = mixin;
+exports[&#039;default&#039;] = Mixin;
+exports.required = required;
+exports.aliasMethod = aliasMethod;
+exports.observer = observer;
+exports.immediateObserver = immediateObserver;
+exports.beforeObserver = beforeObserver;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+/**
+@module ember
+@submodule ember-metal
+*/
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// warn, assert, wrap, et;
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalExpand_properties = require(&#039;ember-metal/expand_properties&#039;);
+
+var _emberMetalExpand_properties2 = _interopRequireDefault(_emberMetalExpand_properties);
+
+var _emberMetalProperties = require(&#039;ember-metal/properties&#039;);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalBinding = require(&#039;ember-metal/binding&#039;);
+
+var _emberMetalObserver = require(&#039;ember-metal/observer&#039;);
+
+var _emberMetalEvents = require(&#039;ember-metal/events&#039;);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+&#039;REMOVE_USE_STRICT: true&#039;;
+
+var REQUIRED;
+var a_slice = [].slice;
+
+function superFunction() {
+  var func = this.__nextSuper;
+  var ret;
+
+  if (func) {
+    var length = arguments.length;
+    this.__nextSuper = null;
+    if (length === 0) {
+      ret = func.call(this);
+    } else if (length === 1) {
+      ret = func.call(this, arguments[0]);
+    } else if (length === 2) {
+      ret = func.call(this, arguments[0], arguments[1]);
+    } else {
+      ret = func.apply(this, arguments);
+    }
+    this.__nextSuper = func;
+    return ret;
+  }
+}
+
+// ensure we prime superFunction to mitigate
+// v8 bug potentially incorrectly deopts this function: https://code.google.com/p/v8/issues/detail?id=3709
+var primer = {
+  __nextSuper: function __nextSuper(a, b, c, d) {}
+};
+
+superFunction.call(primer);
+superFunction.call(primer, 1);
+superFunction.call(primer, 1, 2);
+superFunction.call(primer, 1, 2, 3);
+
+function mixinsMeta(obj) {
+  var m = (0, _emberMetalUtils.meta)(obj, true);
+  var ret = m.mixins;
+  if (!ret) {
+    ret = m.mixins = {};
+  } else if (!m.hasOwnProperty(&#039;mixins&#039;)) {
+    ret = m.mixins = Object.create(ret);
+  }
+  return ret;
+}
+
+function isMethod(obj) {
+  return &#039;function&#039; === typeof obj &amp;&amp; obj.isMethod !== false &amp;&amp; obj !== Boolean &amp;&amp; obj !== Object &amp;&amp; obj !== Number &amp;&amp; obj !== Array &amp;&amp; obj !== Date &amp;&amp; obj !== String;
+}
+
+var CONTINUE = {};
+
+function mixinProperties(mixinsMeta, mixin) {
+  var guid;
+
+  if (mixin instanceof Mixin) {
+    guid = (0, _emberMetalUtils.guidFor)(mixin);
+    if (mixinsMeta[guid]) {
+      return CONTINUE;
+    }
+    mixinsMeta[guid] = mixin;
+    return mixin.properties;
+  } else {
+    return mixin; // apply anonymous mixin properties
+  }
+}
+
+function concatenatedMixinProperties(concatProp, props, values, base) {
+  var concats;
+
+  // reset before adding each new mixin to pickup concats from previous
+  concats = values[concatProp] || base[concatProp];
+  if (props[concatProp]) {
+    concats = concats ? concats.concat(props[concatProp]) : props[concatProp];
+  }
+
+  return concats;
+}
+
+function giveDescriptorSuper(meta, key, property, values, descs, base) {
+  var superProperty;
+
+  // Computed properties override methods, and do not call super to them
+  if (values[key] === undefined) {
+    // Find the original descriptor in a parent mixin
+    superProperty = descs[key];
+  }
+
+  // If we didn&#039;t find the original descriptor in a parent mixin, find
+  // it on the original object.
+  if (!superProperty) {
+    var possibleDesc = base[key];
+    var superDesc = possibleDesc !== null &amp;&amp; typeof possibleDesc === &#039;object&#039; &amp;&amp; possibleDesc.isDescriptor ? possibleDesc : undefined;
+
+    superProperty = superDesc;
+  }
+
+  if (superProperty === undefined || !(superProperty instanceof _emberMetalComputed.ComputedProperty)) {
+    return property;
+  }
+
+  // Since multiple mixins may inherit from the same parent, we need
+  // to clone the computed property so that other mixins do not receive
+  // the wrapped version.
+  property = Object.create(property);
+  property._getter = (0, _emberMetalUtils.wrap)(property._getter, superProperty._getter);
+  if (superProperty._setter) {
+    if (property._setter) {
+      property._setter = (0, _emberMetalUtils.wrap)(property._setter, superProperty._setter);
+    } else {
+      property._setter = superProperty._setter;
+    }
+  }
+
+  return property;
+}
+
+var sourceAvailable = (function () {
+  return this;
+}).toString().indexOf(&#039;return this;&#039;) &gt; -1;
+
+function giveMethodSuper(obj, key, method, values, descs) {
+  var superMethod;
+
+  // Methods overwrite computed properties, and do not call super to them.
+  if (descs[key] === undefined) {
+    // Find the original method in a parent mixin
+    superMethod = values[key];
+  }
+
+  // If we didn&#039;t find the original value in a parent mixin, find it in
+  // the original object
+  superMethod = superMethod || obj[key];
+
+  // Only wrap the new method if the original method was a function
+  if (superMethod === undefined || &#039;function&#039; !== typeof superMethod) {
+    return method;
+  }
+
+  var hasSuper;
+  if (sourceAvailable) {
+    hasSuper = method.__hasSuper;
+
+    if (hasSuper === undefined) {
+      hasSuper = method.toString().indexOf(&#039;_super&#039;) &gt; -1;
+      method.__hasSuper = hasSuper;
+    }
+  }
+
+  if (sourceAvailable === false || hasSuper) {
+    return (0, _emberMetalUtils.wrap)(method, superMethod);
+  } else {
+    return method;
+  }
+}
+
+function applyConcatenatedProperties(obj, key, value, values) {
+  var baseValue = values[key] || obj[key];
+
+  if (baseValue) {
+    if (&#039;function&#039; === typeof baseValue.concat) {
+      if (value === null || value === undefined) {
+        return baseValue;
+      } else {
+        return baseValue.concat(value);
+      }
+    } else {
+      return (0, _emberMetalUtils.makeArray)(baseValue).concat(value);
+    }
+  } else {
+    return (0, _emberMetalUtils.makeArray)(value);
+  }
+}
+
+function applyMergedProperties(obj, key, value, values) {
+  var baseValue = values[key] || obj[key];
+
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;You passed in `&#039; + JSON.stringify(value) + &#039;` as the value for `&#039; + key + &#039;` but `&#039; + key + &#039;` cannot be an Array&#039;, !Array.isArray(value));
+
+  if (!baseValue) {
+    return value;
+  }
+
+  var newBase = (0, _emberMetalMerge2[&#039;default&#039;])({}, baseValue);
+  var hasFunction = false;
+
+  for (var prop in value) {
+    if (!value.hasOwnProperty(prop)) {
+      continue;
+    }
+
+    var propValue = value[prop];
+    if (isMethod(propValue)) {
+      // TODO: support for Computed Properties, etc?
+      hasFunction = true;
+      newBase[prop] = giveMethodSuper(obj, prop, propValue, baseValue, {});
+    } else {
+      newBase[prop] = propValue;
+    }
+  }
+
+  if (hasFunction) {
+    newBase._super = superFunction;
+  }
+
+  return newBase;
+}
+
+function addNormalizedProperty(base, key, value, meta, descs, values, concats, mergings) {
+  if (value instanceof _emberMetalProperties.Descriptor) {
+    if (value === REQUIRED &amp;&amp; descs[key]) {
+      return CONTINUE;
+    }
+
+    // Wrap descriptor function to implement
+    // __nextSuper() if needed
+    if (value._getter) {
+      value = giveDescriptorSuper(meta, key, value, values, descs, base);
+    }
+
+    descs[key] = value;
+    values[key] = undefined;
+  } else {
+    if (concats &amp;&amp; concats.indexOf(key) &gt;= 0 || key === &#039;concatenatedProperties&#039; || key === &#039;mergedProperties&#039;) {
+      value = applyConcatenatedProperties(base, key, value, values);
+    } else if (mergings &amp;&amp; mergings.indexOf(key) &gt;= 0) {
+      value = applyMergedProperties(base, key, value, values);
+    } else if (isMethod(value)) {
+      value = giveMethodSuper(base, key, value, values, descs);
+    }
+
+    descs[key] = undefined;
+    values[key] = value;
+  }
+}
+
+function mergeMixins(mixins, m, descs, values, base, keys) {
+  var currentMixin, props, key, concats, mergings, meta;
+
+  function removeKeys(keyName) {
+    delete descs[keyName];
+    delete values[keyName];
+  }
+
+  for (var i = 0, l = mixins.length; i &lt; l; i++) {
+    currentMixin = mixins[i];
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Expected hash or Mixin instance, got &#039; + Object.prototype.toString.call(currentMixin), typeof currentMixin === &#039;object&#039; &amp;&amp; currentMixin !== null &amp;&amp; Object.prototype.toString.call(currentMixin) !== &#039;[object Array]&#039;);
+
+    props = mixinProperties(m, currentMixin);
+    if (props === CONTINUE) {
+      continue;
+    }
+
+    if (props) {
+      meta = (0, _emberMetalUtils.meta)(base);
+      if (base.willMergeMixin) {
+        base.willMergeMixin(props);
+      }
+      concats = concatenatedMixinProperties(&#039;concatenatedProperties&#039;, props, values, base);
+      mergings = concatenatedMixinProperties(&#039;mergedProperties&#039;, props, values, base);
+
+      for (key in props) {
+        if (!props.hasOwnProperty(key)) {
+          continue;
+        }
+        keys.push(key);
+        addNormalizedProperty(base, key, props[key], meta, descs, values, concats, mergings);
+      }
+
+      // manually copy toString() because some JS engines do not enumerate it
+      if (props.hasOwnProperty(&#039;toString&#039;)) {
+        base.toString = props.toString;
+      }
+    } else if (currentMixin.mixins) {
+      mergeMixins(currentMixin.mixins, m, descs, values, base, keys);
+      if (currentMixin._without) {
+        currentMixin._without.forEach(removeKeys);
+      }
+    }
+  }
+}
+
+var IS_BINDING = /^.+Binding$/;
+
+function detectBinding(obj, key, value, m) {
+  if (IS_BINDING.test(key)) {
+    var bindings = m.bindings;
+    if (!bindings) {
+      bindings = m.bindings = {};
+    } else if (!m.hasOwnProperty(&#039;bindings&#039;)) {
+      bindings = m.bindings = Object.create(m.bindings);
+    }
+    bindings[key] = value;
+  }
+}
+
+function connectStreamBinding(obj, key, stream) {
+  var onNotify = function onNotify(stream) {
+    (0, _emberMetalObserver._suspendObserver)(obj, key, null, didChange, function () {
+      (0, _emberMetalProperty_set.trySet)(obj, key, stream.value());
+    });
+  };
+
+  var didChange = function didChange() {
+    stream.setValue((0, _emberMetalProperty_get.get)(obj, key), onNotify);
+  };
+
+  // Initialize value
+  (0, _emberMetalProperty_set.set)(obj, key, stream.value());
+
+  (0, _emberMetalObserver.addObserver)(obj, key, null, didChange);
+
+  stream.subscribe(onNotify);
+
+  if (obj._streamBindingSubscriptions === undefined) {
+    obj._streamBindingSubscriptions = Object.create(null);
+  }
+
+  obj._streamBindingSubscriptions[key] = onNotify;
+}
+
+function connectBindings(obj, m) {
+  // TODO Mixin.apply(instance) should disconnect binding if exists
+  var bindings = m.bindings;
+  var key, binding, to;
+  if (bindings) {
+    for (key in bindings) {
+      binding = bindings[key];
+      if (binding) {
+        to = key.slice(0, -7); // strip Binding off end
+        if ((0, _emberMetalStreamsUtils.isStream)(binding)) {
+          connectStreamBinding(obj, to, binding);
+          continue;
+        } else if (binding instanceof _emberMetalBinding.Binding) {
+          binding = binding.copy(); // copy prototypes&#039; instance
+          binding.to(to);
+        } else {
+          // binding is string path
+          binding = new _emberMetalBinding.Binding(to, binding);
+        }
+        binding.connect(obj);
+        obj[key] = binding;
+      }
+    }
+    // mark as applied
+    m.bindings = {};
+  }
+}
+
+function finishPartial(obj, m) {
+  connectBindings(obj, m || (0, _emberMetalUtils.meta)(obj));
+  return obj;
+}
+
+function followAlias(obj, desc, m, descs, values) {
+  var altKey = desc.methodName;
+  var value;
+  var possibleDesc;
+  if (descs[altKey] || values[altKey]) {
+    value = values[altKey];
+    desc = descs[altKey];
+  } else if ((possibleDesc = obj[altKey]) &amp;&amp; possibleDesc !== null &amp;&amp; typeof possibleDesc === &#039;object&#039; &amp;&amp; possibleDesc.isDescriptor) {
+    desc = possibleDesc;
+    value = undefined;
+  } else {
+    desc = undefined;
+    value = obj[altKey];
+  }
+
+  return { desc: desc, value: value };
+}
+
+function updateObserversAndListeners(obj, key, observerOrListener, pathsKey, updateMethod) {
+  var paths = observerOrListener[pathsKey];
+
+  if (paths) {
+    for (var i = 0, l = paths.length; i &lt; l; i++) {
+      updateMethod(obj, paths[i], null, key);
+    }
+  }
+}
+
+function replaceObserversAndListeners(obj, key, observerOrListener) {
+  var prev = obj[key];
+
+  if (&#039;function&#039; === typeof prev) {
+    updateObserversAndListeners(obj, key, prev, &#039;__ember_observesBefore__&#039;, _emberMetalObserver.removeBeforeObserver);
+    updateObserversAndListeners(obj, key, prev, &#039;__ember_observes__&#039;, _emberMetalObserver.removeObserver);
+    updateObserversAndListeners(obj, key, prev, &#039;__ember_listens__&#039;, _emberMetalEvents.removeListener);
+  }
+
+  if (&#039;function&#039; === typeof observerOrListener) {
+    updateObserversAndListeners(obj, key, observerOrListener, &#039;__ember_observesBefore__&#039;, _emberMetalObserver.addBeforeObserver);
+    updateObserversAndListeners(obj, key, observerOrListener, &#039;__ember_observes__&#039;, _emberMetalObserver.addObserver);
+    updateObserversAndListeners(obj, key, observerOrListener, &#039;__ember_listens__&#039;, _emberMetalEvents.addListener);
+  }
+}
+
+function applyMixin(obj, mixins, partial) {
+  var descs = {};
+  var values = {};
+  var m = (0, _emberMetalUtils.meta)(obj);
+  var keys = [];
+  var key, value, desc;
+
+  obj._super = superFunction;
+
+  // Go through all mixins and hashes passed in, and:
+  //
+  // * Handle concatenated properties
+  // * Handle merged properties
+  // * Set up _super wrapping if necessary
+  // * Set up computed property descriptors
+  // * Copying `toString` in broken browsers
+  mergeMixins(mixins, mixinsMeta(obj), descs, values, obj, keys);
+
+  for (var i = 0, l = keys.length; i &lt; l; i++) {
+    key = keys[i];
+    if (key === &#039;constructor&#039; || !values.hasOwnProperty(key)) {
+      continue;
+    }
+
+    desc = descs[key];
+    value = values[key];
+
+    if (desc === REQUIRED) {
+      continue;
+    }
+
+    while (desc &amp;&amp; desc instanceof Alias) {
+      var followed = followAlias(obj, desc, m, descs, values);
+      desc = followed.desc;
+      value = followed.value;
+    }
+
+    if (desc === undefined &amp;&amp; value === undefined) {
+      continue;
+    }
+
+    replaceObserversAndListeners(obj, key, value);
+    detectBinding(obj, key, value, m);
+    (0, _emberMetalProperties.defineProperty)(obj, key, desc, value, m);
+  }
+
+  if (!partial) {
+    // don&#039;t apply to prototype
+    finishPartial(obj, m);
+  }
+
+  return obj;
+}
+
+/**
+  @method mixin
+  @for Ember
+  @param obj
+  @param mixins*
+  @return obj
+  @private
+*/
+
+function mixin(obj) {
+  for (var _len = arguments.length, args = Array(_len &gt; 1 ? _len - 1 : 0), _key = 1; _key &lt; _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  applyMixin(obj, args, false);
+  return obj;
+}
+
+/**
+  The `Ember.Mixin` class allows you to create mixins, whose properties can be
+  added to other classes. For instance,
+
+  ```javascript
+  App.Editable = Ember.Mixin.create({
+    edit: function() {
+      console.log(&#039;starting to edit&#039;);
+      this.set(&#039;isEditing&#039;, true);
+    },
+    isEditing: false
+  });
+
+  // Mix mixins into classes by passing them as the first arguments to
+  // .extend.
+  App.CommentView = Ember.View.extend(App.Editable, {
+    template: Ember.Handlebars.compile(&#039;{{#if view.isEditing}}...{{else}}...{{/if}}&#039;)
+  });
+
+  commentView = App.CommentView.create();
+  commentView.edit(); // outputs &#039;starting to edit&#039;
+  ```
+
+  Note that Mixins are created with `Ember.Mixin.create`, not
+  `Ember.Mixin.extend`.
+
+  Note that mixins extend a constructor&#039;s prototype so arrays and object literals
+  defined as properties will be shared amongst objects that implement the mixin.
+  If you want to define a property in a mixin that is not shared, you can define
+  it either as a computed property or have it be created on initialization of the object.
+
+  ```javascript
+  //filters array will be shared amongst any object implementing mixin
+  App.Filterable = Ember.Mixin.create({
+    filters: Ember.A()
+  });
+
+  //filters will be a separate  array for every object implementing the mixin
+  App.Filterable = Ember.Mixin.create({
+    filters: Ember.computed(function() {return Ember.A();})
+  });
+
+  //filters will be created as a separate array during the object&#039;s initialization
+  App.Filterable = Ember.Mixin.create({
+    init: function() {
+      this._super.apply(this, arguments);
+      this.set(&quot;filters&quot;, Ember.A());
+    }
+  });
+  ```
+
+  @class Mixin
+  @namespace Ember
+  @public
+*/
+
+function Mixin(args, properties) {
+  this.properties = properties;
+
+  var length = args &amp;&amp; args.length;
+
+  if (length &gt; 0) {
+    var m = new Array(length);
+
+    for (var i = 0; i &lt; length; i++) {
+      var x = args[i];
+      if (x instanceof Mixin) {
+        m[i] = x;
+      } else {
+        m[i] = new Mixin(undefined, x);
+      }
+    }
+
+    this.mixins = m;
+  } else {
+    this.mixins = undefined;
+  }
+  this.ownerConstructor = undefined;
+}
+
+Mixin._apply = applyMixin;
+
+Mixin.applyPartial = function (obj) {
+  var args = a_slice.call(arguments, 1);
+  return applyMixin(obj, args, true);
+};
+
+Mixin.finishPartial = finishPartial;
+
+// ES6TODO: this relies on a global state?
+_emberMetalCore2[&#039;default&#039;].anyUnprocessedMixins = false;
+
+/**
+  @method create
+  @static
+  @param arguments*
+  @public
+*/
+Mixin.create = function () {
+  // ES6TODO: this relies on a global state?
+  _emberMetalCore2[&#039;default&#039;].anyUnprocessedMixins = true;
+  var M = this;
+
+  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 &lt; _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+
+  return new M(args, undefined);
+};
+
+var MixinPrototype = Mixin.prototype;
+
+/**
+  @method reopen
+  @param arguments*
+  @private
+*/
+MixinPrototype.reopen = function () {
+  var currentMixin;
+
+  if (this.properties) {
+    currentMixin = new Mixin(undefined, this.properties);
+    this.properties = undefined;
+    this.mixins = [currentMixin];
+  } else if (!this.mixins) {
+    this.mixins = [];
+  }
+
+  var len = arguments.length;
+  var mixins = this.mixins;
+  var idx;
+
+  for (idx = 0; idx &lt; len; idx++) {
+    currentMixin = arguments[idx];
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Expected hash or Mixin instance, got &#039; + Object.prototype.toString.call(currentMixin), typeof currentMixin === &#039;object&#039; &amp;&amp; currentMixin !== null &amp;&amp; Object.prototype.toString.call(currentMixin) !== &#039;[object Array]&#039;);
+
+    if (currentMixin instanceof Mixin) {
+      mixins.push(currentMixin);
+    } else {
+      mixins.push(new Mixin(undefined, currentMixin));
+    }
+  }
+
+  return this;
+};
+
+/**
+  @method apply
+  @param obj
+  @return applied object
+  @private
+*/
+MixinPrototype.apply = function (obj) {
+  return applyMixin(obj, [this], false);
+};
+
+MixinPrototype.applyPartial = function (obj) {
+  return applyMixin(obj, [this], true);
+};
+
+function _detect(curMixin, targetMixin, seen) {
+  var guid = (0, _emberMetalUtils.guidFor)(curMixin);
+
+  if (seen[guid]) {
+    return false;
+  }
+  seen[guid] = true;
+
+  if (curMixin === targetMixin) {
+    return true;
+  }
+  var mixins = curMixin.mixins;
+  var loc = mixins ? mixins.length : 0;
+  while (--loc &gt;= 0) {
+    if (_detect(mixins[loc], targetMixin, seen)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+  @method detect
+  @param obj
+  @return {Boolean}
+  @private
+*/
+MixinPrototype.detect = function (obj) {
+  if (!obj) {
+    return false;
+  }
+  if (obj instanceof Mixin) {
+    return _detect(obj, this, {});
+  }
+  var m = obj[&#039;__ember_meta__&#039;];
+  var mixins = m &amp;&amp; m.mixins;
+  if (mixins) {
+    return !!mixins[(0, _emberMetalUtils.guidFor)(this)];
+  }
+  return false;
+};
+
+MixinPrototype.without = function () {
+  var ret = new Mixin([this]);
+
+  for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 &lt; _len3; _key3++) {
+    args[_key3] = arguments[_key3];
+  }
+
+  ret._without = args;
+  return ret;
+};
+
+function _keys(ret, mixin, seen) {
+  if (seen[(0, _emberMetalUtils.guidFor)(mixin)]) {
+    return;
+  }
+  seen[(0, _emberMetalUtils.guidFor)(mixin)] = true;
+
+  if (mixin.properties) {
+    var props = mixin.properties;
+    for (var key in props) {
+      if (props.hasOwnProperty(key)) {
+        ret[key] = true;
+      }
+    }
+  } else if (mixin.mixins) {
+    mixin.mixins.forEach(function (x) {
+      return _keys(ret, x, seen);
+    });
+  }
+}
+
+MixinPrototype.keys = function () {
+  var keys = {};
+  var seen = {};
+  var ret = [];
+  _keys(keys, this, seen);
+  for (var key in keys) {
+    if (keys.hasOwnProperty(key)) {
+      ret.push(key);
+    }
+  }
+  return ret;
+};
+
+// returns the mixins currently applied to the specified object
+// TODO: Make Ember.mixin
+Mixin.mixins = function (obj) {
+  var m = obj[&#039;__ember_meta__&#039;];
+  var mixins = m &amp;&amp; m.mixins;
+  var ret = [];
+
+  if (!mixins) {
+    return ret;
+  }
+
+  for (var key in mixins) {
+    var currentMixin = mixins[key];
+
+    // skip primitive mixins since these are always anonymous
+    if (!currentMixin.properties) {
+      ret.push(currentMixin);
+    }
+  }
+
+  return ret;
+};
+
+exports.REQUIRED = REQUIRED = new _emberMetalProperties.Descriptor();
+REQUIRED.toString = function () {
+  return &#039;(Required Property)&#039;;
+};
+
+/**
+  Denotes a required property for a mixin
+
+  @method required
+  @for Ember
+  @private
+*/
+
+function required() {
+  _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Ember.required is deprecated as its behavior is inconsistent and unreliable.&#039;, false);
+  return REQUIRED;
+}
+
+function Alias(methodName) {
+  this.isDescriptor = true;
+  this.methodName = methodName;
+}
+
+Alias.prototype = new _emberMetalProperties.Descriptor();
+
+/**
+  Makes a method available via an additional name.
+
+  ```javascript
+  App.Person = Ember.Object.extend({
+    name: function() {
+      return &#039;Tomhuda Katzdale&#039;;
+    },
+    moniker: Ember.aliasMethod(&#039;name&#039;)
+  });
+
+  var goodGuy = App.Person.create();
+
+  goodGuy.name();    // &#039;Tomhuda Katzdale&#039;
+  goodGuy.moniker(); // &#039;Tomhuda Katzdale&#039;
+  ```
+
+  @method aliasMethod
+  @for Ember
+  @param {String} methodName name of the method to alias
+  @private
+*/
+
+function aliasMethod(methodName) {
+  return new Alias(methodName);
+}
+
+// ..........................................................
+// OBSERVER HELPER
+//
+
+/**
+  Specify a method that observes property changes.
+
+  ```javascript
+  Ember.Object.extend({
+    valueObserver: Ember.observer(&#039;value&#039;, function() {
+      // Executes whenever the &quot;value&quot; property changes
+    })
+  });
+  ```
+
+  Also available as `Function.prototype.observes` if prototype extensions are
+  enabled.
+
+  @method observer
+  @for Ember
+  @param {String} propertyNames*
+  @param {Function} func
+  @return func
+  @private
+*/
+
+function observer() {
+  for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 &lt; _len4; _key4++) {
+    args[_key4] = arguments[_key4];
+  }
+
+  var func = args.slice(-1)[0];
+  var paths;
+
+  var addWatchedProperty = function addWatchedProperty(path) {
+    paths.push(path);
+  };
+  var _paths = args.slice(0, -1);
+
+  if (typeof func !== &#039;function&#039;) {
+    // revert to old, soft-deprecated argument ordering
+
+    func = args[0];
+    _paths = args.slice(1);
+  }
+
+  paths = [];
+
+  for (var i = 0; i &lt; _paths.length; ++i) {
+    (0, _emberMetalExpand_properties2[&#039;default&#039;])(_paths[i], addWatchedProperty);
+  }
+
+  if (typeof func !== &#039;function&#039;) {
+    throw new _emberMetalCore2[&#039;default&#039;].Error(&#039;Ember.observer called without a function&#039;);
+  }
+
+  func.__ember_observes__ = paths;
+  return func;
+}
+
+/**
+  Specify a method that observes property changes.
+
+  ```javascript
+  Ember.Object.extend({
+    valueObserver: Ember.immediateObserver(&#039;value&#039;, function() {
+      // Executes whenever the &quot;value&quot; property changes
+    })
+  });
+  ```
+
+  In the future, `Ember.observer` may become asynchronous. In this event,
+  `Ember.immediateObserver` will maintain the synchronous behavior.
+
+  Also available as `Function.prototype.observesImmediately` if prototype extensions are
+  enabled.
+
+  @method immediateObserver
+  @for Ember
+  @param {String} propertyNames*
+  @param {Function} func
+  @deprecated Use `Ember.observer` instead.
+  @return func
+  @private
+*/
+
+function immediateObserver() {
+  _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Usage of `Ember.immediateObserver` is deprecated, use `Ember.observer` instead.&#039;);
+
+  for (var i = 0, l = arguments.length; i &lt; l; i++) {
+    var arg = arguments[i];
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Immediate observers must observe internal properties only, not properties on other objects.&#039;, typeof arg !== &#039;string&#039; || arg.indexOf(&#039;.&#039;) === -1);
+  }
+
+  return observer.apply(this, arguments);
+}
+
+/**
+  When observers fire, they are called with the arguments `obj`, `keyName`.
+
+  Note, `@each.property` observer is called per each add or replace of an element
+  and it&#039;s not called with a specific enumeration item.
+
+  A `beforeObserver` fires before a property changes.
+
+  A `beforeObserver` is an alternative form of `.observesBefore()`.
+
+  ```javascript
+  App.PersonView = Ember.View.extend({
+    friends: [{ name: &#039;Tom&#039; }, { name: &#039;Stefan&#039; }, { name: &#039;Kris&#039; }],
+
+    valueWillChange: Ember.beforeObserver(&#039;content.value&#039;, function(obj, keyName) {
+      this.changingFrom = obj.get(keyName);
+    }),
+
+    valueDidChange: Ember.observer(&#039;content.value&#039;, function(obj, keyName) {
+        // only run if updating a value already in the DOM
+        if (this.get(&#039;state&#039;) === &#039;inDOM&#039;) {
+          var color = obj.get(keyName) &gt; this.changingFrom ? &#039;green&#039; : &#039;red&#039;;
+          // logic
+        }
+    }),
+
+    friendsDidChange: Ember.observer(&#039;friends.@each.name&#039;, function(obj, keyName) {
+      // some logic
+      // obj.get(keyName) returns friends array
+    })
+  });
+  ```
+
+  Also available as `Function.prototype.observesBefore` if prototype extensions are
+  enabled.
+
+  @method beforeObserver
+  @for Ember
+  @param {String} propertyNames*
+  @param {Function} func
+  @return func
+  @private
+*/
+
+function beforeObserver() {
+  for (var _len5 = arguments.length, args = Array(_len5), _key5 = 0; _key5 &lt; _len5; _key5++) {
+    args[_key5] = arguments[_key5];
+  }
+
+  var func = args.slice(-1)[0];
+  var paths;
+
+  var addWatchedProperty = function addWatchedProperty(path) {
+    paths.push(path);
+  };
+
+  var _paths = args.slice(0, -1);
+
+  if (typeof func !== &#039;function&#039;) {
+    // revert to old, soft-deprecated argument ordering
+
+    func = args[0];
+    _paths = args.slice(1);
+  }
+
+  paths = [];
+
+  for (var i = 0; i &lt; _paths.length; ++i) {
+    (0, _emberMetalExpand_properties2[&#039;default&#039;])(_paths[i], addWatchedProperty);
+  }
+
+  if (typeof func !== &#039;function&#039;) {
+    throw new _emberMetalCore2[&#039;default&#039;].Error(&#039;Ember.beforeObserver called without a function&#039;);
+  }
+
+  func.__ember_observesBefore__ = paths;
+  return func;
+}
+
+exports.IS_BINDING = IS_BINDING;
+exports.Mixin = Mixin;
+exports.required = required;
+exports.REQUIRED = REQUIRED;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

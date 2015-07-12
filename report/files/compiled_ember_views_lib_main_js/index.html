@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\main.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\main.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">82.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">136</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">13.25</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.16</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-views
+*/
+
+// BEGIN IMPORTS
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberRuntime = require(&#039;ember-runtime&#039;);
+
+var _emberRuntime2 = _interopRequireDefault(_emberRuntime);
+
+var _emberViewsSystemJquery = require(&#039;ember-views/system/jquery&#039;);
+
+var _emberViewsSystemJquery2 = _interopRequireDefault(_emberViewsSystemJquery);
+
+var _emberViewsSystemUtils = require(&#039;ember-views/system/utils&#039;);
+
+var _emberViewsCompatRender_buffer = require(&#039;ember-views/compat/render_buffer&#039;);
+
+var _emberViewsCompatRender_buffer2 = _interopRequireDefault(_emberViewsCompatRender_buffer);
+
+require(&#039;ember-views/system/ext&#039;);
+
+// for the side effect of extending Ember.run.queues
+
+var _emberViewsViewsStates = require(&#039;ember-views/views/states&#039;);
+
+var _emberMetalViewsRenderer = require(&#039;ember-metal-views/renderer&#039;);
+
+var _emberMetalViewsRenderer2 = _interopRequireDefault(_emberMetalViewsRenderer);
+
+var _emberViewsViewsCore_view = require(&#039;ember-views/views/core_view&#039;);
+
+var _emberViewsViewsView = require(&#039;ember-views/views/view&#039;);
+
+var _emberViewsViewsContainer_view = require(&#039;ember-views/views/container_view&#039;);
+
+var _emberViewsViewsContainer_view2 = _interopRequireDefault(_emberViewsViewsContainer_view);
+
+var _emberViewsViewsCollection_view = require(&#039;ember-views/views/collection_view&#039;);
+
+var _emberViewsViewsCollection_view2 = _interopRequireDefault(_emberViewsViewsCollection_view);
+
+var _emberViewsViewsComponent = require(&#039;ember-views/views/component&#039;);
+
+var _emberViewsViewsComponent2 = _interopRequireDefault(_emberViewsViewsComponent);
+
+var _emberViewsSystemEvent_dispatcher = require(&#039;ember-views/system/event_dispatcher&#039;);
+
+var _emberViewsSystemEvent_dispatcher2 = _interopRequireDefault(_emberViewsSystemEvent_dispatcher);
+
+var _emberViewsMixinsView_target_action_support = require(&#039;ember-views/mixins/view_target_action_support&#039;);
+
+var _emberViewsMixinsView_target_action_support2 = _interopRequireDefault(_emberViewsMixinsView_target_action_support);
+
+var _emberViewsComponent_lookup = require(&#039;ember-views/component_lookup&#039;);
+
+var _emberViewsComponent_lookup2 = _interopRequireDefault(_emberViewsComponent_lookup);
+
+var _emberViewsViewsCheckbox = require(&#039;ember-views/views/checkbox&#039;);
+
+var _emberViewsViewsCheckbox2 = _interopRequireDefault(_emberViewsViewsCheckbox);
+
+var _emberViewsMixinsText_support = require(&#039;ember-views/mixins/text_support&#039;);
+
+var _emberViewsMixinsText_support2 = _interopRequireDefault(_emberViewsMixinsText_support);
+
+var _emberViewsViewsText_field = require(&#039;ember-views/views/text_field&#039;);
+
+var _emberViewsViewsText_field2 = _interopRequireDefault(_emberViewsViewsText_field);
+
+var _emberViewsViewsText_area = require(&#039;ember-views/views/text_area&#039;);
+
+var _emberViewsViewsText_area2 = _interopRequireDefault(_emberViewsViewsText_area);
+
+var _emberViewsViewsSelect = require(&#039;ember-views/views/select&#039;);
+
+var _emberViewsCompatMetamorph_view = require(&#039;ember-views/compat/metamorph_view&#039;);
+
+var _emberViewsCompatMetamorph_view2 = _interopRequireDefault(_emberViewsCompatMetamorph_view);
+
+var _emberViewsViewsLegacy_each_view = require(&#039;ember-views/views/legacy_each_view&#039;);
+
+var _emberViewsViewsLegacy_each_view2 = _interopRequireDefault(_emberViewsViewsLegacy_each_view);
+
+// END IMPORTS
+
+/**
+  Alias for jQuery
+
+  @method $
+  @for Ember
+ @public
+*/
+
+// BEGIN EXPORTS
+_emberRuntime2[&#039;default&#039;].$ = _emberViewsSystemJquery2[&#039;default&#039;];
+
+_emberRuntime2[&#039;default&#039;].ViewTargetActionSupport = _emberViewsMixinsView_target_action_support2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].RenderBuffer = _emberViewsCompatRender_buffer2[&#039;default&#039;];
+
+var ViewUtils = _emberRuntime2[&#039;default&#039;].ViewUtils = {};
+ViewUtils.isSimpleClick = _emberViewsSystemUtils.isSimpleClick;
+ViewUtils.getViewClientRects = _emberViewsSystemUtils.getViewClientRects;
+ViewUtils.getViewBoundingClientRect = _emberViewsSystemUtils.getViewBoundingClientRect;
+
+_emberRuntime2[&#039;default&#039;].CoreView = _emberViewsViewsCore_view.DeprecatedCoreView;
+_emberRuntime2[&#039;default&#039;].View = _emberViewsViewsView.DeprecatedView;
+_emberRuntime2[&#039;default&#039;].View.states = _emberViewsViewsStates.states;
+_emberRuntime2[&#039;default&#039;].View.cloneStates = _emberViewsViewsStates.cloneStates;
+_emberRuntime2[&#039;default&#039;].View._Renderer = _emberMetalViewsRenderer2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].Checkbox = _emberViewsViewsCheckbox2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].TextField = _emberViewsViewsText_field2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].TextArea = _emberViewsViewsText_area2[&#039;default&#039;];
+
+_emberRuntime2[&#039;default&#039;].Select = _emberViewsViewsSelect.DeprecatedSelect;
+_emberRuntime2[&#039;default&#039;].SelectOption = _emberViewsViewsSelect.SelectOption;
+_emberRuntime2[&#039;default&#039;].SelectOptgroup = _emberViewsViewsSelect.SelectOptgroup;
+
+_emberRuntime2[&#039;default&#039;].TextSupport = _emberViewsMixinsText_support2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].ComponentLookup = _emberViewsComponent_lookup2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].ContainerView = _emberViewsViewsContainer_view2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].CollectionView = _emberViewsViewsCollection_view2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].Component = _emberViewsViewsComponent2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;].EventDispatcher = _emberViewsSystemEvent_dispatcher2[&#039;default&#039;];
+
+// Deprecated:
+_emberRuntime2[&#039;default&#039;]._Metamorph = _emberViewsCompatMetamorph_view._Metamorph;
+_emberRuntime2[&#039;default&#039;]._MetamorphView = _emberViewsCompatMetamorph_view2[&#039;default&#039;];
+_emberRuntime2[&#039;default&#039;]._LegacyEachView = _emberViewsViewsLegacy_each_view2[&#039;default&#039;];
+
+// END EXPORTS
+
+exports[&#039;default&#039;] = _emberRuntime2[&#039;default&#039;];
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

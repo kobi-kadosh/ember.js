@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\computed\reduce_computed_macros.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\computed\reduce_computed_macros.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">75.36</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">686</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">66.46</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.18</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i &amp;&amp; _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n &amp;&amp; _i[&#039;return&#039;]) _i[&#039;return&#039;](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError(&#039;Invalid attempt to destructure non-iterable instance&#039;); } }; })();
+
+exports.sum = sum;
+exports.max = max;
+exports.min = min;
+exports.map = map;
+exports.mapBy = mapBy;
+exports.filter = filter;
+exports.filterBy = filterBy;
+exports.uniq = uniq;
+exports.intersect = intersect;
+exports.setDiff = setDiff;
+exports.sort = sort;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalObserver = require(&#039;ember-metal/observer&#039;);
+
+var _emberRuntimeCompare = require(&#039;ember-runtime/compare&#039;);
+
+var _emberRuntimeCompare2 = _interopRequireDefault(_emberRuntimeCompare);
+
+var _emberRuntimeUtils = require(&#039;ember-runtime/utils&#039;);
+
+function reduceMacro(dependentKey, callback, initialValue) {
+  return (0, _emberMetalComputed.computed)(dependentKey + &#039;.[]&#039;, function () {
+    return (0, _emberMetalProperty_get.get)(this, dependentKey).reduce(callback, initialValue);
+  }).readOnly();
+}
+
+function arrayMacro(dependentKey, callback) {
+  // This is a bit ugly
+  var propertyName;
+  if (/@each/.test(dependentKey)) {
+    propertyName = dependentKey.replace(/\.@each.*$/, &#039;&#039;);
+  } else {
+    propertyName = dependentKey;
+    dependentKey += &#039;.[]&#039;;
+  }
+
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    var value = (0, _emberMetalProperty_get.get)(this, propertyName);
+    if ((0, _emberRuntimeUtils.isArray)(value)) {
+      return _emberMetalCore2[&#039;default&#039;].A(callback(value));
+    } else {
+      return _emberMetalCore2[&#039;default&#039;].A();
+    }
+  }).readOnly();
+}
+
+function multiArrayMacro(dependentKeys, callback) {
+  var args = dependentKeys.map(function (key) {
+    return key + &#039;.[]&#039;;
+  });
+
+  args.push(function () {
+    return _emberMetalCore2[&#039;default&#039;].A(callback.call(this, dependentKeys));
+  });
+
+  return _emberMetalComputed.computed.apply(this, args).readOnly();
+}
+
+/**
+  A computed property that returns the sum of the value
+  in the dependent array.
+
+  @method sum
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computes the sum of all values in the dependentKey&#039;s array
+  @since 1.4.0
+  @public
+*/
+
+function sum(dependentKey) {
+  return reduceMacro(dependentKey, function (sum, item) {
+    return sum + item;
+  }, 0);
+}
+
+/**
+  A computed property that calculates the maximum value in the
+  dependent array. This will return `-Infinity` when the dependent
+  array is empty.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    childAges: Ember.computed.mapBy(&#039;children&#039;, &#039;age&#039;),
+    maxChildAge: Ember.computed.max(&#039;childAges&#039;)
+  });
+
+  var lordByron = Person.create({ children: [] });
+
+  lordByron.get(&#039;maxChildAge&#039;); // -Infinity
+  lordByron.get(&#039;children&#039;).pushObject({
+    name: &#039;Augusta Ada Byron&#039;, age: 7
+  });
+  lordByron.get(&#039;maxChildAge&#039;); // 7
+  lordByron.get(&#039;children&#039;).pushObjects([{
+    name: &#039;Allegra Byron&#039;,
+    age: 5
+  }, {
+    name: &#039;Elizabeth Medora Leigh&#039;,
+    age: 8
+  }]);
+  lordByron.get(&#039;maxChildAge&#039;); // 8
+  ```
+
+  @method max
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computes the largest value in the dependentKey&#039;s array
+  @public
+*/
+
+function max(dependentKey) {
+  return reduceMacro(dependentKey, function (max, item) {
+    return Math.max(max, item);
+  }, -Infinity);
+}
+
+/**
+  A computed property that calculates the minimum value in the
+  dependent array. This will return `Infinity` when the dependent
+  array is empty.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    childAges: Ember.computed.mapBy(&#039;children&#039;, &#039;age&#039;),
+    minChildAge: Ember.computed.min(&#039;childAges&#039;)
+  });
+
+  var lordByron = Person.create({ children: [] });
+
+  lordByron.get(&#039;minChildAge&#039;); // Infinity
+  lordByron.get(&#039;children&#039;).pushObject({
+    name: &#039;Augusta Ada Byron&#039;, age: 7
+  });
+  lordByron.get(&#039;minChildAge&#039;); // 7
+  lordByron.get(&#039;children&#039;).pushObjects([{
+    name: &#039;Allegra Byron&#039;,
+    age: 5
+  }, {
+    name: &#039;Elizabeth Medora Leigh&#039;,
+    age: 8
+  }]);
+  lordByron.get(&#039;minChildAge&#039;); // 5
+  ```
+
+  @method min
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computes the smallest value in the dependentKey&#039;s array
+  @public
+*/
+
+function min(dependentKey) {
+  return reduceMacro(dependentKey, function (min, item) {
+    return Math.min(min, item);
+  }, Infinity);
+}
+
+/**
+  Returns an array mapped via the callback
+
+  The callback method you provide should have the following signature.
+  `item` is the current item in the iteration.
+  `index` is the integer index of the current item in the iteration.
+
+  ```javascript
+  function(item, index);
+  ```
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    excitingChores: Ember.computed.map(&#039;chores&#039;, function(chore, index) {
+      return chore.toUpperCase() + &#039;!&#039;;
+    })
+  });
+
+  var hamster = Hamster.create({
+    chores: [&#039;clean&#039;, &#039;write more unit tests&#039;]
+  });
+
+  hamster.get(&#039;excitingChores&#039;); // [&#039;CLEAN!&#039;, &#039;WRITE MORE UNIT TESTS!&#039;]
+  ```
+
+  @method map
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {Function} callback
+  @return {Ember.ComputedProperty} an array mapped via the callback
+  @public
+*/
+
+function map(dependentKey, callback) {
+  return arrayMacro(dependentKey, function (value) {
+    return value.map(callback);
+  });
+}
+
+/**
+  Returns an array mapped to the specified key.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    childAges: Ember.computed.mapBy(&#039;children&#039;, &#039;age&#039;)
+  });
+
+  var lordByron = Person.create({ children: [] });
+
+  lordByron.get(&#039;childAges&#039;); // []
+  lordByron.get(&#039;children&#039;).pushObject({ name: &#039;Augusta Ada Byron&#039;, age: 7 });
+  lordByron.get(&#039;childAges&#039;); // [7]
+  lordByron.get(&#039;children&#039;).pushObjects([{
+    name: &#039;Allegra Byron&#039;,
+    age: 5
+  }, {
+    name: &#039;Elizabeth Medora Leigh&#039;,
+    age: 8
+  }]);
+  lordByron.get(&#039;childAges&#039;); // [7, 5, 8]
+  ```
+
+  @method mapBy
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {String} propertyKey
+  @return {Ember.ComputedProperty} an array mapped to the specified key
+  @public
+*/
+
+function mapBy(dependentKey, propertyKey) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Ember.computed.mapBy expects a property string for its second argument, &#039; + &#039;perhaps you meant to use &quot;map&quot;&#039;, typeof propertyKey === &#039;string&#039;);
+
+  return map(dependentKey + &#039;.@each.&#039; + propertyKey, function (item) {
+    return (0, _emberMetalProperty_get.get)(item, propertyKey);
+  });
+}
+
+/**
+  Filters the array by the callback.
+
+  The callback method you provide should have the following signature.
+  `item` is the current item in the iteration.
+  `index` is the integer index of the current item in the iteration.
+  `array` is the dependant array itself.
+
+  ```javascript
+  function(item, index, array);
+  ```
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    remainingChores: Ember.computed.filter(&#039;chores&#039;, function(chore, index, array) {
+      return !chore.done;
+    })
+  });
+
+  var hamster = Hamster.create({
+    chores: [
+      { name: &#039;cook&#039;, done: true },
+      { name: &#039;clean&#039;, done: true },
+      { name: &#039;write more unit tests&#039;, done: false }
+    ]
+  });
+
+  hamster.get(&#039;remainingChores&#039;); // [{name: &#039;write more unit tests&#039;, done: false}]
+  ```
+
+  @method filter
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {Function} callback
+  @return {Ember.ComputedProperty} the filtered array
+  @public
+*/
+
+function filter(dependentKey, callback) {
+  return arrayMacro(dependentKey, function (value) {
+    return value.filter(callback);
+  });
+}
+
+/**
+  Filters the array by the property and value
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    remainingChores: Ember.computed.filterBy(&#039;chores&#039;, &#039;done&#039;, false)
+  });
+
+  var hamster = Hamster.create({
+    chores: [
+      { name: &#039;cook&#039;, done: true },
+      { name: &#039;clean&#039;, done: true },
+      { name: &#039;write more unit tests&#039;, done: false }
+    ]
+  });
+
+  hamster.get(&#039;remainingChores&#039;); // [{ name: &#039;write more unit tests&#039;, done: false }]
+  ```
+
+  @method filterBy
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {String} propertyKey
+  @param {*} value
+  @return {Ember.ComputedProperty} the filtered array
+  @public
+*/
+
+function filterBy(dependentKey, propertyKey, value) {
+  var callback;
+
+  if (arguments.length === 2) {
+    callback = function (item) {
+      return (0, _emberMetalProperty_get.get)(item, propertyKey);
+    };
+  } else {
+    callback = function (item) {
+      return (0, _emberMetalProperty_get.get)(item, propertyKey) === value;
+    };
+  }
+
+  return filter(dependentKey + &#039;.@each.&#039; + propertyKey, callback);
+}
+
+/**
+  A computed property which returns a new array with all the unique
+  elements from one or more dependent arrays.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    uniqueFruits: Ember.computed.uniq(&#039;fruits&#039;)
+  });
+
+  var hamster = Hamster.create({
+    fruits: [
+      &#039;banana&#039;,
+      &#039;grape&#039;,
+      &#039;kale&#039;,
+      &#039;banana&#039;
+    ]
+  });
+
+  hamster.get(&#039;uniqueFruits&#039;); // [&#039;banana&#039;, &#039;grape&#039;, &#039;kale&#039;]
+  ```
+
+  @method uniq
+  @for Ember.computed
+  @param {String} propertyKey*
+  @return {Ember.ComputedProperty} computes a new array with all the
+  unique elements from the dependent array
+  @public
+*/
+
+function uniq() {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return multiArrayMacro(args, function (dependentKeys) {
+    var _this = this;
+
+    var uniq = _emberMetalCore2[&#039;default&#039;].A();
+
+    dependentKeys.forEach(function (dependentKey) {
+      var value = (0, _emberMetalProperty_get.get)(_this, dependentKey);
+      if ((0, _emberRuntimeUtils.isArray)(value)) {
+        value.forEach(function (item) {
+          if (uniq.indexOf(item) === -1) {
+            uniq.push(item);
+          }
+        });
+      }
+    });
+
+    return uniq;
+  });
+}
+
+/**
+  Alias for [Ember.computed.uniq](/api/#method_computed_uniq).
+
+  @method union
+  @for Ember.computed
+  @param {String} propertyKey*
+  @return {Ember.ComputedProperty} computes a new array with all the
+  unique elements from the dependent array
+  @public
+*/
+var union = uniq;
+
+exports.union = union;
+/**
+  A computed property which returns a new array with all the duplicated
+  elements from two or more dependent arrays.
+
+  Example
+
+  ```javascript
+  var obj = Ember.Object.extend({
+    friendsInCommon: Ember.computed.intersect(&#039;adaFriends&#039;, &#039;charlesFriends&#039;)
+  }).create({
+    adaFriends: [&#039;Charles Babbage&#039;, &#039;John Hobhouse&#039;, &#039;William King&#039;, &#039;Mary Somerville&#039;],
+    charlesFriends: [&#039;William King&#039;, &#039;Mary Somerville&#039;, &#039;Ada Lovelace&#039;, &#039;George Peacock&#039;]
+  });
+
+  obj.get(&#039;friendsInCommon&#039;); // [&#039;William King&#039;, &#039;Mary Somerville&#039;]
+  ```
+
+  @method intersect
+  @for Ember.computed
+  @param {String} propertyKey*
+  @return {Ember.ComputedProperty} computes a new array with all the
+  duplicated elements from the dependent arrays
+  @public
+*/
+
+function intersect() {
+  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 &lt; _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+
+  return multiArrayMacro(args, function (dependentKeys) {
+    var _this2 = this;
+
+    var arrays = dependentKeys.map(function (dependentKey) {
+      var array = (0, _emberMetalProperty_get.get)(_this2, dependentKey);
+
+      return (0, _emberRuntimeUtils.isArray)(array) ? array : [];
+    });
+
+    var results = arrays.pop().filter(function (candidate) {
+      for (var i = 0; i &lt; arrays.length; i++) {
+        var found = false;
+        var array = arrays[i];
+        for (var j = 0; j &lt; array.length; j++) {
+          if (array[j] === candidate) {
+            found = true;
+            break;
+          }
+        }
+
+        if (found === false) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    return _emberMetalCore2[&#039;default&#039;].A(results);
+  });
+}
+
+/**
+  A computed property which returns a new array with all the
+  properties from the first dependent array that are not in the second
+  dependent array.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    likes: [&#039;banana&#039;, &#039;grape&#039;, &#039;kale&#039;],
+    wants: Ember.computed.setDiff(&#039;likes&#039;, &#039;fruits&#039;)
+  });
+
+  var hamster = Hamster.create({
+    fruits: [
+      &#039;grape&#039;,
+      &#039;kale&#039;,
+    ]
+  });
+
+  hamster.get(&#039;wants&#039;); // [&#039;banana&#039;]
+  ```
+
+  @method setDiff
+  @for Ember.computed
+  @param {String} setAProperty
+  @param {String} setBProperty
+  @return {Ember.ComputedProperty} computes a new array with all the
+  items from the first dependent array that are not in the second
+  dependent array
+  @public
+*/
+
+function setDiff(setAProperty, setBProperty) {
+  if (arguments.length !== 2) {
+    throw new _emberMetalError2[&#039;default&#039;](&#039;setDiff requires exactly two dependent arrays.&#039;);
+  }
+
+  return (0, _emberMetalComputed.computed)(setAProperty + &#039;.[]&#039;, setBProperty + &#039;.[]&#039;, function () {
+    var setA = this.get(setAProperty);
+    var setB = this.get(setBProperty);
+
+    if (!(0, _emberRuntimeUtils.isArray)(setA)) {
+      return _emberMetalCore2[&#039;default&#039;].A();
+    }
+    if (!(0, _emberRuntimeUtils.isArray)(setB)) {
+      return _emberMetalCore2[&#039;default&#039;].A(setA);
+    }
+
+    return setA.filter(function (x) {
+      return setB.indexOf(x) === -1;
+    });
+  }).readOnly();
+}
+
+/**
+  A computed property which returns a new array with all the
+  properties from the first dependent array sorted based on a property
+  or sort function.
+
+  The callback method you provide should have the following signature:
+
+  ```javascript
+  function(itemA, itemB);
+  ```
+
+  - `itemA` the first item to compare.
+  - `itemB` the second item to compare.
+
+  This function should return negative number (e.g. `-1`) when `itemA` should come before
+  `itemB`. It should return positive number (e.g. `1`) when `itemA` should come after
+  `itemB`. If the `itemA` and `itemB` are equal this function should return `0`.
+
+  Therefore, if this function is comparing some numeric values, simple `itemA - itemB` or
+  `itemA.get( &#039;foo&#039; ) - itemB.get( &#039;foo&#039; )` can be used instead of series of `if`.
+
+  Example
+
+  ```javascript
+  var ToDoList = Ember.Object.extend({
+    // using standard ascending sort
+    todosSorting: [&#039;name&#039;],
+    sortedTodos: Ember.computed.sort(&#039;todos&#039;, &#039;todosSorting&#039;),
+
+    // using descending sort
+    todosSortingDesc: [&#039;name:desc&#039;],
+    sortedTodosDesc: Ember.computed.sort(&#039;todos&#039;, &#039;todosSortingDesc&#039;),
+
+    // using a custom sort function
+    priorityTodos: Ember.computed.sort(&#039;todos&#039;, function(a, b){
+      if (a.priority &gt; b.priority) {
+        return 1;
+      } else if (a.priority &lt; b.priority) {
+        return -1;
+      }
+
+      return 0;
+    })
+  });
+
+  var todoList = ToDoList.create({todos: [
+    { name: &#039;Unit Test&#039;, priority: 2 },
+    { name: &#039;Documentation&#039;, priority: 3 },
+    { name: &#039;Release&#039;, priority: 1 }
+  ]});
+
+  todoList.get(&#039;sortedTodos&#039;);      // [{ name:&#039;Documentation&#039;, priority:3 }, { name:&#039;Release&#039;, priority:1 }, { name:&#039;Unit Test&#039;, priority:2 }]
+  todoList.get(&#039;sortedTodosDesc&#039;);  // [{ name:&#039;Unit Test&#039;, priority:2 }, { name:&#039;Release&#039;, priority:1 }, { name:&#039;Documentation&#039;, priority:3 }]
+  todoList.get(&#039;priorityTodos&#039;);    // [{ name:&#039;Release&#039;, priority:1 }, { name:&#039;Unit Test&#039;, priority:2 }, { name:&#039;Documentation&#039;, priority:3 }]
+  ```
+
+  @method sort
+  @for Ember.computed
+  @param {String} itemsKey
+  @param {String or Function} sortDefinition a dependent key to an
+  array of sort properties (add `:desc` to the arrays sort properties to sort descending) or a function to use when sorting
+  @return {Ember.ComputedProperty} computes a new sorted array based
+  on the sort property array or callback function
+  @public
+*/
+
+function sort(itemsKey, sortDefinition) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;Ember.computed.sort requires two arguments: an array key to sort and &#039; + &#039;either a sort properties key or sort function&#039;, arguments.length === 2);
+
+  if (typeof sortDefinition === &#039;function&#039;) {
+    return customSort(itemsKey, sortDefinition);
+  } else {
+    return propertySort(itemsKey, sortDefinition);
+  }
+}
+
+function customSort(itemsKey, comparator) {
+  return arrayMacro(itemsKey, function (value) {
+    return value.slice().sort(comparator);
+  });
+}
+
+// This one needs to dynamically set up and tear down observers on the itemsKey
+// depending on the sortProperties
+function propertySort(itemsKey, sortPropertiesKey) {
+  var cp = new _emberMetalComputed.ComputedProperty(function (key) {
+    var _this3 = this;
+
+    function didChange() {
+      this.notifyPropertyChange(key);
+    }
+
+    var items = itemsKey === &#039;@this&#039; ? this : (0, _emberMetalProperty_get.get)(this, itemsKey);
+    var sortProperties = (0, _emberMetalProperty_get.get)(this, sortPropertiesKey);
+
+    // TODO: Ideally we&#039;d only do this if things have changed
+    if (cp._sortPropObservers) {
+      cp._sortPropObservers.forEach(function (args) {
+        return _emberMetalObserver.removeObserver.apply(null, args);
+      });
+    }
+
+    cp._sortPropObservers = [];
+
+    if (!(0, _emberRuntimeUtils.isArray)(sortProperties)) {
+      return items;
+    }
+
+    // Normalize properties
+    var normalizedSort = sortProperties.map(function (p) {
+      var _p$split = p.split(&#039;:&#039;);
+
+      var _p$split2 = _slicedToArray(_p$split, 2);
+
+      var prop = _p$split2[0];
+      var direction = _p$split2[1];
+
+      direction = direction || &#039;asc&#039;;
+
+      return [prop, direction];
+    });
+
+    // TODO: Ideally we&#039;d only do this if things have changed
+    // Add observers
+    normalizedSort.forEach(function (prop) {
+      var args = [_this3, itemsKey + &#039;.@each.&#039; + prop[0], didChange];
+      cp._sortPropObservers.push(args);
+      _emberMetalObserver.addObserver.apply(null, args);
+    });
+
+    return _emberMetalCore2[&#039;default&#039;].A(items.slice().sort(function (itemA, itemB) {
+
+      for (var i = 0; i &lt; normalizedSort.length; ++i) {
+        var _normalizedSort$i = _slicedToArray(normalizedSort[i], 2);
+
+        var prop = _normalizedSort$i[0];
+        var direction = _normalizedSort$i[1];
+
+        var result = (0, _emberRuntimeCompare2[&#039;default&#039;])((0, _emberMetalProperty_get.get)(itemA, prop), (0, _emberMetalProperty_get.get)(itemB, prop));
+        if (result !== 0) {
+          return direction === &#039;desc&#039; ? -1 * result : result;
+        }
+      }
+
+      return 0;
+    }));
+  });
+
+  return cp.property(itemsKey + &#039;.[]&#039;, sortPropertiesKey + &#039;.[]&#039;).readOnly();
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

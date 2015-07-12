@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-application\lib\system\application-instance.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-application\lib\system\application-instance.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">75.58</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">219</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">18.83</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.89</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-application
+@private
+*/
+
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberMetalRun_loop = require(&#039;ember-metal/run_loop&#039;);
+
+var _emberMetalRun_loop2 = _interopRequireDefault(_emberMetalRun_loop);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _containerRegistry = require(&#039;container/registry&#039;);
+
+var _containerRegistry2 = _interopRequireDefault(_containerRegistry);
+
+/**
+  The `ApplicationInstance` encapsulates all of the stateful aspects of a
+  running `Application`.
+
+  At a high-level, we break application boot into two distinct phases:
+
+  * Definition time, where all of the classes, templates, and other
+    dependencies are loaded (typically in the browser).
+  * Run time, where we begin executing the application once everything
+    has loaded.
+
+  Definition time can be expensive and only needs to happen once since it is
+  an idempotent operation. For example, between test runs and FastBoot
+  requests, the application stays the same. It is only the state that we want
+  to reset.
+
+  That state is what the `ApplicationInstance` manages: it is responsible for
+  creating the container that contains all application state, and disposing of
+  it once the particular test run or FastBoot request has finished.
+
+  @public
+*/
+
+exports[&#039;default&#039;] = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+  /**
+    The application instance&#039;s container. The container stores all of the
+    instance-specific state for this application run.
+      @property {Ember.Container} container
+    @public
+  */
+  container: null,
+
+  /**
+    The application&#039;s registry. The registry contains the classes, templates,
+    and other code that makes up the application.
+      @property {Ember.Registry} registry
+    @private
+  */
+  applicationRegistry: null,
+
+  /**
+    The registry for this application instance. It should use the
+    `applicationRegistry` as a fallback.
+      @property {Ember.Registry} registry
+    @private
+  */
+  registry: null,
+
+  /**
+    The DOM events for which the event dispatcher should listen.
+      By default, the application&#039;s `Ember.EventDispatcher` listens
+    for a set of standard DOM events, such as `mousedown` and
+    `keyup`, and delegates them to your application&#039;s `Ember.View`
+    instances.
+      @private
+    @property {Object} customEvents
+  */
+  customEvents: null,
+
+  /**
+    The root DOM element of the Application as an element or a
+    [jQuery-compatible selector
+    string](http://api.jquery.com/category/selectors/).
+      @private
+    @property {String|DOMElement} rootElement
+  */
+  rootElement: null,
+
+  init: function init() {
+    this._super.apply(this, arguments);
+
+    // Create a per-instance registry that will use the application&#039;s registry
+    // as a fallback for resolving registrations.
+    this.registry = new _containerRegistry2[&#039;default&#039;]({
+      fallback: this.applicationRegistry,
+      resolver: this.applicationRegistry.resolver
+    });
+    this.registry.normalizeFullName = this.applicationRegistry.normalizeFullName;
+    this.registry.makeToString = this.applicationRegistry.makeToString;
+
+    // Create a per-instance container from the instance&#039;s registry
+    this.container = this.registry.container();
+
+    // Register this instance in the per-instance registry.
+    //
+    // Why do we need to register the instance in the first place?
+    // Because we need a good way for the root route (a.k.a ApplicationRoute)
+    // to notify us when it has created the root-most view. That view is then
+    // appended to the rootElement, in the case of apps, to the fixture harness
+    // in tests, or rendered to a string in the case of FastBoot.
+    this.registry.register(&#039;-application-instance:main&#039;, this, { instantiate: false });
+  },
+
+  router: (0, _emberMetalComputed.computed)(function () {
+    return this.container.lookup(&#039;router:main&#039;);
+  }).readOnly(),
+
+  /**
+    Instantiates and sets up the router, specifically overriding the default
+    location. This is useful for manually starting the app in FastBoot or
+    testing environments, where trying to modify the URL would be
+    inappropriate.
+      @param options
+    @private
+  */
+  overrideRouterLocation: function overrideRouterLocation(options) {
+    var location = options &amp;&amp; options.location;
+    var router = (0, _emberMetalProperty_get.get)(this, &#039;router&#039;);
+
+    if (location) {
+      (0, _emberMetalProperty_set.set)(router, &#039;location&#039;, location);
+    }
+  },
+
+  /**
+    This hook is called by the root-most Route (a.k.a. the ApplicationRoute)
+    when it has finished creating the root View. By default, we simply take the
+    view and append it to the `rootElement` specified on the Application.
+      In cases like FastBoot and testing, we can override this hook and implement
+    custom behavior, such as serializing to a string and sending over an HTTP
+    socket rather than appending to DOM.
+      @param view {Ember.View} the root-most view
+    @private
+  */
+  didCreateRootView: function didCreateRootView(view) {
+    view.appendTo(this.rootElement);
+  },
+
+  /**
+    Tells the router to start routing. The router will ask the location for the
+    current URL of the page to determine the initial URL to start routing to.
+    To start the app at a specific URL, call `handleURL` instead.
+      @private
+  */
+  startRouting: function startRouting() {
+    var router = (0, _emberMetalProperty_get.get)(this, &#039;router&#039;);
+    var isModuleBasedResolver = !!this.registry.resolver.moduleBasedResolver;
+
+    router.startRouting(isModuleBasedResolver);
+    this._didSetupRouter = true;
+  },
+
+  /**
+    @private
+      Sets up the router, initializing the child router and configuring the
+    location before routing begins.
+      Because setup should only occur once, multiple calls to `setupRouter`
+    beyond the first call have no effect.
+  */
+  setupRouter: function setupRouter() {
+    if (this._didSetupRouter) {
+      return;
+    }
+    this._didSetupRouter = true;
+
+    var router = (0, _emberMetalProperty_get.get)(this, &#039;router&#039;);
+    var isModuleBasedResolver = !!this.registry.resolver.moduleBasedResolver;
+    router.setupRouter(isModuleBasedResolver);
+  },
+
+  /**
+    Directs the router to route to a particular URL. This is useful in tests,
+    for example, to tell the app to start at a particular URL. Ensure that you
+    have called `setupRouter()` before calling this method.
+      @param url {String} the URL the router should route to
+    @private
+  */
+  handleURL: function handleURL(url) {
+    var router = (0, _emberMetalProperty_get.get)(this, &#039;router&#039;);
+
+    this.setupRouter();
+    return router.handleURL(url);
+  },
+
+  /**
+    @private
+  */
+  setupEventDispatcher: function setupEventDispatcher() {
+    var dispatcher = this.container.lookup(&#039;event_dispatcher:main&#039;);
+    dispatcher.setup(this.customEvents, this.rootElement);
+
+    return dispatcher;
+  },
+
+  /**
+    @private
+  */
+  willDestroy: function willDestroy() {
+    this._super.apply(this, arguments);
+    (0, _emberMetalRun_loop2[&#039;default&#039;])(this.container, &#039;destroy&#039;);
+  }
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

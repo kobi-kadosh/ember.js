@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\mixins\action_handler.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\mixins\action_handler.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">61.50</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">217</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">30.47</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.64</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+@module ember
+@submodule ember-runtime
+*/
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+/**
+  The `Ember.ActionHandler` mixin implements support for moving an `actions`
+  property to an `_actions` property at extend time, and adding `_actions`
+  to the object&#039;s mergedProperties list.
+
+  `Ember.ActionHandler` is available on some familiar classes including
+  `Ember.Route`, `Ember.View`, `Ember.Component`, and controllers such as
+  `Ember.Controller` and `Ember.ObjectController`.
+  (Internally the mixin is used by `Ember.CoreView`, `Ember.ControllerMixin`,
+  and `Ember.Route` and available to the above classes through
+  inheritance.)
+
+  @class ActionHandler
+  @namespace Ember
+  @private
+*/
+var ActionHandler = _emberMetalMixin.Mixin.create({
+  mergedProperties: [&#039;_actions&#039;],
+
+  /**
+    The collection of functions, keyed by name, available on this
+    `ActionHandler` as action targets.
+      These functions will be invoked when a matching `{{action}}` is triggered
+    from within a template and the application&#039;s current route is this route.
+      Actions can also be invoked from other parts of your application
+    via `ActionHandler#send`.
+      The `actions` hash will inherit action handlers from
+    the `actions` hash defined on extended parent classes
+    or mixins rather than just replace the entire hash, e.g.:
+      ```js
+    App.CanDisplayBanner = Ember.Mixin.create({
+      actions: {
+        displayBanner: function(msg) {
+          // ...
+        }
+      }
+    });
+      App.WelcomeRoute = Ember.Route.extend(App.CanDisplayBanner, {
+      actions: {
+        playMusic: function() {
+          // ...
+        }
+      }
+    });
+      // `WelcomeRoute`, when active, will be able to respond
+    // to both actions, since the actions hash is merged rather
+    // then replaced when extending mixins / parent classes.
+    this.send(&#039;displayBanner&#039;);
+    this.send(&#039;playMusic&#039;);
+    ```
+      Within a Controller, Route, View or Component&#039;s action handler,
+    the value of the `this` context is the Controller, Route, View or
+    Component object:
+      ```js
+    App.SongRoute = Ember.Route.extend({
+      actions: {
+        myAction: function() {
+          this.controllerFor(&quot;song&quot;);
+          this.transitionTo(&quot;other.route&quot;);
+          ...
+        }
+      }
+    });
+    ```
+      It is also possible to call `this._super.apply(this, arguments)` from within an
+    action handler if it overrides a handler defined on a parent
+    class or mixin:
+      Take for example the following routes:
+      ```js
+    App.DebugRoute = Ember.Mixin.create({
+      actions: {
+        debugRouteInformation: function() {
+          console.debug(&quot;trololo&quot;);
+        }
+      }
+    });
+      App.AnnoyingDebugRoute = Ember.Route.extend(App.DebugRoute, {
+      actions: {
+        debugRouteInformation: function() {
+          // also call the debugRouteInformation of mixed in App.DebugRoute
+          this._super.apply(this, arguments);
+            // show additional annoyance
+          window.alert(...);
+        }
+      }
+    });
+    ```
+      ## Bubbling
+      By default, an action will stop bubbling once a handler defined
+    on the `actions` hash handles it. To continue bubbling the action,
+    you must return `true` from the handler:
+      ```js
+    App.Router.map(function() {
+      this.route(&quot;album&quot;, function() {
+        this.route(&quot;song&quot;);
+      });
+    });
+      App.AlbumRoute = Ember.Route.extend({
+      actions: {
+        startPlaying: function() {
+        }
+      }
+    });
+      App.AlbumSongRoute = Ember.Route.extend({
+      actions: {
+        startPlaying: function() {
+          // ...
+            if (actionShouldAlsoBeTriggeredOnParentRoute) {
+            return true;
+          }
+        }
+      }
+    });
+    ```
+      @property actions
+    @type Object
+    @default null
+    @public
+  */
+
+  /**
+    Moves `actions` to `_actions` at extend time. Note that this currently
+    modifies the mixin themselves, which is technically dubious but
+    is practically of little consequence. This may change in the future.
+      @private
+    @method willMergeMixin
+  */
+  willMergeMixin: function willMergeMixin(props) {
+    var hashName;
+
+    if (!props._actions) {
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;\&#039;actions\&#039; should not be a function&#039;, typeof props.actions !== &#039;function&#039;);
+
+      if (!!props.actions &amp;&amp; typeof props.actions === &#039;object&#039;) {
+        hashName = &#039;actions&#039;;
+      } else if (!!props.events &amp;&amp; typeof props.events === &#039;object&#039;) {
+        _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Action handlers contained in an `events` object are deprecated in favor&#039; + &#039; of putting them in an `actions` object&#039;, false);
+        hashName = &#039;events&#039;;
+      }
+
+      if (hashName) {
+        props._actions = (0, _emberMetalMerge2[&#039;default&#039;])(props._actions || {}, props[hashName]);
+      }
+
+      delete props[hashName];
+    }
+  },
+
+  /**
+    Triggers a named action on the `ActionHandler`. Any parameters
+    supplied after the `actionName` string will be passed as arguments
+    to the action target function.
+      If the `ActionHandler` has its `target` property set, actions may
+    bubble to the `target`. Bubbling happens when an `actionName` can
+    not be found in the `ActionHandler`&#039;s `actions` hash or if the
+    action target function returns `true`.
+      Example
+      ```js
+    App.WelcomeRoute = Ember.Route.extend({
+      actions: {
+        playTheme: function() {
+           this.send(&#039;playMusic&#039;, &#039;theme.mp3&#039;);
+        },
+        playMusic: function(track) {
+          // ...
+        }
+      }
+    });
+    ```
+      @method send
+    @param {String} actionName The action to trigger
+    @param {*} context a context to send with the action
+    @public
+  */
+  send: function send(actionName) {
+    for (var _len = arguments.length, args = Array(_len &gt; 1 ? _len - 1 : 0), _key = 1; _key &lt; _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    var target;
+
+    if (this._actions &amp;&amp; this._actions[actionName]) {
+      var shouldBubble = this._actions[actionName].apply(this, args) === true;
+      if (!shouldBubble) {
+        return;
+      }
+    }
+
+    if (target = (0, _emberMetalProperty_get.get)(this, &#039;target&#039;)) {
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;The `target` for &#039; + this + &#039; (&#039; + target + &#039;) does not have a `send` method&#039;, typeof target.send === &#039;function&#039;);
+      target.send.apply(target, arguments);
+    }
+  }
+});
+
+exports[&#039;default&#039;] = ActionHandler;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

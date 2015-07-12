@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\events.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\events.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">58.79</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">464</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">103.87</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.47</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">// Remove &quot;use strict&quot;; from transpiled module until
+// https://bugs.webkit.org/show_bug.cgi?id=138038 is fixed
+//
+&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.accumulateListeners = accumulateListeners;
+exports.addListener = addListener;
+exports.suspendListener = suspendListener;
+exports.suspendListeners = suspendListeners;
+exports.watchedEvents = watchedEvents;
+exports.sendEvent = sendEvent;
+exports.hasListeners = hasListeners;
+exports.listenersFor = listenersFor;
+exports.on = on;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+/**
+@module ember
+@submodule ember-metal
+*/
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+&#039;REMOVE_USE_STRICT: true&#039;;
+
+/* listener flags */
+var ONCE = 1;
+var SUSPENDED = 2;
+
+/*
+  The event system uses a series of nested hashes to store listeners on an
+  object. When a listener is registered, or when an event arrives, these
+  hashes are consulted to determine which target and action pair to invoke.
+
+  The hashes are stored in the object&#039;s meta hash, and look like this:
+
+      // Object&#039;s meta hash
+      {
+        listeners: {       // variable name: `listenerSet`
+          &quot;foo:changed&quot;: [ // variable name: `actions`
+            target, method, flags
+          ]
+        }
+      }
+
+*/
+
+function indexOf(array, target, method) {
+  var index = -1;
+  // hashes are added to the end of the event array
+  // so it makes sense to start searching at the end
+  // of the array and search in reverse
+  for (var i = array.length - 3; i &gt;= 0; i -= 3) {
+    if (target === array[i] &amp;&amp; method === array[i + 1]) {
+      index = i;
+      break;
+    }
+  }
+  return index;
+}
+
+function actionsFor(obj, eventName) {
+  var meta = (0, _emberMetalUtils.meta)(obj, true);
+  var actions;
+  var listeners = meta.listeners;
+
+  if (!listeners) {
+    listeners = meta.listeners = Object.create(null);
+    listeners.__source__ = obj;
+  } else if (listeners.__source__ !== obj) {
+    // setup inherited copy of the listeners object
+    listeners = meta.listeners = Object.create(listeners);
+    listeners.__source__ = obj;
+  }
+
+  actions = listeners[eventName];
+
+  // if there are actions, but the eventName doesn&#039;t exist in our listeners, then copy them from the prototype
+  if (actions &amp;&amp; actions.__source__ !== obj) {
+    actions = listeners[eventName] = listeners[eventName].slice();
+    actions.__source__ = obj;
+  } else if (!actions) {
+    actions = listeners[eventName] = [];
+    actions.__source__ = obj;
+  }
+
+  return actions;
+}
+
+function accumulateListeners(obj, eventName, otherActions) {
+  var meta = obj[&#039;__ember_meta__&#039;];
+  var actions = meta &amp;&amp; meta.listeners &amp;&amp; meta.listeners[eventName];
+
+  if (!actions) {
+    return;
+  }
+
+  var newActions = [];
+
+  for (var i = actions.length - 3; i &gt;= 0; i -= 3) {
+    var target = actions[i];
+    var method = actions[i + 1];
+    var flags = actions[i + 2];
+    var actionIndex = indexOf(otherActions, target, method);
+
+    if (actionIndex === -1) {
+      otherActions.push(target, method, flags);
+      newActions.push(target, method, flags);
+    }
+  }
+
+  return newActions;
+}
+
+/**
+  Add an event listener
+
+  @method addListener
+  @for Ember
+  @param obj
+  @param {String} eventName
+  @param {Object|Function} target A target object or a function
+  @param {Function|String} method A function or the name of a function to be called on `target`
+  @param {Boolean} once A flag whether a function should only be called once
+  @public
+*/
+
+function addListener(obj, eventName, target, method, once) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;You must pass at least an object and event name to Ember.addListener&#039;, !!obj &amp;&amp; !!eventName);
+
+  if (!method &amp;&amp; &#039;function&#039; === typeof target) {
+    method = target;
+    target = null;
+  }
+
+  var actions = actionsFor(obj, eventName);
+  var actionIndex = indexOf(actions, target, method);
+  var flags = 0;
+
+  if (once) {
+    flags |= ONCE;
+  }
+
+  if (actionIndex !== -1) {
+    return;
+  }
+
+  actions.push(target, method, flags);
+
+  if (&#039;function&#039; === typeof obj.didAddListener) {
+    obj.didAddListener(eventName, target, method);
+  }
+}
+
+/**
+  Remove an event listener
+
+  Arguments should match those passed to `Ember.addListener`.
+
+  @method removeListener
+  @for Ember
+  @param obj
+  @param {String} eventName
+  @param {Object|Function} target A target object or a function
+  @param {Function|String} method A function or the name of a function to be called on `target`
+  @public
+*/
+function removeListener(obj, eventName, target, method) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;You must pass at least an object and event name to Ember.removeListener&#039;, !!obj &amp;&amp; !!eventName);
+
+  if (!method &amp;&amp; &#039;function&#039; === typeof target) {
+    method = target;
+    target = null;
+  }
+
+  function _removeListener(target, method) {
+    var actions = actionsFor(obj, eventName);
+    var actionIndex = indexOf(actions, target, method);
+
+    // action doesn&#039;t exist, give up silently
+    if (actionIndex === -1) {
+      return;
+    }
+
+    actions.splice(actionIndex, 3);
+
+    if (&#039;function&#039; === typeof obj.didRemoveListener) {
+      obj.didRemoveListener(eventName, target, method);
+    }
+  }
+
+  if (method) {
+    _removeListener(target, method);
+  } else {
+    var meta = obj[&#039;__ember_meta__&#039;];
+    var actions = meta &amp;&amp; meta.listeners &amp;&amp; meta.listeners[eventName];
+
+    if (!actions) {
+      return;
+    }
+    for (var i = actions.length - 3; i &gt;= 0; i -= 3) {
+      _removeListener(actions[i], actions[i + 1]);
+    }
+  }
+}
+
+/**
+  Suspend listener during callback.
+
+  This should only be used by the target of the event listener
+  when it is taking an action that would cause the event, e.g.
+  an object might suspend its property change listener while it is
+  setting that property.
+
+  @method suspendListener
+  @for Ember
+
+  @private
+  @param obj
+  @param {String} eventName
+  @param {Object|Function} target A target object or a function
+  @param {Function|String} method A function or the name of a function to be called on `target`
+  @param {Function} callback
+*/
+
+function suspendListener(obj, eventName, target, method, callback) {
+  if (!method &amp;&amp; &#039;function&#039; === typeof target) {
+    method = target;
+    target = null;
+  }
+
+  var actions = actionsFor(obj, eventName);
+  var actionIndex = indexOf(actions, target, method);
+
+  if (actionIndex !== -1) {
+    actions[actionIndex + 2] |= SUSPENDED; // mark the action as suspended
+  }
+
+  try {
+    return callback.call(target);
+  } finally {
+    if (actionIndex !== -1) {
+      actions[actionIndex + 2] &amp;= ~SUSPENDED;
+    }
+  }
+}
+
+/**
+  Suspends multiple listeners during a callback.
+
+  @method suspendListeners
+  @for Ember
+
+  @private
+  @param obj
+  @param {Array} eventNames Array of event names
+  @param {Object|Function} target A target object or a function
+  @param {Function|String} method A function or the name of a function to be called on `target`
+  @param {Function} callback
+*/
+
+function suspendListeners(obj, eventNames, target, method, callback) {
+  if (!method &amp;&amp; &#039;function&#039; === typeof target) {
+    method = target;
+    target = null;
+  }
+
+  var suspendedActions = [];
+  var actionsList = [];
+
+  for (var i = 0, l = eventNames.length; i &lt; l; i++) {
+    var eventName = eventNames[i];
+    var actions = actionsFor(obj, eventName);
+    var actionIndex = indexOf(actions, target, method);
+
+    if (actionIndex !== -1) {
+      actions[actionIndex + 2] |= SUSPENDED;
+      suspendedActions.push(actionIndex);
+      actionsList.push(actions);
+    }
+  }
+
+  try {
+    return callback.call(target);
+  } finally {
+    for (var i = 0, l = suspendedActions.length; i &lt; l; i++) {
+      var actionIndex = suspendedActions[i];
+      actionsList[i][actionIndex + 2] &amp;= ~SUSPENDED;
+    }
+  }
+}
+
+/**
+  Return a list of currently watched events
+
+  @private
+  @method watchedEvents
+  @for Ember
+  @param obj
+*/
+
+function watchedEvents(obj) {
+  var listeners = obj[&#039;__ember_meta__&#039;].listeners;
+  var ret = [];
+
+  if (listeners) {
+    for (var eventName in listeners) {
+      if (eventName !== &#039;__source__&#039; &amp;&amp; listeners[eventName]) {
+        ret.push(eventName);
+      }
+    }
+  }
+  return ret;
+}
+
+/**
+  Send an event. The execution of suspended listeners
+  is skipped, and once listeners are removed. A listener without
+  a target is executed on the passed object. If an array of actions
+  is not passed, the actions stored on the passed object are invoked.
+
+  @method sendEvent
+  @for Ember
+  @param obj
+  @param {String} eventName
+  @param {Array} params Optional parameters for each listener.
+  @param {Array} actions Optional array of actions (listeners).
+  @return true
+  @public
+*/
+
+function sendEvent(obj, eventName, params, actions) {
+  // first give object a chance to handle it
+  if (obj !== _emberMetalCore2[&#039;default&#039;] &amp;&amp; &#039;function&#039; === typeof obj.sendEvent) {
+    obj.sendEvent(eventName, params);
+  }
+
+  if (!actions) {
+    var meta = obj[&#039;__ember_meta__&#039;];
+    actions = meta &amp;&amp; meta.listeners &amp;&amp; meta.listeners[eventName];
+  }
+
+  if (!actions) {
+    return;
+  }
+
+  for (var i = actions.length - 3; i &gt;= 0; i -= 3) {
+    // looping in reverse for once listeners
+    var target = actions[i];
+    var method = actions[i + 1];
+    var flags = actions[i + 2];
+
+    if (!method) {
+      continue;
+    }
+    if (flags &amp; SUSPENDED) {
+      continue;
+    }
+    if (flags &amp; ONCE) {
+      removeListener(obj, eventName, target, method);
+    }
+    if (!target) {
+      target = obj;
+    }
+    if (&#039;string&#039; === typeof method) {
+      if (params) {
+        (0, _emberMetalUtils.applyStr)(target, method, params);
+      } else {
+        target[method]();
+      }
+    } else {
+      if (params) {
+        (0, _emberMetalUtils.apply)(target, method, params);
+      } else {
+        method.call(target);
+      }
+    }
+  }
+  return true;
+}
+
+/**
+  @private
+  @method hasListeners
+  @for Ember
+  @param obj
+  @param {String} eventName
+*/
+
+function hasListeners(obj, eventName) {
+  var meta = obj[&#039;__ember_meta__&#039;];
+  var actions = meta &amp;&amp; meta.listeners &amp;&amp; meta.listeners[eventName];
+
+  return !!(actions &amp;&amp; actions.length);
+}
+
+/**
+  @private
+  @method listenersFor
+  @for Ember
+  @param obj
+  @param {String} eventName
+*/
+
+function listenersFor(obj, eventName) {
+  var ret = [];
+  var meta = obj[&#039;__ember_meta__&#039;];
+  var actions = meta &amp;&amp; meta.listeners &amp;&amp; meta.listeners[eventName];
+
+  if (!actions) {
+    return ret;
+  }
+
+  for (var i = 0, l = actions.length; i &lt; l; i += 3) {
+    var target = actions[i];
+    var method = actions[i + 1];
+    ret.push([target, method]);
+  }
+
+  return ret;
+}
+
+/**
+  Define a property as a function that should be executed when
+  a specified event or events are triggered.
+
+
+  ``` javascript
+  var Job = Ember.Object.extend({
+    logCompleted: Ember.on(&#039;completed&#039;, function() {
+      console.log(&#039;Job completed!&#039;);
+    })
+  });
+
+  var job = Job.create();
+
+  Ember.sendEvent(job, &#039;completed&#039;); // Logs &#039;Job completed!&#039;
+ ```
+
+  @method on
+  @for Ember
+  @param {String} eventNames*
+  @param {Function} func
+  @return func
+  @public
+*/
+
+function on() {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  var func = args.pop();
+  var events = args;
+  func.__ember_listens__ = events;
+  return func;
+}
+
+exports.removeListener = removeListener;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

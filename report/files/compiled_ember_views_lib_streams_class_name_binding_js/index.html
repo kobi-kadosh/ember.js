@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\streams\class_name_binding.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\streams\class_name_binding.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">62.30</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">145</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">32.47</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.71</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.parsePropertyPath = parsePropertyPath;
+exports.classStringForValue = classStringForValue;
+exports.streamifyClassNameBinding = streamifyClassNameBinding;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+/**
+  Parse a path and return an object which holds the parsed properties.
+
+  For example a path like &quot;content.isEnabled:enabled:disabled&quot; will return the
+  following object:
+
+  ```javascript
+  {
+    path: &quot;content.isEnabled&quot;,
+    className: &quot;enabled&quot;,
+    falsyClassName: &quot;disabled&quot;,
+    classNames: &quot;:enabled:disabled&quot;
+  }
+  ```
+
+  @method parsePropertyPath
+  @static
+  @private
+*/
+
+function parsePropertyPath(path) {
+  var split = path.split(&#039;:&#039;);
+  var propertyPath = split[0];
+  var classNames = &#039;&#039;;
+  var className, falsyClassName;
+
+  // check if the property is defined as prop:class or prop:trueClass:falseClass
+  if (split.length &gt; 1) {
+    className = split[1];
+    if (split.length === 3) {
+      falsyClassName = split[2];
+    }
+
+    classNames = &#039;:&#039; + className;
+    if (falsyClassName) {
+      classNames += &#039;:&#039; + falsyClassName;
+    }
+  }
+
+  return {
+    path: propertyPath,
+    classNames: classNames,
+    className: className === &#039;&#039; ? undefined : className,
+    falsyClassName: falsyClassName
+  };
+}
+
+/**
+  Get the class name for a given value, based on the path, optional
+  `className` and optional `falsyClassName`.
+
+  - if a `className` or `falsyClassName` has been specified:
+    - if the value is truthy and `className` has been specified,
+      `className` is returned
+    - if the value is falsy and `falsyClassName` has been specified,
+      `falsyClassName` is returned
+    - otherwise `null` is returned
+  - if the value is `true`, the dasherized last part of the supplied path
+    is returned
+  - if the value is not `false`, `undefined` or `null`, the `value`
+    is returned
+  - if none of the above rules apply, `null` is returned
+
+  @method classStringForValue
+  @param path
+  @param val
+  @param className
+  @param falsyClassName
+  @static
+  @private
+*/
+
+function classStringForValue(path, val, className, falsyClassName) {
+  if ((0, _emberMetalUtils.isArray)(val)) {
+    val = (0, _emberMetalProperty_get.get)(val, &#039;length&#039;) !== 0;
+  }
+
+  // When using the colon syntax, evaluate the truthiness or falsiness
+  // of the value to determine which className to return
+  if (className || falsyClassName) {
+    if (className &amp;&amp; !!val) {
+      return className;
+    } else if (falsyClassName &amp;&amp; !val) {
+      return falsyClassName;
+    } else {
+      return null;
+    }
+
+    // If value is a Boolean and true, return the dasherized property
+    // name.
+  } else if (val === true) {
+    // Normalize property path to be suitable for use
+    // as a class name. For exaple, content.foo.barBaz
+    // becomes bar-baz.
+    var parts = path.split(&#039;.&#039;);
+    return (0, _emberRuntimeSystemString.dasherize)(parts[parts.length - 1]);
+
+    // If the value is not false, undefined, or null, return the current
+    // value of the property.
+  } else if (val !== false &amp;&amp; val != null) {
+    return val;
+
+    // Nothing to display. Return null so that the old class is removed
+    // but no new class is added.
+  } else {
+    return null;
+  }
+}
+
+function streamifyClassNameBinding(view, classNameBinding, prefix) {
+  prefix = prefix || &#039;&#039;;
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;classNameBindings must not have spaces in them. Multiple class name bindings can be provided as elements of an array, e.g. [\&#039;foo\&#039;, \&#039;:bar\&#039;]&#039;, classNameBinding.indexOf(&#039; &#039;) === -1);
+  var parsedPath = parsePropertyPath(classNameBinding);
+  if (parsedPath.path === &#039;&#039;) {
+    return classStringForValue(parsedPath.path, true, parsedPath.className, parsedPath.falsyClassName);
+  } else {
+    var pathValue = view.getStream(prefix + parsedPath.path);
+    return (0, _emberMetalStreamsUtils.chain)(pathValue, function () {
+      return classStringForValue(parsedPath.path, (0, _emberMetalStreamsUtils.read)(pathValue), parsedPath.className, parsedPath.falsyClassName);
+    });
+  }
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

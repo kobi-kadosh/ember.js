@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\mixins\evented.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\mixins\evented.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">76.09</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">150</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">21.74</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.33</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberMetalEvents = require(&#039;ember-metal/events&#039;);
+
+/**
+@module ember
+@submodule ember-runtime
+*/
+
+/**
+  This mixin allows for Ember objects to subscribe to and emit events.
+
+  ```javascript
+  App.Person = Ember.Object.extend(Ember.Evented, {
+    greet: function() {
+      // ...
+      this.trigger(&#039;greet&#039;);
+    }
+  });
+
+  var person = App.Person.create();
+
+  person.on(&#039;greet&#039;, function() {
+    console.log(&#039;Our person has greeted&#039;);
+  });
+
+  person.greet();
+
+  // outputs: &#039;Our person has greeted&#039;
+  ```
+
+  You can also chain multiple event subscriptions:
+
+  ```javascript
+  person.on(&#039;greet&#039;, function() {
+    console.log(&#039;Our person has greeted&#039;);
+  }).one(&#039;greet&#039;, function() {
+    console.log(&#039;Offer one-time special&#039;);
+  }).off(&#039;event&#039;, this, forgetThis);
+  ```
+
+  @class Evented
+  @namespace Ember
+  @public
+ */
+exports[&#039;default&#039;] = _emberMetalMixin.Mixin.create({
+
+  /**
+   Subscribes to a named event with given function.
+     ```javascript
+   person.on(&#039;didLoad&#039;, function() {
+     // fired once the person has loaded
+   });
+   ```
+     An optional target can be passed in as the 2nd argument that will
+   be set as the &quot;this&quot; for the callback. This is a good way to give your
+   function access to the object triggering the event. When the target
+   parameter is used the callback becomes the third argument.
+     @method on
+   @param {String} name The name of the event
+   @param {Object} [target] The &quot;this&quot; binding for the callback
+   @param {Function} method The callback to execute
+   @return this
+   @public
+  */
+  on: function on(name, target, method) {
+    (0, _emberMetalEvents.addListener)(this, name, target, method);
+    return this;
+  },
+
+  /**
+    Subscribes a function to a named event and then cancels the subscription
+    after the first time the event is triggered. It is good to use ``one`` when
+    you only care about the first time an event has taken place.
+      This function takes an optional 2nd argument that will become the &quot;this&quot;
+    value for the callback. If this argument is passed then the 3rd argument
+    becomes the function.
+      @method one
+    @param {String} name The name of the event
+    @param {Object} [target] The &quot;this&quot; binding for the callback
+    @param {Function} method The callback to execute
+    @return this
+    @public
+  */
+  one: function one(name, target, method) {
+    if (!method) {
+      method = target;
+      target = null;
+    }
+
+    (0, _emberMetalEvents.addListener)(this, name, target, method, true);
+    return this;
+  },
+
+  /**
+    Triggers a named event for the object. Any additional arguments
+    will be passed as parameters to the functions that are subscribed to the
+    event.
+      ```javascript
+    person.on(&#039;didEat&#039;, function(food) {
+      console.log(&#039;person ate some &#039; + food);
+    });
+      person.trigger(&#039;didEat&#039;, &#039;broccoli&#039;);
+      // outputs: person ate some broccoli
+    ```
+    @method trigger
+    @param {String} name The name of the event
+    @param {Object...} args Optional arguments to pass on
+    @public
+  */
+  trigger: function trigger(name) {
+    for (var _len = arguments.length, args = Array(_len &gt; 1 ? _len - 1 : 0), _key = 1; _key &lt; _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    (0, _emberMetalEvents.sendEvent)(this, name, args);
+  },
+
+  /**
+    Cancels subscription for given name, target, and method.
+      @method off
+    @param {String} name The name of the event
+    @param {Object} target The target of the subscription
+    @param {Function} method The function of the subscription
+    @return this
+    @public
+  */
+  off: function off(name, target, method) {
+    (0, _emberMetalEvents.removeListener)(this, name, target, method);
+    return this;
+  },
+
+  /**
+    Checks to see if object has any subscriptions for named event.
+      @method has
+    @param {String} name The name of the event
+    @return {Boolean} does the object have a subscription for event
+    @public
+   */
+  has: function has(name) {
+    return (0, _emberMetalEvents.hasListeners)(this, name);
+  }
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

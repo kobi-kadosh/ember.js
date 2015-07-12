@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\main.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\main.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">82.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">131</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">14.51</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.12</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalFeatures = require(&#039;ember-metal/features&#039;);
+
+var _emberMetalFeatures2 = _interopRequireDefault(_emberMetalFeatures);
+
+var _emberTemplateCompiler = require(&#039;ember-template-compiler&#039;);
+
+var _emberHtmlbarsSystemMakeViewHelper = require(&#039;ember-htmlbars/system/make-view-helper&#039;);
+
+var _emberHtmlbarsSystemMakeViewHelper2 = _interopRequireDefault(_emberHtmlbarsSystemMakeViewHelper);
+
+var _emberHtmlbarsSystemMake_bound_helper = require(&#039;ember-htmlbars/system/make_bound_helper&#039;);
+
+var _emberHtmlbarsSystemMake_bound_helper2 = _interopRequireDefault(_emberHtmlbarsSystemMake_bound_helper);
+
+var _emberHtmlbarsHelpers = require(&#039;ember-htmlbars/helpers&#039;);
+
+var _emberHtmlbarsHelpersIf_unless = require(&#039;ember-htmlbars/helpers/if_unless&#039;);
+
+var _emberHtmlbarsHelpersWith = require(&#039;ember-htmlbars/helpers/with&#039;);
+
+var _emberHtmlbarsHelpersWith2 = _interopRequireDefault(_emberHtmlbarsHelpersWith);
+
+var _emberHtmlbarsHelpersLoc = require(&#039;ember-htmlbars/helpers/loc&#039;);
+
+var _emberHtmlbarsHelpersLoc2 = _interopRequireDefault(_emberHtmlbarsHelpersLoc);
+
+var _emberHtmlbarsHelpersLog = require(&#039;ember-htmlbars/helpers/log&#039;);
+
+var _emberHtmlbarsHelpersLog2 = _interopRequireDefault(_emberHtmlbarsHelpersLog);
+
+var _emberHtmlbarsHelpersEach = require(&#039;ember-htmlbars/helpers/each&#039;);
+
+var _emberHtmlbarsHelpersEach2 = _interopRequireDefault(_emberHtmlbarsHelpersEach);
+
+var _emberHtmlbarsHelpersEachIn = require(&#039;ember-htmlbars/helpers/each-in&#039;);
+
+var _emberHtmlbarsHelpersEachIn2 = _interopRequireDefault(_emberHtmlbarsHelpersEachIn);
+
+var _emberHtmlbarsHelpersBindAttrClass = require(&#039;ember-htmlbars/helpers/-bind-attr-class&#039;);
+
+var _emberHtmlbarsHelpersBindAttrClass2 = _interopRequireDefault(_emberHtmlbarsHelpersBindAttrClass);
+
+var _emberHtmlbarsHelpersNormalizeClass = require(&#039;ember-htmlbars/helpers/-normalize-class&#039;);
+
+var _emberHtmlbarsHelpersNormalizeClass2 = _interopRequireDefault(_emberHtmlbarsHelpersNormalizeClass);
+
+var _emberHtmlbarsHelpersConcat = require(&#039;ember-htmlbars/helpers/-concat&#039;);
+
+var _emberHtmlbarsHelpersConcat2 = _interopRequireDefault(_emberHtmlbarsHelpersConcat);
+
+var _emberHtmlbarsHelpersJoinClasses = require(&#039;ember-htmlbars/helpers/-join-classes&#039;);
+
+var _emberHtmlbarsHelpersJoinClasses2 = _interopRequireDefault(_emberHtmlbarsHelpersJoinClasses);
+
+var _emberHtmlbarsHelpersLegacyEachWithController = require(&#039;ember-htmlbars/helpers/-legacy-each-with-controller&#039;);
+
+var _emberHtmlbarsHelpersLegacyEachWithController2 = _interopRequireDefault(_emberHtmlbarsHelpersLegacyEachWithController);
+
+var _emberHtmlbarsHelpersLegacyEachWithKeyword = require(&#039;ember-htmlbars/helpers/-legacy-each-with-keyword&#039;);
+
+var _emberHtmlbarsHelpersLegacyEachWithKeyword2 = _interopRequireDefault(_emberHtmlbarsHelpersLegacyEachWithKeyword);
+
+var _emberHtmlbarsHelpersGet = require(&#039;ember-htmlbars/helpers/-get&#039;);
+
+var _emberHtmlbarsHelpersGet2 = _interopRequireDefault(_emberHtmlbarsHelpersGet);
+
+var _emberHtmlbarsHelpersHtmlSafe = require(&#039;ember-htmlbars/helpers/-html-safe&#039;);
+
+var _emberHtmlbarsHelpersHtmlSafe2 = _interopRequireDefault(_emberHtmlbarsHelpersHtmlSafe);
+
+var _emberHtmlbarsSystemDomHelper = require(&#039;ember-htmlbars/system/dom-helper&#039;);
+
+var _emberHtmlbarsSystemDomHelper2 = _interopRequireDefault(_emberHtmlbarsSystemDomHelper);
+
+var _emberHtmlbarsHelper = require(&#039;ember-htmlbars/helper&#039;);
+
+var _emberHtmlbarsHelper2 = _interopRequireDefault(_emberHtmlbarsHelper);
+
+// importing adds template bootstrapping
+// initializer to enable embedded templates
+
+require(&#039;ember-htmlbars/system/bootstrap&#039;);
+
+// importing ember-htmlbars/compat updates the
+// Ember.Handlebars global if htmlbars is enabled
+
+require(&#039;ember-htmlbars/compat&#039;);
+
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;if&#039;, _emberHtmlbarsHelpersIf_unless.ifHelper);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;unless&#039;, _emberHtmlbarsHelpersIf_unless.unlessHelper);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;with&#039;, _emberHtmlbarsHelpersWith2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;loc&#039;, _emberHtmlbarsHelpersLoc2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;log&#039;, _emberHtmlbarsHelpersLog2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;each&#039;, _emberHtmlbarsHelpersEach2[&#039;default&#039;]);
+if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-htmlbars-each-in&#039;)) {
+  (0, _emberHtmlbarsHelpers.registerHelper)(&#039;each-in&#039;, _emberHtmlbarsHelpersEachIn2[&#039;default&#039;]);
+}
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;-bind-attr-class&#039;, _emberHtmlbarsHelpersBindAttrClass2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;-normalize-class&#039;, _emberHtmlbarsHelpersNormalizeClass2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;concat&#039;, _emberHtmlbarsHelpersConcat2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;-join-classes&#039;, _emberHtmlbarsHelpersJoinClasses2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;-legacy-each-with-controller&#039;, _emberHtmlbarsHelpersLegacyEachWithController2[&#039;default&#039;]);
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;-legacy-each-with-keyword&#039;, _emberHtmlbarsHelpersLegacyEachWithKeyword2[&#039;default&#039;]);
+if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-htmlbars-get-helper&#039;)) {
+  (0, _emberHtmlbarsHelpers.registerHelper)(&#039;-get&#039;, _emberHtmlbarsHelpersGet2[&#039;default&#039;]);
+}
+(0, _emberHtmlbarsHelpers.registerHelper)(&#039;-html-safe&#039;, _emberHtmlbarsHelpersHtmlSafe2[&#039;default&#039;]);
+
+_emberMetalCore2[&#039;default&#039;].HTMLBars = {
+  _registerHelper: _emberHtmlbarsHelpers.registerHelper,
+  template: _emberTemplateCompiler.template,
+  compile: _emberTemplateCompiler.compile,
+  precompile: _emberTemplateCompiler.precompile,
+  makeViewHelper: _emberHtmlbarsSystemMakeViewHelper2[&#039;default&#039;],
+  makeBoundHelper: _emberHtmlbarsSystemMake_bound_helper2[&#039;default&#039;],
+  registerPlugin: _emberTemplateCompiler.registerPlugin,
+  DOMHelper: _emberHtmlbarsSystemDomHelper2[&#039;default&#039;]
+};
+
+if ((0, _emberMetalFeatures2[&#039;default&#039;])(&#039;ember-htmlbars-helper&#039;)) {
+  _emberHtmlbarsHelper2[&#039;default&#039;].helper = _emberHtmlbarsHelper.helper;
+  _emberMetalCore2[&#039;default&#039;].Helper = _emberHtmlbarsHelper2[&#039;default&#039;];
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

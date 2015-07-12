@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-routing\lib\location\hash_location.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-routing\lib\location\hash_location.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">79.30</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">164</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">20.93</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.73</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalRun_loop = require(&#039;ember-metal/run_loop&#039;);
+
+var _emberMetalRun_loop2 = _interopRequireDefault(_emberMetalRun_loop);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberRoutingLocationApi = require(&#039;ember-routing/location/api&#039;);
+
+var _emberRoutingLocationApi2 = _interopRequireDefault(_emberRoutingLocationApi);
+
+/**
+@module ember
+@submodule ember-routing
+*/
+
+/**
+  `Ember.HashLocation` implements the location API using the browser&#039;s
+  hash. At present, it relies on a `hashchange` event existing in the
+  browser.
+
+  @class HashLocation
+  @namespace Ember
+  @extends Ember.Object
+  @private
+*/
+exports[&#039;default&#039;] = _emberRuntimeSystemObject2[&#039;default&#039;].extend({
+  implementation: &#039;hash&#039;,
+
+  init: function init() {
+    (0, _emberMetalProperty_set.set)(this, &#039;location&#039;, (0, _emberMetalProperty_get.get)(this, &#039;_location&#039;) || window.location);
+  },
+
+  /**
+    @private
+      Returns normalized location.hash
+      @since 1.5.1
+    @method getHash
+  */
+  getHash: _emberRoutingLocationApi2[&#039;default&#039;]._getHash,
+
+  /**
+    Returns the normalized URL, constructed from `location.hash`.
+      e.g. `#/foo` =&gt; `/foo` as well as `#/foo#bar` =&gt; `/foo#bar`.
+      By convention, hashed paths must begin with a forward slash, otherwise they
+    are not treated as a path so we can distinguish intent.
+      @private
+    @method getURL
+  */
+  getURL: function getURL() {
+    var originalPath = this.getHash().substr(1);
+    var outPath = originalPath;
+
+    if (outPath.charAt(0) !== &#039;/&#039;) {
+      outPath = &#039;/&#039;;
+
+      // Only add the # if the path isn&#039;t empty.
+      // We do NOT want `/#` since the ampersand
+      // is only included (conventionally) when
+      // the location.hash has a value
+      if (originalPath) {
+        outPath += &#039;#&#039; + originalPath;
+      }
+    }
+
+    return outPath;
+  },
+
+  /**
+    Set the `location.hash` and remembers what was set. This prevents
+    `onUpdateURL` callbacks from triggering when the hash was set by
+    `HashLocation`.
+      @private
+    @method setURL
+    @param path {String}
+  */
+  setURL: function setURL(path) {
+    (0, _emberMetalProperty_get.get)(this, &#039;location&#039;).hash = path;
+    (0, _emberMetalProperty_set.set)(this, &#039;lastSetURL&#039;, path);
+  },
+
+  /**
+    Uses location.replace to update the url without a page reload
+    or history modification.
+      @private
+    @method replaceURL
+    @param path {String}
+  */
+  replaceURL: function replaceURL(path) {
+    (0, _emberMetalProperty_get.get)(this, &#039;location&#039;).replace(&#039;#&#039; + path);
+    (0, _emberMetalProperty_set.set)(this, &#039;lastSetURL&#039;, path);
+  },
+
+  /**
+    Register a callback to be invoked when the hash changes. These
+    callbacks will execute when the user presses the back or forward
+    button, but not after `setURL` is invoked.
+      @private
+    @method onUpdateURL
+    @param callback {Function}
+  */
+  onUpdateURL: function onUpdateURL(callback) {
+    var _this = this;
+
+    var guid = (0, _emberMetalUtils.guidFor)(this);
+
+    _emberMetalCore2[&#039;default&#039;].$(window).on(&#039;hashchange.ember-location-&#039; + guid, function () {
+      (0, _emberMetalRun_loop2[&#039;default&#039;])(function () {
+        var path = _this.getURL();
+        if ((0, _emberMetalProperty_get.get)(_this, &#039;lastSetURL&#039;) === path) {
+          return;
+        }
+
+        (0, _emberMetalProperty_set.set)(_this, &#039;lastSetURL&#039;, null);
+
+        callback(path);
+      });
+    });
+  },
+
+  /**
+    Given a URL, formats it to be placed into the page as part
+    of an element&#039;s `href` attribute.
+      This is used, for example, when using the {{action}} helper
+    to generate a URL based on an event.
+      @private
+    @method formatURL
+    @param url {String}
+  */
+  formatURL: function formatURL(url) {
+    return &#039;#&#039; + url;
+  },
+
+  /**
+    Cleans up the HashLocation event listener.
+      @private
+    @method willDestroy
+  */
+  willDestroy: function willDestroy() {
+    var guid = (0, _emberMetalUtils.guidFor)(this);
+
+    _emberMetalCore2[&#039;default&#039;].$(window).off(&#039;hashchange.ember-location-&#039; + guid);
+  }
+});
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

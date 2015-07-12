@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-metal\lib\computed_macros.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-metal\lib\computed_macros.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">82.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">717</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">60.71</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.72</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports.empty = empty;
+exports.notEmpty = notEmpty;
+exports.none = none;
+exports.not = not;
+exports.bool = bool;
+exports.match = match;
+exports.equal = equal;
+exports.gt = gt;
+exports.gte = gte;
+exports.lt = lt;
+exports.lte = lte;
+exports.oneWay = oneWay;
+exports.readOnly = readOnly;
+exports.deprecatingAlias = deprecatingAlias;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalProperty_set = require(&#039;ember-metal/property_set&#039;);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalIs_empty = require(&#039;ember-metal/is_empty&#039;);
+
+var _emberMetalIs_empty2 = _interopRequireDefault(_emberMetalIs_empty);
+
+var _emberMetalIs_none = require(&#039;ember-metal/is_none&#039;);
+
+var _emberMetalIs_none2 = _interopRequireDefault(_emberMetalIs_none);
+
+var _emberMetalAlias = require(&#039;ember-metal/alias&#039;);
+
+var _emberMetalAlias2 = _interopRequireDefault(_emberMetalAlias);
+
+/**
+@module ember
+@submodule ember-metal
+*/
+
+function getProperties(self, propertyNames) {
+  var ret = {};
+  for (var i = 0; i &lt; propertyNames.length; i++) {
+    ret[propertyNames[i]] = (0, _emberMetalProperty_get.get)(self, propertyNames[i]);
+  }
+  return ret;
+}
+
+function generateComputedWithProperties(macro) {
+  return function () {
+    for (var _len = arguments.length, properties = Array(_len), _key = 0; _key &lt; _len; _key++) {
+      properties[_key] = arguments[_key];
+    }
+
+    var computedFunc = (0, _emberMetalComputed.computed)(function () {
+      return macro.apply(this, [getProperties(this, properties)]);
+    });
+
+    return computedFunc.property.apply(computedFunc, properties);
+  };
+}
+
+/**
+  A computed property that returns true if the value of the dependent
+  property is null, an empty string, empty array, or empty function.
+
+  Example
+
+  ```javascript
+  var ToDoList = Ember.Object.extend({
+    isDone: Ember.computed.empty(&#039;todos&#039;)
+  });
+
+  var todoList = ToDoList.create({
+    todos: [&#039;Unit Test&#039;, &#039;Documentation&#039;, &#039;Release&#039;]
+  });
+
+  todoList.get(&#039;isDone&#039;); // false
+  todoList.get(&#039;todos&#039;).clear();
+  todoList.get(&#039;isDone&#039;); // true
+  ```
+
+  @since 1.6.0
+  @method empty
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which negate
+  the original value for property
+  @public
+*/
+
+function empty(dependentKey) {
+  return (0, _emberMetalComputed.computed)(dependentKey + &#039;.length&#039;, function () {
+    return (0, _emberMetalIs_empty2[&#039;default&#039;])((0, _emberMetalProperty_get.get)(this, dependentKey));
+  });
+}
+
+/**
+  A computed property that returns true if the value of the dependent
+  property is NOT null, an empty string, empty array, or empty function.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    hasStuff: Ember.computed.notEmpty(&#039;backpack&#039;)
+  });
+
+  var hamster = Hamster.create({ backpack: [&#039;Food&#039;, &#039;Sleeping Bag&#039;, &#039;Tent&#039;] });
+
+  hamster.get(&#039;hasStuff&#039;);         // true
+  hamster.get(&#039;backpack&#039;).clear(); // []
+  hamster.get(&#039;hasStuff&#039;);         // false
+  ```
+
+  @method notEmpty
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which returns true if
+  original value for property is not empty.
+  @public
+*/
+
+function notEmpty(dependentKey) {
+  return (0, _emberMetalComputed.computed)(dependentKey + &#039;.length&#039;, function () {
+    return !(0, _emberMetalIs_empty2[&#039;default&#039;])((0, _emberMetalProperty_get.get)(this, dependentKey));
+  });
+}
+
+/**
+  A computed property that returns true if the value of the dependent
+  property is null or undefined. This avoids errors from JSLint complaining
+  about use of ==, which can be technically confusing.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    isHungry: Ember.computed.none(&#039;food&#039;)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;isHungry&#039;); // true
+  hamster.set(&#039;food&#039;, &#039;Banana&#039;);
+  hamster.get(&#039;isHungry&#039;); // false
+  hamster.set(&#039;food&#039;, null);
+  hamster.get(&#039;isHungry&#039;); // true
+  ```
+
+  @method none
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which
+  returns true if original value for property is null or undefined.
+  @public
+*/
+
+function none(dependentKey) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return (0, _emberMetalIs_none2[&#039;default&#039;])((0, _emberMetalProperty_get.get)(this, dependentKey));
+  });
+}
+
+/**
+  A computed property that returns the inverse boolean value
+  of the original value for the dependent property.
+
+  Example
+
+  ```javascript
+  var User = Ember.Object.extend({
+    isAnonymous: Ember.computed.not(&#039;loggedIn&#039;)
+  });
+
+  var user = User.create({loggedIn: false});
+
+  user.get(&#039;isAnonymous&#039;); // true
+  user.set(&#039;loggedIn&#039;, true);
+  user.get(&#039;isAnonymous&#039;); // false
+  ```
+
+  @method not
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which returns
+  inverse of the original value for property
+  @public
+*/
+
+function not(dependentKey) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return !(0, _emberMetalProperty_get.get)(this, dependentKey);
+  });
+}
+
+/**
+  A computed property that converts the provided dependent property
+  into a boolean value.
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    hasBananas: Ember.computed.bool(&#039;numBananas&#039;)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;hasBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 0);
+  hamster.get(&#039;hasBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 1);
+  hamster.get(&#039;hasBananas&#039;); // true
+  hamster.set(&#039;numBananas&#039;, null);
+  hamster.get(&#039;hasBananas&#039;); // false
+  ```
+
+  @method bool
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which converts
+  to boolean the original value for property
+  @public
+*/
+
+function bool(dependentKey) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return !!(0, _emberMetalProperty_get.get)(this, dependentKey);
+  });
+}
+
+/**
+  A computed property which matches the original value for the
+  dependent property against a given RegExp, returning `true`
+  if they values matches the RegExp and `false` if it does not.
+
+  Example
+
+  ```javascript
+  var User = Ember.Object.extend({
+    hasValidEmail: Ember.computed.match(&#039;email&#039;, /^.+@.+\..+$/)
+  });
+
+  var user = User.create({loggedIn: false});
+
+  user.get(&#039;hasValidEmail&#039;); // false
+  user.set(&#039;email&#039;, &#039;&#039;);
+  user.get(&#039;hasValidEmail&#039;); // false
+  user.set(&#039;email&#039;, &#039;ember_hamster@example.com&#039;);
+  user.get(&#039;hasValidEmail&#039;); // true
+  ```
+
+  @method match
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {RegExp} regexp
+  @return {Ember.ComputedProperty} computed property which match
+  the original value for property against a given RegExp
+  @public
+*/
+
+function match(dependentKey, regexp) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    var value = (0, _emberMetalProperty_get.get)(this, dependentKey);
+
+    return typeof value === &#039;string&#039; ? regexp.test(value) : false;
+  });
+}
+
+/**
+  A computed property that returns true if the provided dependent property
+  is equal to the given value.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    napTime: Ember.computed.equal(&#039;state&#039;, &#039;sleepy&#039;)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;napTime&#039;); // false
+  hamster.set(&#039;state&#039;, &#039;sleepy&#039;);
+  hamster.get(&#039;napTime&#039;); // true
+  hamster.set(&#039;state&#039;, &#039;hungry&#039;);
+  hamster.get(&#039;napTime&#039;); // false
+  ```
+
+  @method equal
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {String|Number|Object} value
+  @return {Ember.ComputedProperty} computed property which returns true if
+  the original value for property is equal to the given value.
+  @public
+*/
+
+function equal(dependentKey, value) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return (0, _emberMetalProperty_get.get)(this, dependentKey) === value;
+  });
+}
+
+/**
+  A computed property that returns true if the provided dependent property
+  is greater than the provided value.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    hasTooManyBananas: Ember.computed.gt(&#039;numBananas&#039;, 10)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;hasTooManyBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 3);
+  hamster.get(&#039;hasTooManyBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 11);
+  hamster.get(&#039;hasTooManyBananas&#039;); // true
+  ```
+
+  @method gt
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {Number} value
+  @return {Ember.ComputedProperty} computed property which returns true if
+  the original value for property is greater than given value.
+  @public
+*/
+
+function gt(dependentKey, value) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return (0, _emberMetalProperty_get.get)(this, dependentKey) &gt; value;
+  });
+}
+
+/**
+  A computed property that returns true if the provided dependent property
+  is greater than or equal to the provided value.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    hasTooManyBananas: Ember.computed.gte(&#039;numBananas&#039;, 10)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;hasTooManyBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 3);
+  hamster.get(&#039;hasTooManyBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 10);
+  hamster.get(&#039;hasTooManyBananas&#039;); // true
+  ```
+
+  @method gte
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {Number} value
+  @return {Ember.ComputedProperty} computed property which returns true if
+  the original value for property is greater or equal then given value.
+  @public
+*/
+
+function gte(dependentKey, value) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return (0, _emberMetalProperty_get.get)(this, dependentKey) &gt;= value;
+  });
+}
+
+/**
+  A computed property that returns true if the provided dependent property
+  is less than the provided value.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    needsMoreBananas: Ember.computed.lt(&#039;numBananas&#039;, 3)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;needsMoreBananas&#039;); // true
+  hamster.set(&#039;numBananas&#039;, 3);
+  hamster.get(&#039;needsMoreBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 2);
+  hamster.get(&#039;needsMoreBananas&#039;); // true
+  ```
+
+  @method lt
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {Number} value
+  @return {Ember.ComputedProperty} computed property which returns true if
+  the original value for property is less then given value.
+  @public
+*/
+
+function lt(dependentKey, value) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return (0, _emberMetalProperty_get.get)(this, dependentKey) &lt; value;
+  });
+}
+
+/**
+  A computed property that returns true if the provided dependent property
+  is less than or equal to the provided value.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    needsMoreBananas: Ember.computed.lte(&#039;numBananas&#039;, 3)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;needsMoreBananas&#039;); // true
+  hamster.set(&#039;numBananas&#039;, 5);
+  hamster.get(&#039;needsMoreBananas&#039;); // false
+  hamster.set(&#039;numBananas&#039;, 3);
+  hamster.get(&#039;needsMoreBananas&#039;); // true
+  ```
+
+  @method lte
+  @for Ember.computed
+  @param {String} dependentKey
+  @param {Number} value
+  @return {Ember.ComputedProperty} computed property which returns true if
+  the original value for property is less or equal than given value.
+  @public
+*/
+
+function lte(dependentKey, value) {
+  return (0, _emberMetalComputed.computed)(dependentKey, function () {
+    return (0, _emberMetalProperty_get.get)(this, dependentKey) &lt;= value;
+  });
+}
+
+/**
+  A computed property that performs a logical `and` on the
+  original values for the provided dependent properties.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    readyForCamp: Ember.computed.and(&#039;hasTent&#039;, &#039;hasBackpack&#039;)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;readyForCamp&#039;); // false
+  hamster.set(&#039;hasTent&#039;, true);
+  hamster.get(&#039;readyForCamp&#039;); // false
+  hamster.set(&#039;hasBackpack&#039;, true);
+  hamster.get(&#039;readyForCamp&#039;); // true
+  hamster.set(&#039;hasBackpack&#039;, &#039;Yes&#039;);
+  hamster.get(&#039;readyForCamp&#039;); // &#039;Yes&#039;
+  ```
+
+  @method and
+  @for Ember.computed
+  @param {String} dependentKey*
+  @return {Ember.ComputedProperty} computed property which performs
+  a logical `and` on the values of all the original values for properties.
+  @public
+*/
+var and = generateComputedWithProperties(function (properties) {
+  var value;
+  for (var key in properties) {
+    value = properties[key];
+    if (properties.hasOwnProperty(key) &amp;&amp; !value) {
+      return false;
+    }
+  }
+  return value;
+});
+
+exports.and = and;
+/**
+  A computed property which performs a logical `or` on the
+  original values for the provided dependent properties.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    readyForRain: Ember.computed.or(&#039;hasJacket&#039;, &#039;hasUmbrella&#039;)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;readyForRain&#039;); // false
+  hamster.set(&#039;hasUmbrella&#039;, true);
+  hamster.get(&#039;readyForRain&#039;); // true
+  hamster.set(&#039;hasJacket&#039;, &#039;Yes&#039;);
+  hamster.get(&#039;readyForRain&#039;); // &#039;Yes&#039;
+  ```
+
+  @method or
+  @for Ember.computed
+  @param {String} dependentKey*
+  @return {Ember.ComputedProperty} computed property which performs
+  a logical `or` on the values of all the original values for properties.
+  @public
+*/
+var or = generateComputedWithProperties(function (properties) {
+  for (var key in properties) {
+    if (properties.hasOwnProperty(key) &amp;&amp; properties[key]) {
+      return properties[key];
+    }
+  }
+  return false;
+});
+
+exports.or = or;
+/**
+  A computed property that returns the array of values
+  for the provided dependent properties.
+
+  Example
+
+  ```javascript
+  var Hamster = Ember.Object.extend({
+    clothes: Ember.computed.collect(&#039;hat&#039;, &#039;shirt&#039;)
+  });
+
+  var hamster = Hamster.create();
+
+  hamster.get(&#039;clothes&#039;); // [null, null]
+  hamster.set(&#039;hat&#039;, &#039;Camp Hat&#039;);
+  hamster.set(&#039;shirt&#039;, &#039;Camp Shirt&#039;);
+  hamster.get(&#039;clothes&#039;); // [&#039;Camp Hat&#039;, &#039;Camp Shirt&#039;]
+  ```
+
+  @method collect
+  @for Ember.computed
+  @param {String} dependentKey*
+  @return {Ember.ComputedProperty} computed property which maps
+  values of all passed in properties to an array.
+  @public
+*/
+var collect = generateComputedWithProperties(function (properties) {
+  var res = _emberMetalCore2[&#039;default&#039;].A();
+  for (var key in properties) {
+    if (properties.hasOwnProperty(key)) {
+      if ((0, _emberMetalIs_none2[&#039;default&#039;])(properties[key])) {
+        res.push(null);
+      } else {
+        res.push(properties[key]);
+      }
+    }
+  }
+  return res;
+});
+
+exports.collect = collect;
+/**
+  Creates a new property that is an alias for another property
+  on an object. Calls to `get` or `set` this property behave as
+  though they were called on the original property.
+
+  ```javascript
+  var Person = Ember.Object.extend({
+    name: &#039;Alex Matchneer&#039;,
+    nomen: Ember.computed.alias(&#039;name&#039;)
+  });
+
+  var alex = Person.create();
+
+  alex.get(&#039;nomen&#039;); // &#039;Alex Matchneer&#039;
+  alex.get(&#039;name&#039;);  // &#039;Alex Matchneer&#039;
+
+  alex.set(&#039;nomen&#039;, &#039;@machty&#039;);
+  alex.get(&#039;name&#039;);  // &#039;@machty&#039;
+  ```
+
+  @method alias
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which creates an
+  alias to the original value for property.
+  @public
+*/
+
+/**
+  Where `computed.alias` aliases `get` and `set`, and allows for bidirectional
+  data flow, `computed.oneWay` only provides an aliased `get`. The `set` will
+  not mutate the upstream property, rather causes the current property to
+  become the value set. This causes the downstream property to permanently
+  diverge from the upstream property.
+
+  Example
+
+  ```javascript
+  var User = Ember.Object.extend({
+    firstName: null,
+    lastName: null,
+    nickName: Ember.computed.oneWay(&#039;firstName&#039;)
+  });
+
+  var teddy = User.create({
+    firstName: &#039;Teddy&#039;,
+    lastName:  &#039;Zeenny&#039;
+  });
+
+  teddy.get(&#039;nickName&#039;);              // &#039;Teddy&#039;
+  teddy.set(&#039;nickName&#039;, &#039;TeddyBear&#039;); // &#039;TeddyBear&#039;
+  teddy.get(&#039;firstName&#039;);             // &#039;Teddy&#039;
+  ```
+
+  @method oneWay
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which creates a
+  one way computed property to the original value for property.
+  @public
+*/
+
+function oneWay(dependentKey) {
+  return (0, _emberMetalAlias2[&#039;default&#039;])(dependentKey).oneWay();
+}
+
+/**
+  This is a more semantically meaningful alias of `computed.oneWay`,
+  whose name is somewhat ambiguous as to which direction the data flows.
+
+  @method reads
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which creates a
+    one way computed property to the original value for property.
+  @public
+ */
+
+/**
+  Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides
+  a readOnly one way binding. Very often when using `computed.oneWay` one does
+  not also want changes to propagate back up, as they will replace the value.
+
+  This prevents the reverse flow, and also throws an exception when it occurs.
+
+  Example
+
+  ```javascript
+  var User = Ember.Object.extend({
+    firstName: null,
+    lastName: null,
+    nickName: Ember.computed.readOnly(&#039;firstName&#039;)
+  });
+
+  var teddy = User.create({
+    firstName: &#039;Teddy&#039;,
+    lastName:  &#039;Zeenny&#039;
+  });
+
+  teddy.get(&#039;nickName&#039;);              // &#039;Teddy&#039;
+  teddy.set(&#039;nickName&#039;, &#039;TeddyBear&#039;); // throws Exception
+  // throw new Ember.Error(&#039;Cannot Set: nickName on: &lt;User:ember27288&gt;&#039; );`
+  teddy.get(&#039;firstName&#039;);             // &#039;Teddy&#039;
+  ```
+
+  @method readOnly
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which creates a
+  one way computed property to the original value for property.
+  @since 1.5.0
+  @public
+*/
+
+function readOnly(dependentKey) {
+  return (0, _emberMetalAlias2[&#039;default&#039;])(dependentKey).readOnly();
+}
+
+/**
+  Creates a new property that is an alias for another property
+  on an object. Calls to `get` or `set` this property behave as
+  though they were called on the original property, but also
+  print a deprecation warning.
+
+  @method deprecatingAlias
+  @for Ember.computed
+  @param {String} dependentKey
+  @return {Ember.ComputedProperty} computed property which creates an
+  alias with a deprecation to the original value for property.
+  @since 1.7.0
+  @public
+*/
+
+function deprecatingAlias(dependentKey) {
+  return (0, _emberMetalComputed.computed)(dependentKey, {
+    get: function get(key) {
+      _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Usage of `&#039; + key + &#039;` is deprecated, use `&#039; + dependentKey + &#039;` instead.&#039;);
+      return (0, _emberMetalProperty_get.get)(this, dependentKey);
+    },
+    set: function set(key, value) {
+      _emberMetalCore2[&#039;default&#039;].deprecate(&#039;Usage of `&#039; + key + &#039;` is deprecated, use `&#039; + dependentKey + &#039;` instead.&#039;);
+      (0, _emberMetalProperty_set.set)(this, dependentKey, value);
+      return value;
+    }
+  });
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\keywords\mut.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\keywords\mut.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">73.93</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">116</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">23.80</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.93</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+exports[&#039;default&#039;] = mut;
+exports.privateMut = privateMut;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalMerge = require(&#039;ember-metal/merge&#039;);
+
+var _emberMetalMerge2 = _interopRequireDefault(_emberMetalMerge);
+
+var _emberMetalUtils = require(&#039;ember-metal/utils&#039;);
+
+var _emberMetalStreamsProxyStream = require(&#039;ember-metal/streams/proxy-stream&#039;);
+
+var _emberMetalStreamsProxyStream2 = _interopRequireDefault(_emberMetalStreamsProxyStream);
+
+var _emberMetalStreamsUtils = require(&#039;ember-metal/streams/utils&#039;);
+
+var _emberMetalStreamsStream = require(&#039;ember-metal/streams/stream&#039;);
+
+var _emberMetalStreamsStream2 = _interopRequireDefault(_emberMetalStreamsStream);
+
+var _emberViewsCompatAttrsProxy = require(&#039;ember-views/compat/attrs-proxy&#039;);
+
+var _emberRoutingHtmlbarsKeywordsClosureAction = require(&#039;ember-routing-htmlbars/keywords/closure-action&#039;);
+
+var MUTABLE_REFERENCE = (0, _emberMetalUtils.symbol)(&#039;MUTABLE_REFERENCE&#039;);
+
+exports.MUTABLE_REFERENCE = MUTABLE_REFERENCE;
+
+function mut(morph, env, scope, originalParams, hash, template, inverse) {
+  // If `morph` is `null` the keyword is being invoked as a subexpression.
+  if (morph === null) {
+    var valueStream = originalParams[0];
+    return mutParam(env.hooks.getValue, valueStream);
+  }
+
+  return true;
+}
+
+function privateMut(morph, env, scope, originalParams, hash, template, inverse) {
+  // If `morph` is `null` the keyword is being invoked as a subexpression.
+  if (morph === null) {
+    var valueStream = originalParams[0];
+    return mutParam(env.hooks.getValue, valueStream, true);
+  }
+
+  return true;
+}
+
+function mutParam(read, stream, internal) {
+  if (internal) {
+    if (!(0, _emberMetalStreamsUtils.isStream)(stream)) {
+      (function () {
+        var literal = stream;
+        stream = new _emberMetalStreamsStream2[&#039;default&#039;](function () {
+          return literal;
+        }, &#039;(literal &#039; + literal + &#039;)&#039;);
+        stream.setValue = function (newValue) {
+          literal = newValue;
+          stream.notify();
+        };
+      })();
+    }
+  } else {
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;You can only pass a path to mut&#039;, (0, _emberMetalStreamsUtils.isStream)(stream));
+  }
+
+  if (stream[MUTABLE_REFERENCE]) {
+    return stream;
+  }
+
+  return new MutStream(stream);
+}
+
+function MutStream(stream) {
+  this.init(&#039;(mut &#039; + stream.label + &#039;)&#039;);
+  this.path = stream.path;
+  this.sourceDep = this.addMutableDependency(stream);
+  this[MUTABLE_REFERENCE] = true;
+}
+
+MutStream.prototype = Object.create(_emberMetalStreamsProxyStream2[&#039;default&#039;].prototype);
+
+(0, _emberMetalMerge2[&#039;default&#039;])(MutStream.prototype, _defineProperty({
+  cell: function cell() {
+    var source = this;
+    var value = source.value();
+
+    if (value &amp;&amp; value[_emberRoutingHtmlbarsKeywordsClosureAction.ACTION]) {
+      return value;
+    }
+
+    var val = {
+      value: value,
+      update: function update(val) {
+        source.setValue(val);
+      }
+    };
+
+    val[_emberViewsCompatAttrsProxy.MUTABLE_CELL] = true;
+    return val;
+  }
+}, _emberRoutingHtmlbarsKeywordsClosureAction.INVOKE, function (val) {
+  this.setValue(val);
+}));</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

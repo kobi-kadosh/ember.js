@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-views\lib\system\build-component-template.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-views\lib\system\build-component-template.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">59.28</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">294</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">61.80</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.92</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i &amp;&amp; _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n &amp;&amp; _i[&#039;return&#039;]) _i[&#039;return&#039;](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError(&#039;Invalid attempt to destructure non-iterable instance&#039;); } }; })();
+
+exports[&#039;default&#039;] = buildComponentTemplate;
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberMetalPath_cache = require(&#039;ember-metal/path_cache&#039;);
+
+var _htmlbarsRuntime = require(&#039;htmlbars-runtime&#039;);
+
+var _emberHtmlbarsHooksGetValue = require(&#039;ember-htmlbars/hooks/get-value&#039;);
+
+var _emberHtmlbarsHooksGetValue2 = _interopRequireDefault(_emberHtmlbarsHooksGetValue);
+
+function buildComponentTemplate(_ref, attrs, content) {
+  var component = _ref.component;
+  var layout = _ref.layout;
+  var isAngleBracket = _ref.isAngleBracket;
+
+  var blockToRender, tagName, meta;
+
+  if (component === undefined) {
+    component = null;
+  }
+
+  if (layout &amp;&amp; layout.raw) {
+    var yieldTo = createContentBlocks(content.templates, content.scope, content.self, component);
+    blockToRender = createLayoutBlock(layout.raw, yieldTo, content.self, component, attrs);
+    meta = layout.raw.meta;
+  } else if (content.templates &amp;&amp; content.templates[&#039;default&#039;]) {
+    blockToRender = createContentBlock(content.templates[&#039;default&#039;], content.scope, content.self, component);
+    meta = content.templates[&#039;default&#039;].meta;
+  }
+
+  if (component) {
+    tagName = tagNameFor(component);
+
+    // If this is not a tagless component, we need to create the wrapping
+    // element. We use `manualElement` to create a template that represents
+    // the wrapping element and yields to the previous block.
+    if (tagName !== &#039;&#039;) {
+      var attributes = normalizeComponentAttributes(component, isAngleBracket, attrs);
+      var elementTemplate = _htmlbarsRuntime.internal.manualElement(tagName, attributes);
+      elementTemplate.meta = meta;
+
+      blockToRender = createElementBlock(elementTemplate, blockToRender, component);
+    } else {
+      validateTaglessComponent(component);
+    }
+  }
+
+  // tagName is one of:
+  //   * `undefined` if no component is present
+  //   * the falsy value &quot;&quot; if set explicitly on the component
+  //   * an actual tagName set explicitly on the component
+  return { createdElement: !!tagName, block: blockToRender };
+}
+
+function blockFor(template, options) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;BUG: Must pass a template to blockFor&#039;, !!template);
+  return _htmlbarsRuntime.internal.blockFor(_htmlbarsRuntime.render, template, options);
+}
+
+function createContentBlock(template, scope, self, component) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;BUG: buildComponentTemplate can take a scope or a self, but not both&#039;, !(scope &amp;&amp; self));
+
+  return blockFor(template, {
+    scope: scope,
+    self: self,
+    options: { view: component }
+  });
+}
+
+function createContentBlocks(templates, scope, self, component) {
+  if (!templates) {
+    return;
+  }
+  var output = {};
+  for (var name in templates) {
+    if (templates.hasOwnProperty(name)) {
+      var template = templates[name];
+      if (template) {
+        output[name] = createContentBlock(templates[name], scope, self, component);
+      }
+    }
+  }
+  return output;
+}
+
+function createLayoutBlock(template, yieldTo, self, component, attrs) {
+  return blockFor(template, {
+    yieldTo: yieldTo,
+
+    // If we have an old-style Controller with a template it will be
+    // passed as our `self` argument, and it should be the context for
+    // the template. Otherwise, we must have a real Component and it
+    // should be its own template context.
+    self: self || component,
+
+    options: { view: component, attrs: attrs }
+  });
+}
+
+function createElementBlock(template, yieldTo, component) {
+  return blockFor(template, {
+    yieldTo: yieldTo,
+    self: component,
+    options: { view: component }
+  });
+}
+
+function tagNameFor(view) {
+  var tagName = view.tagName;
+
+  if (tagName !== null &amp;&amp; typeof tagName === &#039;object&#039; &amp;&amp; tagName.isDescriptor) {
+    tagName = (0, _emberMetalProperty_get.get)(view, &#039;tagName&#039;);
+    _emberMetalCore2[&#039;default&#039;].deprecate(&#039;In the future using a computed property to define tagName will not be permitted. That value will be respected, but changing it will not update the element.&#039;, !tagName);
+  }
+
+  if (tagName === null || tagName === undefined) {
+    tagName = view._defaultTagName || &#039;div&#039;;
+  }
+
+  return tagName;
+}
+
+// Takes a component and builds a normalized set of attribute
+// bindings consumable by HTMLBars&#039; `attribute` hook.
+function normalizeComponentAttributes(component, isAngleBracket, attrs) {
+  var normalized = {};
+  var attributeBindings = component.attributeBindings;
+  var i, l;
+
+  if (attributeBindings) {
+    for (i = 0, l = attributeBindings.length; i &lt; l; i++) {
+      var attr = attributeBindings[i];
+      var colonIndex = attr.indexOf(&#039;:&#039;);
+
+      var attrName, expression;
+      if (colonIndex !== -1) {
+        var attrProperty = attr.substring(0, colonIndex);
+        attrName = attr.substring(colonIndex + 1);
+        expression = [&#039;get&#039;, &#039;view.&#039; + attrProperty];
+      } else if (attrs[attr]) {
+        // TODO: For compatibility with 1.x, we probably need to `set`
+        // the component&#039;s attribute here if it is a CP, but we also
+        // probably want to suspend observers and allow the
+        // willUpdateAttrs logic to trigger observers at the correct time.
+        attrName = attr;
+        expression = [&#039;value&#039;, attrs[attr]];
+      } else {
+        attrName = attr;
+        expression = [&#039;get&#039;, &#039;view.&#039; + attr];
+      }
+
+      _emberMetalCore2[&#039;default&#039;].assert(&#039;You cannot use class as an attributeBinding, use classNameBindings instead.&#039;, attrName !== &#039;class&#039;);
+
+      normalized[attrName] = expression;
+    }
+  }
+
+  if (isAngleBracket) {
+    for (var prop in attrs) {
+      var val = attrs[prop];
+      if (!val) {
+        continue;
+      }
+
+      if (typeof val === &#039;string&#039; || val.isConcat) {
+        normalized[prop] = [&#039;value&#039;, val];
+      }
+    }
+  }
+
+  if (attrs.id &amp;&amp; (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.id)) {
+    // Do not allow binding to the `id`
+    normalized.id = (0, _emberHtmlbarsHooksGetValue2[&#039;default&#039;])(attrs.id);
+    component.elementId = normalized.id;
+  } else {
+    normalized.id = component.elementId;
+  }
+
+  if (attrs.tagName) {
+    component.tagName = attrs.tagName;
+  }
+
+  var normalizedClass = normalizeClass(component, attrs);
+
+  if (normalizedClass) {
+    normalized[&#039;class&#039;] = normalizedClass;
+  }
+
+  if ((0, _emberMetalProperty_get.get)(component, &#039;isVisible&#039;) === false) {
+    var hiddenStyle = [&#039;subexpr&#039;, &#039;-html-safe&#039;, [&#039;display: none;&#039;], []];
+    var existingStyle = normalized.style;
+
+    if (existingStyle) {
+      normalized.style = [&#039;subexpr&#039;, &#039;concat&#039;, [existingStyle, &#039; &#039;, hiddenStyle], []];
+    } else {
+      normalized.style = hiddenStyle;
+    }
+  }
+
+  return normalized;
+}
+
+function normalizeClass(component, attrs) {
+  var i, l;
+  var normalizedClass = [];
+  var classNames = (0, _emberMetalProperty_get.get)(component, &#039;classNames&#039;);
+  var classNameBindings = (0, _emberMetalProperty_get.get)(component, &#039;classNameBindings&#039;);
+
+  if (attrs[&#039;class&#039;]) {
+    if (typeof attrs[&#039;class&#039;] === &#039;string&#039;) {
+      normalizedClass.push(attrs[&#039;class&#039;]);
+    } else {
+      normalizedClass.push([&#039;subexpr&#039;, &#039;-normalize-class&#039;, [[&#039;value&#039;, attrs[&#039;class&#039;].path], [&#039;value&#039;, attrs[&#039;class&#039;]]], []]);
+    }
+  }
+
+  if (attrs.classBinding) {
+    normalizeClasses(attrs.classBinding.split(&#039; &#039;), normalizedClass);
+  }
+
+  if (attrs.classNames) {
+    normalizedClass.push([&#039;value&#039;, attrs.classNames]);
+  }
+
+  if (classNames) {
+    for (i = 0, l = classNames.length; i &lt; l; i++) {
+      normalizedClass.push(classNames[i]);
+    }
+  }
+
+  if (classNameBindings) {
+    normalizeClasses(classNameBindings, normalizedClass);
+  }
+
+  if (normalizeClass.length) {
+    return [&#039;subexpr&#039;, &#039;-join-classes&#039;, normalizedClass, []];
+  }
+}
+
+function normalizeClasses(classes, output) {
+  var i, l;
+
+  for (i = 0, l = classes.length; i &lt; l; i++) {
+    var className = classes[i];
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;classNameBindings must not have spaces in them. Multiple class name bindings can be provided as elements of an array, e.g. [\&#039;foo\&#039;, \&#039;:bar\&#039;]&#039;, className.indexOf(&#039; &#039;) === -1);
+
+    var _className$split = className.split(&#039;:&#039;);
+
+    var _className$split2 = _slicedToArray(_className$split, 3);
+
+    var propName = _className$split2[0];
+    var activeClass = _className$split2[1];
+    var inactiveClass = _className$split2[2];
+
+    // Legacy :class microsyntax for static class names
+    if (propName === &#039;&#039;) {
+      output.push(activeClass);
+      continue;
+    }
+
+    // 2.0TODO: Remove deprecated global path
+    var prop = (0, _emberMetalPath_cache.isGlobal)(propName) ? propName : &#039;view.&#039; + propName;
+
+    output.push([&#039;subexpr&#039;, &#039;-normalize-class&#039;, [
+    // params
+    [&#039;value&#039;, propName], [&#039;get&#039;, prop]], [
+    // hash
+    &#039;activeClass&#039;, activeClass, &#039;inactiveClass&#039;, inactiveClass]]);
+  }
+}
+
+function validateTaglessComponent(component) {
+  _emberMetalCore2[&#039;default&#039;].assert(&#039;You cannot use `classNameBindings` on a tag-less component: &#039; + component.toString(), function () {
+    var classNameBindings = component.classNameBindings;
+    return !classNameBindings || classNameBindings.length === 0;
+  });
+}
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-htmlbars\lib\helpers\bind-attr.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-htmlbars\lib\helpers\bind-attr.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">100.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">0.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.00</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
+
+/**
+@module ember
+@submodule ember-htmlbars
+*/
+
+/**
+  `bind-attr` allows you to create a binding between DOM element attributes and
+  Ember objects. For example:
+
+  ```handlebars
+  &lt;img {{bind-attr src=imageUrl alt=imageTitle}}&gt;
+  ```
+
+  The above handlebars template will fill the `&lt;img&gt;`&#039;s `src` attribute with
+  the value of the property referenced with `imageUrl` and its `alt`
+  attribute with the value of the property referenced with `imageTitle`.
+
+  If the rendering context of this template is the following object:
+
+  ```javascript
+  {
+    imageUrl: &#039;http://lolcats.info/haz-a-funny&#039;,
+    imageTitle: &#039;A humorous image of a cat&#039;
+  }
+  ```
+
+  The resulting HTML output will be:
+
+  ```html
+  &lt;img src=&quot;http://lolcats.info/haz-a-funny&quot; alt=&quot;A humorous image of a cat&quot;&gt;
+  ```
+
+  `bind-attr` cannot redeclare existing DOM element attributes. The use of `src`
+  in the following `bind-attr` example will be ignored and the hard coded value
+  of `src=&quot;/failwhale.gif&quot;` will take precedence:
+
+  ```handlebars
+  &lt;img src=&quot;/failwhale.gif&quot; {{bind-attr src=imageUrl alt=imageTitle}}&gt;
+  ```
+
+  ### `bind-attr` and the `class` attribute
+
+  `bind-attr` supports a special syntax for handling a number of cases unique
+  to the `class` DOM element attribute. The `class` attribute combines
+  multiple discrete values into a single attribute as a space-delimited
+  list of strings. Each string can be:
+
+  * a string return value of an object&#039;s property.
+  * a boolean return value of an object&#039;s property
+  * a hard-coded value
+
+  A string return value works identically to other uses of `bind-attr`. The
+  return value of the property will become the value of the attribute. For
+  example, the following view and template:
+
+  ```javascript
+    AView = View.extend({
+      someProperty: function() {
+        return &quot;aValue&quot;;
+      }.property()
+    })
+  ```
+
+  ```handlebars
+  &lt;img {{bind-attr class=view.someProperty}}&gt;
+  ```
+
+  Result in the following rendered output:
+
+  ```html
+  &lt;img class=&quot;aValue&quot;&gt;
+  ```
+
+  A boolean return value will insert a specified class name if the property
+  returns `true` and remove the class name if the property returns `false`.
+
+  A class name is provided via the syntax
+  `somePropertyName:class-name-if-true`.
+
+  ```javascript
+  AView = View.extend({
+    someBool: true
+  })
+  ```
+
+  ```handlebars
+  &lt;img {{bind-attr class=&quot;view.someBool:class-name-if-true&quot;}}&gt;
+  ```
+
+  Result in the following rendered output:
+
+  ```html
+  &lt;img class=&quot;class-name-if-true&quot;&gt;
+  ```
+
+  An additional section of the binding can be provided if you want to
+  replace the existing class instead of removing it when the boolean
+  value changes:
+
+  ```handlebars
+  &lt;img {{bind-attr class=&quot;view.someBool:class-name-if-true:class-name-if-false&quot;}}&gt;
+  ```
+
+  A hard-coded value can be used by prepending `:` to the desired
+  class name: `:class-name-to-always-apply`.
+
+  ```handlebars
+  &lt;img {{bind-attr class=&quot;:class-name-to-always-apply&quot;}}&gt;
+  ```
+
+  Results in the following rendered output:
+
+  ```html
+  &lt;img class=&quot;class-name-to-always-apply&quot;&gt;
+  ```
+
+  All three strategies - string return value, boolean return value, and
+  hard-coded value – can be combined in a single declaration:
+
+  ```handlebars
+  &lt;img {{bind-attr class=&quot;:class-name-to-always-apply view.someBool:class-name-if-true view.someProperty&quot;}}&gt;
+  ```
+
+  @method bind-attr
+  @for Ember.Handlebars.helpers
+  @deprecated
+  @param {Object} options
+  @return {String} HTML string
+  @public
+*/
+
+/**
+  See `bind-attr`
+
+  @method bindAttr
+  @for Ember.Handlebars.helpers
+  @deprecated
+  @param {Function} context
+  @param {Object} options
+  @return {String} HTML string
+  @public
+*/</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

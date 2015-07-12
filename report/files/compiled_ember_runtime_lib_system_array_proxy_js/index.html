@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - compiled\ember-runtime\lib\system\array_proxy.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>compiled\ember-runtime\lib\system\array_proxy.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">74.44</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">407</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">59.09</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.72</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&#039;use strict&#039;;
+
+Object.defineProperty(exports, &#039;__esModule&#039;, {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { &#039;default&#039;: obj }; }
+
+var _emberMetalCore = require(&#039;ember-metal/core&#039;);
+
+var _emberMetalCore2 = _interopRequireDefault(_emberMetalCore);
+
+// Ember.assert
+
+var _emberMetalProperty_get = require(&#039;ember-metal/property_get&#039;);
+
+var _emberRuntimeUtils = require(&#039;ember-runtime/utils&#039;);
+
+var _emberMetalComputed = require(&#039;ember-metal/computed&#039;);
+
+var _emberMetalMixin = require(&#039;ember-metal/mixin&#039;);
+
+var _emberMetalProperty_events = require(&#039;ember-metal/property_events&#039;);
+
+var _emberMetalError = require(&#039;ember-metal/error&#039;);
+
+var _emberMetalError2 = _interopRequireDefault(_emberMetalError);
+
+var _emberRuntimeSystemObject = require(&#039;ember-runtime/system/object&#039;);
+
+var _emberRuntimeSystemObject2 = _interopRequireDefault(_emberRuntimeSystemObject);
+
+var _emberRuntimeMixinsMutable_array = require(&#039;ember-runtime/mixins/mutable_array&#039;);
+
+var _emberRuntimeMixinsMutable_array2 = _interopRequireDefault(_emberRuntimeMixinsMutable_array);
+
+var _emberRuntimeMixinsEnumerable = require(&#039;ember-runtime/mixins/enumerable&#039;);
+
+var _emberRuntimeMixinsEnumerable2 = _interopRequireDefault(_emberRuntimeMixinsEnumerable);
+
+var _emberRuntimeSystemString = require(&#039;ember-runtime/system/string&#039;);
+
+var _emberMetalAlias = require(&#039;ember-metal/alias&#039;);
+
+var _emberMetalAlias2 = _interopRequireDefault(_emberMetalAlias);
+
+/**
+@module ember
+@submodule ember-runtime
+*/
+
+var OUT_OF_RANGE_EXCEPTION = &#039;Index out of range&#039;;
+var EMPTY = [];
+
+function K() {
+  return this;
+}
+
+/**
+  An ArrayProxy wraps any other object that implements `Ember.Array` and/or
+  `Ember.MutableArray,` forwarding all requests. This makes it very useful for
+  a number of binding use cases or other cases where being able to swap
+  out the underlying array is useful.
+
+  A simple example of usage:
+
+  ```javascript
+  var pets = [&#039;dog&#039;, &#039;cat&#039;, &#039;fish&#039;];
+  var ap = Ember.ArrayProxy.create({ content: Ember.A(pets) });
+
+  ap.get(&#039;firstObject&#039;);                        // &#039;dog&#039;
+  ap.set(&#039;content&#039;, [&#039;amoeba&#039;, &#039;paramecium&#039;]);
+  ap.get(&#039;firstObject&#039;);                        // &#039;amoeba&#039;
+  ```
+
+  This class can also be useful as a layer to transform the contents of
+  an array, as they are accessed. This can be done by overriding
+  `objectAtContent`:
+
+  ```javascript
+  var pets = [&#039;dog&#039;, &#039;cat&#039;, &#039;fish&#039;];
+  var ap = Ember.ArrayProxy.create({
+      content: Ember.A(pets),
+      objectAtContent: function(idx) {
+          return this.get(&#039;content&#039;).objectAt(idx).toUpperCase();
+      }
+  });
+
+  ap.get(&#039;firstObject&#039;); // . &#039;DOG&#039;
+  ```
+
+  @class ArrayProxy
+  @namespace Ember
+  @extends Ember.Object
+  @uses Ember.MutableArray
+  @private
+*/
+var ArrayProxy = _emberRuntimeSystemObject2[&#039;default&#039;].extend(_emberRuntimeMixinsMutable_array2[&#039;default&#039;], {
+
+  /**
+    The content array. Must be an object that implements `Ember.Array` and/or
+    `Ember.MutableArray.`
+      @property content
+    @type Ember.Array
+    @private
+  */
+  content: null,
+
+  /**
+   The array that the proxy pretends to be. In the default `ArrayProxy`
+   implementation, this and `content` are the same. Subclasses of `ArrayProxy`
+   can override this property to provide things like sorting and filtering.
+     @property arrangedContent
+   @private
+  */
+  arrangedContent: (0, _emberMetalAlias2[&#039;default&#039;])(&#039;content&#039;),
+
+  /**
+    Should actually retrieve the object at the specified index from the
+    content. You can override this method in subclasses to transform the
+    content item to something new.
+      This method will only be called if content is non-`null`.
+      @method objectAtContent
+    @param {Number} idx The index to retrieve.
+    @return {Object} the value or undefined if none found
+    @private
+  */
+  objectAtContent: function objectAtContent(idx) {
+    return (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;).objectAt(idx);
+  },
+
+  /**
+    Should actually replace the specified objects on the content array.
+    You can override this method in subclasses to transform the content item
+    into something new.
+      This method will only be called if content is non-`null`.
+      @method replaceContent
+    @param {Number} idx The starting index
+    @param {Number} amt The number of items to remove from the content.
+    @param {Array} objects Optional array of objects to insert or null if no
+      objects.
+    @return {void}
+    @private
+  */
+  replaceContent: function replaceContent(idx, amt, objects) {
+    (0, _emberMetalProperty_get.get)(this, &#039;content&#039;).replace(idx, amt, objects);
+  },
+
+  /**
+    Invoked when the content property is about to change. Notifies observers that the
+    entire array content will change.
+      @private
+    @method _contentWillChange
+  */
+  _contentWillChange: (0, _emberMetalMixin.beforeObserver)(&#039;content&#039;, function () {
+    this._teardownContent();
+  }),
+
+  _teardownContent: function _teardownContent() {
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+
+    if (content) {
+      content.removeArrayObserver(this, {
+        willChange: &#039;contentArrayWillChange&#039;,
+        didChange: &#039;contentArrayDidChange&#039;
+      });
+    }
+  },
+
+  /**
+    Override to implement content array `willChange` observer.
+      @method contentArrayWillChange
+      @param {Ember.Array} contentArray the content array
+    @param {Number} start starting index of the change
+    @param {Number} removeCount count of items removed
+    @param {Number} addCount count of items added
+    @private
+  */
+  contentArrayWillChange: K,
+  /**
+    Override to implement content array `didChange` observer.
+      @method contentArrayDidChange
+      @param {Ember.Array} contentArray the content array
+    @param {Number} start starting index of the change
+    @param {Number} removeCount count of items removed
+    @param {Number} addCount count of items added
+    @private
+  */
+  contentArrayDidChange: K,
+
+  /**
+    Invoked when the content property changes. Notifies observers that the
+    entire array content has changed.
+      @private
+    @method _contentDidChange
+  */
+  _contentDidChange: (0, _emberMetalMixin.observer)(&#039;content&#039;, function () {
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Can\&#039;t set ArrayProxy\&#039;s content to itself&#039;, content !== this);
+
+    this._setupContent();
+  }),
+
+  _setupContent: function _setupContent() {
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+
+    if (content) {
+      _emberMetalCore2[&#039;default&#039;].assert((0, _emberRuntimeSystemString.fmt)(&#039;ArrayProxy expects an Array or &#039; + &#039;Ember.ArrayProxy, but you passed %@&#039;, [typeof content]), (0, _emberRuntimeUtils.isArray)(content) || content.isDestroyed);
+
+      content.addArrayObserver(this, {
+        willChange: &#039;contentArrayWillChange&#039;,
+        didChange: &#039;contentArrayDidChange&#039;
+      });
+    }
+  },
+
+  _arrangedContentWillChange: (0, _emberMetalMixin.beforeObserver)(&#039;arrangedContent&#039;, function () {
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+    var len = arrangedContent ? (0, _emberMetalProperty_get.get)(arrangedContent, &#039;length&#039;) : 0;
+
+    this.arrangedContentArrayWillChange(this, 0, len, undefined);
+    this.arrangedContentWillChange(this);
+
+    this._teardownArrangedContent(arrangedContent);
+  }),
+
+  _arrangedContentDidChange: (0, _emberMetalMixin.observer)(&#039;arrangedContent&#039;, function () {
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+    var len = arrangedContent ? (0, _emberMetalProperty_get.get)(arrangedContent, &#039;length&#039;) : 0;
+
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;Can\&#039;t set ArrayProxy\&#039;s content to itself&#039;, arrangedContent !== this);
+
+    this._setupArrangedContent();
+
+    this.arrangedContentDidChange(this);
+    this.arrangedContentArrayDidChange(this, 0, undefined, len);
+  }),
+
+  _setupArrangedContent: function _setupArrangedContent() {
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+
+    if (arrangedContent) {
+      _emberMetalCore2[&#039;default&#039;].assert((0, _emberRuntimeSystemString.fmt)(&#039;ArrayProxy expects an Array or &#039; + &#039;Ember.ArrayProxy, but you passed %@&#039;, [typeof arrangedContent]), (0, _emberRuntimeUtils.isArray)(arrangedContent) || arrangedContent.isDestroyed);
+
+      arrangedContent.addArrayObserver(this, {
+        willChange: &#039;arrangedContentArrayWillChange&#039;,
+        didChange: &#039;arrangedContentArrayDidChange&#039;
+      });
+    }
+  },
+
+  _teardownArrangedContent: function _teardownArrangedContent() {
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+
+    if (arrangedContent) {
+      arrangedContent.removeArrayObserver(this, {
+        willChange: &#039;arrangedContentArrayWillChange&#039;,
+        didChange: &#039;arrangedContentArrayDidChange&#039;
+      });
+    }
+  },
+
+  arrangedContentWillChange: K,
+  arrangedContentDidChange: K,
+
+  objectAt: function objectAt(idx) {
+    return (0, _emberMetalProperty_get.get)(this, &#039;content&#039;) &amp;&amp; this.objectAtContent(idx);
+  },
+
+  length: (0, _emberMetalComputed.computed)(function () {
+    var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+    return arrangedContent ? (0, _emberMetalProperty_get.get)(arrangedContent, &#039;length&#039;) : 0;
+    // No dependencies since Enumerable notifies length of change
+  }),
+
+  _replace: function _replace(idx, amt, objects) {
+    var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+    _emberMetalCore2[&#039;default&#039;].assert(&#039;The content property of &#039; + this.constructor + &#039; should be set before modifying it&#039;, content);
+    if (content) {
+      this.replaceContent(idx, amt, objects);
+    }
+
+    return this;
+  },
+
+  replace: function replace() {
+    if ((0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;) === (0, _emberMetalProperty_get.get)(this, &#039;content&#039;)) {
+      this._replace.apply(this, arguments);
+    } else {
+      throw new _emberMetalError2[&#039;default&#039;](&#039;Using replace on an arranged ArrayProxy is not allowed.&#039;);
+    }
+  },
+
+  _insertAt: function _insertAt(idx, object) {
+    if (idx &gt; (0, _emberMetalProperty_get.get)(this, &#039;content.length&#039;)) {
+      throw new _emberMetalError2[&#039;default&#039;](OUT_OF_RANGE_EXCEPTION);
+    }
+
+    this._replace(idx, 0, [object]);
+    return this;
+  },
+
+  insertAt: function insertAt(idx, object) {
+    if ((0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;) === (0, _emberMetalProperty_get.get)(this, &#039;content&#039;)) {
+      return this._insertAt(idx, object);
+    } else {
+      throw new _emberMetalError2[&#039;default&#039;](&#039;Using insertAt on an arranged ArrayProxy is not allowed.&#039;);
+    }
+  },
+
+  removeAt: function removeAt(start, len) {
+    if (&#039;number&#039; === typeof start) {
+      var content = (0, _emberMetalProperty_get.get)(this, &#039;content&#039;);
+      var arrangedContent = (0, _emberMetalProperty_get.get)(this, &#039;arrangedContent&#039;);
+      var indices = [];
+      var i;
+
+      if (start &lt; 0 || start &gt;= (0, _emberMetalProperty_get.get)(this, &#039;length&#039;)) {
+        throw new _emberMetalError2[&#039;default&#039;](OUT_OF_RANGE_EXCEPTION);
+      }
+
+      if (len === undefined) {
+        len = 1;
+      }
+
+      // Get a list of indices in original content to remove
+      for (i = start; i &lt; start + len; i++) {
+        // Use arrangedContent here so we avoid confusion with objects transformed by objectAtContent
+        indices.push(content.indexOf(arrangedContent.objectAt(i)));
+      }
+
+      // Replace in reverse order since indices will change
+      indices.sort(function (a, b) {
+        return b - a;
+      });
+
+      (0, _emberMetalProperty_events.beginPropertyChanges)();
+      for (i = 0; i &lt; indices.length; i++) {
+        this._replace(indices[i], 1, EMPTY);
+      }
+      (0, _emberMetalProperty_events.endPropertyChanges)();
+    }
+
+    return this;
+  },
+
+  pushObject: function pushObject(obj) {
+    this._insertAt((0, _emberMetalProperty_get.get)(this, &#039;content.length&#039;), obj);
+    return obj;
+  },
+
+  pushObjects: function pushObjects(objects) {
+    if (!(_emberRuntimeMixinsEnumerable2[&#039;default&#039;].detect(objects) || (0, _emberRuntimeUtils.isArray)(objects))) {
+      throw new TypeError(&#039;Must pass Ember.Enumerable to Ember.MutableArray#pushObjects&#039;);
+    }
+    this._replace((0, _emberMetalProperty_get.get)(this, &#039;length&#039;), 0, objects);
+    return this;
+  },
+
+  setObjects: function setObjects(objects) {
+    if (objects.length === 0) {
+      return this.clear();
+    }
+
+    var len = (0, _emberMetalProperty_get.get)(this, &#039;length&#039;);
+    this._replace(0, len, objects);
+    return this;
+  },
+
+  unshiftObject: function unshiftObject(obj) {
+    this._insertAt(0, obj);
+    return obj;
+  },
+
+  unshiftObjects: function unshiftObjects(objects) {
+    this._replace(0, 0, objects);
+    return this;
+  },
+
+  slice: function slice() {
+    var arr = this.toArray();
+    return arr.slice.apply(arr, arguments);
+  },
+
+  arrangedContentArrayWillChange: function arrangedContentArrayWillChange(item, idx, removedCnt, addedCnt) {
+    this.arrayContentWillChange(idx, removedCnt, addedCnt);
+  },
+
+  arrangedContentArrayDidChange: function arrangedContentArrayDidChange(item, idx, removedCnt, addedCnt) {
+    this.arrayContentDidChange(idx, removedCnt, addedCnt);
+  },
+
+  init: function init() {
+    this._super.apply(this, arguments);
+    this._setupContent();
+    this._setupArrangedContent();
+  },
+
+  willDestroy: function willDestroy() {
+    this._teardownArrangedContent();
+    this._teardownContent();
+  }
+});
+
+exports[&#039;default&#039;] = ArrayProxy;
+module.exports = exports[&#039;default&#039;];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
